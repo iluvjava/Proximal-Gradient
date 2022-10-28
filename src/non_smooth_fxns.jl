@@ -30,10 +30,15 @@ end
     ‖b - Ax‖^2, where b is specifically, a vector. 
 """
 mutable struct SquareNormResidual <: SmoothFxn
+    A::AbstractMatrix
+    b::AbstractVector
+    
     function SquareNormResidual(A::AbstractMatrix, b::Vector)
-
+        return new(A, B)
     end
 end
+
+
 
 
 mutable struct PolyedralIndicator
