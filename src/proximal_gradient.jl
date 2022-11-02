@@ -60,7 +60,7 @@ function ProxGradient(
     for k in 1:itr_max
         x⁺ = Prox(h, step_size, xs[end] - step_size*Grad(g, xs[end]))
         # Line search 
-        while line_search && g(x⁺) > Q(xs[end], x⁺, step_size*2)
+        while line_search && g(x⁺) > Q(xs[end], x⁺, step_size)
             step_size /= 2
             println(step_size)
             x⁺ = Prox(h, step_size, xs[end] - step_size*Grad(g, xs[end]))
@@ -84,18 +84,18 @@ end
 """
 
 
-
-
-
-N = 100
-A = Diagonal(LinRange(0, 2, N))
+N = 1024
+A = Diagonal(LinRange(0, 1, N).^2)
 b = zeros(N)
-h = 1*OneNorm()
+h = 0.1*OneNorm()
 g = SquareNormResidual(A, b)
 
-Results = ProxGradient(g, h, ones(N), 20, itr_max=100, line_search=true)
+Results = ProxGradient(g, h, ones(N), 20, itr_max=1000, line_search=true)
 
-plot((Results.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10) |> display
+plot(
+    (Results.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10, 
+    title="Gradient Mapping Norm"
+) |> display
 plot(
         h.(Results.xs[1:end - 2]) + g.(Results.xs[1:end - 2]) .- 
         (h(Results.xs[end]) - g(Results.xs[end])), 
