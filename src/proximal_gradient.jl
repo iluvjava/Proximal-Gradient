@@ -86,22 +86,21 @@ end
 
 
 
+
 N = 100
 A = Diagonal(LinRange(0, 2, N))
 b = zeros(N)
-h = 0.1*OneNorm()
+h = 1*OneNorm()
 g = SquareNormResidual(A, b)
 
 Results = ProxGradient(g, h, ones(N), 20, itr_max=100, line_search=true)
 
-fig = plot((Results.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10) |> display
+plot((Results.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10) |> display
 plot(
         h.(Results.xs[1:end - 2]) + g.(Results.xs[1:end - 2]) .- 
         (h(Results.xs[end]) - g(Results.xs[end])), 
         yaxis=:log10
-    )
-
-
-
+    )|>display
+plot((Results.xs[1:end - 2]).|>norm, yaxis=:log10)
 
 
