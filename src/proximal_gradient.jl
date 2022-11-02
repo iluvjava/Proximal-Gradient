@@ -6,16 +6,23 @@ include("smooth_fxn.jl")
 
 """
     This is a struct that models the results obtain from an execution of the 
-        prox gradient method. 
+        prox gradient method. We see to store the following results: 
+        * x - prox(h, L, x) :: The gradient mappings
+        * xs, the list of solutions from the prox gradient 
+        * gradients: The gradient of the smooth function. 
+        * Flags:    
+            0. Termninated due to gradient mapping reaches tolerance 
+            1. Terminated due to maximal iterations limit has been reached. 
 """
 mutable struct ProxGradResults
     
     gradient_mappings::Vector{Vector}
     xs::Vector{Vector}
     gradients::Vector{Vector}
+    flags::Int
     
     function ProxGradResults()
-       return new(Vector{Vector{Real}}(), Vector{Vector{Real}}(), Vector{Vector{Real}}()) 
+       return new(Vector{Vector{Real}}(), Vector{Vector{Real}}(), Vector{Vector{Real}}(), 0) 
     end
 end
 
@@ -23,32 +30,51 @@ end
 
 """
     Performs the proximal gradient algorithm, and there are many options to make life easier. 
+    * g, h are smooth and non smooth functions
+    * x0 is not optinal
+    * step size is optional and it has a default value. 
+        * If step size is not explicitly given, line search will be triggered automatically. 
+    * Linear Search: 
+        Specify whether we should use line search. 
 """
 function ProxGradient(
         g::SmoothFxn, 
         h::NonsmoothFxn, 
         x0::Vector{T}, 
-        step_size::Real;
-        itr_max::Int=20, 
+        step_size::Real=1;
+        itr_max::Int=1000,
         epsilon::AbstractFloat=1e-16, 
         line_search::Bool=false
     ) where {T <: Real}
 
     @assert itr_max > 0 "The maximum number of iterations is a strictly positive integers. "
+    
     results = ProxGradResults()
     xs = results.xs
     grads = results.gradient_mappings
     push!(xs, x0)
+    
+    # Quadratic upper bounding function  
+    Q(x, y, L) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*L)
+    
     for k in 1:itr_max
+        x⁺ = Prox(h, step_size, xs[end] - step_size*Grad(g, xs[end]))
+        # Line search 
+        while line_search && g(x⁺) > Q(xs[end], x⁺, step_size*2)
+            step_size /= 2
+            println(step_size)
+            x⁺ = Prox(h, step_size, xs[end] - step_size*Grad(g, xs[end]))
+        end
         push!(
             xs, 
-            Prox(h, step_size, xs[end] + step_size*Grad(g, xs[end]))
+            x⁺
         )
         push!(grads, xs[end] - xs[end - 1])
         if norm(grads[end]) < epsilon
             return results
         end
     end
+    results.flags = 1
     return results
 end
 
@@ -61,12 +87,12 @@ end
 
 
 N = 100
-A = Diagonal(LinRange(1, 1.1, N))
+A = Diagonal(LinRange(0, 2, N))
 b = zeros(N)
 h = 0.1*OneNorm()
 g = SquareNormResidual(A, b)
 
-Results = ProxGradient(g, h, ones(N), 1/(2*norm(A, 2)^2), itr_max=1000)
+Results = ProxGradient(g, h, ones(N), 20, itr_max=100, line_search=true)
 
 fig = plot((Results.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10) |> display
 plot(

@@ -25,5 +25,5 @@ end
 """
 function Grad(this::SquareNormResidual, x::AbstractVector{T}) where {T <: Real}
     A = this.A
-    return 2*A'*(b - A*x)
+    return 2*A'*(A*x - b)
 end
