@@ -22,7 +22,11 @@ end
 
 
 """
-    Performs the proximal gradient algorithm, and there are many options to make life easier. 
+    Performs the proximal gradient algorithm, and there are many options to make life easier.
+    g:: A smooth function that we can take gradient of. 
+    h::A nonsmooth function that we can prox over. 
+    x0:: An initial guess for the system. 
+
 """
 function ProxGradient(
         g::SmoothFxn, 
@@ -60,22 +64,21 @@ end
 
 
 
+
 N = 100
-A = Diagonal(LinRange(1, 1.1, N))
+A = Diagonal(LinRange(1, 2, N))
 b = zeros(N)
-h = 0.1*OneNorm()
+h = 1*OneNorm()
 g = SquareNormResidual(A, b)
 
-Results = ProxGradient(g, h, ones(N), 1/(2*norm(A, 2)^2), itr_max=1000)
+Results = ProxGradient(g, h, ones(N), 1/(2*norm(A, 2)^2), itr_max=5000)
 
-fig = plot((Results.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10) |> display
+plot((Results.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10) |> display
 plot(
         h.(Results.xs[1:end - 2]) + g.(Results.xs[1:end - 2]) .- 
         (h(Results.xs[end]) - g(Results.xs[end])), 
         yaxis=:log10
-    )
-
-
-
+    )|>display
+plot((Results.xs[1:end - 2]).|>norm, yaxis=:log10)
 
 
