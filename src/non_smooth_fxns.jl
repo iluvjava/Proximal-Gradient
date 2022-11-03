@@ -19,7 +19,7 @@ end
 """
     The output of the elementwise absolute value on the function. 
 """
-function (::OneNorm)(arg::AbstractArray{T}) where {T<:Real}
+function (::OneNorm)(arg::AbstractArray{T}) where {T<:Number}
     return abs.(arg)|>sum
 end
 
@@ -27,26 +27,18 @@ end
 """
     argmin_u(this(u) + (1/(2λ))‖x - u‖^2)
 """
-function (this::OneNorm)(t::T1, at::AbstractArray{T2}) where {T1 <: Real, T2 <: Real}
+function (this::OneNorm)(t::T1, x::AbstractArray{T2}) where {T1 <: Number, T2 <: Number}
     @assert t > 0 "The prox constant for the prox operator has to be a strictly positive real. "
-    m = this.multiplier
-    function Inner(y::Real)
-        if y > t*m
-            return y - t*m     
-        elseif y < -t*m
-            return y + t*m
-        else
-            return 0
-        end
-    end
-    return Inner.(at)
+    λ = this.multiplier
+    T(z) = sign(z)*max(abs(z) - t*λ, 0)    
+    return T.(x)
 end
 
 
 """
     Evalue the prox of the type AbsValue with a constaint t at the point x. 
 """
-function Prox(this::OneNorm, t::T1, x::AbstractArray{T2}) where {T1 <: Real, T2 <: Real}
+function Prox(this::OneNorm, t::T1, x::AbstractArray{T2}) where {T1 <: Number, T2 <: Number}
     return this(t, x)
 end
 
@@ -58,7 +50,7 @@ function Base.:*(m::Real, this::OneNorm)
 end
 
 
-function Grad(this::OneNorm, x::AbstractArray{T}) where {T <: Real}
+function Grad(this::OneNorm, x::AbstractArray{T}) where {T <: Number}
     return this.multiplier*sign.(x)
 end
 
@@ -67,7 +59,7 @@ end
 ### ============================================================================
 ### Indicator for an polyhedral set. 
 ### ============================================================================
-mutable struct PolyedralIndicator
+mutable struct AffineIndicator
     
 
 end
