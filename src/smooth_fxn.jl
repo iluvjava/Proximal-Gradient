@@ -27,3 +27,11 @@ function Grad(this::SquareNormResidual, x::AbstractVector{T}) where {T <: Number
     A = this.A
     return 2*A'*(A*x - b)
 end
+
+
+"""
+    The logistic loss function, binary classifications. 
+"""
+mutable struct LogisticLoss <: SmoothFxn
+
+end
