@@ -28,7 +28,8 @@ end
     argmin_u(this(u) + (1/(2λ))‖x - u‖^2)
 """
 function (this::OneNorm)(t::T1, x::AbstractArray{T2}) where {T1 <: Number, T2 <: Number}
-    @assert t > 0 "The prox constant for the prox operator has to be a strictly positive real. "
+    @assert t > 0 "The prox constant for the prox operator has to be a strictly positive real, "*
+    "however we get t = $(t)"
     λ = this.multiplier
     T(z) = sign(z)*max(abs(z) - t*λ, 0)    
     return T.(x)

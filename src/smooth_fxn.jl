@@ -16,7 +16,7 @@ end
     Returns ‖Ax - b‖^2
 """
 function (this::SquareNormResidual)(x::AbstractVector{T}) where {T <: Number}
-    return norm(this.b - this.A*x)^2
+    return norm(this.b - this.A*x)^2/2
 end
 
 
@@ -25,7 +25,7 @@ end
 """
 function Grad(this::SquareNormResidual, x::AbstractVector{T}) where {T <: Number}
     A = this.A
-    return 2*A'*(A*x - b)
+    return A'*(A*x - b)
 end
 
 

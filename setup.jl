@@ -1,5 +1,5 @@
 # Setup the Julia Environment. 
 using Pkg 
 Pkg.activate(".")
-Pkg.add(["Plots","Zygote"])
+Pkg.add(["Plots","Zygote", "LaTeXStrings"])
 Pkg.instantiate()
