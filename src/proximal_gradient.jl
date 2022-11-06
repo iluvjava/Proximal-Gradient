@@ -19,10 +19,11 @@ mutable struct ProxGradResults
     
     gradient_mappings::Vector{Vector}
     xs::Vector{Vector}
+    step_sizes::Vector{Real}
     flags::Int
     
     function ProxGradResults()
-       return new(Vector{Vector{Real}}(), Vector{Vector{Real}}(), 0) 
+       return new(Vector{Vector{Real}}(), Vector{Vector{Real}}(), Vector{Real}(),0) 
     end
 end
 
@@ -60,6 +61,7 @@ function ProxGradient(
     xs = results.xs
     grads = results.gradient_mappings
     push!(xs, x0)
+    push!(results.step_sizes, l)
     
     # Quadratic upper bounding function  
     Q(x, y, l) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*l)
@@ -69,12 +71,12 @@ function ProxGradient(
         # Line search 
         x⁺ = Prox(h, l, y - l*Grad(g, y))
         while line_search && g(x⁺) > Q(y, x⁺, l) + eps(T1)
-            # "$(l), g(x⁺): $(g(x⁺)), Q(y, x⁺, l): $(Q(y, x⁺, l))" |> println
             l /= 2
             x⁺ = Prox(h, l, y - l*Grad(g, y))
         end
         push!(xs, x⁺)
         push!(grads, xs[end] - xs[end - 1])
+        push!(results.step_sizes, l)
 
         t⁺ = nesterov_momentum ? (1 + sqrt(1 + 4t^2))/2 : 1
         y = x⁺ + ((t - 1)/t⁺)*(xs[end] - xs[end - 1])
