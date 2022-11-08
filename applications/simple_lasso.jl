@@ -20,20 +20,20 @@ g = SquareNormResidual(A, b)
 ResultsA = ProxGradient(g, h, ones(N), 1, itr_max=2000, line_search=true, nesterov_momentum=true)
 ResultsB = ProxGradient(g, h, ones(N), 1, itr_max=2000, line_search=true, nesterov_momentum=false)
 fig = plot(
-    (ResultsA.gradient_mappings.|>norm)[1:end - 2], yaxis=:log10, 
+    (ResultsA.gradient_mapping_norm)[1:end - 2], yaxis=:log10, 
     title="Gradient Mapping Norm", 
     ylabel=L"\left\Vert x_{k + 1} - x_{k} \right\Vert", label="FISTA"
 )
 plot!(fig, 
-    (ResultsB.gradient_mappings.|>norm)[1:end - 2], 
+    (ResultsB.gradient_mapping_norm)[1:end - 2], 
     yaxis=:log10, label="ISTA"
 )
 fig |> display
 
 fig2 = plot(
-    h.(ResultsA.xs[1:100]) + g.(ResultsA.xs[1:100]), title="Objective Values", label="FISTA", 
+    ResultsA.objective_vals[1:100], title="Objective Values", label="FISTA", 
     ylabel=L"[f + g](x_k)"
 )
-plot!(h.(ResultsB.xs[1:100]) + g.(ResultsB.xs[1:100]), label="ISTA")
+plot!(ResultsB.objective_vals[1:100], label="ISTA")
 
 fig2 |> display

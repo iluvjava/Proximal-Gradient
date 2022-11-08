@@ -51,18 +51,18 @@ end
     The main function to run. 
 """
 # function Run(lambda::Float64=0.01)
-    lambda = 0.1*750000^(-1)
+    lambda = 0.01*750000^(-1)
     img_path = "applications/image2.png"
     Img = load(img_path)
     ImgFloat = Float64.(channelview(Img)|>collect)
     ImgFloat = ImgFloat[1:3, :, :]
-    A = ConstructBlurrMatrix(size(ImgFloat, 2), size(ImgFloat, 3))
-    b = A^2*ImgFloat[:]
+    A = ConstructBlurrMatrix(size(ImgFloat, 2), size(ImgFloat, 3))^4
+    b = A*ImgFloat[:]
     g = SquareNormResidual(A, b)
     h = length(b)*lambda*OneNorm()
 
     results = ProxGradient(g, h, zeros(size(b)), nesterov_momentum=true, itr_max=1000)
-    soln_img = ImgInterpret(reshape(results.xs[end], size(ImgFloat)))
+    soln_img = ImgInterpret(reshape(results.soln, size(ImgFloat)))
     blurred_img = ImgInterpret(reshape(b, size(ImgFloat)))
     fig = plot(results.gradient_mappings.|>norm, yaxis=:log10)
     fig |> display
