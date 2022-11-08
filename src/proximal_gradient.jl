@@ -1,4 +1,4 @@
-using LinearAlgebra, ProgressMeter
+using LinearAlgebra, ProgressMeter, Distributed
 
 include("abstract_types.jl")
 include("non_smooth_fxns.jl")
@@ -73,6 +73,17 @@ function Register!(this::ProxGradResults, obj::Real, soln::Vector, pgrad_map::Ve
     return nothing
 end
 
+"""
+    Get all the sparsely collected solutions as an array of vectors. 
+"""
+function GetAllSolns(this::ProxGradResults)
+    result = Vector{Vector}()
+    for k in sort(keys(this.solns)|>collect, rev=true)
+        push!(result, this.solns[k])
+    end
+    return result
+end
+
 
 
 """
@@ -114,7 +125,7 @@ function ProxGradient(
     current_x = x0
     Initiate!(results_holder, x0, h(x0) + g(x0), l)
 
-    for k in 1:itr_max
+    @showprogress for k in 1:itr_max
         
         x⁺ = Prox(h, l, y - l*Grad(g, y))
         # Line search 
@@ -122,6 +133,7 @@ function ProxGradient(
             l /= 2
             x⁺ = Prox(h, l, y - l*Grad(g, y))
         end
+
         # Register the results
         Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l)
         pgrad_norm = norm(y - x⁺, Inf)
@@ -133,6 +145,7 @@ function ProxGradient(
         lastlast_x = last_x
         last_x = current_x
         current_x = x⁺
+
         # check for termination conditions
         if pgrad_norm < epsilon
             last_itr = k
@@ -147,13 +160,13 @@ function ProxGradient(
     return results_holder
 end
 
-N = 64
-A = Diagonal(LinRange(0, 2, N))
-b = ones(N)
-g = SquareNormResidual(A, b)
-h = 0.001*OneNorm()
-soln = ProxGradient(g, h, zeros(size(b)), nesterov_momentum=true);
-using Plots
-plot(soln.gradient_mapping_norm, yaxis=:log10) |> display
+# N = 64
+# A = Diagonal(LinRange(0, 2, N))
+# b = ones(N)
+# g = SquareNormResidual(A, b)
+# h = 0.001*OneNorm()
+# soln = ProxGradient(g, h, zeros(size(b)), nesterov_momentum=true);
+# using Plots
+# plot(soln.gradient_mapping_norm, yaxis=:log10) |> display
 
 
