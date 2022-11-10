@@ -21,10 +21,11 @@ end
 
 
 """
-    Returns gradient of the 2 norm residual function. 
+    Returns the gradient of the 2 norm residual function. 
 """
 function Grad(this::SquareNormResidual, x::AbstractVector{T}) where {T <: Number}
-    A = this.A; b = this.b
+    A = this.A; 
+    b = this.b
     return A'*(A*x - b)
 end
 

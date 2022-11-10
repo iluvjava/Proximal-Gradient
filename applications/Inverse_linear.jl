@@ -22,18 +22,22 @@ function ConstructBlurrMatrix(m::Int, n::Int, k::Int=3; rgb::Bool=true)
     kernel = KernelMake(k)
     d = div(size(kernel)[1], 2) # < -- Get the size of the d × d kernel .
     # Use a map to hold the values of the coefficients, index starts with zero. 
+    
+    col = Vector{Float64}(); row = Vector{Float64}(); vals = Vector{Float64}()
     for (I, J) in [(i, j) for i in 1:m for j in 1:n]
         for (III, JJJ) in [(ii + I, jj + J) for ii in -d:d for jj in -d:d]
-            coefficients[CoordToLinearIdx(I, J), CoordToLinearIdx(III, JJJ)] = 
-                kernel[III - I + d + 1, JJJ - J + d + 1]
+            # coefficients[CoordToLinearIdx(I, J), CoordToLinearIdx(III, JJJ)] = 
+            #     kernel[III - I + d + 1, JJJ - J + d + 1]
+            push!(row, mod(CoordToLinearIdx(I, J), n*m) + 1)
+            push!(col, mod(CoordToLinearIdx(III, JJJ), n*m) + 1)
+            push!(vals, kernel[III - I + d + 1, JJJ - J + d + 1])
         end
     end
-    col = Vector{Float64}(); row = Vector{Float64}(); vals = Vector{Float64}()
-    for (i, j) in keys(coefficients)
-        push!(row, mod(i, n*m) + 1)
-        push!(col, mod(j, n*m) + 1)
-        push!(vals, coefficients[i, j])
-    end
+    # for (i, j) in keys(coefficients)
+    #     push!(row, mod(i, n*m) + 1)
+    #     push!(col, mod(j, n*m) + 1)
+    #     push!(vals, coefficients[i, j])
+    # end
     
     toreturn = sparse(row, col, vals)
     if rgb 
@@ -72,7 +76,9 @@ end
         g, 
         h, 
         zeros(size(b)), 
+        10,
         nesterov_momentum=true, 
+        line_search=true,
         itr_max=200, 
         results_holder = Results_Holder
         )

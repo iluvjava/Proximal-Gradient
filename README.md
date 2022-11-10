@@ -23,5 +23,5 @@ $$
 \right\rbrace, 
 $$
 
-in which we solve it using the FISTA algorithm with $A$ being the discretized Guassian Blurr matrix. The example is in [here](applications/Inverse_linear.jl). The sparse matrix multiplication is slow in Julia, I don't have mental strength to optimize the speed yet. 
+in which we solve it using the FISTA algorithm with $A$ being the discretized Guassian Blurr matrix. The example is in [here](applications/Inverse_linear.jl). The sparse matrix multiplication is slow in Julia, I don't have mental strength to optimize the speed yet. It's proved in Beck book that the convergence is first order for both the accelerated and unaccelerated case. 
 
