@@ -1,0 +1,744 @@
+\documentclass[]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+% \usepackage{minted}
+% Basic Type Settings ----------------------------------------------------------
+\usepackage[margin=1in,footskip=0.25in]{geometry}
+\linespread{1}  % double spaced or single spaced
+\usepackage[fontsize=12pt]{fontsize}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}       % Theorem counter global 
+\newtheorem{prop}{Proposition}[section]  % proposition counter is section
+\newtheorem{lemma}{Lemma}[subsection]  % lemma counter is subsection
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}[subsection]
+{
+    % \theoremstyle{plain}
+    \newtheorem{assumption}{Assumption}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+\usepackage[final]{graphicx}
+\usepackage{listings}
+\usepackage{courier}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\usepackage{wrapfig}
+\graphicspath{{.}}
+\usepackage{fancyvrb}
+
+%%
+%% Julia definition (c) 2014 Jubobs
+%%
+\usepackage[T1]{fontenc}
+\usepackage{beramono}
+\usepackage[usenames,dvipsnames]{xcolor}
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+      end,export,false,for,function,immutable,import,importall,if,in,%
+      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+      using,while},%
+   sensitive=true,%
+   alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+\lstset{%
+    language         = Julia,
+    basicstyle       = \ttfamily,
+    keywordstyle     = \bfseries\color{blue},
+    stringstyle      = \color{magenta},
+    commentstyle     = \color{ForestGreen},
+    showstringspaces = false,
+}
+
+\begin{document}
+
+
+\title{Proximal Gradient: Convergence, Implementations and Applications}
+\maketitle
+\begin{abstract}
+    We review the proximal gradient and accelerated proximal gradient algorithm convergence rate under different assumptions. We then demonstrate with numerical experiments involving Lasso and deblurring images. 
+\end{abstract}
+
+\numberwithin{equation}{subsection}
+\section{Introduction}
+    We are concerned with the problem type: 
+    \begin{align}
+        \min_{x} g(x) + h(x),
+    \end{align}
+    where the objectives can be splitted into the sum of two functions. Algorithms are developed for solving optimization problems of this format. We will list some of the algorithms with their convergence rate under different assumptions. 
+    \begin{enumerate}
+        \item [1.] The projected subgradient algorithm solves $h = \delta_Q$ where $Q$ is a closed convex set and $g$ is closed and convex with $Q\subseteq\text{ri}\circ \text{dom}(g)$. The algorithm generates a sequence of $x^{(k)}$ where the average weighted by step size  of all these solutions has a convergence rate of $\mathcal O(1/\sqrt{k})$. 
+        \item [2.] The proximal Graidient algorithm are used for strongly smooth function $g$ and a convex, closed and proper function $h$ that has an easy to compute proximal oracle. Under convexity assumption for $h$, the optimal and the minimizer exists and the convergence rate is $\mathcal O(1/k)$. 
+        \item [3.] The Accelerated Proximal Algorithm, which is a modified version of the proximal gradient that uses Nesterov Momentum and converges with $\mathcal O(1/k^2)$ with an additional convexity assumption on $g$. The convergence can be even faster when more additional assumptions are added to $g$. 
+    \end{enumerate}
+    We introduce the setup of the algorithms, and provides proofs for some of the convergence results of the Proximal Gradient algorithms. Possible variants with step sizes will be discussed. We also implemented some example of the algorihm in Julia. 
+    \par
+    For this report, most of the content can be found in Amir's Beck and textbook \cite{book:first_order_opt}, and the proof for the convergence of Accelerated Proximal Gradient method closely follows the original paper for FISTA\cite{paper:FISTA} by Amir and Marc Teboulle. Other additional and specific materials references will be in the discussion. 
+    \par 
+    (\textbf{EDIT HERE}) Section .. of the paper introduces... 
+\section{Preliminaries}
+    The proximal operator is a crucial component for the algorithm and its non-expansive  property is relevant to the convergence of Proximal Gradient under the non-convex case. We won't go into detail for the non-convex case. Under the assumption of convexity for $f$, the property of the strongly smooth function is more relevant. 
+    \subsection{The Proximal Operator}
+        \begin{definition}[Proximal Operator and Moreau Envelope]
+            A Moreau Envelope $\text{env}_{\alpha, f}(x)$, $\text{prox}_{\alpha, f}$ the proximal operator are defined for some function $f$: 
+            $$
+            \begin{aligned}
+                & \text{env}_{\alpha, f}(x) := \min_{y}\left\lbrace
+                    f(y) + \frac{1}{2 \alpha }\Vert y - x\Vert^2
+                \right\rbrace, 
+                \\
+                & \text{prox}_{\alpha,f}(x) := 
+                \arg\min_{y}\left\lbrace
+                    f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2
+                \right\rbrace. 
+            \end{aligned}
+            $$
+        \end{definition}
+        
+        The proximal operator is a singleton when the function $f$ is convex, proper and closed due to the strong convexity of $f(y) + 1/(2\alpha)\Vert y - x\Vert^2$. Observe that $\text{env}_{\alpha, f}(x) = (f\square \frac{1}{2\alpha}\Vert \cdot \Vert^2)(x)$, hence the infimal convolution gives us the interpretation that the epigraphs of the envelope is adding between the epigraph of these 2 functions. This conceptualization will help with the intuitive understanding of many proximal algorithm. 
+        In addition please observe the following identities: 
+
+        $$
+        \begin{aligned}
+            & \text{prox}_{f/\alpha, 1} =  \text{prox}_{f, \alpha}
+            \\
+            & \alpha^{-1}\text{env}_{\alpha f, 1}(x) = \text{env}_{f, \alpha}(x). 
+        \end{aligned}
+        $$
+        \begin{prop}[Proximal Operator is a Nonexpansive Mapping]
+            Let $f:\mathbb E \mapsto \mathbb{\bar R}$ be a closed, convex proper function. then $\text{prox}_f(x)$, with $\alpha= 1$ is a singleton for every point $x\in \mathbb E$. Moreoever, for any points $x, y\in \mathbb E$ the estimate holds: 
+            $$
+                \begin{aligned}
+                    \Vert \text{prox}_f(x) - \text{prox}_f(y)\Vert^2_\star \le 
+                    \langle \text{prox}_f(x) - \text{prox}_f(y), x - y\rangle. 
+                \end{aligned}
+            $$
+        \end{prop}
+        Using the identity that $\text{prox}_{f/\alpha} = \text{prox}_{f, \alpha}$, the proximal gradient is nonexpansive for all value of $\alpha$. 
+        \begin{lemma}[The Alternatie Form of Proximal Operator]\label{lemma:prox_alternative_form}
+            When the function $f$ is convex closed and proper, the $\text{prox}_{\alpha, f}$ can be viewed the following operator $(I + \alpha \partial f)^{-1}$, which is also, a single valued operator that sometimes has a nice closed form solution to it.
+        \end{lemma}
+        \begin{proof}
+            \begin{align*}
+                0 &\in \partial\left[
+                    \left.
+                        f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2 
+                    \right| y
+                \right](y^+)
+                \\
+                0 &\in \partial f(y^+) + \frac{1}{\alpha}(y^+ - x)
+                \\
+                \frac{x}{\alpha} &\in 
+                (\partial f + \alpha^{-1}I)(y^+)
+                \\
+                x &\in 
+                (\alpha \partial f + I)(y^+)
+                \\
+                y &\in (\alpha\partial f+ I)^{-1}(x).
+            \end{align*}
+        \end{proof}
+    \subsection{The Strong Smoothness}
+        \begin{definition}[Strong Smoothness]\label{def:strong_smoothness}
+            A function $g$ is called smooth with a constant $\alpha$ then it satisfies: 
+            \begin{align}
+                |g(y) - g(x) - 
+                \langle \nabla g(x), y - x
+                \rangle| \le \frac{\alpha}{2}\Vert x - y\Vert^2
+                \quad \forall x, y\in \mathbb E. 
+            \end{align}    
+        \end{definition}
+        The absolute value sign can be removed and replaced with $0\le$ when the function $g$ is a convex function.
+        
+
+\section{Proximal Gradient and Forward Backward Envelope}
+    We introduce the algorithm through the forward backward envelope, which helps with the intuitive undestanding with this algorithm. We then state some of the important properties. The name forward backward envelope is credit to numerical method that simulates gradient dynamical system that is the summation of a stiff and nonstiff dynamics by using forward Euler on the nonstiff part, and backward Euler on the stiff part. We won't go into detail regarding this specific interpretation of the proximal gradient method. 
+    \begin{assumption}\label{assumption:1}
+        We will assume that $g:\mathbb E\mapsto \mathbb R$ is strongly smooth with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ is closed convex and proper. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(f) \cap \text{ri}\circ \text{dom}(g) \neq \emptyset$. 
+    \end{assumption}
+    
+    \subsection{Poximal Gradient Minimizes the Forward Backward Envelope}
+        First, we follow the intuitive idea of constructing a upper bounding function $m_x(y)$, a surrogate function if one prefers for $g + h$ with $\beta \ge L_g$: 
+        \begin{align*}
+            & g(x) + h(x) \le 
+            g(x) + \nabla g(x)^T(y - x) + \frac{\beta}{2} \Vert y - x\Vert^2
+            + h(y) =: m_x(y|\beta) \quad \forall y \in \mathbb E, 
+        \end{align*}
+        this function $m_x(y|\beta)$ is a strongly convex function and it's equal to $g + h$ at $x$, and larger than it on every other points. The \emph{envelope function}, defined as $m^+(y|\beta):= \min_y \{m_x(y|\beta)\}$ minimizes the upper bounding function, and the function $m^+$ is lower than $g + h$ on all points and its minimizer takes the following form: 
+        \begin{align*}
+            \arg\min_{y} \{m_x(y)\} 
+            = \arg\min_{y}\left\lbrace
+                g(x) + \nabla g(x)^T(y - x) + \frac{\beta}{2}
+                \Vert y - x\Vert^2 + h(y) 
+            \right\rbrace. 
+        \end{align*}
+        
+        \begin{theorem}[Minimizer of the Envelope]\label{thm:minimizer_envelope}
+            The minimizer for the envelope has a closed form and it's $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$, with \hyperref[assumption:1]{assumption \ref*{assumption:1}}. 
+        \end{theorem}
+        \begin{proof}
+            We consider the fact that, to minimize the envelope, zero is in the subgradient of the upper bounding function $m_x(y|\beta)$. 
+            \begin{align*}
+                \mathbf 0 &\in 
+                \nabla g(x) + {\beta}(y - x) + \partial h(y)
+                \\
+                \nabla g(x) + \beta x & \in
+                \beta y + \partial h(y)
+                \\
+                -\beta^{-1} \nabla g(x) + x &\in y + \beta^{-1} \partial h(y)
+                \\
+                -\beta^{-1} \nabla g(x) + x &\in [I + \beta^{-1} \partial h](y)
+                \\
+                \implies
+                [I + \beta^{-1}\partial h]^{-1}(- \beta^{-1} \nabla g(x) + x) 
+                & \ni y,
+            \end{align*}
+            using \hyperref[lemma:prox_alternative_form]{lemma \ref*{lemma:prox_alternative_form}}, the RHS is the operator $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$. 
+        \end{proof}
+        \begin{remark}
+            The minimizer: $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$ is I call the proximal step. It will make the envelope $m_x(y|\beta)$ strictly lower than $f(x)$, and it this is not true, then $x$ is a minimizer of $x$. This will be made clear next. 
+        \end{remark}
+    \subsection{Fixed Point of the Prox Step}\label{sec:fixed_point_prox}
+        \emph{Denote} the prox step $\mathcal P_{\beta^{-1}}^{g, h}(x) = \text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))$, in most context without ambiguity it will be simply denoted as $\mathcal Px$. The fixed point of $\mathcal P$ is a point $x$ such that $x = \mathcal P x$. If this is true, then $x$ is the minimizer of $f$, we denoted as $\bar x$. To see how this is true consider any $x^+$ such that $x^+ = \mathcal Px$, using subgradient of the envelope: 
+        \begin{align*}
+            \mathbf 0 
+            &\in \nabla g(x) + \beta(x^+ - x) + \partial h(x^+)
+            \\
+            \beta(x - x^+) &\in \partial h(x^+) + \nabla g(x^+)
+            \\
+            x = x^+ \implies \mathbf 0 &\in 
+            \partial h(x^+) + \nabla g(x^+), 
+        \end{align*}
+        and therefore, if $x^+$ is fixed point of $\mathcal P$ then it is one of the local minimizers of the function $f$. Conversely, if $x^+$ is not a fixed point of $x$, then it has to make the objective value of the upper bounding function $m_x(y| \beta)$ decreases because it's a strongly convex function. However, this doesn't necessarily mean that the prox step can decrease the value of the function $f$. We explain more about this in the next subsection. 
+        \begin{remark}
+            The operator $\beta(x - \mathcal Px)$ is called the gradient mapping in Amiar's Book \cite{book:first_order_opt}, and it has many more important properties that are useful for the convergence proof of proximal gradient method under many different context. Please observe that, if the function $h \equiv 0$, the gradient mapping is simply the gradient of the function $g$. We won't go into the details here unfortunately cause that is outside of the scope. 
+        \end{remark}
+    \subsection{Step-Sizes that Ensures Monotone Descent Property}
+        With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, only a specific size of step-size can guarantee a decrease in the function value for the minimizers the minimizes the envelope, which we will call it the proximal step, give by $\text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))$. 
+        \begin{theorem}[Stepsize that Ensures Monotone Decrease]\label{thm:monotone_decrease}
+            The step size $L^{-1}$ of the proximal gradient that guarantee a decrease in the objective value has to satisfies: $L \ge L_g$, where $L_g$ is the lipschitz constant for the gradient of the function $g$. 
+        \end{theorem}
+        \begin{proof}Consider the fact that $m_x(\mathcal Px|L_f)\le f(x)$ which gives: 
+            \begin{align*}
+                m_x(\mathcal Px|L_f) 
+                &\le f(x)
+                \\
+                \implies 
+                m_x(\mathcal Px|L) 
+                &\le f(x)
+                \\
+                \implies h(\mathcal Px)+ 
+                \langle \nabla g(x), \mathcal P x - x\rangle + \frac{L}{2}\Vert \mathcal Px - x\Vert^2 
+                &\le h(x)
+                \\
+                h(\mathcal Px) - h(x) + \langle \nabla g(x) - \mathcal Px - x\rangle 
+                &\le \frac{-L}{2} \Vert \mathcal Px - x\Vert^2, \tag{$\Delta$}
+            \end{align*}
+            next we also consider the strong smooth property of $g$ to obtain: 
+            \begin{align*}
+                g(\mathcal Px) - g(x) - \langle \nabla g(x), \mathcal Px - x\rangle 
+                & \le \frac{L_g}{2}\Vert \mathcal Px - x\Vert^2 \tag{$\nabla$}
+                \\
+                \implies
+                h(\mathcal Px) + g(\mathcal Px) - g(x) - h(x)
+                &\le 
+                \left(
+                    \frac{L_g}{2} - \frac{L}{2}
+                \right)\Vert \mathcal Px - x\Vert^2 \tag{**}
+                \\
+                f(\mathcal Px) - f(x) 
+                &\le
+                \left(
+                    \frac{L_g}{2} - \frac{L}{2}
+                \right)\Vert \mathcal Px - x\Vert^2, 
+            \end{align*}
+            where (**) is $(\nabla) + (\Delta)$. Observe that on the last line, if $L_g \le L$, then the objective decrease is asserted. Additionally, using \hyperref[thm:minimizer_envelope]{theorem \ref*{thm:minimizer_envelope}}, we have $L^{-1}$ being the step sizes inside of the proximal gradient operator. 
+        \end{proof}
+        \begin{remark}
+            The monotone decrease property of a step size is useful for engineering the back tracking routine for the proximal gradient method. More specifically, as long as the step size $L^{-1}$ satisfies $m_x(\mathcal Px | L)\le f(x)$, then it's an acceptabled step size. 
+        \end{remark}
+    \subsection{Proximal Gradient Algorithm}
+        \begin{algorithm}[h]\label{algorithm:1}
+            \label{alg:1}
+            \begin{algorithmic}[1]
+            \STATE{\textbf{Input:} $g, h$, smooth and nonsmooth, $L$ stepsize, $x^{(0)}$ an initial guess of solution. }
+            \FOR{$k=1, 2,\cdots, N$}
+                \STATE{\quad $x^{(k + 1)} = \mathcal P_L^{g, h}x^{(k)}$}
+                \IF{$x^{(k + 1)}, x^{(k)}$ close enough}
+                    \STATE{\textbf{Break}}
+                \ENDIF
+            \ENDFOR
+            \end{algorithmic}
+            \caption{Proximal Gradient With Fixed Step-sizes}
+        \end{algorithm}
+        \begin{remark}
+            The \hyperref[algorithm:1]{Proximal Gradient With Fixed Step Size} algorithm terminates either the iteration limit $N$ is reached, or the fixed point iterations on the operator $\mathcal P$ has converged. Under some cases, the Lipschiz constant for $g$ can be obtained, under some other cases it's not easy to obtain. 
+        \end{remark}
+
+\section{Convergence of Proximal Gradient}
+    Here, we give analysis for the convergence behaviors of the algorithm in \hyperref[algorithm:1]{\ref*{algorithm:1}} with fixed stepsizes and assumption \hyperref[assumption:1]{\ref*{assumption:1}} is true. 
+    \subsection{Convergence Under the Convex Case}
+        Before the proof, we state some of the quantities that are involved in the proof. 
+        \begin{enumerate}
+            \item [1.] Recall from \hyperref[sec:fixed_point_prox]{section \ref*{sec:fixed_point_prox}} where $G_\beta(x) - \nabla g(x) \in \partial h(x^+)$ with $x^+ \in \mathcal P_{\beta^{-1}}^{g, h}(x)$, and this general condition is true for all values of $x$. We refers $G_\beta(x)$ as the residual of the proximal gradient algorithm. Finally, $G_\beta(x) = \beta(x - x^+)$
+            \item [2.] By choosing the stepsize $\beta^{-1} \le L^{-1}$, we assert strict decrease of the value of the objective function, $f(x^+) \le f(x)$. 
+            \item [3.] We denote $\bar f$ to be $f(\bar x)$ where $\bar x$ is one of the minimizer of $f$. 
+        \end{enumerate}
+        \begin{theorem}[Convergence Under Convexity]
+            With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, execute the algorithm for $N$ steps, we have: 
+            \begin{align*}
+                f(x^{(N + 1)}) - \bar f
+                &\le  
+                \frac{\beta(\Vert x^{(0)} - \bar x\Vert^2 - \Vert x^{(N + 1)} - \bar x\Vert^2)}{2(N + 1)}. 
+            \end{align*}
+            
+        \end{theorem}
+        \begin{proof}
+            This proof is standard and doesn't completely resemble the proof showed in \cite[Aimir, Teboulle]{paper:FISTA}, nonetheless we will extract a lemma out of this proof and use that as the foundation for the proof in the Nesterov Accelerated case of the proximal gradient algorithm.  
+            \par
+            Firstly by the choice of step-size and the strong smoothness of the function $g$, we have the inequality: 
+            \begin{align*}
+                g(x^+) 
+                & \le 
+                g(x) - \beta^{-1}\langle \nabla g(x), G_\beta(x)\rangle + \underbrace{\frac{L}{2\beta^2}\Vert G_\beta(x)\Vert^2}_
+                {
+                    \le \frac{1}{2\beta}\Vert G_\beta(x)\Vert^2
+                }, \tag{*}
+            \end{align*}
+            next, by the convexity of $f, g$ we have inequalities: 
+            \begin{align*}
+                & g(x) \le g(z) - \langle \nabla g(x), x - z\rangle
+                \\
+                & h(x^+)\le h(z) + \langle \partial h(x^+), x^+ - z\rangle, 
+            \end{align*}
+            where we abuse the notation $\partial h(x^+)$ to denote some vector in the subgradient of $h$ at point $x^+$. Next we substitue the above results to into (*): 
+            \begin{align*}
+                g(x^+) + h(x^+) 
+                & \le 
+                g(x) + \beta^{-1}\langle \nabla g(x), G_\beta(x)\rangle + \frac{1}{2\beta}\Vert G_\beta(x)\Vert^2 + h(x^+) 
+                \\
+                & \le 
+                g(z) + 
+                \underbrace{\langle \nabla g(x), x - z\rangle }_{[1]}
+                - 
+                \underbrace{\beta^{-1}\langle \nabla g(x), G_\beta(x)\rangle}_{[2]}
+                \\& \quad \quad 
+                + 
+                \frac{1}{2\beta}\Vert G_\beta(x)\Vert^2 + h(z) + 
+                \underbrace{\langle \partial h(x^+), x^+ - z\rangle}_{[4]}, 
+                \tag{$\nabla$}
+            \end{align*}
+            and we consider the summation for each of these numerically labeled term to obtain: 
+            \begin{align*}
+                {[3]}& := [1] + [2]
+                \\
+                [3] &= \langle \nabla g(x), x - z - x + x^+\rangle = \langle \nabla g(x), x^+ - z\rangle
+                \\
+                [3] + [4] &= 
+                \langle \nabla g(x), x^+ - z\rangle + \langle G_\beta(x) - \nabla g(x), x^+ - z\rangle \tag{**}
+                \\
+                &= \langle G_\beta(x), x^+ - z\rangle 
+                \\
+                &= \langle G_\beta(x), x - z - (x - x^+)\rangle
+                \\
+                &= \langle G_\beta, x - z\rangle - \langle G_\beta, \underbrace{x - x^+}_{ = \beta^{-1}G_\beta(x)}\rangle
+                \\
+                &= \langle G_\beta(x), x - z\rangle - \beta^{-1}\Vert G_\beta(x)\Vert^2, 
+            \end{align*}
+            where at (*) we applied the substitution $G_\beta (x) - \nabla f(x)\in \partial h(x^+)$. 
+            Comtinued from ($\nabla$) we obtain 
+            \begin{align*}
+                \underbrace{g(x^+) + h(x^+)}_{f(x^+)}
+                & \le 
+                \underbrace{g(z) + h(z)}_{f(x)} - \frac{1}{2\beta}\Vert G_\beta(x)\Vert^2 + \langle G_\beta, x - z\rangle
+                \\
+                f(x^+) - f(z) 
+                &\le 
+                \langle G_\beta(x), x - z\rangle - \frac{1}{2\beta}\Vert G_\beta(x)\Vert^2. \tag{$\star$}
+            \end{align*}
+            Next, we make the simplifications using algebra and get: 
+            \begin{align*}
+                f(x^+) - f(\bar x) 
+                &\le 
+                \frac{-1}{2\beta}\Vert G_\beta(x)\Vert^2
+                + 
+                \langle G_\beta, x - \bar x\rangle
+                \\
+                &= 
+                -\frac{\beta}{2}(
+                    \Vert x - x^+\Vert^2 - 2\langle x - x^+, x - \bar x\rangle
+                )
+                \\
+                [5]
+                \implies &= 
+                \frac{-\beta}{2}(
+                    \Vert x^+ - \bar x\Vert^2
+                    - 
+                    \Vert x - \bar x\Vert^2
+                )
+                \\
+                &= 
+                \frac{\beta}{2}(\Vert x - \bar x\Vert^2 - \Vert x^+ - \bar x\Vert^2), 
+            \end{align*}
+            and since the step-size assert an non-decreasing sequence of number, we perform the telescoping sum on one side and get: 
+            \begin{align*}
+                f(x^{(k + 1)}) - \bar f 
+                &\le
+                \frac{\beta}{2}(\Vert x^{(k)} - \bar x\Vert^2 - \Vert x^{(k + 1)} - \bar x\Vert^2)
+                \\
+                \implies
+                \left(
+                    \sum_{i = 0}^{N} f(x^{(i + 1)})
+                    - \bar f
+                \right)
+                &\le
+                \frac{\beta}{2}
+                (\Vert x^{(0)} - \bar x\Vert^2 - \Vert x^{(N + 1)} - \bar x\Vert^2)
+                \\
+                f(x^{(N + 1)}) - \bar f & = 
+                \min_{i = 0, \cdots, N}\left\lbrace
+                    f(x^{(i + 1)}) - \bar f
+                \right\rbrace \le 
+                \left(
+                    \frac{1}{N + 1}\sum_{i = 0}^{N}f(x^{(i + 1)})
+                \right) - \bar f
+                \\
+                \implies
+                f(x^{(N + 1)}) - \bar f
+                &\le  
+                \frac{\beta(\Vert x^{(0)} - \bar x\Vert^2 - \Vert x^{(N + 1)} - \bar x\Vert^2)}{2(N + 1)}
+                \\
+                &\le 
+                \frac{\beta \Vert x^{(0)} - \bar x\Vert^2 }{2(N + 1)}. 
+            \end{align*}
+        \end{proof}
+        \begin{remark}
+            One important lemma that we can extract from this proof which will later be important for the proof for the accelerated case is the tagged expression ($\star$) in the above derivation. We will refers this as the ``Prox Step 2 Points" lemma. Expression $(\star)$ is equivalent to the lemma 2.3 in the FISTA paper\cite{paper:FISTA}. 
+        \end{remark}
+        \begin{lemma}[Prox Step 2 Points]\label{lemma:prox_two_p}
+            With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, and $\beta^{-1} > L_g$ still being our stepsize for \hyperref[algorithm:1]{algorithm \ref*{algorithm:1}}, let $y\in \mathbb E$ and define $y^+ = \mathcal P_{\beta^{-1}}^{g, h}(y)$ we have for any $x\in \mathbb E$: 
+            \begin{align*}
+                f(x) - f(y^+) \ge \frac{\beta}{2}\Vert y^+ - y\Vert^2 + 
+                \beta \langle y - x, y^+ - y\rangle. 
+            \end{align*}
+        \end{lemma}
+        \begin{proof}
+            The proof is continuted from expression $(\star)$: 
+            \begin{align*}
+                f(x^+) - f(z) 
+                &\le 
+                \langle G_\beta(x), x - z\rangle - \frac{1}{2\beta}\Vert G_\beta(x)\Vert^2. 
+                \\
+                f(x^+) - f(z) & \le 
+                \beta\langle x - x^+, x - z\rangle - \frac{1}{2\beta}\Vert \beta (x - x^+)\Vert^2
+                \\
+                f(z) - f(x^+) & \ge
+                \frac{\beta}{2}\Vert x - x^+\Vert^2
+                 + 
+                \beta\langle x^+ - x, x - z\rangle, 
+            \end{align*}
+            and by substituting $x :=y$ and $z := x$ in the last line, we completed the proof of the lemma. 
+        \end{proof}
+\section{Accelerated Proximal Gradient}
+    Here we state the FISTA algorithm in paper\cite{paper:FISTA}. The convergence rate will also be stated but the proof with extra details that closedly follows what is in the paper will be put into the appendix. 
+    \subsection{Accelerated Proximal Gradient Algorithm} 
+        \begin{algorithm}\label{alg:FISTA_1}
+        \begin{algorithmic}[1]
+            \STATE{\textbf{Input: the step size $\beta^{-1}$, and $x^{(0)}$ the initial guess. } }
+            \STATE{$y^{(1)} = x^{(0)}$}
+            \FOR{$k=1, \cdots, N$}
+                \STATE{$x^{(k)}:= \mathcal Py^{(k)}$}
+                \IF{$y^{(k)} - x^{(k)}$ small enough}
+                    \STATE{Break}
+                \ENDIF
+                \STATE{$t_{k + 1} := \frac{1 + \sqrt{1 + 4t_k^2}}{2}$}
+                \STATE{$y^{(k + 1)}:= x^{(k)} + \frac{t_k -1}{t_{k + 1}}(x^{(k)} - x^{(k - 1)})$}
+            \ENDFOR
+        \end{algorithmic}\caption{FISTA With Constant Step Size}
+        \end{algorithm}
+    \subsection{Convergence Under the Convex Case}
+        \begin{theorem}[FISTA Convergence under Convexity]\label{thm:fista_convergence1}
+            If \hyperref[assumption:1]{assumption \ref*{assumption:1}} is satisfied, then the FISTA algorithm has convergence result of: 
+            \begin{align*}
+                f(x^{(k)}) - f(\bar x) \le 
+                \frac{2\beta^{-1}\Vert x^{(0)} - \bar x\Vert^2}
+            {(k + 1)^2},
+            \end{align*}
+            where $\bar x$ is one of the optimizers and hence the rate of convergence is $\mathcal O(1/k^2)$. 
+        \end{theorem}
+        \begin{proof}
+            For a proof see \hyperref[sec:fista1_proof]{appendix \ref*{sec:fista1_proof}}
+        \end{proof}
+
+\section{Numerical Experiments}
+    \subsection*{Simple LASSO}
+    \subsection*{Image Deblurring}
+
+\appendix
+\begin{section}{Proof for Convergence of FISTA}
+    Here we prove \hyperref[thm:fista_convergence1]{theorem \ref*{thm:fista_convergence1}}. The proof closely follows Beck and Teboulle's work \cite{paper:FISTA}, and here we prove everything with extra details. 
+    \begin{subsection}{The First Lemma}
+        Recall from \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}
+        and \hyperref[assumption:1]{assumption \ref*{assumption:1}}, instead of using $\beta^{-1}$ as our step size we use $L$. Here we introduce the notation $\delta_k = f(x^{(k)}) - f(\bar x)$ to denote the optimality gap at the $k$ iteration of the algorithm where $\bar x$ denotes one of the minimizer of the function $f$. 
+        \begin{lemma}[FISTA First Lemma]\label{lemma:fista_first_lemma}
+            The optimality gap generated via FISTA statisfies: 
+            \begin{align*}
+                & 
+                \frac{2}{L}t^2_k \Delta_k - \frac{2}{L}t^2_{k + 1} \Delta_{k + 1} 
+                \ge 
+                \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
+                \\
+                & \Delta_k := f(x^{(k)}) - f(\bar x)
+                \\
+                & u^{(k)} := t_k x^{(k)} - (t_k - 1)x^{(k - 1)} - \bar x.
+            \end{align*}
+        \end{lemma}
+        \begin{proof}
+            We invoke the \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} with $x = x^{(k)}, y = y^{(k +1)}$ to give: 
+            \begin{align*}\label{lemma:fista_first_lemma_1}
+                f(x^{(k)}) - f\circ \mathcal P y^{(k + 1)}
+                & \ge 
+                \frac{L}{2}\Vert \mathcal Py^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+                L \langle y^{(k + 1)} - x^{(k)}, 
+                    \mathcal Py^{(k + 1)} - y^{(k + 1)}
+                \rangle
+                \\
+                f(x^{(k)}) - f(x^{(k + 1)}) 
+                & \ge 
+                \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+                L 
+                \langle 
+                    y^{(k + 1)} - x^{(k)}, 
+                    x^{(k + 1)} - y^{(k + 1)}
+                \rangle, 
+                \\
+                \implies
+                2L^{-1} (\Delta_k - \Delta_{k + 1}) 
+                & \ge 
+                \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+                2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - \bar x\rangle. 
+                \tag{$*$}
+            \end{align*}
+            Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the FISTA algorithm (HYPERLINK NEEDED). We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
+            \begin{align*}
+                f(\bar x) - f\circ \mathcal P y^{(k + 1)}
+                & \ge 
+                \frac{L}{2}\Vert \mathcal P y^{(k + 1)} - y^{(k + 1)}\Vert^2 
+                + L 
+                \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+                \\
+                f(\bar x) - f(x^{(k + 1)}) 
+                &\ge 
+                \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+                + 
+                L \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+                \\
+                -2L^{-1}\Delta_{k + 1}
+                & \ge
+                \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+                + 
+                2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle. 
+                \tag{$\star$}
+            \end{align*}
+            Consider the expression $(t_k - 1)(*) + (\star)$, we obtain the LHS of that expression: 
+            \begin{align*}
+                &(t_{k + 1} - 1)L^{-1} (\Delta_k - \Delta_{k + 1}) 
+                -
+                2L^{-1}\Delta_{k + 1}
+                \\
+                = \; &
+                2L^{-1}
+                ((t_{k + 1} + 1)\Delta_k - (t_{k + 1} - 1)\Delta_{k + 1} - \Delta_{k + 1})
+                \\
+                = \; &
+                2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1}),
+                \tag{$\star *$LHS}
+            \end{align*}
+            and then the RHS is: 
+            \begin{align*}
+                & (t_{k + 1} - 1)\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+                + 
+                2(t_{k + 1} - 1)\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle 
+                \\
+                & \quad 
+                + \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+                + 
+                2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+                \\
+                = \; &
+                t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+                + 
+                \langle 
+                    x^{(k + 1)} - y^{(k + 1)}, 
+                    \underbrace{2(t_{k + 1} - 1)(y^{(k + 1)} - x^{(k)}) + 2(y^{(k + 1)} - \bar x) }_
+                    {
+                        = 2(t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x)
+                    }
+                \rangle
+                \\
+                = \; & 
+                t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+                + 
+                2\langle 
+                    x^{(k + 1)} - y^{(k + 1)}, 
+                    t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
+                \rangle. 
+                \tag{$\star *$RHS}
+            \end{align*}
+            The entirety of expression (3) is given by: 
+            \begin{align*}
+                & 2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1})
+                \ge 
+                t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+                \\
+                & \quad 
+                + 
+                2\langle 
+                    x^{(k + 1)} - y^{(k + 1)}, 
+                    t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
+                \rangle. 
+                \tag{$\star *$}
+            \end{align*}
+            The next part of the proof shows some of the magics involves in changing the LHS,RHS of $(\star *)$ to be the similar to what is in the theorem statement. It's accomplished by the relations for the sequence $t_k$, more specifically it's hinged on the relations $t_k^2 = t^2_{k + 1} - t_{k + 1}$ which is asserted by the FISTA algorithm. Using this fact we proceed by multiplying $t_{k + 1}$ on both sides of $(\star *)$ and obtain: 
+            \begin{align*}
+                & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + t}^2)
+                \\
+                & \hspace{2em}\begin{aligned}
+                    & \ge 
+                    \Vert t_{k + 1}(x^{(k + 1)} - y^{(k + 1)})\Vert^2 - 
+                    2\langle 
+                        t_{k + 1}(x^{(k + 1)} - y^{(k + 1)}), 
+                        t_{k + 1}y^{(k + 1)} - 
+                        (t_{k + 1} - 1)x^{(k)} - \bar x
+                    \rangle
+                \end{aligned}
+                \\
+                & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + t}^2)
+                \\ 
+                &\hspace{2em}
+                \begin{aligned}
+                    & \ge 
+                    \Vert 
+                        \underbrace{t_{k + 1}x^{(k + 1)}}_{
+                            =:a
+                        } - \underbrace{t_{k + 1}y^{(k + 1)}}_{
+                            =:b
+                        }
+                    \Vert^2 
+                    - 
+                    2\langle 
+                    \underbrace{ t_{k + 1}x^{(k + 1)}}_{=:a} - t_{k + 1}y^{(k + 1)}, 
+                        \underbrace{t_{k + 1}y^{(k + 1)}}_{=:b} - 
+                        \underbrace{((t_{k + 1} - 1)x^{(k)} + \bar x)}_{=:c}
+                    \rangle
+                    \\
+                    & \ge 
+                    \Vert a - b\Vert^2 + 2\langle a - b, b -c\rangle
+                    \\
+                    & = 
+                    \Vert a - b\Vert^2 + \Vert b - c\Vert^2 + 
+                    2\langle a-b, b -c\rangle - \Vert b - c\Vert^2
+                    \\
+                    &= 
+                    \Vert a - c\Vert^2 - \Vert b - c\Vert^2
+                    \\
+                    &\ge 
+                    \Vert 
+                        t_{k+ 1}x^{(k + 1)} - 
+                        (t_{k + 1} - 1)x_k - \bar x 
+                    \Vert^2 - 
+                    \Vert 
+                        (t_{k + 1} - 1)x^{(k)} - t_{k + 1}y^{(k + 1)}
+                        - \bar x
+                    \Vert^2, 
+                \end{aligned}
+            \end{align*}
+            to prove the lemma, we need to match the form in the above 2 norm of the vector, we accomplish this by considering FISTA algorithm: 
+            \begin{align*}
+                t_{k + 1}y^{(k + 1)} &= t_{k + 1}x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
+                \\
+                t_{k + 1}y^{(k + 1)} - (t_{k + 1}- 1)x^{(k)}
+                &= t_{k + 1}x^{(k)} - (t_{k + 1}- 1)x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
+                \\
+                &= 
+                x^{(k)} + (t_k - 1)x^{(k)} - (t_k - 1)x^{(k - 1)}
+                \\
+                &= t_kx^{(k)} - (t_k - 1)x^{(k - 1)}, 
+            \end{align*}
+            cf from previously we have: 
+            \begin{align*}
+                & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + t}^2)
+                \\
+                &\ge 
+                \Vert 
+                    t_{k + 1}x^{(k + 1)}
+                    + 
+                    (1 - t_{k + 1}) x^{(k)} - \bar x
+                \Vert^2
+                - 
+                \Vert t_kx^{(k)} + (1 - t_k)x^{(k -1)} - \bar x\Vert^2
+                \\
+                & \ge \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2.
+            \end{align*}
+            And that completes the proof of the Second Lemma. 
+        \end{proof}
+        \begin{remark}
+            There should be some point, where we can infer the properties of the sequence $t_k$ instead of taking the sequence from FISTA algorithm for granted, there should also be a way to make a different decision during the proof so that this becomes the proof for the algorithm without the accelerations technique. 
+        \end{remark}
+    \end{subsection}
+
+    \begin{subsection}{The Second Lemma}
+        \begin{lemma}[FISTA Second Lemma]
+            Let $\{a, b\}$ be positive real numbers sequence satisfying: $a_k - a_{k - 1}\ge b_{k + 1} - b_k, \forall k \ge 1$, with $a_1 + b_1 \le c, c > 0$, and then it would mean that $a_{k + 1}\le c$. 
+        \end{lemma}
+        \begin{proof}
+            The base case of the proof is obvious by the fact that $b_1$ is positive, hence $a_1 \le c$ is true. the relation automatically holds true for all $k\ge 1$ because $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le c$, then $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le a_{k + 1} + b_{k + 1} \implies a_{k + 1} + b_{k + 1} \le c\implies a_{k + 1}\le c$. 
+        \end{proof}
+    \end{subsection}
+
+    \begin{subsection}{The Third Lemma}
+        \begin{lemma}[FISTA Third Lemma]
+            The FISTA asserts $t_k \ge (k + 1)/2, \forall k \ge 1$. 
+        \end{lemma}
+        \begin{align*}
+            t_k 
+            &\ge \frac{k + 1}{2}
+            \\
+            4t_k^2 
+            &\ge 4\left(
+                \frac{k + 1}{2}
+            \right)^2
+            \\
+            \implies 
+            t_k &= \frac{1}{2}\left(
+                1 + \sqrt{1 + 4t_k^2}
+            \right)
+            \\
+            &= 
+            \frac{1}{2} + \frac{\sqrt{1 + (k + 1)^2}}{2}
+            \\
+            & \ge \frac{1 + k}{2}, 
+        \end{align*}
+    \end{subsection}
+    \subsection{Convergence Proof}
+        
+\end{section}\label{sec:fista1_proof}
+
+\bibliographystyle{plain}
+\bibliography{refs.bib}
+\end{document}

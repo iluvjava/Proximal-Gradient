@@ -1,0 +1,14 @@
+\begin{thebibliography}{1}
+
+\bibitem{book:first_order_opt}
+Amir Beck.
+\newblock {\em First-Order Methods in Optimization}.
+\newblock Society for Industrial and Applied Mathematics, Philadelphia, PA,
+  2017.
+
+\bibitem{paper:FISTA}
+Amir Beck and Marc Teboulle.
+\newblock A fast iterative shrinkage-thresholding algorithm for linear inverse
+  problems, 2009.
+
+\end{thebibliography}
