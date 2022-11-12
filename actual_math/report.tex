@@ -487,17 +487,32 @@
 
 \section{Numerical Experiments}
     \subsection*{Simple LASSO}
-        As the name suggested, we consider the cliche problem of: 
+        As the name suggested, we consider the overuse example problem of: 
         \begin{align*}
             \min_{x}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1
         \end{align*}
-        For a brief background, This optimization problem commonly appears in the contex of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. 
+        For a brief background, This optimization problem commonly appears in the contex of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. The implementation is simple and the proximal gradient oracle for $\Vert \dot \Vert_1$ is given as: 
+        \begin{align*}
+           (\text{prox}_{\lambda\Vert \cdot \Vert, t}(x))_i
+           = 
+           \text{sign}(x_i)\max(|x_i| - t\lambda, 0), 
+        \end{align*}
+        And one can interpret the $\text{sign}$ function as a projection onto the interval $[-1, 1]$, and the $\max(|x| - t\lambda, 0)$ function as the distance of $x$ to the set $[-t\lambda, t\lambda]$. 
         \par
-        For this simple problem, we consider $A$ to be 128 by 128, that is a diagonal matrix whose diagnals are equally space points from the interval $[0, 1]$. The right handside vector $b$ is the same as the diagonal of matrix $A$, but every odd index is replaced with a guassian random noise on the level of $1e-4$. The experiment is performed with using both ISTA and FISTA with $\lambda = 1e-1$, both uses a step size of $0.1$ and an initial guess of a vector of all ones. 
+        For this simple problem, we consider $A$ to be 128 by 128, that is a diagonal matrix whose diagnals are equally space points from the interval $[0, 1]$. The right handside vector $b$ is the same as the diagonal of matrix $A$, but every odd index is replaced with a guassian random noise on the level of $1e-4$. The experiment is performed with using both ISTA and FISTA with $\lambda = 1e-1$ (This is used to prevent triggering the line search routine in the implementation), both uses a step size of $0.1$ and an initial guess of a vector of all ones. 
         \par
-        For the experiment we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_2$ for each iteration. 
+        For the experiment we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_2$ for each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Observe that the type of convergence for the proximal gradient operator in the FISTA case is fundamentally different compare to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot is close to a straight line, indicating a first order convergence of this quantity. In the case of FISTA, the rate is obviously slower from the plot, and there are non trivial amount of oscilations which is unlikely to be the results of numerical issues.  
+        \begin{figure}[h]
+            \centering
+            \includegraphics*[width=8cm]{simple_lass_obj.png}
+                \includegraphics*[width=8cm]{simple_lass_pgrad.png}
+            \caption{The left is the objective value of the function during all iterations and the right side is the norm of the gradient mapping for all the iteraitons. }
+            \label{fig:lasso_1}
+        \end{figure}
+        In fact the convergence rate in general is linear when the smooth function $g$ is strongly convex (\textbf{REFERENCES NEEDED}). 
         
     \subsection*{Image Deblurring}
+        Here we reproduce the some of the experiment conducted in 
     \subsection*{My Ideas}
 
 \appendix
