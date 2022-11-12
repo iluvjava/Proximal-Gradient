@@ -2,12 +2,16 @@
 ### The elementwise absolute value with a multiplier
 ### ============================================================================
 """
-    A struct that refers to m|x|, where x is a vector and the double bar here 
-        denotes the process of applying the absolute value to each element of the 
-        vector x. 
+A struct that refers to m|x|, where x is a vector and the double bar here 
+    denotes the process of applying the absolute value to each element of the 
+    vector x. 
+### Fields
+- `multiplier`: `m` the multiplier on every entries of the one norm, has to be 
+non-negative. 
 """
 struct OneNorm <: NonsmoothFxn
     multiplier::Real
+
     function OneNorm(multiplier::Real=1)
         @assert multiplier >= 0 "The multiplier for the elementwise nonsmooth"*
             "function must be non-negative so it's convex for the prox operator. "
@@ -17,7 +21,7 @@ end
 
 
 """
-    The output of the elementwise absolute value on the function. 
+The output of the elementwise absolute value on the function. 
 """
 function (::OneNorm)(arg::AbstractArray{T}) where {T<:Number}
     return abs.(arg)|>sum
@@ -43,20 +47,35 @@ end
 
 
 """
-    Evalue the prox of the type AbsValue with a constaint t at the point x. 
+Evalue the prox of the type AbsValue with a constaint t at the point x. 
+
+### Arguments
+- `this::OneNorm`: The type the function acts on. 
+- `t::T1`: The scalar for the proximal operator. 
+- `x::AbstractArray{T2}`: The point we are querying the prox of the one norm of. 
+### Argument Type Parameters
+- `T1<:Number`
+- `T2<:Number`
 """
 function Prox(this::OneNorm, t::T1, x::AbstractArray{T2}) where {T1 <: Number, T2 <: Number}
     return this(t, x)
 end
 
+
 """
-    A multplier function for the abslute value type multiplied with a strictly positive number. 
+A multplier function for the abslute value type multiplied with a strictly positive number. 
 """
 function Base.:*(m::Real, this::OneNorm)
     return OneNorm(m*this.multiplier)
 end
 
 
+"""
+Take the gradient of the one norm function. at some points. 
+### Arguments
+- `this::OneNorm`: The type the function acts on. 
+- `AbstractArray{T<:Number}`: the point we are querying the gradient of. 
+"""
 function Grad(this::OneNorm, x::AbstractArray{T}) where {T <: Number}
     return this.multiplier*sign.(x)
 end

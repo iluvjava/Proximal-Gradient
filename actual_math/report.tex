@@ -273,8 +273,7 @@
             The monotone decrease property of a step size is useful for engineering the back tracking routine for the proximal gradient method. More specifically, as long as the step size $L^{-1}$ satisfies $m_x(\mathcal Px | L)\le f(x)$, then it's an acceptabled step size. 
         \end{remark}
     \subsection{Proximal Gradient Algorithm}
-        \begin{algorithm}[h]\label{algorithm:1}
-            \label{alg:1}
+        \begin{algorithm}[H]
             \begin{algorithmic}[1]
             \STATE{\textbf{Input:} $g, h$, smooth and nonsmooth, $L$ stepsize, $x^{(0)}$ an initial guess of solution. }
             \FOR{$k=1, 2,\cdots, N$}
@@ -285,13 +284,14 @@
             \ENDFOR
             \end{algorithmic}
             \caption{Proximal Gradient With Fixed Step-sizes}
+            \label{alg:1}
         \end{algorithm}
         \begin{remark}
-            The \hyperref[algorithm:1]{Proximal Gradient With Fixed Step Size} algorithm terminates either the iteration limit $N$ is reached, or the fixed point iterations on the operator $\mathcal P$ has converged. Under some cases, the Lipschiz constant for $g$ can be obtained, under some other cases it's not easy to obtain. 
+            The \hyperref[alg:1]{Proximal Gradient With Fixed Step Size} algorithm terminates either the iteration limit $N$ is reached, or the fixed point iterations on the operator $\mathcal P$ has converged. Under some cases, the Lipschiz constant for $g$ can be obtained, under some other cases it's not easy to obtain. 
         \end{remark}
 
 \section{Convergence of Proximal Gradient}
-    Here, we give analysis for the convergence behaviors of the algorithm in \hyperref[algorithm:1]{\ref*{algorithm:1}} with fixed stepsizes and assumption \hyperref[assumption:1]{\ref*{assumption:1}} is true. 
+    Here, we give analysis for the convergence behaviors of the algorithm in \hyperref[alg:1]{\ref*{alg:1}} with fixed stepsizes and assumption \hyperref[assumption:1]{\ref*{assumption:1}} is true. 
     \subsection{Convergence Under the Convex Case}
         Before the proof, we state some of the quantities that are involved in the proof. 
         \begin{enumerate}
@@ -431,7 +431,7 @@
             One important lemma that we can extract from this proof which will later be important for the proof for the accelerated case is the tagged expression ($\star$) in the above derivation. We will refers this as the ``Prox Step 2 Points" lemma. Expression $(\star)$ is equivalent to the lemma 2.3 in the FISTA paper\cite{paper:FISTA}. 
         \end{remark}
         \begin{lemma}[Prox Step 2 Points]\label{lemma:prox_two_p}
-            With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, and $\beta^{-1} > L_g$ still being our stepsize for \hyperref[algorithm:1]{algorithm \ref*{algorithm:1}}, let $y\in \mathbb E$ and define $y^+ = \mathcal P_{\beta^{-1}}^{g, h}(y)$ we have for any $x\in \mathbb E$: 
+            With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, and $\beta^{-1} > L_g$ still being our stepsize for \hyperref[alg:1]{algorithm \ref*{alg:1}}, let $y\in \mathbb E$ and define $y^+ = \mathcal P_{\beta^{-1}}^{g, h}(y)$ we have for any $x\in \mathbb E$: 
             \begin{align*}
                 f(x) - f(y^+) \ge \frac{\beta}{2}\Vert y^+ - y\Vert^2 + 
                 \beta \langle y - x, y^+ - y\rangle. 
@@ -457,7 +457,7 @@
 \section{Accelerated Proximal Gradient}
     Here we state the FISTA algorithm in paper\cite{paper:FISTA}. The convergence rate will also be stated but the proof with extra details that closedly follows what is in the paper will be put into the appendix. 
     \subsection{Accelerated Proximal Gradient Algorithm} 
-        \begin{algorithm}\label{alg:FISTA_1}
+        \begin{algorithm}[H]\label{alg:fista_1} 
         \begin{algorithmic}[1]
             \STATE{\textbf{Input: the step size $\beta^{-1}$, and $x^{(0)}$ the initial guess. } }
             \STATE{$y^{(1)} = x^{(0)}$}
@@ -487,10 +487,21 @@
 
 \section{Numerical Experiments}
     \subsection*{Simple LASSO}
+        As the name suggested, we consider the cliche problem of: 
+        \begin{align*}
+            \min_{x}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1
+        \end{align*}
+        For a brief background, This optimization problem commonly appears in the contex of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. 
+        \par
+        For this simple problem, we consider $A$ to be 128 by 128, that is a diagonal matrix whose diagnals are equally space points from the interval $[0, 1]$. The right handside vector $b$ is the same as the diagonal of matrix $A$, but every odd index is replaced with a guassian random noise on the level of $1e-4$. The experiment is performed with using both ISTA and FISTA with $\lambda = 1e-1$, both uses a step size of $0.1$ and an initial guess of a vector of all ones. 
+        \par
+        For the experiment we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_2$ for each iteration. 
+        
     \subsection*{Image Deblurring}
+    \subsection*{My Ideas}
 
 \appendix
-\begin{section}{Proof for Convergence of FISTA}
+\begin{section}{Proof for Convergence of FISTA}\label{sec:fista1_proof}
     Here we prove \hyperref[thm:fista_convergence1]{theorem \ref*{thm:fista_convergence1}}. The proof closely follows Beck and Teboulle's work \cite{paper:FISTA}, and here we prove everything with extra details. 
     \begin{subsection}{The First Lemma}
         Recall from \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}
@@ -534,7 +545,7 @@
                 2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - \bar x\rangle. 
                 \tag{$*$}
             \end{align*}
-            Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the FISTA algorithm (HYPERLINK NEEDED). We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
+            Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the FISTA algorithm (\textbf{HYPERLINK NEEDED}). We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
             \begin{align*}
                 f(\bar x) - f\circ \mathcal P y^{(k + 1)}
                 & \ge 
@@ -618,7 +629,8 @@
             \begin{align*}
                 & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + t}^2)
                 \\
-                & \hspace{2em}\begin{aligned}
+                & \hspace{2em}
+                \begin{aligned}
                     & \ge 
                     \Vert t_{k + 1}(x^{(k + 1)} - y^{(k + 1)})\Vert^2 - 
                     2\langle 
@@ -736,8 +748,62 @@
         \end{align*}
     \end{subsection}
     \subsection{Convergence Proof}
+        Firstly we define the quantities: 
+        \begin{itemize}
+            \item [1.] $a_k := (2/L)t_k^2 \Delta_k$.
+            \item [2.] $b_k := \Vert u^{(k)}\Vert^2$.
+            \item [3.] $c:= \Vert x^{(0)} - \bar x\Vert^2 = \Vert y^{(1)} - \bar x\Vert^2$. 
+        \end{itemize}
+        Recall from the first lemma, and we can represents it using the quantities listed above: 
+        \begin{align*}
+            2L^{-1}(\Delta_kt_k^2 - \Delta_{t + 1}t_{k + 1}^2) 
+            &\ge 
+            \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
+            \\
+            a_k - a_{k + 1} &\ge 
+            b_{k + 1} - b_k, 
+        \end{align*}
+        To demonstrate how the base case hold up for the second lamma, we consider lemma \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}, substituting $x^{(1)}$ for $x$ and $\bar x$ for $y$, implicitly using the fact that $\bar x$ is a fixed point of $\mathcal P$: 
+        \begin{align*}
+            \Delta_1& \ge 
+            \frac{L}{2}\Vert \mathcal Py^{(1)} - y^{(1)}\Vert^2 + L 
+            \langle y^{(1)} - \bar x, \mathcal P y^{(1)} - y^{(1)}\rangle
+            \\
+            & =
+            \frac{L}{2}\Vert \mathcal P x^{(1)} - y^{(1)}\Vert^2 + L 
+            \langle x^{(1)} - \bar x, x^{(1)} - y^{(1)}\rangle
+            \\
+            &= 
+            \frac{L}{2}
+            (\Vert x^{(1)} - \bar x\Vert^2 - \Vert y^{(1)} - \bar x\Vert^2)
+            \\
+            \implies
+            2L^{-1}\Delta_1 
+            &\le
+            \underbrace{\Vert y^{(1)} - \bar x\Vert^2}_{=c} - \Vert x^{(1)} - \bar x\Vert^2
+            \\
+            \implies
+            a_1 + b_1
+            & \le c, 
+        \end{align*}
+        using the fact that $t_1 = 1$ we have $u^{(1)} = x^{(1)} - \bar x \implies b_1 = \Vert x^{(1)} - \bar x\Vert^2$, please observe that the above expression simplifies to $a_1 + b_1 \le c$. Invoking the second lemma, we have the claim that $a_{k + 1}\le c$, which is stated as: 
+        \begin{align*}
+            2L^{-1}t_{k + 1}^2\Delta_{k + 1} 
+            &\le \Vert x^{(0)} - \bar x\Vert^2
+            \\
+            \implies
+            \Delta_{k + 1}
+            &\le 
+            \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2t_k^2}
+            \\
+            & \le 
+            \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2 \times 2^{-2}(k + 1)^2}
+            = 
+            \frac{2L\Vert x^{(0)} - \bar x\Vert^2}{(k + 1)^2}, 
+        \end{align*}
+        and the proof is now complete. 
         
-\end{section}\label{sec:fista1_proof}
+\end{section}
 
 \bibliographystyle{plain}
 \bibliography{refs.bib}

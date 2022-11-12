@@ -6,16 +6,25 @@ include("smooth_fxn.jl")
 
 
 """
-    This is a struct that models the results obtain from an execution of the 
-    prox gradient method. We see to store the following results and each result
-    is mapped to the iteration number of the algorithm: 
-        * x - prox(h, L, x) :: The gradient mappings. 
-            * And its norm. 
-        * xs, the list of solutions from the prox gradient. 
-        * 
-        * Flags:    
-            0. Termninated due to gradient mapping reaches tolerance 
-            1. Terminated due to maximal iterations limit has been reached. 
+This is a struct that models the results obtain from an execution of the 
+prox gradient method. We see to store the following results and each result
+is mapped to the iteration number of the algorithm.
+### Fields
+
+- `gradient_mappings::Dict{Int, Vector}`: gradient mapping is the difference between the solutions from the current 
+iterations and the previous iterations. It's collect sparsely according the policy parameter *collection_interval*. 
+- `gradient_mapping_norm::Vector{Real}`: The norm of the gradient mapping vector. 
+- `objective_vals::Vector{Real}`: The objective values of the cost function. 
+- `solns::Dict{Int, Vector}`: the solutions stored together with the indices. 
+- `soln::Vector`: The final solution obtained by the algorithm. 
+- `step_sizes::Vector{Real}`: all the stepsizes used by the algorithm. 
+- `flags::Int`: exit flag
+    * `0` Exited and the algorithm reached desired tolerance. 
+    * `1` Maximum iteration reached and then exit is triggered. 
+- `collection_interval::Int`
+    * Collect one solution per `collection_interval` iteration. 
+- `itr_counter::Int`: An inner counter in the struct the keep track of the number of iterations, it's for mapping the 
+results and using with the dictionary data structure. 
 """
 mutable struct ProxGradResults
     
@@ -48,6 +57,15 @@ mutable struct ProxGradResults
 
 end
 
+"""
+Initiate the instance of `ProxGradResults`, it's required, without this this class won't let you do anything. Because 
+it at least need the initial conditions for the gradient descend algorithms. 
+### Argument
+- `ProxGradResults`: The type that this function acts on. 
+- `x0::Vecotr`: The initial guess for the algorithm. 
+- `objective_initial::Real`: The initial objective value for the optimization problem. 
+- `step_size::Real`: The initial step size for running the algorithm. 
+"""
 function Initiate!(this::ProxGradResults, x0::Vector, obj_initial::Real, step_size::Real)
     this.itr_counter = 0
     this.solns[this.itr_counter] = x0
@@ -56,6 +74,11 @@ function Initiate!(this::ProxGradResults, x0::Vector, obj_initial::Real, step_si
     return nothing
 end
 
+"""
+During each iteration, we have the option to store the parameters when the algorithm is running. 
+- `this::ProxGradResults`: This is the type that the function acts on. 
+- `soln::Vector`: This is the solution vector at the current iteration of the algorithm. 
+"""
 function Register!(this::ProxGradResults, obj::Real, soln::Vector, pgrad_map::Vector, step_size::Real)
     if this.itr_counter == -1
         error("ProxGrad Results is called without initiation.")
@@ -67,8 +90,8 @@ function Register!(this::ProxGradResults, obj::Real, soln::Vector, pgrad_map::Ve
     push!(this.step_sizes, step_size)
 
     if mod(k, this.collection_interval) == 0
-        this.solns[k] = soln
-        this.gradient_mappings[k] = pgrad_map
+        this.solns[k] = copy(soln)
+        this.gradient_mappings[k] = copy(pgrad_map)
     end
     return nothing
 end
@@ -78,7 +101,7 @@ end
 """
 function GetAllSolns(this::ProxGradResults)
     result = Vector{Vector}()
-    for k in sort(keys(this.solns)|>collect, rev=true)
+    for k in sort(keys(this.solns)|>collect)
         push!(result, this.solns[k])
     end
     return result
@@ -87,15 +110,15 @@ end
 
 
 """
-    Performs the proximal gradient algorithm, and there are many options to make life easier. 
-    * g, h are smooth and non smooth functions
-    * x0 is not optinal
-    * step size is optional and it has a default value. 
-        * If step size is not explicitly given, line search will be triggered automatically and 
-        a default step size will be assigned. 
-    * Linear Search: 
-        Specify whether we should use line search. This works for both the smooth and the 
-        accelerated case. 
+Performs the proximal gradient algorithm, and there are many options to make life easier. 
+* g, h are smooth and non smooth functions
+* x0 is not optinal
+* step size is optional and it has a default value. 
+    * If step size is not explicitly given, line search will be triggered automatically and 
+    a default step size will be assigned. 
+* Linear Search: 
+    Specify whether we should use line search. This works for both the smooth and the 
+    accelerated case. 
 """
 function ProxGradient(
         g::SmoothFxn, 
@@ -124,7 +147,6 @@ function ProxGradient(
     lastlast_x = x0
     current_x = x0
     Initiate!(results_holder, x0, h(x0) + g(x0), l)
-
     @showprogress for k in 1:itr_max
         
         x⁺ = Prox(h, l, y - l*Grad(g, y))
