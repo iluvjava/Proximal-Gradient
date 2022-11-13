@@ -53,11 +53,6 @@ end
 
 
 
-# global Img_Float = nothing
-# global Mosaic_View = nothing
-# global Blurred_Img = nothing
-# global Img = nothing
-
 """
 The main function to run the experiment with.
  
@@ -74,19 +69,16 @@ function Run(
 )
     lambda = alpha*750000^(-1)
     img_path = "applications/image2.png"
-    global Img = load(img_path)
-    global Img_Float = Float64.(channelview(Img)|>collect)
+    Img = load(img_path)
+    Img_Float = Float64.(channelview(Img)|>collect)
     Img_Float = Img_Float[1:3, :, :]
     @info "Preparing Blurr matrix, parameters and functions. "
-    if !isdefined(Main, :A)
-        "The Blurr Matrix defined under the global scope of the Main"
-        global A = ConstructBlurrMatrix(size(Img_Float, 2), size(Img_Float, 3), 7)
-    end
+    "The Blurr Matrix defined under the global scope of the Main"
+    A = ConstructBlurrMatrix(size(Img_Float, 2), size(Img_Float, 3), 7)
     b = A*Img_Float[:] + 2e-2*randn(length(Img_Float))
     g = SquareNormResidual(A, b)
     h = length(b)*lambda*OneNorm()
-    global Results_Holder = ProxGradResults(80)
-
+    Results_Holder = ProxGradResults(80)
     ProxGradient(
         g, 
         h, 
@@ -97,12 +89,10 @@ function Run(
         itr_max=640, 
         results_holder = Results_Holder
         )
-    global Soln_Img = ImgInterpret(reshape(Results_Holder.soln, size(Img_Float)))
+    Soln_Img = ImgInterpret(reshape(Results_Holder.soln, size(Img_Float)))
     save("$file_name-soln_img.jpg", Soln_Img)
-    if !isdefined(Main, :Blurred_Img)
-        global Blurred_Img = ImgInterpret(reshape(b, size(Img_Float)))
-        save("$blurred_img.jpg", Blurred_Img)
-    end
+    Blurred_Img = ImgInterpret(reshape(b, size(Img_Float)))
+    save("$(filename)_blurred_img.jpg", Blurred_Img)
     Blurred_Img|>display
     Soln_Img|>display
     fig = plot(
@@ -113,18 +103,18 @@ function Run(
         dpi=300
     )
     fig|>display
-    savefig(fig, file_name)
+    savefig(fig, file_name*".png")
     soln_imags = GetAllSolns(Results_Holder)
     soln_imags = [reshape(img, size(Img_Float))|>ImgInterpret for img in soln_imags]
-    global Mosaic_View = mosaic(soln_imags..., nrow=3, rowmajor=true)
+    Mosaic_View = mosaic(soln_imags..., nrow=3, rowmajor=true)
     Mosaic_View |> display
-    return
+    return Results_Holder
 end
 
 
 
+t1 = Threads.@spawn begin; return Run("inverse_linear_experiment1", 0); end
+t2 = Threads.@spawn begin; return Run("inverse_linear_experiment2", 0.01); end
+t3 = Threads.@spawn begin; return Run("inverse_linear_experiment3", 0.1); end
 
-Results1 = Run("inverse_linear_experiment1.png", 0)
-Results3 = Run("inverse_linear_expriment2.png")
-Results2 = Run("inverse_linear_experiment3.png", 0.1)
 

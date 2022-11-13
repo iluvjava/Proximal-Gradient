@@ -4,6 +4,7 @@
 \usepackage[english]{babel}
 \usepackage{amsthm}
 \usepackage{mathtools}
+\usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{algorithmic}
 \usepackage{algorithm}
@@ -516,8 +517,35 @@
         In fact the convergence rate in general is linear when the smooth function $g$ is strongly convex (\textbf{REFERENCES NEEDED}). 
         
     \subsection*{Image Deblurring}
-        Here we reproduce the some of the experiment conducted in 
-    \subsection*{My Ideas}
+        We reproduced some of the experiments conducted in Beck's FISTA paper \cite{paper:FISTA} but using larger images with colors. We consider an cartoon image of a pink unicorn (I own the image) of 500 by 500 pixels, 3 color channels and it is blurred. The matrix $A$ that does the blurring, it is applying a discretized $15\times 15$ pixels guassian kernel with a variance of $4$ on all pixels with a periodic boundary condition across all color channel. The implementation for $A$ is a for loop that constructs sparse matrix $A$. The 750000 by 750000 sparse matrix $A$ acts on the vectorized image across all 3 channels independently. More efficient ways exist; such as using the kronecker product but for the sake of demonstration the alternatives are unexplored because with the explicit $A$ matrix I can reuse the code that made the previuos demonstration. 
+        \par
+        The vector $b = Ax^+ + \epsilon$ where $x^+$ is the flattend array of the original image of all tree color channel normalized to $[0, 1]$ using float64. The quantity $\epsilon$ is a zero mean guassian noise vector with zero mean and a variance of $2e-2$. Here we define $\lambda = \alpha\times (3\times500^2)^{-1}$, and we make 3 experiments with $\alpha = 0, 0.01, 0.1$. The initial guess vector $x^{(0)}$ is a random zero mean guassian vector of unit variance. The blurred image is showed in \hyperref[fig:blurred_alto]{figure \ref*{fig:blurred_alto}}
+        \begin{figure}[H]
+            \centering
+            \includegraphics*[width=5cm]{blurred_img.jpg}
+            \caption{The image blurred by the Guassian Blurred matrix $A$ and with tiny amount of noise on the level of $2e-2$. Zoom in to observe the tiny amount of Gaussian noise ontop of the blur.}
+            \label{fig:blurred_alto}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.31\textwidth}
+                \includegraphics[width=5cm]{inverse_linear_experiment1-soln_img.jpg}
+                \caption{} \label{fig:1a}
+            \end{subfigure}     %
+            \hspace*{\fill}     % maximize separation between the subfigures
+            \begin{subfigure}{0.31\textwidth}
+                \includegraphics[width=5cm]{inverse_linear_experiment2-soln_img.jpg}
+                \caption{} \label{fig:1b}
+            \end{subfigure}     %
+            \hspace*{\fill}     % maximizeseparation between the subfigures
+            \begin{subfigure}{0.31\textwidth}
+                \includegraphics[width=5cm]{inverse_linear_experiment3-soln_img.jpg}
+                \caption{} \label{fig:1c}
+            \end{subfigure}
+            \caption{(a) $\alpha = 0$, without any one norm penalty is not robust to the additional noise. (b) $\alpha = 0.01$, there is a tiny amount of $\lambda$. (c) $\alpha = 0.1$, a bit more pental compare to (a).}
+            \label{fig:3}
+        \end{figure}
+
 
 \appendix
 \begin{section}{Proof for Convergence of FISTA}\label{sec:fista1_proof}

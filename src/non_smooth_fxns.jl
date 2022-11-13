@@ -36,13 +36,13 @@ function (this::OneNorm)(t::T1, x::AbstractArray{T2}) where {T1 <: Number, T2 <:
     "however we get t = $(t)"
     λ = this.multiplier
     T(z) = sign(z)*max(abs(z) - t*λ, 0)    
-    result = similar(x)
+    # result = similar(x)
     # Parellel
-    Threads.@threads for idx in eachindex(x)
-        result[idx] = T(x[idx])
-    end
-    return result
-    # return T.(x)
+    # Threads.@threads for idx in eachindex(x)
+    #     result[idx] = T(x[idx])
+    # end
+    # return result
+    return T.(x)
 end
 
 
