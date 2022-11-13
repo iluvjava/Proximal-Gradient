@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex report"] 1668243038 "report.aux" "report.bbl" "report" 1668243040
+["bibtex report"] 1668327900 "report.aux" "report.bbl" "report" 1668327902
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   "refs.bib" 1667325871 1891 93c9fc4e681c2e77a739b3a7e507f58b ""
-  "report.aux" 1668243039 5496 2996b46ee51f79d1e52f3ab8ff6a3db0 "pdflatex"
+  "report.aux" 1668327901 5945 d59c3a56158b20e45b863fba0feeba56 "pdflatex"
   (generated)
-  "report.blg"
   "report.bbl"
-["pdflatex"] 1668243038 "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf" "report" 1668243040
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux" 1668243039 5496 2996b46ee51f79d1e52f3ab8ff6a3db0 ""
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" 1668243037 45631 033a0cc81196ad3ab632c666ee3c556f ""
+  "report.blg"
+["pdflatex"] 1668327900 "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf" "report" 1668327902
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux" 1668327901 5945 d59c3a56158b20e45b863fba0feeba56 ""
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" 1668327881 47893 1aa007be2593a87c7836216322b2d372 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1136768653 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
@@ -152,16 +152,16 @@
   "/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1616695603 5169178 a2ce6e2d73f603b690db6777d06dbccb ""
   "/usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1639775816 2724744 21efffca8bfeec89977fe7c6aafcfaa8 ""
   "/usr/local/texlive/2021/texmf.cnf" 1616695596 577 4c1911a7228e554c6032256d3cf5567d ""
-  "report.aux" 1668243039 5496 2996b46ee51f79d1e52f3ab8ff6a3db0 "pdflatex"
-  "report.bbl" 1668243038 379 f448832ded5b1148a44f93c180c77a17 "bibtex report"
-  "report.out" 1668243039 3993 a24918ef5fe0e577a3d6dc499cd10cee "pdflatex"
-  "report.tex" 1668243037 45631 033a0cc81196ad3ab632c666ee3c556f ""
+  "report.aux" 1668327901 5945 d59c3a56158b20e45b863fba0feeba56 "pdflatex"
+  "report.bbl" 1668327900 379 f448832ded5b1148a44f93c180c77a17 "bibtex report"
+  "report.out" 1668327901 3993 a24918ef5fe0e577a3d6dc499cd10cee "pdflatex"
+  "report.tex" 1668327881 47893 1aa007be2593a87c7836216322b2d372 ""
   "simple_lass_obj.png" 1668241148 90329 9124a45b46f99bc613ccd01d9b8ee3c1 ""
   "simple_lass_pgrad.png" 1668241148 126184 d5c524fa002a526a5459ef5b3ea1396a ""
   (generated)
+  "report.out"
   "report.log"
   "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf"
-  "report.out"
-  "report.pdf"
   "report.aux"
+  "report.pdf"
   "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.log"

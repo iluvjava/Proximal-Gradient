@@ -83,16 +83,17 @@
     \end{align}
     where the objectives can be splitted into the sum of two functions. Algorithms are developed for solving optimization problems of this format. We will list some of the algorithms with their convergence rate under different assumptions. 
     \begin{enumerate}
-        \item [1.] The projected subgradient algorithm solves $h = \delta_Q$ where $Q$ is a closed convex set and $g$ is closed and convex with $Q\subseteq\text{ri}\circ \text{dom}(g)$. The algorithm generates a sequence of $x^{(k)}$ where the average weighted by step size  of all these solutions has a convergence rate of $\mathcal O(1/\sqrt{k})$. 
+        \item [1.] The projected subgradient algorithm solves $h = \delta_Q$ where $Q$ is a closed convex set and $g$ is closed and convex with $Q\subseteq\text{ri}\circ \text{dom}(g)$. The algorithm generates a sequence of $x^{(k)}$ where the average weighted by step size of all these solutions has a convergence rate of $\mathcal O(1/\sqrt{k})$; this result is from the convex analysis class I took before. For a more throughly exposition of the matter regarding the convergence of the optimality for subgradient method under certain choice of step sizes, refers to Theorem 8.13 of Beck's work\cite{book:first_order_opt}. 
         \item [2.] The proximal Graidient algorithm are used for strongly smooth function $g$ and a convex, closed and proper function $h$ that has an easy to compute proximal oracle. Under convexity assumption for $h$, the optimal and the minimizer exists and the convergence rate is $\mathcal O(1/k)$. 
         \item [3.] The Accelerated Proximal Algorithm, which is a modified version of the proximal gradient that uses Nesterov Momentum and converges with $\mathcal O(1/k^2)$ with an additional convexity assumption on $g$. The convergence can be even faster when more additional assumptions are added to $g$. 
     \end{enumerate}
-    We introduce the setup of the algorithms, and provides proofs for some of the convergence results of the Proximal Gradient algorithms. Possible variants with step sizes will be discussed. We also implemented some example of the algorihm in Julia. 
+    In this report, we introduce the setup for the proximal gradient algorithms. We give proofs for the convergence results of the Proximal Gradient algorithms with fixed step sizes with and without the Nestrov Momentum. Finally, we also implemented some nontrivial examples of the algorihm in Julia. 
     \par
     For this report, most of the content can be found in Amir's Beck and textbook \cite{book:first_order_opt}, and the proof for the convergence of Accelerated Proximal Gradient method closely follows the original paper for FISTA\cite{paper:FISTA} by Amir and Marc Teboulle. Other additional and specific materials references will be in the discussion. 
     \par 
-    (\textbf{EDIT HERE}) Section .. of the paper introduces... 
-\section{Preliminaries}
+    In the section \ref*{sec:preliminaries} we introduce the minimum mathematical background needed to understand the proximal gradient method. In the second section \ref*{sec:pg_forward_backward_env} we introduce the proximal gradient via envelope and the idea of majorization and minimization. In addition, we introduce several important lemma related to the monotone property of the Proximal Gradient method and the choice of step size, and extract out the important lemma \ref*{lemma:prox_two_p} for the proof of the accelerated case, which is in the appendix. In section \ref*{sec:pg_convergence} we prove the convergence of the proximal gradient method under convexity and smoothness assumption with a fixed step size. And in section \ref*{sec:apg_intro} we state the proximal gradient algorithm with Nesterov acceleration (also refers to as FISTA), and in the appendix we prove the better cnvergence of FISTA in thorough detail. Finally, for applications in section \ref*{sec:numerical_experiments}, we consider the convergence of the optimality and the norm of the gradient mapping for the LASSO problem, and then we apply the LASSO algorithm for the task of deblurring images with high gussian noise. In the that same section, other common applications and extension of the algorithm will also be introduced. 
+
+\section{Preliminaries}\label{sec:preliminaries}
     The proximal operator is a crucial component for the algorithm and its non-expansive  property is relevant to the convergence of Proximal Gradient under the non-convex case. We won't go into detail for the non-convex case. Under the assumption of convexity for $f$, the property of the strongly smooth function is more relevant. 
     \subsection{The Proximal Operator}
         \begin{definition}[Proximal Operator and Moreau Envelope]
@@ -165,8 +166,7 @@
         \end{definition}
         The absolute value sign can be removed and replaced with $0\le$ when the function $g$ is a convex function.
         
-
-\section{Proximal Gradient and Forward Backward Envelope}
+\section{Proximal Gradient and Forward Backward Envelope}\label{sec:pg_forward_backward_env}
     We introduce the algorithm through the forward backward envelope, which helps with the intuitive undestanding with this algorithm. We then state some of the important properties. The name forward backward envelope is credit to numerical method that simulates gradient dynamical system that is the summation of a stiff and nonstiff dynamics by using forward Euler on the nonstiff part, and backward Euler on the stiff part. We won't go into detail regarding this specific interpretation of the proximal gradient method. 
     \begin{assumption}\label{assumption:1}
         We will assume that $g:\mathbb E\mapsto \mathbb R$ is strongly smooth with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ is closed convex and proper. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(f) \cap \text{ri}\circ \text{dom}(g) \neq \emptyset$. 
@@ -290,7 +290,7 @@
             The \hyperref[alg:1]{Proximal Gradient With Fixed Step Size} algorithm terminates either the iteration limit $N$ is reached, or the fixed point iterations on the operator $\mathcal P$ has converged. Under some cases, the Lipschiz constant for $g$ can be obtained, under some other cases it's not easy to obtain. 
         \end{remark}
 
-\section{Convergence of Proximal Gradient}
+\section{Convergence of Proximal Gradient}\label{sec:pg_convergence}
     Here, we give analysis for the convergence behaviors of the algorithm in \hyperref[alg:1]{\ref*{alg:1}} with fixed stepsizes and assumption \hyperref[assumption:1]{\ref*{assumption:1}} is true. 
     \subsection{Convergence Under the Convex Case}
         Before the proof, we state some of the quantities that are involved in the proof. 
@@ -454,8 +454,10 @@
             \end{align*}
             and by substituting $x :=y$ and $z := x$ in the last line, we completed the proof of the lemma. 
         \end{proof}
-\section{Accelerated Proximal Gradient}
-    Here we state the FISTA algorithm in paper\cite{paper:FISTA}. The convergence rate will also be stated but the proof with extra details that closedly follows what is in the paper will be put into the appendix. 
+
+\section{Accelerated Proximal Gradient}\label{sec:apg_intro}
+    Here we state the Accelerated Proximal algorithm in Beck's Paper paper\cite{paper:FISTA}. The convergence rate will be stated. The convergence proof follows what is in the paper but with more details is in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the Proximal Gradient with Nesterive momentum applied to the LASSO problem (\textbf{CITATION NEEDED}). FISTA is a successor of the ISTA algorithm (\textbf{CITATION NEEDED}) and it is basically the same as FISTA but without the Nesterov momentum. 
+    
     \subsection{Accelerated Proximal Gradient Algorithm} 
         \begin{algorithm}[H]\label{alg:fista_1} 
         \begin{algorithmic}[1]
@@ -471,6 +473,7 @@
             \ENDFOR
         \end{algorithmic}\caption{FISTA With Constant Step Size}
         \end{algorithm}
+
     \subsection{Convergence Under the Convex Case}
         \begin{theorem}[FISTA Convergence under Convexity]\label{thm:fista_convergence1}
             If \hyperref[assumption:1]{assumption \ref*{assumption:1}} is satisfied, then the FISTA algorithm has convergence result of: 
@@ -485,23 +488,24 @@
             For a proof see \hyperref[sec:fista1_proof]{appendix \ref*{sec:fista1_proof}}
         \end{proof}
 
-\section{Numerical Experiments}
+\section{Numerical Experiments}\label{sec:numerical_experiments}
+    In this section we consider a simple LASSO algorithm to demonstrate the convergence and then we demonstrate a way more complicated application of image deblurring with noises using the FISTA algorithm. 
     \subsection*{Simple LASSO}
         As the name suggested, we consider the overuse example problem of: 
         \begin{align*}
             \min_{x}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1
         \end{align*}
-        For a brief background, This optimization problem commonly appears in the contex of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. The implementation is simple and the proximal gradient oracle for $\Vert \dot \Vert_1$ is given as: 
+        For a brief background, This optimization problem commonly appears in the contex of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. The implementation is simple and the proximal gradient oracle for $\Vert \cdot \Vert_1$ is given as: 
         \begin{align*}
            (\text{prox}_{\lambda\Vert \cdot \Vert, t}(x))_i
            = 
            \text{sign}(x_i)\max(|x_i| - t\lambda, 0), 
         \end{align*}
-        And one can interpret the $\text{sign}$ function as a projection onto the interval $[-1, 1]$, and the $\max(|x| - t\lambda, 0)$ function as the distance of $x$ to the set $[-t\lambda, t\lambda]$. 
+        which can be interpreted the $\text{sign}$ function as the projection onto the interval $[-1, 1]$, and the $\max(|x| - t\lambda, 0)$ as the distance of $x$ to the set $[-t\lambda, t\lambda]$. 
         \par
-        For this simple problem, we consider $A$ to be 128 by 128, that is a diagonal matrix whose diagnals are equally space points from the interval $[0, 1]$. The right handside vector $b$ is the same as the diagonal of matrix $A$, but every odd index is replaced with a guassian random noise on the level of $1e-4$. The experiment is performed with using both ISTA and FISTA with $\lambda = 1e-1$ (This is used to prevent triggering the line search routine in the implementation), both uses a step size of $0.1$ and an initial guess of a vector of all ones. 
+        For this simple lasso problem, we make $A$ to be a diagonal 128 by 128 matrix, whose diagnals are points equally spaed in the interval $[0, 1]$. The right hand side vector $b$ is the same as the diagonal of matrix $A$, but with every odd index replaced with a guassian random noise on the level of $1e-4$. The experiment is performed using both ISTA and FISTA with $\lambda = 1e-1$ (This is used to prevent triggering the line search routine in the implementation), both uses a step size of $0.1$ and an initial guess vector $x^{(0)}$ all ones. 
         \par
-        For the experiment we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_2$ for each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Observe that the type of convergence for the proximal gradient operator in the FISTA case is fundamentally different compare to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot is close to a straight line, indicating a first order convergence of this quantity. In the case of FISTA, the rate is obviously slower from the plot, and there are non trivial amount of oscilations which is unlikely to be the results of numerical issues.  
+        For the experiment we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_2$ of each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Observe that the type of convergence for the proximal gradient operator in the FISTA case is different compare to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot is resemble a line, indicating a first order convergence of this quantity. In the case of FISTA, the rate of convergence is slower than ISTA, and there are non trivial amount of oscilations which is unlikely to be the results of numerical issues.  
         \begin{figure}[h]
             \centering
             \includegraphics*[width=8cm]{simple_lass_obj.png}
@@ -560,7 +564,7 @@
                 2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - \bar x\rangle. 
                 \tag{$*$}
             \end{align*}
-            Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the FISTA algorithm (\textbf{HYPERLINK NEEDED}). We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
+            Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the \hyperref[alg:fista_1]{FISTA Algorithm}. We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
             \begin{align*}
                 f(\bar x) - f\circ \mathcal P y^{(k + 1)}
                 & \ge 

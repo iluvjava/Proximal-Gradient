@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  12 NOV 2022 00:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  13 NOV 2022 00:25
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -514,45 +514,45 @@ LaTeX Warning: No \author given.
 
 [1
 
-{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 286.
- [5] [6] [7] [8] [9]
+ [6] [7] [8] [9]
 <simple_lass_obj.png, id=212, 1806.75pt x 1204.5pt>
 File: simple_lass_obj.png Graphic file (type png)
 <use simple_lass_obj.png>
-Package pdftex.def Info: simple_lass_obj.png  used on input line 507.
+Package pdftex.def Info: simple_lass_obj.png  used on input line 511.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 <simple_lass_pgrad.png, id=214, 1806.75pt x 1204.5pt>
 File: simple_lass_pgrad.png Graphic file (type png)
 <use simple_lass_pgrad.png>
-Package pdftex.def Info: simple_lass_pgrad.png  used on input line 508.
+Package pdftex.def Info: simple_lass_pgrad.png  used on input line 512.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
  [10pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   
-l.535             \end{align*}
-                               </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_obj.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_pgrad.png>]
-Overfull \hbox (8.37271pt too wide) detected at line 697
+l.520     \subsection
+                     *{My Ideas} </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_obj.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_pgrad.png>] [11]
+Overfull \hbox (8.37271pt too wide) detected at line 701
 []
  []
 
-[11] [12] [13] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.bbl) [14] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
+[12] [13] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.bbl) [14] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: A24918EF5FE0E577A3D6DC499CD10CEE;3993.
  ) 
 Here is how much of TeX's memory you used:
- 13629 strings out of 478994
- 198678 string characters out of 5858183
- 564917 words of memory out of 5000000
- 30786 multiletter control sequences out of 15000+600000
+ 13634 strings out of 478994
+ 198788 string characters out of 5858183
+ 562174 words of memory out of 5000000
+ 30791 multiletter control sequences out of 15000+600000
  421755 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 81i,22n,89p,829b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 81i,22n,89p,1420b,601s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (14 pages, 533301 bytes).
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (14 pages, 534761 bytes).
 PDF statistics:
- 356 PDF objects out of 1000 (max. 8388607)
- 309 compressed objects within 4 object streams
+ 358 PDF objects out of 1000 (max. 8388607)
+ 311 compressed objects within 4 object streams
  94 named destinations out of 1000 (max. 500000)
  183 words of extra memory for PDF output out of 10000 (max. 10000000)
 
