@@ -494,19 +494,21 @@
     \subsection*{Simple LASSO}
         As the name suggested, we consider the overuse example problem of: 
         \begin{align*}
-            \min_{x}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1
+            \min_{x}\left\lbrace
+                \frac{1}{2}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1    
+            \right\rbrace
         \end{align*}
-        For a brief background, This optimization problem commonly appears in the contex of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. The implementation is simple and the proximal gradient oracle for $\Vert \cdot \Vert_1$ is given as: 
+        For a brief background, This optimization problem commonly appears in the context of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. The implementation is simple and the proximal gradient oracle for $\Vert \cdot \Vert_1$ is given as: 
         \begin{align*}
            (\text{prox}_{\lambda\Vert \cdot \Vert, t}(x))_i
            = 
            \text{sign}(x_i)\max(|x_i| - t\lambda, 0), 
         \end{align*}
-        which can be interpreted the $\text{sign}$ function as the projection onto the interval $[-1, 1]$, and the $\max(|x| - t\lambda, 0)$ as the distance of $x$ to the set $[-t\lambda, t\lambda]$. 
+        which can be interpreted the $\text{sign}$ function as the projection onto the interval $[-1, 1]$, and the $\max(|x| - t\lambda, 0)$ as the distance of $x$ to the set $[-t\lambda, t\lambda]$. The quantity $t$ here is the stepsize, and in our case the less than the reciprical of the maximum absolute eigenvalue of $A^TA$. 
         \par
-        For this simple lasso problem, we make $A$ to be a diagonal 128 by 128 matrix, whose diagnals are points equally spaed in the interval $[0, 1]$. The right hand side vector $b$ is the same as the diagonal of matrix $A$, but with every odd index replaced with a guassian random noise on the level of $1e-4$. The experiment is performed using both ISTA and FISTA with $\lambda = 1e-1$ (This is used to prevent triggering the line search routine in the implementation), both uses a step size of $0.1$ and an initial guess vector $x^{(0)}$ all ones. 
+        For this simple lasso problem, we make $A$ to be a diagonal 128 by 128 matrix, whose diagnals are points equally spaed in the interval $[0, 2]$. Observe that this is quadratic but not strongly convex. The right hand side vector $b$ is the same as the diagonal of matrix $A$, but with every odd index replaced with a guassian random noise on the level of 1e-3. The experiment is performed using both ISTA and FISTA with $\lambda = 10^{-2}$, and both uses a step size of $0.2$(This is used to prevent triggering the line search routine in the implementation). The initial guess vector $x^{(0)}$ is a vector of all three, and it's the same for both FISTA, ISTA. 
         \par
-        For the experiment we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_2$ of each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Observe that the type of convergence for the proximal gradient operator in the FISTA case is different compare to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot is resemble a line, indicating a first order convergence of this quantity. In the case of FISTA, the rate of convergence is slower than ISTA, and there are non trivial amount of oscilations which is unlikely to be the results of numerical issues.  
+        For the experiment we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_\infty$ in the none accelerated case and $\Vert y^{(k)} - x^{(k + 1)}\Vert_\infty$ in the accelerated case for each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Both algorithm terminates whenever the norm of the proximal gradient mapping is less than 1e-10 during the iteration. The norm is plotted on a log scale. Observe that the type of convergence for FISTA very different compare to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot resemble a curve at the start and quicktly changes its behaviors in the later iterations. The convergence of iteration after 2000 is a straight line. This is indicating a first order convergence of this quantity in the case of ISTA. In the case of FISTA, the overall rate of convergence is slower than ISTA for 2000 iterations and then it started to slow down; it converges faster regardless. The objective value is plotted on the left of \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}}, and it's plotted on a log scale. The optimal value $f(\bar x)$ is assumed to be whenever the gradient mapping has a norm within 1e-10. Observe that FISTA already reaches the optimal around 476 iterations disregarding the fact that the norm of the gradient mapping is not within the tolerance. 
         \begin{figure}[h]
             \centering
             \includegraphics*[width=8cm]{simple_lass_obj.png}
@@ -514,16 +516,19 @@
             \caption{The left is the objective value of the function during all iterations and the right side is the norm of the gradient mapping for all the iteraitons. }
             \label{fig:lasso_1}
         \end{figure}
-        In fact the convergence rate in general is linear when the smooth function $g$ is strongly convex, see theorem 10.29 of Beck's book\cite{book:first_order_opt} for the linear convergence of proximal gradient when acceleration is not used. There are other variants of FISTA such as the Restarted FISTA, their convergence bahviors is discussed in Beck book, Theorem 10.41 \cite{book:first_order_opt}. 
+        \begin{remark}
+            In fact the convergence rate in general is linear when the smooth function $g$ is strongly convex, see theorem 10.29 of Beck's book\cite{book:first_order_opt} for the linear convergence of proximal gradient when acceleration is not used. There are other variants of FISTA such as the Restarted FISTA, their convergence bahviors is discussed in Beck book, Theorem 10.41 \cite{book:first_order_opt}.     
+        \end{remark}
+        
         
     \subsection*{Image Deblurring}
         We reproduced some of the experiments conducted in Beck's FISTA paper \cite{paper:FISTA} but using larger images with colors. We consider an cartoon image of a pink unicorn (I own the image) of 500 by 500 pixels, 3 color channels and it is blurred. The matrix $A$ that does the blurring, it is applying a discretized $15\times 15$ pixels guassian kernel with a variance of $4$ on all pixels with a periodic boundary condition across all color channel. The implementation for $A$ is a for loop that constructs sparse matrix $A$. The 750000 by 750000 sparse matrix $A$ acts on the vectorized image across all 3 channels independently. More efficient ways exist; such as using the kronecker product but for the sake of demonstration the alternatives are unexplored because with the explicit $A$ matrix I can reuse the code that made the previuos demonstration. 
         \par
-        The vector $b = Ax^+ + \epsilon$ where $x^+$ is the flattend array of the original image of all tree color channel normalized to $[0, 1]$ using float64. The quantity $\epsilon$ is a zero mean guassian noise vector with zero mean and a variance of $2e-2$. Here we define $\lambda = \alpha\times (3\times500^2)^{-1}$, and we make 3 experiments with $\alpha = 0, 0.01, 0.1$. The initial guess vector $x^{(0)}$ is a random zero mean guassian vector of unit variance. The blurred image is showed in \hyperref[fig:blurred_alto]{figure \ref*{fig:blurred_alto}}
+        The vector $b = Ax^+ + \epsilon$ where $x^+$ is the flattend array of the original image of all tree color channel normalized to $[0, 1]$ using float64. The quantity $\epsilon$ is a zero mean guassian noise vector with zero mean and a variance of 2e-2. Here we define $\lambda = \alpha\times (3\times500^2)^{-1}$, and we make 3 experiments with $\alpha = 0, 0.01, 0.1$. The initial guess vector $x^{(0)}$ is a random zero mean guassian vector of unit variance. The blurred image is showed in \hyperref[fig:blurred_alto]{figure \ref*{fig:blurred_alto}}
         \begin{figure}[H]
             \centering
             \includegraphics*[width=5cm]{blurred_img.jpg}
-            \caption{The image blurred by the Guassian Blurred matrix $A$ and with tiny amount of noise on the level of $2e-2$. Zoom in to observe the tiny amount of Gaussian noise ontop of the blur.}
+            \caption{The image blurred by the Guassian Blurred matrix $A$ and with tiny amount of noise on the level of 2e-2. Zoom in to observe the tiny amount of Gaussian noise ontop of the blur.}
             \label{fig:blurred_alto}
         \end{figure}
         \begin{figure}[H]
