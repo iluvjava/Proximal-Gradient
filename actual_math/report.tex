@@ -498,7 +498,7 @@
                 \frac{1}{2}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1    
             \right\rbrace
         \end{align*}
-        For a brief background, This optimization problem commonly appears in the context of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters. The implementation is simple and the proximal gradient oracle for $\Vert \cdot \Vert_1$ is given as: 
+        For a brief background, This optimization problem commonly appears in the context of regression for generalized linear model where selection for sparse cofficients on the regression parameters is desired. Theoretically it corresponds to having a prior Laplace distribution for the regression parameters (See 11.4.1 in Murphy's\cite{book:ml_prob_murphy} book for more details.). The implementation is simple and the proximal gradient oracle for $\Vert \cdot \Vert_1$ is given as: 
         \begin{align*}
            (\text{prox}_{\lambda\Vert \cdot \Vert, t}(x))_i
            = 
@@ -524,7 +524,7 @@
     \subsection*{Image Deblurring}
         We reproduced some of the experiments conducted in Beck's FISTA paper \cite{paper:FISTA} but using larger images with colors. We consider an cartoon image of a pink unicorn (I own the image) of 500 by 500 pixels, 3 color channels and it is blurred. The matrix $A$ that does the blurring, it is applying a discretized $15\times 15$ pixels guassian kernel with a variance of $4$ on all pixels with a periodic boundary condition across all color channel. The implementation for $A$ is a for loop that constructs sparse matrix $A$. The 750000 by 750000 sparse matrix $A$ acts on the vectorized image across all 3 channels independently. More efficient ways exist; such as using the kronecker product but for the sake of demonstration the alternatives are unexplored because with the explicit $A$ matrix I can reuse the code that made the previuos demonstration. 
         \par
-        The vector $b = Ax^+ + \epsilon$ where $x^+$ is the flattend array of the original image of all tree color channel normalized to $[0, 1]$ using float64. The quantity $\epsilon$ is a zero mean guassian noise vector with zero mean and a variance of 2e-2. Here we define $\lambda = \alpha\times (3\times500^2)^{-1}$, and we make 3 experiments with $\alpha = 0, 0.01, 0.1$. The initial guess vector $x^{(0)}$ is a random zero mean guassian vector of unit variance. The blurred image is showed in \hyperref[fig:blurred_alto]{figure \ref*{fig:blurred_alto}}
+        The vector $b = Ax^+ + \epsilon$ where $x^+$ is the flattend array of the original image of all tree color channel normalized to $[0, 1]$ using float64. The quantity $\epsilon$ is a zero mean guassian noise vector with zero mean and a variance of 2e-2. Here we define $\lambda = \alpha\times (3\times500^2)^{-1}$, and we make 3 experiments with $\alpha = 0, 0.01, 0.1$. The initial guess vector $x^{(0)}$ is a random zero mean guassian vector of unit variance. The blurred image is showed in \hyperref[fig:blurred_alto]{figure \ref*{fig:blurred_alto}}. And the results of the deblurring algorithm for different value of $\alpha$ is showed in \hyperref[fig:alto_deblurred]{figure \ref*{fig:alto_deblurred}}, observe that with $\lambda = 0$, the solution contains a lot of noise but with just a tiny abount of $\lambda$, the noise on the black blackground is prevented. 
         \begin{figure}[H]
             \centering
             \includegraphics*[width=5cm]{blurred_img.jpg}
@@ -548,7 +548,7 @@
                 \caption{} \label{fig:1c}
             \end{subfigure}
             \caption{(a) $\alpha = 0$, without any one norm penalty is not robust to the additional noise. (b) $\alpha = 0.01$, there is a tiny amount of $\lambda$. (c) $\alpha = 0.1$, a bit more pental compare to (a).}
-            \label{fig:3}
+            \label{fig:alto_deblurred}
         \end{figure}
 
 

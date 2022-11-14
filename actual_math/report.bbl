@@ -11,4 +11,9 @@ Amir Beck and Marc Teboulle.
 \newblock A fast iterative shrinkage-thresholding algorithm for linear inverse
   problems, 2009.
 
+\bibitem{book:ml_prob_murphy}
+Kevin~P. Murphy.
+\newblock {\em Probabilistic Machine Learning: An introduction}.
+\newblock MIT Press, 2022.
+
 \end{thebibliography}
