@@ -144,8 +144,6 @@ function ProxGradient(
     Q(x, y, l) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*l)
     last_itr = 0
     last_x = x0
-    lastlast_x = x0
-    current_x = x0
     Initiate!(results_holder, x0, h(x0) + g(x0), l)
     @showprogress for k in 1:itr_max
         
@@ -161,12 +159,10 @@ function ProxGradient(
         pgrad_norm = norm(y - x⁺, Inf)
         
         # Update the parameters
-        t⁺ = nesterov_momentum ? (1 + sqrt(1 + 4t^2))/2 : 1
+        t⁺ = nesterov_momentum ? (1 + sqrt(1 + 4*t^2))/2 : 1
+        y = x⁺ + ((t - 1)/t⁺)*(x⁺ - last_x)
         t = t⁺
-        y = x⁺ + ((t - 1)/t⁺)*(x⁺ - current_x)
-        lastlast_x = last_x
-        last_x = current_x
-        current_x = x⁺
+        last_x = x⁺
 
         # check for termination conditions
         if pgrad_norm < epsilon
@@ -178,7 +174,7 @@ function ProxGradient(
     if last_itr == itr_max
         results_holder.flags = 1
     end
-    results_holder.soln = current_x
+    results_holder.soln = last_x
     return results_holder
 end
 

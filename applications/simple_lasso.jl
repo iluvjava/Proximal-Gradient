@@ -12,19 +12,19 @@ for II in eachindex(b)
     if mod(II, 2) == 1
         b[II] = A[II, II]
     else
-        b[II] = rand()*1e-4
+        b[II] = rand()*1e-3
     end
 end
 
-h = 0.1*OneNorm()
+h = 0.01*OneNorm()
 g = SquareNormResidual(A, b)
 
-ResultsA = ProxGradient(g, h, ones(N), 0.1, itr_max=2000, line_search=true, nesterov_momentum=true)
-ResultsB = ProxGradient(g, h, ones(N), 0.1, itr_max=2000, line_search=true, nesterov_momentum=false)
+ResultsA = ProxGradient(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, nesterov_momentum=true, epsilon=1e-10)
+ResultsB = ProxGradient(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, nesterov_momentum=false, epsilon=1e-10)
 fig = plot(
     (ResultsA.gradient_mapping_norm)[1:end - 2], yaxis=:log10, 
     title="Gradient Mapping Norm", 
-    ylabel=L"\left\Vert x_{k + 1} - x_{k} \right\Vert", label="FISTA", 
+    ylabel=L"\left\Vert y_{k} - x_{k + 1} \right\Vert", label="FISTA", 
     xlabel="Iteration Number: k",
     dpi=300
 )
@@ -35,13 +35,16 @@ plot!(fig,
 fig |> display
 savefig(fig, "simple_lass_pgrad.png")
 
+Fista_Min_Obj = argmin(ResultsA.objective_vals)
 fig2 = plot(
-    ResultsA.objective_vals[1:min(100, length(ResultsA.objective_vals))], title="Objective Values", label="FISTA", 
-    ylabel=L"[f + g](x_k)", xlabel="Iteration Number: k",
+    ResultsA.objective_vals[1:min(Fista_Min_Obj - 1, length(ResultsA.objective_vals))] .- minimum(ResultsA.objective_vals),
+    title="Objective Values", label="FISTA", 
+    ylabel=L"[f + g](x_k) - [f + g](\bar x)", xlabel="Iteration Number: k",
+    yaxis=:log10;
     dpi=300
 )
 plot!(
-    ResultsB.objective_vals[1:min(100, length(ResultsB.objective_vals))], 
+    ResultsB.objective_vals[1:min(Fista_Min_Obj - 1, length(ResultsB.objective_vals))] .- ResultsB.objective_vals[end], 
     label="ISTA"
 )
 

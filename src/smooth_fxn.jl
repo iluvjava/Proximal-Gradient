@@ -16,7 +16,7 @@ end
     Returns ‖Ax - b‖^2
 """
 function (this::SquareNormResidual)(x::AbstractVector{T}) where {T <: Number}
-    return norm(this.b - this.A*x)^2/2
+    return dot(this.A*x - this.b, this.A*x - this.b)/2
 end
 
 
