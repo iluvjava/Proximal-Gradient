@@ -16,4 +16,9 @@ Kevin~P. Murphy.
 \newblock {\em Probabilistic Machine Learning: An introduction}.
 \newblock MIT Press, 2022.
 
+\bibitem{paper:bloyd}
+Neal Parikh and Stephen Boyd.
+\newblock Proximal algorithms.
+\newblock {\em Found. Trends Optim.}, 1(3):127–239, jan 2014.
+
 \end{thebibliography}
