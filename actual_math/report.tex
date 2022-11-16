@@ -73,7 +73,7 @@
 \title{Proximal Gradient: Convergence, Implementations and Applications}
 \maketitle
 \begin{abstract}
-    We prove the proximal gradient and accelerated proximal gradient algorithm convergence rate under convexity assumptions. The proof for proximal gradient wihtout the Nesterov Acceleration is done differently compare to the original by work by Beck\cite{paper:FISTA}, we extract out a lemma and then use it to prove the convergence rate under the accelerated case. Additionally, we provide thorough context for the proximal gradient method by incorperating the majorization via envelope idea. Finally, we make numerical experiment that is different from Beck's original work by keeping track of the norm of the fixed point error on the proximal gradient step during our numerical experiment to expose a 2 phrase descent property. 
+    We prove the proximal gradient and accelerated proximal gradient algorithm convergence rate under convexity assumptions. The proof for proximal gradient wihtout the Nesterov Acceleration is done differently compare to the original by work by Beck\cite{paper:FISTA}, we extract out a lemma and then use it to prove the convergence rate under the accelerated case. Additionally, we provide thorough context for the proximal gradient method by incorperating the majorization via envelope idea. Finally, we make numerical experiment that is different from Beck's original work by keeping track of the norm of the fixed point error on the proximal gradient step during our numerical experiment to expose a 2 phase descent property. 
 \end{abstract}
 
 \numberwithin{equation}{subsection}
@@ -169,7 +169,9 @@
         \begin{theorem}[Lipschiz Gradient and Strong Smoothness Equivalence Under Convexit]\label{thm:cvx_lipz_grad}
             If $g$ is differentiable on the entire of $\mathbb E$, it's closed convex proper and it's strongly smooth with parameter $\alpha$, if and only if the gradient $\nabla g$ is gobally Lipschiz continuous with a parameter of $\alpha$ and $g$ is closed and convex. 
         \end{theorem}
-        (\textbf{CITATION NEEDED})
+        \begin{proof}
+            For conciseness we skip the proof here, to convince, consider applying generalized Cauchy Inequality to item (iv) in Theorem 5.8 for Beck's textbook \cite{paper:FISTA}. 
+        \end{proof}
         
 \section{Proximal Gradient and Forward Backward Envelope}\label{sec:pg_forward_backward_env}
     We introduce the algorithm through the forward backward envelope, this helps with the intuitive undestanding with this algorithm. We then state some of the important properties. The name forward backward envelope is credit to numerical method that simulates gradient dynamical system that is the summation of a stiff and nonstiff dynamics by using forward Euler on the nonstiff part, and backward Euler on the stiff part. We won't go into detail regarding this specific interpretation of the proximal gradient method. For more detail regarding this interpretation of proximal gradient method refers to Bloyd's paper \cite{paper:bloyd}. 
@@ -307,7 +309,6 @@
                 &\le  
                 \frac{\beta(\Vert x^{(0)} - \bar x\Vert^2 - \Vert x^{(N + 1)} - \bar x\Vert^2)}{2(N + 1)}. 
             \end{align*}
-            
         \end{theorem}
         \begin{proof}
             This proof is standard and doesn't completely resemble the proof showed in \cite[Aimir, Teboulle]{paper:FISTA}, nonetheless we will extract a lemma out of this proof and use that as the foundation for the proof in the Nesterov Accelerated case of the proximal gradient algorithm.  
@@ -457,7 +458,7 @@
         \end{proof}
 
 \section{Accelerated Proximal Gradient}\label{sec:apg_intro}
-    Here we state the Accelerated Proximal algorithm in Beck's Paper paper\cite{paper:FISTA}. The convergence rate will be stated. The convergence proof follows what is in the paper but with more details is in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the Proximal Gradient with Nesterive momentum applied to the LASSO problem (\textbf{CITATION NEEDED}). FISTA is a successor of the ISTA algorithm (\textbf{CITATION NEEDED}) and it is basically the same as FISTA but without the Nesterov momentum. 
+    Here we state the Accelerated Proximal algorithm in Beck's Paper paper\cite{paper:FISTA}. The convergence rate will be stated. The convergence proof follows what is in the paper but with more details is in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the Proximal Gradient with Nesterive momentum applied to the LASSO problem. FISTA is an accelerated case of the ISTA algorithm and it is basically the same as FISTA but without the Nesterov momentum. 
     
     \subsection{Accelerated Proximal Gradient Algorithm} 
         \begin{algorithm}[H]\label{alg:fista_1} 
@@ -519,7 +520,6 @@
         \begin{remark}
             In fact the convergence rate of the optimalith gap in general is linear when the smooth function $g$ is strongly convex, see theorem 10.29 of Beck's book\cite{book:first_order_opt} for the linear convergence of proximal gradient when acceleration is not used. There are other variants of FISTA such as the Restarted FISTA, their convergence bahviors is discussed in Beck book, Theorem 10.41 \cite{book:first_order_opt}.     
         \end{remark}
-        
         
     \subsection*{Image Deblurring}
         We reproduced some of the experiments conducted in Beck's FISTA paper \cite{paper:FISTA} but using larger images with colors. We consider an cartoon image of a pink unicorn (I own the image) of 500 by 500 pixels, 3 color channels and it is blurred. The matrix $A$ that does the blurring, it is applying a discretized $15\times 15$ pixels guassian kernel with a variance of $4$ on all pixels with a periodic boundary condition across all color channel. The implementation for $A$ is a for loop that constructs sparse matrix $A$. The 750000 by 750000 sparse matrix $A$ acts on the vectorized image across all 3 channels independently. More efficient ways exist; such as using the kronecker product but for the sake of demonstration the alternatives are unexplored because with the explicit $A$ matrix I can reuse the code that made the previuos demonstration. 

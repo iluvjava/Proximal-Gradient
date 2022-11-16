@@ -29,7 +29,7 @@ end
 
 
 """
-    argmin_u(this(u) + (1/(2λ))‖x - u‖^2)
+returns Argmin_u(this(u) + (1/(2t))‖x - u‖^2)
 """
 function (this::OneNorm)(t::T1, x::AbstractArray{T2}) where {T1 <: Number, T2 <: Number}
     @assert t > 0 "The prox constant for the prox operator has to be a strictly positive real, "*

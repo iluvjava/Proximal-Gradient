@@ -13,7 +13,7 @@ end
 
 
 """
-    Returns ‖Ax - b‖^2
+Returns ‖Ax - b‖^2
 """
 function (this::SquareNormResidual)(x::AbstractVector{T}) where {T <: Number}
     return dot(this.A*x - this.b, this.A*x - this.b)/2
@@ -21,7 +21,7 @@ end
 
 
 """
-    Returns the gradient of the 2 norm residual function. 
+Returns the gradient of the 2 norm residual function. 
 """
 function Grad(this::SquareNormResidual, x::AbstractVector{T}) where {T <: Number}
     A = this.A; 
@@ -31,7 +31,7 @@ end
 
 
 """
-    The logistic loss function, binary classifications. 
+ The logistic loss function, binary classifications. 
 """
 mutable struct LogisticLoss <: SmoothFxn
 

@@ -1,0 +1,51 @@
+\documentclass{beamer}
+\newtheorem{prop}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{thm}{Thereom}
+\newtheorem{corr}{Corollary}
+
+\title[Little Title]{Title}
+\author[Hongda Li]{Hongda Li}
+\vspace{-1cm}
+\institute[]
+{
+    {
+        \small My Current Institute
+    }\\
+        \vspace{1cm}
+    {
+        \small {\color{blue}Sub Title}
+    }\\
+        \vspace{1cm}
+        \date[May ??th 2022]        
+}
+
+\date[May ??th 2022]
+
+\usepackage{multicol}
+\AtBeginSection
+{\begin{frame}{ToC}
+    \begin{multicols}{2}
+    \tableofcontents[currentsection,hideothersubsections]
+    \end{multicols}
+\end{frame}}
+
+\usepackage{biblatex}
+\addbibresource{refs.bib}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+    \subsection{The First Section}
+        \begin{frame}{The First Frame}
+        \end{frame}
+
+\section{Bib}
+    \begin{frame}[noframenumbering,plain,allowframebreaks]{Bibliography}
+        \printbibliography[heading=none]
+    \end{frame}
+
+
+\end{document}
