@@ -93,7 +93,8 @@
     For this report, most of the content can be found in Amir's Beck and textbook \cite{book:first_order_opt}, and the proof for the convergence of Accelerated Proximal Gradient method closely follows the original paper for FISTA\cite{paper:FISTA} by Amir and Marc Teboulle. Other additional and specific materials might get used during the expression as well. 
     \par 
     In the \hyperref[sec:preliminaries]{section \ref*{sec:preliminaries}} we introduce the minimum mathematical background needed to understand the proximal gradient method. In the second \hyperref[sec:pg_forward_backward_env]{section \ref*{sec:pg_forward_backward_env}} we introduce the proximal gradient via envelope and the idea of majorization and minimization. In addition, we introduce several important lemma related to the monotone property of the Proximal Gradient method and the choice of step size, and extract out the important \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} for the proof of the accelerated case, which is in the appendix. In \hyperref[sec:pg_convergence]{section \ref*{sec:pg_convergence}} we prove the convergence of the proximal gradient method under convexity and smoothness assumption with a fixed step size. And in section \ref*{sec:apg_intro} we state the proximal gradient algorithm with Nesterov acceleration (also refers to as FISTA), and in the appendix we prove the better cnvergence of FISTA in thorough detail. Finally, for applications in \hyperref[sec:numerical_experiments]{section \ref*{sec:numerical_experiments}}, we consider the convergence of the optimality and the norm of the gradient mapping for the LASSO problem, and then we apply the LASSO algorithm for the task of deblurring images with high gussian noise. In the that same section, other common applications and extension of the algorithm will also be introduced. 
-
+    \subsection{Contribution of the Literatures}
+        The proximal gradient method exists, Beck's contribution to the matter is the use of Nesterov Acceleration term that improves the convergence rate with a proof. Beck popularized the use of momentum in a wider context to improve convergence of algorithms. 
 \section{Preliminaries}\label{sec:preliminaries}
     The proximal operator is a crucial component for the algorithm and its non-expansive  property is relevant to the convergence of Proximal Gradient under the non-convex case. We won't go into detail for the non-convex case. Under the assumption of convexity for $f$, the property of the strongly smooth function is more relevant. 
     \subsection{The Proximal Operator}
@@ -133,7 +134,7 @@
             $$
         \end{prop}
         Using the identity that $\text{prox}_{f/\alpha} = \text{prox}_{f, \alpha}$, the proximal gradient is nonexpansive for all value of $\alpha$. 
-        \begin{lemma}[The Alternatie Form of Proximal Operator]\label{lemma:prox_alternative_form}
+        \begin{lemma}[Proximal Operator as Resolvant of Scaled Subgradient]\label{lemma:prox_alternative_form}
             When the function $f$ is convex closed and proper, the $\text{prox}_{\alpha, f}$ can be viewed the following operator $(I + \alpha \partial f)^{-1}$, which is also, a single valued operator that sometimes has a nice closed form solution to it.
         \end{lemma}
         \begin{proof}
@@ -218,7 +219,7 @@
             using \hyperref[lemma:prox_alternative_form]{lemma \ref*{lemma:prox_alternative_form}}, the RHS is the operator $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$. 
         \end{proof}
         \begin{remark}
-            The minimizer of the envelope at $x$: $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$ is we call it the \emph{prox step} for short, it makes the envelope $m_x(y|\beta)$ strictly lower than $f(x)$ for any point $x$ that is not the minimizer of $h + g$. 
+            The minimizer of the envelope at $x$: $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$ is what we call \emph{prox step} for short, it makes the envelope $m_x(y|\beta)$ strictly lower than $f(x)$ for any point $x$ that is not the minimizer of $h + g$. 
         \end{remark}
     \subsection{Fixed Point of the Prox Step}\label{sec:fixed_point_prox}
         Denote the prox step $\mathcal P_{\beta^{-1}}^{g, h}(x) = \text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))$, in most context without ambiguity it will be simply denoted as $\mathcal Px$. The fixed point of $\mathcal P$ is a point $x$ such that $x = \mathcal P x$ if and only if $x$ is the minimizer of $f$ when \hyperref[assumption:1]{assumption \ref*{assumption:1}} is true. We denoted the fixed point as $\bar x$. To see how this is true consider any $x^+$ such that $x^+ = \mathcal Px$, using subgradient of the envelope: 
@@ -397,7 +398,7 @@
                 &= 
                 \frac{\beta}{2}(\Vert x - \bar x\Vert^2 - \Vert x^+ - \bar x\Vert^2), 
             \end{align*}
-            and since the step-size assert an non-decreasing sequence of number, we perform the telescoping sum on one side and get: 
+            and since the step-size assert an non-decreasing sequence of number, we perform the telescoping sum by considering the substitution $x^+ = x^{(k + 1)}, x = x^{(k)}$ we get: 
             \begin{align*}
                 f(x^{(k + 1)}) - \bar f 
                 &\le
@@ -594,7 +595,7 @@
                 2L^{-1} (\Delta_k - \Delta_{k + 1}) 
                 & \ge 
                 \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
-                2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - \bar x\rangle. 
+                2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - x^{(k)}\rangle. 
                 \tag{$*$}
             \end{align*}
             Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the \hyperref[alg:fista_1]{FISTA Algorithm}. We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
@@ -815,7 +816,7 @@
             a_k - a_{k + 1} &\ge 
             b_{k + 1} - b_k, 
         \end{align*}
-        To demonstrate how the base case hold up for the second lamma, we consider lemma \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}, substituting $x^{(1)}$ for $x$ and $\bar x$ for $y$, implicitly using the fact that $\bar x$ is a fixed point of $\mathcal P$: 
+        To demonstrate how the base case hold up for the second lamma, we consider \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}, substituting $x^{(1)}$ for $x$ and $\bar x$ for $y$, implicitly using the fact that $\bar x$ is a fixed point of $\mathcal P$: 
         \begin{align*}
             \Delta_1& \ge 
             \frac{L}{2}\Vert \mathcal Py^{(1)} - y^{(1)}\Vert^2 + L 
