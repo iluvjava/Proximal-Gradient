@@ -1,5 +1,5 @@
 include("../src/proximal_gradient.jl")
-using LaTeXStrings, Plots, SparseArrays, Images, FileIO, Colors
+using LaTeXStrings, Plots, SparseArrays, Images, FileIO, Colors, Distributions
 
 """
 Give a blur matrix for an n × m sized grid that is flattend by julia. It also support the cases with rgb. 
@@ -74,8 +74,8 @@ function Run(
     Img_Float = Img_Float[1:3, :, :]
     @info "Preparing Blurr matrix, parameters and functions. "
     "The Blurr Matrix defined under the global scope of the Main"
-    A = ConstructBlurrMatrix(size(Img_Float, 2), size(Img_Float, 3), 7)
-    b = A*Img_Float[:] + 2e-2*randn(length(Img_Float))
+    A = ConstructBlurrMatrix(size(Img_Float, 2), size(Img_Float, 3), 3)
+    b = A*Img_Float[:].*rand(Bernoulli(0.9), Img_Float|>length)
     g = SquareNormResidual(A, b)
     h = length(b)*lambda*OneNorm()
     Results_Holder = ProxGradResults(80)
