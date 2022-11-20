@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  19 NOV 2022 18:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  19 NOV 2022 19:12
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -343,14 +343,21 @@ LaTeX3 Info: Defining command \printsamples with sig.
 (LaTeX3)     'mmO{tiny,tinyr,tinyrr,tinyrrr,scriptsize,scriptsizer,scriptsizerr,scriptsizerrr,footnotesize,footnotesizer,footnotesizerr,footnotesizerrr,small,smallr,smallrr,smallrrr,normalsize,normalsizer,normalsizerr,normalsizerrr,large,larger,largerr,largerrr,Large,Larger,Largerr,Largerrr,LARGE,LARGEr,LARGErr,LARGErrr,huge,huger,hugerr,hugerrr,Huge,Huger,Hugerr,Hugerrr,HGE,HUGEr,HUGErr,HUGErrr,}'
 (LaTeX3)     on line 1138.
 
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/preprint/authblk.sty
+Package: authblk 2001/02/27 1.3 (PWD)
+\affilsep=\skip62
+\@affilsep=\skip63
+\c@Maxaffil=\count296
+\c@authors=\count297
+\c@affil=\count298
 )
-\c@theorem=\count296
-\c@prop=\count297
-\c@lemma=\count298
-\c@definition=\count299
-\c@remark=\count300
-\c@assumption=\count301
-Package hyperref Info: Option `colorlinks' set `true' on input line 33.
+\c@theorem=\count299
+\c@prop=\count300
+\c@lemma=\count301
+\c@definition=\count302
+\c@remark=\count303
+\c@assumption=\count304
+Package hyperref Info: Option `colorlinks' set `true' on input line 34.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
  (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
@@ -367,22 +374,22 @@ File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 \Gin@req@height=\dimen178
 \Gin@req@width=\dimen179
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count302
+\lst@mode=\count305
 \lst@gtempboxa=\box53
 \lst@token=\toks33
-\lst@length=\count303
+\lst@length=\count306
 \lst@currlwidth=\dimen180
-\lst@column=\count304
-\lst@pos=\count305
+\lst@column=\count307
+\lst@pos=\count308
 \lst@lostspace=\dimen181
 \lst@width=\dimen182
-\lst@newlines=\count306
-\lst@lineno=\count307
+\lst@newlines=\count309
+\lst@lineno=\count310
 \lst@maxwidth=\dimen183
  (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count308
-\lst@skipnumbers=\count309
+\c@lstnumber=\count311
+\lst@skipnumbers=\count312
 \lst@framebox=\box54
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
@@ -393,17 +400,17 @@ Package: courier 2020/03/25 PSNFSS-v9.3 (WaS)
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen184
 \WF@size=\dimen185
-\c@WF@wrappedlines=\count310
+\c@WF@wrappedlines=\count313
 \WF@box=\box55
 \WF@everypar=\toks34
 Package: wrapfig 2003/01/31  v 3.6
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2021/01/20 v3.7 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count311
+\FV@CodeLineNo=\count314
 \FV@InFile=\read3
 \FV@TabBox=\box56
-\c@FancyVerbLine=\count312
-\FV@StepNumber=\count313
+\c@FancyVerbLine=\count315
+\FV@StepNumber=\count316
 \FV@OutFile=\write3
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
@@ -430,31 +437,31 @@ File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 )) (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
-LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 70.
+Package hyperref Info: Link coloring ON on input line 73.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -462,11 +469,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count314
+\c@section@level=\count317
 )
-LaTeX Info: Redefining \ref on input line 70.
-LaTeX Info: Redefining \pageref on input line 70.
-LaTeX Info: Redefining \nameref on input line 70.
+LaTeX Info: Redefining \ref on input line 73.
+LaTeX Info: Redefining \pageref on input line 73.
+LaTeX Info: Redefining \nameref on input line 73.
  (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.out) (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.out)
 \@outlinefile=\write4
 \openout4 = `report.out'.
@@ -508,16 +515,16 @@ LaTeX Info: Redefining \nameref on input line 70.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count315
+\scratchcounter=\count318
 \scratchdimen=\dimen186
 \scratchbox=\box57
-\nofMPsegments=\count316
-\nofMParguments=\count317
+\nofMPsegments=\count319
+\nofMParguments=\count320
 \everyMPshowfont=\toks35
-\MPscratchCnt=\count318
+\MPscratchCnt=\count321
 \MPscratchDim=\dimen187
-\MPnumerator=\count319
-\makeMPintoPDFobject=\count320
+\MPnumerator=\count322
+\makeMPintoPDFobject=\count323
 \everyMPtoPDFconversion=\toks36
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -525,86 +532,71 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@lstlisting=\count321
-LaTeX Font Info:    Calculating math sizes for size <14.39996> on input line 75.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 75.
+\c@lstlisting=\count324
+LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 75.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-LaTeX Warning: No \author given.
-
-[1
+) [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 295.
- [6] [7] [8] [9]
-
-LaTeX Warning: Hyper reference `sec:fista1_proof' on page 10 undefined on input line 496.
-
-
-LaTeX Warning: Reference `sec:fista1_proof' on page 10 undefined on input line 496.
-
-[10]
-<simple_lass_obj.png, id=236, 1806.75pt x 1204.5pt>
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 296.
+ [6] [7] [8] [9] [10]
+<simple_lass_obj.png, id=238, 1806.75pt x 1204.5pt>
 File: simple_lass_obj.png Graphic file (type png)
 <use simple_lass_obj.png>
-Package pdftex.def Info: simple_lass_obj.png  used on input line 521.
+Package pdftex.def Info: simple_lass_obj.png  used on input line 522.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<simple_lass_pgrad.png, id=238, 1806.75pt x 1204.5pt>
+<simple_lass_pgrad.png, id=240, 1806.75pt x 1204.5pt>
 File: simple_lass_pgrad.png Graphic file (type png)
 <use simple_lass_pgrad.png>
-Package pdftex.def Info: simple_lass_pgrad.png  used on input line 522.
+Package pdftex.def Info: simple_lass_pgrad.png  used on input line 523.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [11]
-<blurred_img.jpg, id=253, 501.875pt x 501.875pt>
+<blurred_img.jpg, id=255, 501.875pt x 501.875pt>
 File: blurred_img.jpg Graphic file (type jpg)
 <use blurred_img.jpg>
-Package pdftex.def Info: blurred_img.jpg  used on input line 536.
+Package pdftex.def Info: blurred_img.jpg  used on input line 537.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
-<inverse_linear_experiment1-soln_img.jpg, id=255, 501.875pt x 501.875pt>
+<inverse_linear_experiment1-soln_img.jpg, id=257, 501.875pt x 501.875pt>
 File: inverse_linear_experiment1-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment1-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment1-soln_img.jpg  used on input line 543.
+Package pdftex.def Info: inverse_linear_experiment1-soln_img.jpg  used on input line 544.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
-<inverse_linear_experiment2-soln_img.jpg, id=256, 501.875pt x 501.875pt>
+<inverse_linear_experiment2-soln_img.jpg, id=258, 501.875pt x 501.875pt>
 File: inverse_linear_experiment2-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment2-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment2-soln_img.jpg  used on input line 548.
+Package pdftex.def Info: inverse_linear_experiment2-soln_img.jpg  used on input line 549.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
-<inverse_linear_experiment3-soln_img.jpg, id=257, 501.875pt x 501.875pt>
+<inverse_linear_experiment3-soln_img.jpg, id=259, 501.875pt x 501.875pt>
 File: inverse_linear_experiment3-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment3-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment3-soln_img.jpg  used on input line 553.
+Package pdftex.def Info: inverse_linear_experiment3-soln_img.jpg  used on input line 554.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
  [12 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_obj.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_pgrad.png>] [13 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/blurred_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment1-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment2-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment3-soln_img.jpg>] [14] [15] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.bbl) [16] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: DDE3D53AC6C882392D077B47C4CD95A1;4214.
  ) 
 Here is how much of TeX's memory you used:
- 14936 strings out of 478994
- 224528 string characters out of 5858183
- 576455 words of memory out of 5000000
- 32066 multiletter control sequences out of 15000+600000
- 421755 words of font info for 73 fonts, out of 8000000 for 9000
+ 14989 strings out of 478994
+ 224993 string characters out of 5858183
+ 577389 words of memory out of 5000000
+ 32116 multiletter control sequences out of 15000+600000
+ 418932 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 81i,15n,89p,1588b,770s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 81i,15n,89p,1708b,770s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (16 pages, 1263187 bytes).
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (16 pages, 1263567 bytes).
 PDF statistics:
- 406 PDF objects out of 1000 (max. 8388607)
- 352 compressed objects within 4 object streams
- 108 named destinations out of 1000 (max. 500000)
+ 408 PDF objects out of 1000 (max. 8388607)
+ 354 compressed objects within 4 object streams
+ 107 named destinations out of 1000 (max. 500000)
  217 words of extra memory for PDF output out of 10000 (max. 10000000)
 
