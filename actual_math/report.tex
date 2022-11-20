@@ -176,8 +176,8 @@
         
 \section{Proximal Gradient and Forward Backward Envelope}\label{sec:pg_forward_backward_env}
     We introduce the algorithm through the forward backward envelope, this helps with the intuitive undestanding with this algorithm. We then state some of the important properties. The name forward backward envelope is credit to numerical method that simulates gradient dynamical system that is the summation of a stiff and nonstiff dynamics by using forward Euler on the nonstiff part, and backward Euler on the stiff part. We won't go into detail regarding this specific interpretation of the proximal gradient method. For more detail regarding this interpretation of proximal gradient method refers to Bloyd's paper \cite{paper:bloyd}. 
-    \begin{assumption}\label{assumption:1}
-        We will assume that $g:\mathbb E\mapsto \mathbb R$ is strongly smooth with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ is closed convex and proper. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(g) \cap \text{ri}\circ \text{dom}(h) \neq \emptyset$. 
+    \begin{assumption}[Convex Smooth Nonsmooth with Bounded Minimizers]\label{assumption:1}
+        We will assume that $g:\mathbb E\mapsto \mathbb R$ is strongly smooth with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ is closed convex and proper. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(g) \cap \text{ri}\circ \text{dom}(h) \neq \emptyset$. We also assume that there exists a set of minimizers for the function $f$ and the set is bounded and any one of the element from the set will be denoted using $\bar x$. 
     \end{assumption}
     
     \subsection{Proximal Gradient Minimizes the Forward Backward Envelope}
@@ -303,7 +303,7 @@
             \item [2.] By choosing the stepsize $\beta^{-1} \le L^{-1}$, we assert strict decrease of the value of the objective function, $f(x^+) \le f(x)$. 
             \item [3.] We denote $\bar f$ to be $f(\bar x)$ where $\bar x$ is one of the minimizer of $f$. 
         \end{enumerate}
-        \begin{theorem}[Convergence Under Convexity]
+        \begin{theorem}[Convergence Under Convexity]\label{thm:convergence_non_accelerated}
             With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, execute the algorithm for $N$ steps, we have: 
             \begin{align*}
                 f(x^{(N + 1)}) - \bar f
@@ -554,309 +554,510 @@
 
 
 \appendix
-\begin{section}{Proof for Convergence of FISTA}\label{sec:fista1_proof}
-    Here we prove \hyperref[thm:fista_convergence1]{theorem \ref*{thm:fista_convergence1}}. The proof closely follows Beck and Teboulle's work \cite{paper:FISTA}, and here we prove everything with extra details. 
-    \begin{subsection}{The First Lemma}
-        Recall from \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}
-        and \hyperref[assumption:1]{assumption \ref*{assumption:1}}, instead of using $\beta^{-1}$ as our step size we use $L$. Here we introduce the notation $\delta_k = f(x^{(k)}) - f(\bar x)$ to denote the optimality gap at the $k$ iteration of the algorithm where $\bar x$ denotes one of the minimizer of the function $f$. 
-        \begin{lemma}[FISTA First Lemma]\label{lemma:fista_first_lemma}
-            The optimality gap generated via FISTA statisfies: 
+% \begin{section}{Proof for Convergence of FISTA}\label{sec:fista1_proof}
+%     Here we prove \hyperref[thm:fista_convergence1]{theorem \ref*{thm:fista_convergence1}}. The proof closely follows Beck and Teboulle's work \cite{paper:FISTA}, and here we prove everything with extra details. 
+%     \begin{subsection}{The First Lemma}
+%         Recall from \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}
+%         and \hyperref[assumption:1]{assumption \ref*{assumption:1}}, instead of using $\beta^{-1}$ as our step size we use $L$. Here we introduce the notation $\delta_k = f(x^{(k)}) - f(\bar x)$ to denote the optimality gap at the $k$ iteration of the algorithm where $\bar x$ denotes one of the minimizer of the function $f$. 
+%         \begin{lemma}[FISTA First Lemma]\label{lemma:fista_first_lemma}
+%             The optimality gap generated via FISTA statisfies: 
+%             \begin{align*}
+%                 & 
+%                 \frac{2}{L}t^2_k \Delta_k - \frac{2}{L}t^2_{k + 1} \Delta_{k + 1} 
+%                 \ge 
+%                 \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
+%                 \\
+%                 & \Delta_k := f(x^{(k)}) - f(\bar x)
+%                 \\
+%                 & u^{(k)} := t_k x^{(k)} - (t_k - 1)x^{(k - 1)} - \bar x.
+%             \end{align*}
+%         \end{lemma}
+%         \begin{proof}
+%             We invoke the \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} with $x = x^{(k)}, y = y^{(k +1)}$ to give: 
+%             \begin{align*}\label{lemma:fista_first_lemma_1}
+%                 f(x^{(k)}) - f\circ \mathcal P y^{(k + 1)}
+%                 & \ge 
+%                 \frac{L}{2}\Vert \mathcal Py^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+%                 L \langle y^{(k + 1)} - x^{(k)}, 
+%                     \mathcal Py^{(k + 1)} - y^{(k + 1)}
+%                 \rangle
+%                 \\
+%                 f(x^{(k)}) - f(x^{(k + 1)}) 
+%                 & \ge 
+%                 \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+%                 L 
+%                 \langle 
+%                     y^{(k + 1)} - x^{(k)}, 
+%                     x^{(k + 1)} - y^{(k + 1)}
+%                 \rangle, 
+%                 \\
+%                 \implies
+%                 2L^{-1} (\Delta_k - \Delta_{k + 1}) 
+%                 & \ge 
+%                 \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+%                 2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - x^{(k)}\rangle. 
+%                 \tag{$*$}
+%             \end{align*}
+%             Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the \hyperref[alg:fista_1]{FISTA Algorithm}. We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
+%             \begin{align*}
+%                 f(\bar x) - f\circ \mathcal P y^{(k + 1)}
+%                 & \ge 
+%                 \frac{L}{2}\Vert \mathcal P y^{(k + 1)} - y^{(k + 1)}\Vert^2 
+%                 + L 
+%                 \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+%                 \\
+%                 f(\bar x) - f(x^{(k + 1)}) 
+%                 &\ge 
+%                 \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+%                 + 
+%                 L \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+%                 \\
+%                 -2L^{-1}\Delta_{k + 1}
+%                 & \ge
+%                 \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+%                 + 
+%                 2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle. 
+%                 \tag{$\star$}
+%             \end{align*}
+%             Consider the expression $(t_k - 1)(*) + (\star)$, we obtain the LHS of that expression: 
+%             \begin{align*}
+%                 &(t_{k + 1} - 1)L^{-1} (\Delta_k - \Delta_{k + 1}) 
+%                 -
+%                 2L^{-1}\Delta_{k + 1}
+%                 \\
+%                 = \; &
+%                 2L^{-1}
+%                 ((t_{k + 1} + 1)\Delta_k - (t_{k + 1} - 1)\Delta_{k + 1} - \Delta_{k + 1})
+%                 \\
+%                 = \; &
+%                 2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1}),
+%                 \tag{$\star *$LHS}
+%             \end{align*}
+%             and then the RHS is: 
+%             \begin{align*}
+%                 & (t_{k + 1} - 1)\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+%                 + 
+%                 2(t_{k + 1} - 1)\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle 
+%                 \\
+%                 & \quad 
+%                 + \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+%                 + 
+%                 2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+%                 \\
+%                 = \; &
+%                 t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+%                 + 
+%                 \langle 
+%                     x^{(k + 1)} - y^{(k + 1)}, 
+%                     \underbrace{2(t_{k + 1} - 1)(y^{(k + 1)} - x^{(k)}) + 2(y^{(k + 1)} - \bar x) }_
+%                     {
+%                         = 2(t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x)
+%                     }
+%                 \rangle
+%                 \\
+%                 = \; & 
+%                 t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+%                 + 
+%                 2\langle 
+%                     x^{(k + 1)} - y^{(k + 1)}, 
+%                     t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
+%                 \rangle. 
+%                 \tag{$\star *$RHS}
+%             \end{align*}
+%             The entirety of expression (3) is given by: 
+%             \begin{align*}
+%                 & 2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1})
+%                 \ge 
+%                 t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
+%                 \\
+%                 & \quad 
+%                 + 
+%                 2\langle 
+%                     x^{(k + 1)} - y^{(k + 1)}, 
+%                     t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
+%                 \rangle. 
+%                 \tag{$\star *$}
+%             \end{align*}
+%             The next part of the proof shows some of the magics involves in changing the LHS,RHS of $(\star *)$ to be the similar to what is in the theorem statement. It's accomplished by the relations for the sequence $t_k$, more specifically it's hinged on the relations $t_k^2 = t^2_{k + 1} - t_{k + 1}$ which is asserted by the FISTA algorithm. Using this fact we proceed by multiplying $t_{k + 1}$ on both sides of $(\star *)$ and obtain: 
+%             \begin{align*}
+%                 & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
+%                 \\
+%                 & \hspace{2em}
+%                 \begin{aligned}
+%                     & \ge 
+%                     \Vert t_{k + 1}(x^{(k + 1)} - y^{(k + 1)})\Vert^2 - 
+%                     2\langle 
+%                         t_{k + 1}(x^{(k + 1)} - y^{(k + 1)}), 
+%                         t_{k + 1}y^{(k + 1)} - 
+%                         (t_{k + 1} - 1)x^{(k)} - \bar x
+%                     \rangle
+%                 \end{aligned}
+%                 \\
+%                 & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
+%                 \\ 
+%                 &\hspace{2em}
+%                 \begin{aligned}
+%                     & \ge 
+%                     \Vert 
+%                         \underbrace{t_{k + 1}x^{(k + 1)}}_{
+%                             =:a
+%                         } - \underbrace{t_{k + 1}y^{(k + 1)}}_{
+%                             =:b
+%                         }
+%                     \Vert^2 
+%                     - 
+%                     2\langle 
+%                     \underbrace{ t_{k + 1}x^{(k + 1)}}_{=:a} - t_{k + 1}y^{(k + 1)}, 
+%                         \underbrace{t_{k + 1}y^{(k + 1)}}_{=:b} - 
+%                         \underbrace{((t_{k + 1} - 1)x^{(k)} + \bar x)}_{=:c}
+%                     \rangle
+%                     \\
+%                     & \ge 
+%                     \Vert a - b\Vert^2 + 2\langle a - b, b -c\rangle
+%                     \\
+%                     & = 
+%                     \Vert a - b\Vert^2 + \Vert b - c\Vert^2 + 
+%                     2\langle a-b, b -c\rangle - \Vert b - c\Vert^2
+%                     \\
+%                     &= 
+%                     \Vert a - c\Vert^2 - \Vert b - c\Vert^2
+%                     \\
+%                     &\ge 
+%                     \Vert 
+%                         t_{k+ 1}x^{(k + 1)} - 
+%                         (t_{k + 1} - 1)x_k - \bar x 
+%                     \Vert^2 - 
+%                     \Vert 
+%                         (t_{k + 1} - 1)x^{(k)} - t_{k + 1}y^{(k + 1)}
+%                         - \bar x
+%                     \Vert^2, 
+%                 \end{aligned}
+%             \end{align*}
+%             to prove the lemma, we need to match the form in the above 2 norm of the vector, we accomplish this by considering FISTA algorithm: 
+%             \begin{align*}
+%                 t_{k + 1}y^{(k + 1)} &= t_{k + 1}x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
+%                 \\
+%                 t_{k + 1}y^{(k + 1)} - (t_{k + 1}- 1)x^{(k)}
+%                 &= t_{k + 1}x^{(k)} - (t_{k + 1}- 1)x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
+%                 \\
+%                 &= 
+%                 x^{(k)} + (t_k - 1)x^{(k)} - (t_k - 1)x^{(k - 1)}
+%                 \\
+%                 &= t_kx^{(k)} - (t_k - 1)x^{(k - 1)}, 
+%             \end{align*}
+%             cf from previously we have: 
+%             \begin{align*}
+%                 & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
+%                 \\
+%                 &\ge 
+%                 \Vert 
+%                     t_{k + 1}x^{(k + 1)}
+%                     + 
+%                     (1 - t_{k + 1}) x^{(k)} - \bar x
+%                 \Vert^2
+%                 - 
+%                 \Vert t_kx^{(k)} + (1 - t_k)x^{(k -1)} - \bar x\Vert^2
+%                 \\
+%                 & \ge \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2.
+%             \end{align*}
+%             And that completes the proof of the Second Lemma. 
+%         \end{proof}
+%         \begin{remark}
+%             There should be some point, where we can infer the properties of the sequence $t_k$ instead of taking the sequence from FISTA algorithm for granted, there should also be a way to make a different decision during the proof so that this becomes the proof for the algorithm without the accelerations technique. 
+%         \end{remark}
+%     \end{subsection}
+
+%     \begin{subsection}{The Second Lemma}
+%         \begin{lemma}[FISTA Second Lemma]
+%             Let $\{a, b\}$ be positive real numbers sequence satisfying: $a_k - a_{k - 1}\ge b_{k + 1} - b_k, \forall k \ge 1$, with $a_1 + b_1 \le c, c > 0$, and then it would mean that $a_{k + 1}\le c$. 
+%         \end{lemma}
+%         \begin{proof}
+%             The base case of the proof is obvious by the fact that $b_1$ is positive, hence $a_1 \le c$ is true. the relation automatically holds true for all $k\ge 1$ because $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le c$, then $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le a_{k + 1} + b_{k + 1} \implies a_{k + 1} + b_{k + 1} \le c\implies a_{k + 1}\le c$. 
+%         \end{proof}
+%     \end{subsection}
+
+%     \begin{subsection}{The Third Lemma}
+%         \begin{lemma}[FISTA Third Lemma]
+%             The FISTA asserts $t_k \ge (k + 1)/2, \forall k \ge 1$. 
+%         \end{lemma}
+%         \begin{align*}
+%             t_k 
+%             &\ge \frac{k + 1}{2}
+%             \\
+%             4t_k^2 
+%             &\ge 4\left(
+%                 \frac{k + 1}{2}
+%             \right)^2
+%             \\
+%             \implies 
+%             t_k &= \frac{1}{2}\left(
+%                 1 + \sqrt{1 + 4t_k^2}
+%             \right)
+%             \\
+%             &= 
+%             \frac{1}{2} + \frac{\sqrt{1 + (k + 1)^2}}{2}
+%             \\
+%             & \ge \frac{1 + k}{2}, 
+%         \end{align*}
+%     \end{subsection}
+%     \subsection{Convergence Proof}
+%         Firstly we define the quantities: 
+%         \begin{itemize}
+%             \item [1.] $a_k := (2/L)t_k^2 \Delta_k$.
+%             \item [2.] $b_k := \Vert u^{(k)}\Vert^2$.
+%             \item [3.] $c:= \Vert x^{(0)} - \bar x\Vert^2 = \Vert y^{(1)} - \bar x\Vert^2$. 
+%         \end{itemize}
+%         Recall from the first lemma, and we can represents it using the quantities listed above: 
+%         \begin{align*}
+%             2L^{-1}(\Delta_kt_k^2 - \Delta_{t + 1}t_{k + 1}^2) 
+%             &\ge 
+%             \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
+%             \\
+%             a_k - a_{k + 1} &\ge 
+%             b_{k + 1} - b_k, 
+%         \end{align*}
+%         To demonstrate how the base case hold up for the second lamma, we consider \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}, substituting $x^{(1)}$ for $x$ and $\bar x$ for $y$, implicitly using the fact that $\bar x$ is a fixed point of $\mathcal P$: 
+%         \begin{align*}
+%             \Delta_1& \ge 
+%             \frac{L}{2}\Vert \mathcal Py^{(1)} - y^{(1)}\Vert^2 + L 
+%             \langle y^{(1)} - \bar x, \mathcal P y^{(1)} - y^{(1)}\rangle
+%             \\
+%             & =
+%             \frac{L}{2}\Vert \mathcal P x^{(1)} - y^{(1)}\Vert^2 + L 
+%             \langle x^{(1)} - \bar x, x^{(1)} - y^{(1)}\rangle
+%             \\
+%             &= 
+%             \frac{L}{2}
+%             (\Vert x^{(1)} - \bar x\Vert^2 - \Vert y^{(1)} - \bar x\Vert^2)
+%             \\
+%             \implies
+%             2L^{-1}\Delta_1 
+%             &\le
+%             \underbrace{\Vert y^{(1)} - \bar x\Vert^2}_{=c} - \Vert x^{(1)} - \bar x\Vert^2
+%             \\
+%             \implies
+%             a_1 + b_1
+%             & \le c, 
+%         \end{align*}
+%         using the fact that $t_1 = 1$ we have $u^{(1)} = x^{(1)} - \bar x \implies b_1 = \Vert x^{(1)} - \bar x\Vert^2$, please observe that the above expression simplifies to $a_1 + b_1 \le c$. Invoking the second lemma, we have the claim that $a_{k + 1}\le c$, which is stated as: 
+%         \begin{align*}
+%             2L^{-1}t_{k + 1}^2\Delta_{k + 1} 
+%             &\le \Vert x^{(0)} - \bar x\Vert^2
+%             \\
+%             \implies
+%             \Delta_{k + 1}
+%             &\le 
+%             \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2t_k^2}
+%             \\
+%             & \le 
+%             \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2 \times 2^{-2}(k + 1)^2}
+%             = 
+%             \frac{2L\Vert x^{(0)} - \bar x\Vert^2}{(k + 1)^2}, 
+%         \end{align*}
+%         and the proof is now complete.         
+% \end{section}
+
+\section{A Slightly Better Proof For Convergence For FISTA}
+    In this section we go through a proof that I made personally that doesn't require the momentum sequence $t_k$ for the FISTA algorith under \hyperref[assumption:1]{assumption \ref*{assumption:1}}. We prepare the following template algorithm: 
+    \begin{algorithm}
+        \begin{algorithmic}[1]
+            \STATE{\textbf{Input:} $x^{(0)}, x^{(-1)}, L, h, g$; 2 initial guesses and stepsize L}
+            \STATE{$y^{(0)} = x^{(0)} + \theta_k (x^{(0)} - x^{(-1)})$}
+            \FOR{$k = 1, \cdots, N$}
+                \STATE{$x^{(k)} = \text{prox}_{h, l^{-1}}(y^{(k)} + l^{-1}\nabla g(y^{(k)})) =: \mathcal Py^{(k)}$}
+                \STATE{$y^{(k + 1)} = x^{(k)} + \theta_k(x^{(k)} - x^{(k - 1)})$}
+            \ENDFOR
+        \end{algorithmic}
+        \caption{Template Proximal Gradient Method With Momentum}\label{alg:fista_template}
+    \end{algorithm}
+    \subsection{Preparations}
+        \hyperref[alg:fista_template]{Algorithm \ref*{alg:fista_template}} is a template algorithm without any spceific assumptions about $\theta_k$ and it's up to ourselves to find out the best update sequences for the momentum parameters $\theta_k$. To make the proof more intuitive than Beck's proof \cite{paper:FISTA}, we consider the following list of quantities that is more informative: 
+        \begin{itemize}
+            \item [1.] $v^{(k)} = x^{(k)} - x^{(k -1)}$ is the velocity term. 
+            \item [2.] $\bar v^{(k)}= \theta_k v^{(k)}$ is the weighed velocity term. 
+            \item [3.] $e^{(k)} := x^{(k)} - \bar x$, where $\bar x \in \arg\min_{x}(f(x))$, where $\bar x$ might not be unique. 
+            \item [4.] $\Delta_k := f(x^{(k)}) - f(\bar x)$ which represent the optimality gap at step $k$. 
+        \end{itemize}
+    \subsection{The Momentum Magic}
+        We now begins the next part where we look for the right place to insert momentum. We start by considering the prox 2 point lemma (\hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}) and substitute $x = x^{(k)}, y = y^{(k + 1)}$ gives: 
+        \begin{align*}
+            f(x^{(k)}) - f\circ \mathcal Py^{(k + 1)}
+            &\ge 
+            \frac{L}{2}\Vert \mathcal Py^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+            L \langle y^{(k + 1)} - x^{(k)}, \mathcal P y^{(k + 1)} - y^{(k + 1)}\rangle 
+            \\
+            [*1]\implies
+            2L^{-1} (\Delta_k - \Delta_{k + 1}) 
+            &\ge 
+            \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
+            2 \langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - x^{(k)}\rangle
+            \\
+            [*2]\implies
+            2L^{-1} (\Delta_k - \Delta_{k + 1})  
+            & \ge 
+            \textcolor{red}
+            {
+                \Vert 
+                    v^{(k + 1)} - \bar v^{(k)}
+                \Vert^2
+            }
+             + 
+            2\langle \textcolor{violet}{v^{(k + 1)} - \bar v^{(k)}}, \bar v^{(k)}\rangle
+            \tag{*}
+        \end{align*}
+        where we make use of the fact that $x^{(k + 1)} = \mathcal P y^{(k + 1)}$ at [$*1$], and using $x^{(k + 1)} - y^{(k + 1)} = x^{(k + 1)} - x^{(k)} - \bar v^{(k)} = v^{(k + 1)} - \bar v^{(k)}$ at [$*2$]. Similarly we can use the prox 2 points lemma (\hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}) and substitute $x = \bar x, y = y^{(k + 1)}$, giving us: 
+        \begin{align*}
+            -2L^{-1}\Delta_{k + 1} 
+            &\ge 
+            \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 2
+            \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+            \\
+            -2L^{-1}\Delta_{k + 1} 
+            & \ge 
+            \textcolor{red}
+            {
+                \Vert 
+                    v^{(k + 1)} - \bar v^{(k)}
+                \Vert^2
+            } + 
+            2\langle  
+                \textcolor{violet}{v^{(k + 1)} - \bar v^{(k)}},
+                e^{(k)} + \bar v^{(k)}
+            \rangle.
+            \tag{$\star$}
+        \end{align*}
+        we make use of the fact that $y^{(k + 1)} = x^{(k)} - \bar v^{(k)}$, then $y^{(k + 1)} - \bar x = x^{(k)} - \bar v^{(k)} - \bar x = e^{(k)} - \bar v^{(k)}$. In the case without acceleration, we essentially considered expression $(\star)$ and did some algebra so that it can be summed up like a telescoping series, similar to the proof we did in \hyperref[thm:convergence_non_accelerated]{theorem \ref*{thm:convergence_non_accelerated}} case, here we consider the following linear combinations of $(*), (\star)$ such that it leaves $v^{(k)} - \bar v^{(k)}$ inside of the cross term with a multiplier $t_{k + 1}$, let's call it $t_k$ (Just a generic sequence that will contributes to the engineering of the algorithm), to do that we consider $(t_{k + 1}- 1)(*) + (\star)$ with $(t_k - 1)\ge 0$ for all $k$ giving us: 
+        \begin{align*}
+            & 2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1})
+            \\
+            & \ge 
+            t_{k + 1}
+            \textcolor{red}{\Vert v^{(k + 1)} - \bar v^{(k)}\Vert^2} + 
+            2\langle 
+                \textcolor{violet}{t_{k + 1}(v^{(k + 1)} - \bar v^{(k)})}, e^{(k)} + t_{k + 1} \bar v^{(k)}
+            \rangle, 
+            \tag{$*\star$}
+        \end{align*}
+        unfortunately, at current step we won't be able to trigger the monotone property and sum it up like in the case without any momentum due to the term $t_{k + 1}$, instead, we need to consider new approach. In the next section, we point out a format for 2 bounded sequences where the above expression can be reduced to with some conditions on the sequence $t_k$. 
+    \subsection{2 Bounded Sequences}
+        For the sake of idealization, we may assumes that there might exists a way to write $(*\star)$ in the format of $a_k- a_{k + 1}\ge b_{N+ 1} - b_k$. Therefore we introduce the following lemma: 
+        \begin{lemma}{2 Bounded Sequences}
+            We consider sequence $a_k, b_k \ge 0$ for $k\in \mathbb N$ with $a_1 + b_1 \le c$, and inductively the 2 sequences satisfies: $a_{k} - a_{k + 1} \le b_{k + 1} - b_k$ , which describes a sequence whose oscillations is bounded by the difference of another sequence. Consider the telescoping sum: 
             \begin{align*}
-                & 
-                \frac{2}{L}t^2_k \Delta_k - \frac{2}{L}t^2_{k + 1} \Delta_{k + 1} 
-                \ge 
-                \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
-                \\
-                & \Delta_k := f(x^{(k)}) - f(\bar x)
-                \\
-                & u^{(k)} := t_k x^{(k)} - (t_k - 1)x^{(k - 1)} - \bar x.
-            \end{align*}
-        \end{lemma}
-        \begin{proof}
-            We invoke the \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} with $x = x^{(k)}, y = y^{(k +1)}$ to give: 
-            \begin{align*}\label{lemma:fista_first_lemma_1}
-                f(x^{(k)}) - f\circ \mathcal P y^{(k + 1)}
-                & \ge 
-                \frac{L}{2}\Vert \mathcal Py^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
-                L \langle y^{(k + 1)} - x^{(k)}, 
-                    \mathcal Py^{(k + 1)} - y^{(k + 1)}
-                \rangle
-                \\
-                f(x^{(k)}) - f(x^{(k + 1)}) 
-                & \ge 
-                \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
-                L 
-                \langle 
-                    y^{(k + 1)} - x^{(k)}, 
-                    x^{(k + 1)} - y^{(k + 1)}
-                \rangle, 
+                a_{k} - a_{k + 1} 
+                &\ge b_{k + 1} - b_k \quad \forall k \in \mathbb N
                 \\
                 \implies
-                2L^{-1} (\Delta_k - \Delta_{k + 1}) 
-                & \ge 
-                \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
-                2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - x^{(k)}\rangle. 
-                \tag{$*$}
-            \end{align*}
-            Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the \hyperref[alg:fista_1]{FISTA Algorithm}. We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
-            \begin{align*}
-                f(\bar x) - f\circ \mathcal P y^{(k + 1)}
-                & \ge 
-                \frac{L}{2}\Vert \mathcal P y^{(k + 1)} - y^{(k + 1)}\Vert^2 
-                + L 
-                \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
-                \\
-                f(\bar x) - f(x^{(k + 1)}) 
+                -\sum_{k = 1}^{N}
+                a_{k + 1} - a_k 
                 &\ge 
-                \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-                + 
-                L \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
+                \sum_{k = 1}^{N} b_{k + 1} - b_k
                 \\
-                -2L^{-1}\Delta_{k + 1}
-                & \ge
-                \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-                + 
-                2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle. 
-                \tag{$\star$}
+                - (a_{N + 1} - a_1) 
+                &\ge b_{N + 1} - b_1
+                \\
+                c\ge a_1 + b_1
+                &\ge
+                b_{N + 1} + a_{N +1}
+                \\
+                \implies c \ge a_{N+1}. 
             \end{align*}
-            Consider the expression $(t_k - 1)(*) + (\star)$, we obtain the LHS of that expression: 
-            \begin{align*}
-                &(t_{k + 1} - 1)L^{-1} (\Delta_k - \Delta_{k + 1}) 
-                -
-                2L^{-1}\Delta_{k + 1}
-                \\
-                = \; &
-                2L^{-1}
-                ((t_{k + 1} + 1)\Delta_k - (t_{k + 1} - 1)\Delta_{k + 1} - \Delta_{k + 1})
-                \\
-                = \; &
-                2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1}),
-                \tag{$\star *$LHS}
-            \end{align*}
-            and then the RHS is: 
-            \begin{align*}
-                & (t_{k + 1} - 1)\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-                + 
-                2(t_{k + 1} - 1)\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle 
-                \\
-                & \quad 
-                + \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-                + 
-                2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
-                \\
-                = \; &
-                t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-                + 
-                \langle 
-                    x^{(k + 1)} - y^{(k + 1)}, 
-                    \underbrace{2(t_{k + 1} - 1)(y^{(k + 1)} - x^{(k)}) + 2(y^{(k + 1)} - \bar x) }_
-                    {
-                        = 2(t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x)
-                    }
-                \rangle
-                \\
-                = \; & 
-                t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-                + 
-                2\langle 
-                    x^{(k + 1)} - y^{(k + 1)}, 
-                    t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
-                \rangle. 
-                \tag{$\star *$RHS}
-            \end{align*}
-            The entirety of expression (3) is given by: 
-            \begin{align*}
-                & 2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1})
-                \ge 
-                t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-                \\
-                & \quad 
-                + 
-                2\langle 
-                    x^{(k + 1)} - y^{(k + 1)}, 
-                    t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
-                \rangle. 
-                \tag{$\star *$}
-            \end{align*}
-            The next part of the proof shows some of the magics involves in changing the LHS,RHS of $(\star *)$ to be the similar to what is in the theorem statement. It's accomplished by the relations for the sequence $t_k$, more specifically it's hinged on the relations $t_k^2 = t^2_{k + 1} - t_{k + 1}$ which is asserted by the FISTA algorithm. Using this fact we proceed by multiplying $t_{k + 1}$ on both sides of $(\star *)$ and obtain: 
-            \begin{align*}
-                & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
-                \\
-                & \hspace{2em}
-                \begin{aligned}
-                    & \ge 
-                    \Vert t_{k + 1}(x^{(k + 1)} - y^{(k + 1)})\Vert^2 - 
-                    2\langle 
-                        t_{k + 1}(x^{(k + 1)} - y^{(k + 1)}), 
-                        t_{k + 1}y^{(k + 1)} - 
-                        (t_{k + 1} - 1)x^{(k)} - \bar x
-                    \rangle
-                \end{aligned}
-                \\
-                & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
-                \\ 
-                &\hspace{2em}
-                \begin{aligned}
-                    & \ge 
-                    \Vert 
-                        \underbrace{t_{k + 1}x^{(k + 1)}}_{
-                            =:a
-                        } - \underbrace{t_{k + 1}y^{(k + 1)}}_{
-                            =:b
-                        }
-                    \Vert^2 
-                    - 
-                    2\langle 
-                    \underbrace{ t_{k + 1}x^{(k + 1)}}_{=:a} - t_{k + 1}y^{(k + 1)}, 
-                        \underbrace{t_{k + 1}y^{(k + 1)}}_{=:b} - 
-                        \underbrace{((t_{k + 1} - 1)x^{(k)} + \bar x)}_{=:c}
-                    \rangle
-                    \\
-                    & \ge 
-                    \Vert a - b\Vert^2 + 2\langle a - b, b -c\rangle
-                    \\
-                    & = 
-                    \Vert a - b\Vert^2 + \Vert b - c\Vert^2 + 
-                    2\langle a-b, b -c\rangle - \Vert b - c\Vert^2
-                    \\
-                    &= 
-                    \Vert a - c\Vert^2 - \Vert b - c\Vert^2
-                    \\
-                    &\ge 
-                    \Vert 
-                        t_{k+ 1}x^{(k + 1)} - 
-                        (t_{k + 1} - 1)x_k - \bar x 
-                    \Vert^2 - 
-                    \Vert 
-                        (t_{k + 1} - 1)x^{(k)} - t_{k + 1}y^{(k + 1)}
-                        - \bar x
-                    \Vert^2, 
-                \end{aligned}
-            \end{align*}
-            to prove the lemma, we need to match the form in the above 2 norm of the vector, we accomplish this by considering FISTA algorithm: 
-            \begin{align*}
-                t_{k + 1}y^{(k + 1)} &= t_{k + 1}x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
-                \\
-                t_{k + 1}y^{(k + 1)} - (t_{k + 1}- 1)x^{(k)}
-                &= t_{k + 1}x^{(k)} - (t_{k + 1}- 1)x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
-                \\
-                &= 
-                x^{(k)} + (t_k - 1)x^{(k)} - (t_k - 1)x^{(k - 1)}
-                \\
-                &= t_kx^{(k)} - (t_k - 1)x^{(k - 1)}, 
-            \end{align*}
-            cf from previously we have: 
-            \begin{align*}
-                & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
-                \\
-                &\ge 
-                \Vert 
-                    t_{k + 1}x^{(k + 1)}
-                    + 
-                    (1 - t_{k + 1}) x^{(k)} - \bar x
-                \Vert^2
-                - 
-                \Vert t_kx^{(k)} + (1 - t_k)x^{(k -1)} - \bar x\Vert^2
-                \\
-                & \ge \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2.
-            \end{align*}
-            And that completes the proof of the Second Lemma. 
-        \end{proof}
+        \end{lemma}
         \begin{remark}
-            There should be some point, where we can infer the properties of the sequence $t_k$ instead of taking the sequence from FISTA algorithm for granted, there should also be a way to make a different decision during the proof so that this becomes the proof for the algorithm without the accelerations technique. 
+            If we can match the form of the expression, then there is a way to restrain the value of $\Delta_k$, intuitive we are thinking of bounding the changes in the sequence. If the initial $a_1 + b_1$  is bounded by $c$, and the way $a_k$ changes is always bounded by the changes in $b_k$, given both $a_k, b_k$ are non-negative, the total amount of changes of $a_k$ will be bounded by the total amount of changes in the sequence $b_k$ as well. 
+            \par
+            Additionally, we may consider adding a residual term for the sequences $a_{k} - a_{k + 1} \ge b_{k + 1} - b_k + r_k$ with a residual term, then the results $a_{N + 1}$ would be bounded by a larger quantity.
         \end{remark}
-    \end{subsection}
-
-    \begin{subsection}{The Second Lemma}
-        \begin{lemma}[FISTA Second Lemma]
-            Let $\{a, b\}$ be positive real numbers sequence satisfying: $a_k - a_{k - 1}\ge b_{k + 1} - b_k, \forall k \ge 1$, with $a_1 + b_1 \le c, c > 0$, and then it would mean that $a_{k + 1}\le c$. 
-        \end{lemma}
-        \begin{proof}
-            The base case of the proof is obvious by the fact that $b_1$ is positive, hence $a_1 \le c$ is true. the relation automatically holds true for all $k\ge 1$ because $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le c$, then $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le a_{k + 1} + b_{k + 1} \implies a_{k + 1} + b_{k + 1} \le c\implies a_{k + 1}\le c$. 
-        \end{proof}
-    \end{subsection}
-
-    \begin{subsection}{The Third Lemma}
-        \begin{lemma}[FISTA Third Lemma]
-            The FISTA asserts $t_k \ge (k + 1)/2, \forall k \ge 1$. 
-        \end{lemma}
+    \subsection{Form Matching}
+        We consider the expression $(*\star)$ from previously, and our goal is to match the coefficient of the term so that they can be matched with the form: $a_k - a_{k + 1}\le b_{k + 1} - b$, to accomplish, we further simplifies $(*\star)$ by multiplying both side by $t_{k + 1}$ (so that we can move the constant to the inside of the norm instead of letting it dangling outside) and we assume it to be a positive quantity larger than one: 
         \begin{align*}
-            t_k 
-            &\ge \frac{k + 1}{2}
+            & \quad 2L^{-1}((t_{k + 1}^2 - t_{k + 1})\Delta_k - t_{k + 1}^2\Delta_{k + 1})
             \\
-            4t_k^2 
-            &\ge 4\left(
-                \frac{k + 1}{2}
-            \right)^2
+            & \ge  
+            t_{k + 1}^2\Vert v^{(k + 1)} - \bar v^{(k)}\Vert^2 + 
+            2\langle t_{k + 1}^2(v^{(k + 1)} - \bar v^{(k)}), e^{(k)} + t_{k + 1} \bar v^{(k)}\rangle
             \\
-            \implies 
-            t_k &= \frac{1}{2}\left(
-                1 + \sqrt{1 + 4t_k^2}
-            \right)
+            &=
+            \Vert t_{k + 1} (v^{(k + 1)} - \bar v^{(k)}) \Vert^2 + 
+            2\langle t_{k + 1}^2(v^{(k + 1)} - \bar v^{(k)}), e^{(k)} + t_{k + 1}\bar v^{(k)}\rangle
             \\
-            &= 
-            \frac{1}{2} + \frac{\sqrt{1 + (k + 1)^2}}{2}
+            &=
+            \Vert t_{k+1} v^{(k + 1)} - t_{k + 1}\bar v^{(k)} + e^{(k)} + t_{k + 1}\bar v^{(k)}\Vert^2
+            - 
+            \Vert e^{(k)} - t_{k + 1} \bar v^{(k)}\Vert^2
             \\
-            & \ge \frac{1 + k}{2}, 
+            &=
+            \Vert 
+                t_{k+1} v^{(k + 1)} + e^{(k)}
+            \Vert^2
+            - 
+            \Vert e^{(k)} - t_{k + 1} \bar v^{(k)}\Vert^2
+            \\
+            [1]\implies
+            & = 
+            \Vert t_{k + 1}v^{(k + 1)} + e^{(k)}\Vert^2
+            - 
+            \Vert v^{(k)} + e^{(k - 1)} + t_{k + 1}\bar v^{(k)} \Vert^2
+            \\
+            & = 
+            \Vert t_{k + 1}v^{(k + 1)} + e^{(k)}\Vert^2
+            - 
+            \Vert e^{(k - 1)} + (t_{k + 1}\theta_k + 1) v^{(k)} \Vert^2, 
+            \tag{$\star \star$}
         \end{align*}
-    \end{subsection}
-    \subsection{Convergence Proof}
-        Firstly we define the quantities: 
-        \begin{itemize}
-            \item [1.] $a_k := (2/L)t_k^2 \Delta_k$.
-            \item [2.] $b_k := \Vert u^{(k)}\Vert^2$.
-            \item [3.] $c:= \Vert x^{(0)} - \bar x\Vert^2 = \Vert y^{(1)} - \bar x\Vert^2$. 
-        \end{itemize}
-        Recall from the first lemma, and we can represents it using the quantities listed above: 
+        where at [1] we use the fact that $e^{(k)}= x^{(k)} - \bar x = x^{(k)} - x^{(k - 1)}+ x^{(k - 1)} - \bar x = v^{(k)} - e^{(k)}$ and to match the form, we would need the sequence of $t_k, \theta_k$ to satisfies
         \begin{align*}
-            2L^{-1}(\Delta_kt_k^2 - \Delta_{t + 1}t_{k + 1}^2) 
-            &\ge 
-            \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
-            \\
-            a_k - a_{k + 1} &\ge 
-            b_{k + 1} - b_k, 
+            \begin{cases}
+                t^2_{k + 1} - t_{k + 1} = t_k^2,
+                \\
+                t_k = t_{k + 1}\theta_k + 1. 
+            \end{cases}
+            \tag{$\star **$}
         \end{align*}
-        To demonstrate how the base case hold up for the second lamma, we consider \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}, substituting $x^{(1)}$ for $x$ and $\bar x$ for $y$, implicitly using the fact that $\bar x$ is a fixed point of $\mathcal P$: 
+        One of the options is the sequence suggested in the FISTA paper, stated as: 
         \begin{align*}
-            \Delta_1& \ge 
-            \frac{L}{2}\Vert \mathcal Py^{(1)} - y^{(1)}\Vert^2 + L 
-            \langle y^{(1)} - \bar x, \mathcal P y^{(1)} - y^{(1)}\rangle
+            t_k &= \frac{1 + \sqrt{1 + 4t_k^2}}{2}, 
             \\
-            & =
-            \frac{L}{2}\Vert \mathcal P x^{(1)} - y^{(1)}\Vert^2 + L 
-            \langle x^{(1)} - \bar x, x^{(1)} - y^{(1)}\rangle
-            \\
-            &= 
-            \frac{L}{2}
-            (\Vert x^{(1)} - \bar x\Vert^2 - \Vert y^{(1)} - \bar x\Vert^2)
-            \\
-            \implies
-            2L^{-1}\Delta_1 
-            &\le
-            \underbrace{\Vert y^{(1)} - \bar x\Vert^2}_{=c} - \Vert x^{(1)} - \bar x\Vert^2
-            \\
-            \implies
-            a_1 + b_1
-            & \le c, 
+            \theta_k &= \frac{t_k - 1}{t_{k + 1}}, 
+            \tag{$\star \star *$}
         \end{align*}
-        using the fact that $t_1 = 1$ we have $u^{(1)} = x^{(1)} - \bar x \implies b_1 = \Vert x^{(1)} - \bar x\Vert^2$, please observe that the above expression simplifies to $a_1 + b_1 \le c$. Invoking the second lemma, we have the claim that $a_{k + 1}\le c$, which is stated as: 
+        and with this sequences in mind, we can express $(\star\star)$ in the form of:
         \begin{align*}
-            2L^{-1}t_{k + 1}^2\Delta_{k + 1} 
-            &\le \Vert x^{(0)} - \bar x\Vert^2
-            \\
-            \implies
-            \Delta_{k + 1}
-            &\le 
-            \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2t_k^2}
-            \\
-            & \le 
-            \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2 \times 2^{-2}(k + 1)^2}
-            = 
-            \frac{2L\Vert x^{(0)} - \bar x\Vert^2}{(k + 1)^2}, 
+            \underbrace{2L^{-1}t_k^2\Delta_k}_{a_k} - \underbrace{2L^{-1}t_{k + 1}^2\Delta_{k + 1}}_{a_{k + 1}}
+            \ge 
+            \underbrace{\Vert t_{k + 1}v^{(k + 1)} + e^{(k)}\Vert^2}_{b_{k + 1}}
+            - 
+            \underbrace{\Vert e^{(k - 1)} + t_k  v^{(k)} \Vert^2}_{b_{k}}, 
         \end{align*}
-        and the proof is now complete. 
-        
-\end{section}
+        which has $a_k = 2L^{-1}\Delta_{k + 1}$finally, we observe that setting $k = 1$ on $(\star)$ gives: 
+        \begin{align*}
+            -2L^{-1}  \Delta_1
+            & \ge 
+            \Vert v^{(1)} - \bar v^{(0)}\Vert^2 + 
+            2\langle e^{(0)} - \bar v^{(0)}, v^{(1)} - \bar v^{(0)}\rangle
+            \\
+            &\ge
+            \Vert 
+                v^{(1)} - \bar v^{(0)}
+                + 
+                e^{(0)} - \bar v^{(0)}
+            \Vert^2
+            - 
+            \Vert 
+                e^{(0)} - \bar v^{(0)}
+            \Vert^2
+            \\
+            \Vert e^{(0)} - v^{(0)}\Vert^2
+            & \ge 
+            \Vert v^{(1)} + e^{(0)}\Vert^2 + 2L^{-1}\Delta_1, 
+        \end{align*}
+        now we let $a_1 = 2L^{-1}\Delta_1$, which implies $t_1 = 1$, and hence we also have $b_1 = \Vert v^{(1)} + e^{(0)}\Vert^2$ with $c = \Vert e^{(0)} - v^{(0)}\Vert^2$, and this completes the base case for using the sequence lemma. Applying the lemma we obtain: 
+        \begin{align*}
+            a_{N + 1} &\le c
+            \\
+            2L^{-1}t_{N + 1}^2\Delta_{N + 1} &\le \Vert e^{(0)} - v^{(0)}\Vert^2.
+        \end{align*}
+        interestingly, the sequence defined in $t_k$ has a lower bound of $(k + 1)/2$, which will assert convergence for the above expression. 
 
 \bibliographystyle{plain}
 \bibliography{refs.bib}

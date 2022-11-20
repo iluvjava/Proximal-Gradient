@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  18 NOV 2022 00:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  19 NOV 2022 16:34
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -543,60 +543,64 @@ LaTeX Warning: No \author given.
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] [5]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 290.
  [6] [7] [8] [9]
-<simple_lass_obj.png, id=232, 1806.75pt x 1204.5pt>
+
+LaTeX Warning: Hyper reference `sec:fista1_proof' on page 10 undefined on input line 491.
+
+
+LaTeX Warning: Reference `sec:fista1_proof' on page 10 undefined on input line 491.
+
+<simple_lass_obj.png, id=231, 1806.75pt x 1204.5pt>
 File: simple_lass_obj.png Graphic file (type png)
 <use simple_lass_obj.png>
 Package pdftex.def Info: simple_lass_obj.png  used on input line 516.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<simple_lass_pgrad.png, id=234, 1806.75pt x 1204.5pt>
+<simple_lass_pgrad.png, id=233, 1806.75pt x 1204.5pt>
 File: simple_lass_pgrad.png Graphic file (type png)
 <use simple_lass_pgrad.png>
 Package pdftex.def Info: simple_lass_pgrad.png  used on input line 517.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
- [10]
-<blurred_img.jpg, id=249, 501.875pt x 501.875pt>
+[10]
+<blurred_img.jpg, id=248, 501.875pt x 501.875pt>
 File: blurred_img.jpg Graphic file (type jpg)
 <use blurred_img.jpg>
 Package pdftex.def Info: blurred_img.jpg  used on input line 531.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
  [11 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_obj.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_pgrad.png>]
-<inverse_linear_experiment1-soln_img.jpg, id=259, 501.875pt x 501.875pt>
+<inverse_linear_experiment1-soln_img.jpg, id=258, 501.875pt x 501.875pt>
 File: inverse_linear_experiment1-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment1-soln_img.jpg>
 Package pdftex.def Info: inverse_linear_experiment1-soln_img.jpg  used on input line 538.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
-<inverse_linear_experiment2-soln_img.jpg, id=260, 501.875pt x 501.875pt>
+<inverse_linear_experiment2-soln_img.jpg, id=259, 501.875pt x 501.875pt>
 File: inverse_linear_experiment2-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment2-soln_img.jpg>
 Package pdftex.def Info: inverse_linear_experiment2-soln_img.jpg  used on input line 543.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
-<inverse_linear_experiment3-soln_img.jpg, id=261, 501.875pt x 501.875pt>
+<inverse_linear_experiment3-soln_img.jpg, id=260, 501.875pt x 501.875pt>
 File: inverse_linear_experiment3-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment3-soln_img.jpg>
 Package pdftex.def Info: inverse_linear_experiment3-soln_img.jpg  used on input line 548.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
- [12 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/blurred_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment1-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment2-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment3-soln_img.jpg>] [13]
-Overfull \hbox (8.37271pt too wide) detected at line 735
-[]
- []
+ [12 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/blurred_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment1-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment2-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment3-soln_img.jpg>] [13] [14] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.bbl [15]) [16] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
 
-[14] [15] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.bbl) [16] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: C8D2495A346251D151E76C662378A71C;4220.
+(rerunfilecheck)             Checksum: 0D7852B76777E47E07B557D7E082F1FF;4313.
  ) 
 Here is how much of TeX's memory you used:
- 14932 strings out of 478994
- 224477 string characters out of 5858183
- 580424 words of memory out of 5000000
- 32068 multiletter control sequences out of 15000+600000
+ 14936 strings out of 478994
+ 224528 string characters out of 5858183
+ 578453 words of memory out of 5000000
+ 32066 multiletter control sequences out of 15000+600000
  421755 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 81i,22n,89p,1588b,770s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 81i,15n,89p,1588b,770s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (16 pages, 1258612 bytes).
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (16 pages, 1261755 bytes).
 PDF statistics:
- 401 PDF objects out of 1000 (max. 8388607)
- 347 compressed objects within 4 object streams
- 102 named destinations out of 1000 (max. 500000)
+ 406 PDF objects out of 1000 (max. 8388607)
+ 352 compressed objects within 4 object streams
+ 108 named destinations out of 1000 (max. 500000)
  217 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -36,7 +36,7 @@
 \newlabel{thm:cvx_lipz_grad}{{1}{4}{Lipschiz Gradient and Strong Smoothness Equivalence Under Convexit}{theorem.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Proximal Gradient and Forward Backward Envelope}{4}{section.3}\protected@file@percent }
 \newlabel{sec:pg_forward_backward_env}{{3}{4}{Proximal Gradient and Forward Backward Envelope}{section.3}{}}
-\newlabel{assumption:1}{{1}{4}{}{assumption.1}{}}
+\newlabel{assumption:1}{{1}{4}{Convex Smooth Nonsmooth with Bounded Minimizers}{assumption.1}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Proximal Gradient Minimizes the Forward Backward Envelope}{4}{subsection.3.1}\protected@file@percent }
 \citation{book:first_order_opt}
 \newlabel{thm:minimizer_envelope}{{2}{5}{Minimizer of the Envelope}{theorem.2}{}}
@@ -53,6 +53,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {4}Convergence of Proximal Gradient}{7}{section.4}\protected@file@percent }
 \newlabel{sec:pg_convergence}{{4}{7}{Convergence of Proximal Gradient}{section.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Convergence Under the Convex Case}{7}{subsection.4.1}\protected@file@percent }
+\newlabel{thm:convergence_non_accelerated}{{4}{7}{Convergence Under Convexity}{theorem.4}{}}
 \citation{paper:FISTA}
 \citation{paper:FISTA}
 \newlabel{lemma:prox_two_p}{{4.1.1}{9}{Prox Step 2 Points}{lemma.4.1.1}{}}
@@ -82,14 +83,13 @@
 \newlabel{sub@fig:1c}{{c}{12}{\relax }{figure.caption.19}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces (a) $\alpha = 0$, without any one norm penalty is not robust to the additional noise. (b) $\alpha = 0.01$, there is a tiny amount of $\lambda $. (c) $\alpha = 0.1$, a bit more pental compare to (a).\relax }}{12}{figure.caption.19}\protected@file@percent }
 \newlabel{fig:alto_deblurred}{{3}{12}{(a) $\alpha = 0$, without any one norm penalty is not robust to the additional noise. (b) $\alpha = 0.01$, there is a tiny amount of $\lambda $. (c) $\alpha = 0.1$, a bit more pental compare to (a).\relax }{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Proof for Convergence of FISTA}{12}{appendix.A}\protected@file@percent }
-\newlabel{sec:fista1_proof}{{A}{12}{Proof for Convergence of FISTA}{appendix.A}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}The First Lemma}{13}{subsection.A.1}\protected@file@percent }
-\newlabel{lemma:fista_first_lemma}{{A.1.1}{13}{FISTA First Lemma}{lemma.A.1.1}{}}
-\newlabel{lemma:fista_first_lemma_1}{{{$*$}}{13}{The First Lemma}{AMS.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}The Second Lemma}{14}{subsection.A.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}The Third Lemma}{15}{subsection.A.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Convergence Proof}{15}{subsection.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}A Slightly Better Proof For Convergence For FISTA}{12}{appendix.A}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Template Proximal Gradient Method With Momentum\relax }}{13}{algorithm.3}\protected@file@percent }
+\newlabel{alg:fista_template}{{3}{13}{Template Proximal Gradient Method With Momentum\relax }{algorithm.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Preparations}{13}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}The Momentum Magic}{13}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}2 Bounded Sequences}{14}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}Form Matching}{14}{subsection.A.4}\protected@file@percent }
 \bibstyle{plain}
 \bibdata{refs.bib}
 \bibcite{book:first_order_opt}{1}
