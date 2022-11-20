@@ -93,8 +93,8 @@
     For this report, most of the content can be found in Amir's Beck and textbook \cite{book:first_order_opt}, and the proof for the convergence of Accelerated Proximal Gradient method closely follows the original paper for FISTA\cite{paper:FISTA} by Amir and Marc Teboulle. Other additional and specific materials might get used during the expression as well. 
     \par 
     In the \hyperref[sec:preliminaries]{section \ref*{sec:preliminaries}} we introduce the minimum mathematical background needed to understand the proximal gradient method. In the second \hyperref[sec:pg_forward_backward_env]{section \ref*{sec:pg_forward_backward_env}} we introduce the proximal gradient via envelope and the idea of majorization and minimization. In addition, we introduce several important lemma related to the monotone property of the Proximal Gradient method and the choice of step size, and extract out the important \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} for the proof of the accelerated case, which is in the appendix. In \hyperref[sec:pg_convergence]{section \ref*{sec:pg_convergence}} we prove the convergence of the proximal gradient method under convexity and smoothness assumption with a fixed step size. And in section \ref*{sec:apg_intro} we state the proximal gradient algorithm with Nesterov acceleration (also refers to as FISTA), and in the appendix we prove the better cnvergence of FISTA in thorough detail. Finally, for applications in \hyperref[sec:numerical_experiments]{section \ref*{sec:numerical_experiments}}, we consider the convergence of the optimality and the norm of the gradient mapping for the LASSO problem, and then we apply the LASSO algorithm for the task of deblurring images with high gussian noise. In the that same section, other common applications and extension of the algorithm will also be introduced. 
-    \subsection{Contribution of the Literatures}
-        The proximal gradient method exists, Beck's contribution to the matter is the use of Nesterov Acceleration term that improves the convergence rate with a proof. Beck popularized the use of momentum in a wider context to improve convergence of algorithms. 
+    \subsection{Contribution of this Report}
+        Gradient descend with momentum was first conjecture and created by , Beck's contribution to the matter is the use of Nesterov Acceleration term that improves the convergence rate with a proof. Beck popularized the use of momentum in a wider context to improve convergence of algorithms. 
 \section{Preliminaries}\label{sec:preliminaries}
     The proximal operator is a crucial component for the algorithm and its non-expansive  property is relevant to the convergence of Proximal Gradient under the non-convex case. We won't go into detail for the non-convex case. Under the assumption of convexity for $f$, the property of the strongly smooth function is more relevant. 
     \subsection{The Proximal Operator}
@@ -113,10 +113,8 @@
             \end{aligned}
             $$
         \end{definition}
-        
         The proximal operator is a singleton when the function $f$ is convex, proper and closed due to the strong convexity of $f(y) + 1/(2\alpha)\Vert y - x\Vert^2$. Observe that $\text{env}_{\alpha, f}(x) = (f\square \frac{1}{2\alpha}\Vert \cdot \Vert^2)(x)$, hence the infimal convolution gives us the interpretation that the epigraphs of the envelope is adding between the epigraph of these 2 functions. This conceptualization will help with the intuitive understanding of many proximal algorithm. 
         In addition please observe the following identities: 
-
         $$
         \begin{aligned}
             & \text{prox}_{f/\alpha, 1} =  \text{prox}_{f, \alpha}
@@ -1021,7 +1019,7 @@
             \theta_k &= \frac{t_k - 1}{t_{k + 1}}, 
             \tag{$\star \star *$}
         \end{align*}
-        and with this sequences in mind, we can express $(\star\star)$ in the form of:
+        and with these properties for the sequences in mind, we can express $(\star\star)$ in the form of:
         \begin{align*}
             \underbrace{2L^{-1}t_k^2\Delta_k}_{a_k} - \underbrace{2L^{-1}t_{k + 1}^2\Delta_{k + 1}}_{a_{k + 1}}
             \ge 
@@ -1055,9 +1053,9 @@
         \begin{align*}
             a_{N + 1} &\le c
             \\
-            2L^{-1}t_{N + 1}^2\Delta_{N + 1} &\le \Vert e^{(0)} - v^{(0)}\Vert^2.
+            2L^{-1}t_{N + 1}^2\Delta_{N + 1} &\le \Vert e^{(0)} - v^{(0)}\Vert^2, 
         \end{align*}
-        interestingly, the sequence defined in $t_k$ has a lower bound of $(k + 1)/2$, which will assert convergence for the above expression. 
+        interestingly, the sequence defined in $t_k$ has a lower bound of $(k + 1)/2$, which will assert convergence for the above expression. We skip the proof for the sequence lower bound here. 
 
 \bibliographystyle{plain}
 \bibliography{refs.bib}
