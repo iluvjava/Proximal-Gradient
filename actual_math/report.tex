@@ -238,12 +238,12 @@
             x = x^+ \iff \mathbf 0 &\in 
             \partial h(x^+) + \nabla g(x^+), 
         \end{align*}
-        therefore, if $x^+$ is a fixed point of $\mathcal P$ if and only if it is one of the local minimizers of the function $f$. Conversely, if $x^+$ is not a fixed point of $x$, then it has to make the objective value of the upper bounding function $m_x(y| \beta)$ decrease because it is a strongly convex function. However, this does not necessarily mean that the prox step can decrease the value of the function $f$; more conditions are needed for the parameter $\beta$ to bound the value $f$ at the prox step point. We will explain more about this in the next subsection. 
+        therefore, if $x^+$ is a fixed point of $\mathcal P$ if and only if it is one of the local minimizers of the function $f$. Conversely, if $x^+$ is not a fixed point of $x$, then it has to make the objective value of the upper bounding function $m_x(y| \beta)$ decrease because it is a strongly convex function. However, this does not necessarily mean that the prox step can decrease the value of the function $f$; we need more conditions for the parameter $\beta$ so that the value of $f$ at the prox step point is lower than the envelope. We will explain more about this in the next subsection. 
         \begin{remark}
-            The operator $\beta(x - \mathcal Px)$ is called the gradient mapping in Amiar's Book \cite{book:first_order_opt}, and it has many more critical properties that are useful for the convergence proof of the proximal gradient method under many different contexts. Please observe that if the function $h \equiv 0$, the gradient mapping is simply the gradient of the function $g$, which has a lot of favorable properties.
+            The operator $\beta(x - \mathcal Px)$ is called the gradient mapping in Amiar's Book \cite{book:first_order_opt}, and it has many more critical properties that are useful for the convergence proof of the proximal gradient method under many different contexts. Please observe that if the function $h \equiv 0$, the gradient mapping is simply the gradient of the function $g$. 
         \end{remark}
     \subsection{Step-Sizes that Ensures Monotone Descent Property}
-        With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, only a specific size of step-size can guarantee a decrease in the function value for the minimizers that minimize the envelope. For this section, we denote. 
+        With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, only a specific size of step-size can guarantee a decrease in the function value for the minimizers that minimize the envelope. 
         \begin{theorem}[Stepsize that Ensures Monotone Decrease]\label{thm:monotone_decrease}
             The step size $L^{-1}$ of the proximal gradient that guarantees a decrease in the objective value has to satisfy: $L \ge L_g$, where $L_g$ is the Lipschitz constant for the gradient of the function $g$ (recall \hyperref[thm:cvx_lipz_grad]{theorem \ref*{thm:cvx_lipz_grad}}) and $\mathcal Px$ is $\mathcal P_{L^{-1}}^{g, h}(x)$. 
         \end{theorem}
@@ -437,7 +437,7 @@
             \end{align*}
         \end{proof}
         \begin{remark}
-            One important lemma that we can extract from this proof will later be important for the proof of the accelerated case. The tagged expression ($\star$) in the above derivation. We will refer to this as the ``Prox Step 2 Points" lemma. Expression $(\star)$ is equivalent to the lemma 2.3 in the FISTA paper\cite{paper:FISTA}. 
+            We can extract one important lemma from this proof that will later be important for the proof of the accelerated case. It came from the tagged expression ($\star$) during the above derivation. We will refer to this as the ``Prox Step 2 Points'' lemma. Expression $(\star)$ is equivalent to the lemma 2.3 in the FISTA paper\cite{paper:FISTA}. 
         \end{remark}
         \begin{lemma}[Prox Step 2 Points]\label{lemma:prox_two_p}
             With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, and $\beta^{-1} > L_g$ still being our stepsize for \hyperref[alg:1]{algorithm \ref*{alg:1}}, let $y\in \mathbb E$ and define $y^+ = \mathcal P_{\beta^{-1}}^{g, h}(y)$ we have for any $x\in \mathbb E$: 
@@ -465,7 +465,7 @@
         \end{proof}
 
 \section{Accelerated Proximal Gradient}\label{sec:apg_intro}
-    Here we state the Accelerated Proximal algorithm in Beck's Paper paper\cite{paper:FISTA} and prove the convergence. The convergence proof follows what is in the paper but with more details in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the Proximal Gradient with Nesterive momentum applied to the LASSO problem. FISTA is an accelerated case of the ISTA algorithm, and it is the same as FISTA but without the Nesterov momentum. 
+    Here we state the Accelerated Proximal algorithm in Beck's Paper paper\cite{paper:FISTA} and prove the convergence in the appendix. The convergence proof follows what is in the paper but with more details in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the Proximal Gradient with Nesterov momentum applied to the LASSO problem. FISTA is an accelerated case of the ISTA algorithm, and it is the same as FISTA but without the Nesterov momentum. 
     
     \subsection{Accelerated Proximal Gradient Algorithm} 
         \begin{algorithm}[H]\label{alg:fista_1} 
@@ -475,7 +475,7 @@
             \FOR{$k=1, \cdots, N$}
                 \STATE{$x^{(k)}:= \mathcal Py^{(k)}$}
                 \IF{$y^{(k)} - x^{(k)}$ small enough}
-                    \STATE{Break}
+                    \STATE{\textbf{Break}}
                 \ENDIF
                 \STATE{$t_{k + 1} := \frac{1 + \sqrt{1 + 4t_k^2}}{2}$}
                 \STATE{$y^{(k + 1)}:= x^{(k)} + \frac{t_k -1}{t_{k + 1}}(x^{(k)} - x^{(k - 1)})$}
@@ -514,7 +514,7 @@
         \end{align*}
         which can be interpreted the $\text{sign}$ function as the projection onto the interval $[-1, 1]$, and the $\max(|x| - t\lambda, 0)$ as the distance of $x$ to the set $[-t\lambda, t\lambda]$. The quantity $t$ is the stepsize in the proximal gradient method, which is less than the reciprocal of the maximum absolute eigenvalue of $A^TA$. 
         \par
-        For this simple lasso problem, we make $A$ a diagonal 128 by 128 matrix, whose diagonals are points equally spaced in the interval $[0, 2]$. Observe that this is quadratic but not strongly convex. The right-hand side vector $b$ is the same as the diagonal of matrix $A$, but with every odd index replaced with a gaussian random noise on the level of $1^{-3}$. we performed the experiment with both ISTA and FISTA with $\lambda = 10^{-2}$. We use a step size of $0.2$ for both (It is there to prevent triggering the line search routine in the implementation). The initial guess vector $x^{(0)}$ is a vector of 3, which is the same for both FISTA and ISTA. 
+        For this simple lasso problem, we make $A$ a diagonal 128 by 128 matrix, whose diagonals are points equally spaced in the interval $[0, 2]$. Observe that this is quadratic but not strongly convex. The right-hand side vector $b$ is the same as the diagonal of matrix $A$, but with every odd index replaced with a gaussian random noise on the level of $10^{-3}$. we performed the experiment with both ISTA and FISTA with $\lambda = 10^{-2}$. We use a step size of $0.2$ for both (It is there to prevent triggering the line search routine in the implementation). The initial guess vector $x^{(0)}$ is a vector of 3, which is the same for both FISTA and ISTA. 
         \par
         For the experiment, we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_\infty$ in the none accelerated case and $\Vert y^{(k)} - x^{(k + 1)}\Vert_\infty$ in the accelerated case for each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Both algorithms terminate whenever the norm of the proximal gradient mapping is less than $10^{-10}$ during the iteration. We plotted the norm on a log scale. Observe that the type of convergence for FISTA is very different compared to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot resemble a curve at the start and quickly changes its behaviors in the later iterations. The convergence of iteration after 2000 is a straight line. This phenomenon indicates first-order convergence for ISTA. In FISTA, the overall convergence rate is slower than ISTA for 2000 iterations, and then it starts to slow down; nonetheless, it converges faster. We plot the objective value on the left of \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}}; the plot is on a log scale too. The optimal value $f(\bar x)$ is assumed to be whenever the gradient mapping has a norm within $10^{-10}$. Observe that FISTA already reaches the optimal around 476 iterations, disregarding that the norm of the gradient mapping is not within the tolerance. 
         \begin{figure}[h]
@@ -529,7 +529,7 @@
         \end{remark}
         
     \subsection*{Image Deblurring}
-        We reproduced some of the experiments conducted in Beck's FISTA paper \cite{paper:FISTA} but using larger images with colors. We consider a cartoon image of a pink unicorn (I own the image) of 500 by 500 pixels, 3 color channels, blurred. The matrix $A$ does the blurring. It is performing a convolution using discretized $15\times 15$ pixels gaussian kernel with a variance of $4$ on all pixels with a periodic boundary condition across all color channels independently. The implementation for $A$ is a for loop that constructs a sparse matrix $A$. The 750000 by 750000 sparse matrix $A$ acts independently on the vectorized image across all three color channels. More efficient ways exist, such as using the Kronecker product. However, for the sake of demonstration, the alternatives are unexplored because the explicit $A$ matrix allows us to reuse the code that made the previous demonstration. 
+        We reproduced some of the experiments conducted in Beck's FISTA paper \cite{paper:FISTA} but using larger images with colors. We consider a cartoon image of a pink unicorn (I own the image) of 500 by 500 pixels, three color channels, blurred. The matrix $A$ does the blurring. It is performing a convolution using discretized $15\times 15$ pixels gaussian kernel with a variance of $4$ on all pixels with a periodic boundary condition across all color channels independently. The implementation for $A$ is a for loop that constructs a sparse matrix $A$. The 750000 by 750000 sparse matrix $A$ acts independently on the vectorized image across all three color channels. More efficient ways exist, such as using the Kronecker product. However, for the sake of demonstration, the alternatives are unexplored because the explicit $A$ matrix allows us to reuse the code that made the previous demonstration. 
         \par
         The vector $b = Ax^+ + \epsilon$ where $x^+$ is the flattened array of the original image of all three color channels normalized to $[0, 1]$ using float64. The quantity $\epsilon$ is a zero mean gaussian noise vector with zero mean and variance of 2e-2. Here we define $\lambda = \alpha\times (3\times500^2)^{-1}$, and we make 3 experiments with $\alpha = 0, 0.01, 0.1$. The initial guess vector $x^{(0)}$ is a random zero mean gaussian vector of unit variance. The blurred image is showed in \hyperref[fig:blurred_alto]{figure \ref*{fig:blurred_alto}}. Moreover, the results of the deblurring algorithm for different value of $\alpha$ is shown in \hyperref[fig:alto_deblurred]{figure \ref*{fig:alto_deblurred}}, observes that with $\lambda = 0$, the solution contains much noise. However, just a tiny amount of $\lambda$ prevents the noises on the black background on the recovered image. 
         \begin{figure}[H]
@@ -972,7 +972,7 @@
         \begin{remark}
             If we make the expression ($\star*$) the same form as the two sequences, then there is a way to restrain the value of $\Delta_k$. Intuitively we are thinking of bounding the changes in the sequence. If the initial $a_1 + b_1$ is bounded by $c$, and $a_k$ has oscillations bounded by changes in $b_k$, then given both $a_k, b_k$ are non-negative, the total amount of changes of $a_k$ will be bounded by the total amount of changes in the sequence $b_k$ as well. 
             \par
-            Additionally, we may consider adding a residual term for the sequences $a_{k} - a_{k + 1} \ge b_{k + 1} - b_k + r_k$ with a residual term, then the results $a_{N + 1}$ would be bounded by a larger quantity.
+            Additionally, we may consider adding a residual term for the sequences $a_{k} - a_{k + 1} \ge b_{k + 1} - b_k + r_k$ with a residual term, then the results $a_{N + 1}$ would be bounded by a larger quantity. This consideration allows for different sequences of $t_k, \theta_k$ is not necessarily satisfying ($\star**$) in the next section by introducing some error terms, opening up possibilities for more sequences that could potentially have different convergence properties. 
         \end{remark}
     \subsection{Form Matching}
         Our goal is to match the terms in the previous expression $(\star*)$ to the form: $a_k - a_{k + 1}\le b_{k + 1} - b$. To accomplish that, we simplify $(\star*)$ by multiplying both sides by $t_{k + 1}$ (so that we can move the constant to the inside of the norm instead of letting it dangle outside) and we assume it to be a positive quantity larger than one: 
@@ -1035,7 +1035,7 @@
             - 
             \underbrace{\Vert e^{(k - 1)} + t_k  v^{(k)} \Vert^2}_{b_{k}}, 
         \end{align*}
-        which has $a_k = 2L^{-1}\Delta_{k + 1}$finally, we observe that setting $k = 1$ on $(\star)$ gives: 
+        which has $a_k = 2L^{-1}\Delta_{k + 1}$ finally, we observe that setting $k = 1$ on $(\star)$ gives: 
         \begin{align*}
             -2L^{-1}  \Delta_1
             & \ge 
