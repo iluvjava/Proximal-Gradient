@@ -144,14 +144,14 @@
         \end{lemma}
         \begin{proof}
             \begin{align*}
-                0 &\in \partial
+                \mathbf 0 &\in \partial
                 \left[
                     \left.
                         f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2 
                     \right| y
                 \right](y^+)
                 \\
-                0 &\in \partial f(y^+) + \frac{1}{\alpha}(y^+ - x)
+                \mathbf 0 &\in \partial f(y^+) + \frac{1}{\alpha}(y^+ - x)
                 \\
                 \frac{x}{\alpha} &\in 
                 (\partial f + \alpha^{-1}I)(y^+)
@@ -164,7 +164,7 @@
         \end{proof}
     \subsection{The Strong Smoothness}
         \begin{definition}[Strong Smoothness]\label{def:strong_smoothness}
-            A differentiable function $g$ is called smooth with a constant $\alpha$ then it satisfies: 
+            A differentiable function $g$ is called stronlgy smooth with a constant $\alpha$ then it satisfies: 
             \begin{align}
                 |g(y) - g(x) - 
                 \langle \nabla g(x), y - x
@@ -177,7 +177,7 @@
             Suppose $g$ is differentiable on the entire of $\mathbb E$. It is closed convex proper. It is strongly smooth with parameter $\alpha$ if and only if the gradient $\nabla g$ is globally Lipschitz continuous with a parameter of $\alpha$ and $g$ is closed and convex. 
         \end{theorem}
         \begin{proof}
-            For conciseness, we skip the proof here. To convince, consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{paper:FISTA}. 
+            For conciseness, we skip the proof here. To convince, consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{paper:FISTA} to show that strong smoothness implies globally Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient. 
         \end{proof}
         
 \section{Proximal Gradient and Forward Backward Envelope}\label{sec:pg_forward_backward_env}

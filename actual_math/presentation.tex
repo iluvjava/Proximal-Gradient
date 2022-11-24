@@ -30,6 +30,8 @@
 % ---------------------------------------------------------
 
 % ---------------------------------------------------------
+\newtheorem{remark}{Remark}
+\newtheorem{assumption}{Assumption}
 
 \begin{document}
 
@@ -41,92 +43,133 @@
     \tableofcontents
 \end{frame}
 
-\section{Introduction}
-    \begin{frame}{Introdução}
-        Texto referente à introdução.
-    \end{frame}
-
-\section{Conteúdo}
-    \begin{frame}{Definition, Theorems and Corollaries}
-        \begin{block}{Definição 2.1.1}
-        Aqui temos uma nova definição.
+\section{Introduction and Prximal Operators}
+    \subsection{Taxonomy of Proximal type of Methods}
+        \begin{frame}{Sum of 2 Functions}
+            \begin{align}
+                \min_{x} g(x) + h(x)
+            \end{align}
+            Through out the presentation we assume that the objective of some kind of function $f$ can be interpreted as the sum of 2 functions.
+            The paper we will be focusing on: FISTA (Fast Iterative-Shrinkage Algorithm) by Beck and Teboulle. 
+            \begin{itemize}
+                \item [1.] When $h = \delta_Q$ with $Q$ closed and convex with $Q\subseteq \text{ri}\circ \text{dom}(h)$, we use projected subgradient. 
+                \item [2.] When $g$ is \textbf{\emph{strongly smooth}} and $h$ is \textbf{closed convex proper} whose proximal oracle is easy to compute, we consider the use of FISTA. 
+                \item [3.] BIG Numerical Experiments!
+            \end{itemize}
+        \end{frame}
+        \begin{frame}{Stuff to Go Over}
+            \begin{block}{What is FISTA}
+                Simply speaking, the FISTA algorithm is the non-smooth analogy of gradient descend with Nesterov Momentum.     
+            \end{block}
+            We will be going over these things in the presentations. 
+            \begin{itemize}
+                \item [1.] Derive the proximal gradient operator under standard convexity and regularity assumptions for the function $g, h$. 
+                \item [2.] State one important lemma that arised during the proof for the proximal gradient method that is later useful for the proof for the FISTA. 
+                \item [3.] Derive the FISTA algorithm's convergence rate and construct the sequence of the Nesterov Momentum during the proof using a template algorithm. 
+            \end{itemize}
+        \end{frame}
+    \subsection{The Proximal Operator}
+        \begin{frame}{Proximal Operator Definition}
+            \begin{definition}{The Proximal Operator}
+                Let $f$ be convex closed and proper, then the proximal operator paramaterized by $\alpha > 0$ is a non-expansive mapping defined as: 
+                \begin{align*}
+                    \text{prox}_{f, \alpha}(x) := 
+                    \arg\min_{y}\left\lbrace
+                        f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2
+                    \right\rbrace. 
+                \end{align*}
+            \end{definition}  
+        \end{frame}
+        \begin{frame}{Prox is the Resolvant of Subgradient}
+            \begin{lemma}[Resolvant of the Subgradient]
+                When the function $f$ is convex closed and proper, the $\text{prox}_{\alpha, f}$ can be viewed as the following operator $(I + \alpha \partial f)^{-1}$. 
+            \end{lemma}
+            \begin{proof}
+                \begin{align*}
+                    \mathbf 0 &\in \partial
+                    \left[
+                        \left.
+                            f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2 
+                        \right| y
+                    \right](y^+)
+                    \\
+                    \mathbf 0 &\in \partial f(y^+) + \frac{1}{\alpha}(y^+ - x)
+                    \\
+                    \frac{x}{\alpha} &\in 
+                    (\partial f + \alpha^{-1}I)(y^+)
+                    \\
+                    x &\in 
+                    (\alpha \partial f + I)(y^+)
+                    \\
+                    y &\in (\alpha\partial f+ I)^{-1}(x).
+                \end{align*}
+            \end{proof}
+        \end{frame}
+        \begin{frame}{An Example of Prox}
+            \begin{definition}[Soft Thresholding]
+                For some $x \in \mathbb R$, the proximal operator of it's absolute value is given as:
+                \begin{align*}
+                   \text{prox}_{\lambda \Vert\cdot \Vert_1, t}(x) = \text{sign}(x)\max(|x| - t\lambda , 0). 
+                \end{align*}
+            \end{definition}
+            One could interpret the $\text{sign}$ operator as projecting $x$ onto the interval $[-1, 1]$ and the $\max(|x| - t\lambda , 0)$ as the distance of the point $x$ to the interval $[-t\lambda, t\lambda]$. 
+        \end{frame}
+        
+    \subsection{Strong Smoothness}
+        \begin{frame}{Strong Smoothness}
+            \begin{definition}[Strong Smoothness]\label{def:strong_smoothness}
+                A differentiable function $g$ is called strongly smooth with a constant $\alpha$ then it satisfies: 
+                \begin{align}
+                    |g(y) - g(x) - 
+                    \langle \nabla g(x), y - x
+                    \rangle| \le \frac{\alpha}{2}\Vert x - y\Vert^2
+                    \quad \forall x, y\in \mathbb E. 
+                \end{align}    
+            \end{definition}
+            \begin{block}{Remark}
+                The absolute value sign can be removed and replaced with $0\le$ on the left when the function $g$ is a convex function.
+            \end{block}
+        \end{frame}
+        \begin{frame}{Equivalence of Strong Smoothness and Lipschitz Gradient}
+            \begin{theorem}[Lipschitz Gradient Equivalence under Convexity]
+                Suppose $g$ is differentiable on the entire of $\mathbb E$. It is closed convex proper. It is strongly smooth with parameter $\alpha$ if and only if the gradient $\nabla g$ is globally Lipschitz continuous with a parameter of $\alpha$ and $g$ is closed and convex. 
+                \begin{align*}
+                    \Vert \nabla g(x) -\nabla g(y)\Vert \le 
+                    \alpha 
+                    \Vert x - y \Vert\quad \forall x, y\in \mathbb E
+                \end{align*}
+            \end{theorem}
+            
+        \end{frame}
+    \subsection{A Major Assumption}    
+        \begin{frame}{A Major Assumption}
+            \begin{assumption}[Convex Smooth Nonsmooth with Bounded Minimizers]\label{assumption:1}
+                We will assume that $g:\mathbb E\mapsto \mathbb R$ is \textbf{strongly smooth} with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ \textbf{is closed convex and proper}. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(g) \cap \text{ri}\circ \text{dom}(h) \neq \emptyset$. We also assume that a set of minimizers exists for the function $f$ and that the set is bounded. Denote the minimizer using $\bar x$. 
+            \end{assumption}
+        \end{frame}
+        
+    
+\section{Envelope and Prox 2 Points}
+    \begin{frame}{Envelope and Upper Bounding Functions}
+        \begin{block}{Upper Bounding Function}
+            With assumption 1, we construct an upper bounding functions at the point $x$ evaluated at $y$ for the function $f$ and it's given by: 
+            \begin{align*}
+                g(x) + \nabla g(x)^T(y - x) + \frac{\beta}{2} \Vert y - x\Vert^2
+                + h(y) =: m_x(y|\beta) \quad \forall y \in \mathbb E, 
+            \end{align*}    
         \end{block}
-
-        \begin{block}{Teorema 2.1.2}
-        Aqui temos um novo teorema.
+        \begin{block}{Minimizers wrt to $y$}
+            
         \end{block}
-
-        \begin{block}{Exemplo 2.1.3}
-        Aqui temos um novo exemplo.
-        \end{block}
-
-        \begin{block}{Corolário 2.1.4}
-        Aqui temos um novo corolário.
-        \end{block}
-    \end{frame}
-    \begin{frame}{Citation and References}
-        Livro de Análise Real~\cite{lima2004analise}
+        
     \end{frame}
 
-    \begin{frame}{Listas}
-        Exemplo de lista com símbolos:
-        \begin{itemize}
-            \item Primeiro elemento
-            \item Segundo elemento
-        \end{itemize}
-        \bigskip
-        Exemplo de lista com itens enumerados:
-        \begin{enumerate}
-            \item Primeiro elemento
-            \item Segundo elemento
-        \end{enumerate}
-    \end{frame}
-    \begin{frame}{Tabelas}
-        A Tabela mostra um modelo de tabela.
-        \begin{table}[htb]
-            \caption{Exemplo de tabela}
-            \label{tab:modelo_tabela}
-            \centering
-            \begin{tabular}{c|c|c|c}
-                \hline
-                \textbf{Pessoa} & \textbf{Idade} & \textbf{Peso} & \textbf{Altura} \\ \hline
-                Marcos & 26    & 68   & 178    \\ \hline
-                Ivone  & 22    & 57   & 162    \\ \hline
-                Sueli  & 40    & 65   & 153    \\ \hline
-            \end{tabular}
 
-            \medskip
+   
 
-            Fonte: Produção do próprio autor.
-        \end{table}
-    \end{frame}
-    \begin{frame}{Imagens}
-        A Figura mostra a logomarca promocional da Universidade Federal do Espírito Santo (UFES).
-        \begin{figure}[htb]
-            \medskip
-
-            Fonte: Produção do próprio autor.
-        \end{figure}
-    \end{frame}
-    \begin{frame}{Conclusão}
-        Texto referente à conclusão.
-    \end{frame}
-    \begin{frame}{Trabalhos futuros}
-        \begin{itemize}
-            \item Estudar $\ldots$
-            \medskip
-            \item Explorar $\ldots$
-            \medskip
-            \item Analisar $\ldots$
-        \end{itemize}
-    \end{frame}
-
-\section{Referências}
-    \begin{frame}{Referências}
-        \bibliography{referencias}
-    \end{frame}
-    \begin{frame}
-        end
+\section{References}
+    \begin{frame}{References}
+        \bibliography{bib.tex}
     \end{frame}
 
 \end{document}
