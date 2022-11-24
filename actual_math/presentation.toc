@@ -3,7 +3,7 @@
 \beamer@subsectionintoc {1}{2}{The Proximal Operator}{8}{0}{1}
 \beamer@subsectionintoc {1}{3}{Strong Smoothness}{11}{0}{1}
 \beamer@subsectionintoc {1}{4}{A Major Assumption}{13}{0}{1}
-\beamer@sectionintoc {2}{Envelope and Secret Sauce}{14}{0}{2}
+\beamer@sectionintoc {2}{Envelope and The Secret Sauce}{14}{0}{2}
 \beamer@subsectionintoc {2}{1}{Forward Backwards Envelope}{14}{0}{2}
 \beamer@subsectionintoc {2}{2}{The Proximal Gradient Algorithm}{16}{0}{2}
 \beamer@subsectionintoc {2}{3}{The Secret Sauce}{21}{0}{2}

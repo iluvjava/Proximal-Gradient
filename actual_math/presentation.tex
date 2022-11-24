@@ -63,7 +63,7 @@
             \end{itemize}
             
             \begin{itemize}
-                \item [1.] When $h = \delta_Q$ with $Q$ closed and convex with $Q\subseteq \text{ri}\circ \text{dom}(h)$, we use projected subgradient. 
+                \item [1.] When $h = \delta_Q$ with $Q$ closed and convex with $Q\subseteq \text{ri}\circ \text{dom}(g)$, we use projected subgradient. 
                 \item [2.] When $g$ is \textbf{\emph{strongly smooth}} and $h$ is \textbf{closed convex proper} whose proximal oracle is easy to compute, we consider the use of FISTA. 
                 
             \end{itemize}
@@ -77,12 +77,12 @@
                 \item [1.] Derive the proximal gradient operator under standard convexity and regularity assumptions for the function $g, h$. 
                 \pause\item [2.] State one important lemma that arose during the proof for the proximal gradient method that is later useful for the proof of the FISTA. 
                 \pause\item [3.] Derive the FISTA algorithm and construct the sequence of the Nesterov Momentum during the proof using a template algorithm. 
-                \pause\item [3.] Numerical Experiments!
+                \pause\item [3.] Numerical experiments results using Julia! 
             \end{itemize}
         \end{frame}
     \subsection{The Proximal Operator}
         \begin{frame}{Proximal Operator Definition}
-            \begin{definition}{The Proximal Operator}
+            \begin{definition}[The Proximal Operator]
                 Let $f$ be convex closed and proper, then the proximal operator paramaterized by $\alpha > 0$ is a non-expansive mapping defined as: 
                 \begin{align*}
                     \text{prox}_{f, \alpha}(x) := 
@@ -91,12 +91,16 @@
                     \right\rbrace. 
                 \end{align*}
             \end{definition}  
+            \begin{remark}
+                When $f$ is convex, closed and proper, 
+            \end{remark}
         \end{frame}
         \begin{frame}{Prox is the Resolvant of Subgradient}
             \begin{lemma}[Resolvant of the Subgradient]\label{lemma:prox_alternative_form}
                 When the function $f$ is convex closed and proper, the $\text{prox}_{\alpha, f}$ can be viewed as the following operator $(I + \alpha \partial f)^{-1}$. 
             \end{lemma}
             \begin{proof}
+                Minimizer satisfies zero subgradient, 
                 {\scriptsize
                 \begin{align*}
                     \mathbf 0 &\in \partial
@@ -156,7 +160,7 @@
                 \end{align*}
             \end{theorem}
             \begin{proof}
-                Using line integral, we can prove Lipschitz gradient implies strong smoothness without convexity. The converse requires convexity and applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{paper:FISTA}. 
+                Using line integral, we can prove Lipschitz gradient implies strong smoothness without convexity. The converse requires convexity and applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{book:first_order_opt}. 
             \end{proof}
             
         \end{frame}
@@ -168,11 +172,11 @@
         \end{frame}
         
     
-\section{Envelope and Secret Sauce}
+\section{Envelope and The Secret Sauce}
     \subsection{Forward Backwards Envelope}
         \begin{frame}{Envelope and Upper Bounding Functions}
             \begin{block}{Upper Bounding Function}
-                With assumption 1, we construct upper bounding functions at the point $x$ evaluated at $y$ for the function $f$, and it is given by: 
+                With assumption 1, we construct an upper bounding function at the point $x$ evaluated at $y$ for the function $f$, and it is given by: 
                 \begin{align*}
                     g(x) + \nabla g(x)^T(y - x) + \frac{\beta}{2} \Vert y - x\Vert^2
                     + h(y) =: m_x(y|\beta) \quad \forall y \in \mathbb E, 
@@ -185,7 +189,7 @@
         \end{frame}
         \begin{frame}{The Prox Gradient Operator}
             \begin{proof}{Minimizer of the Envelope}
-                We consider minimizing the envelope; zero is in the subgradient of the upper bounding function $m_x(y|\beta)$. 
+                We consider minimizing the envelope; zero is in the subgradient of the upper bounding function $m_x(y|\beta)$: 
                 \begin{align*}
                     \mathbf 0 &\in 
                     \nabla g(x) + {\beta}(y - x) + \partial h(y)
@@ -229,9 +233,9 @@
         \end{frame}
         \begin{frame}{The Proximal Gradient Method}
             \begin{itemize}
-                \item [1.] (Proved in my report.) It converges \emph{Monotonically} for stepsize $L \ge L_g$. 
+                \item [1.] (Proved in my report.) It converges \emph{Monotonically} for stepsize $L^{-1}$ such that $L \ge L_g$. 
                 \pause \item [2.] (Proved in my report.) It has a convergence rate of $\mathcal O(1/k)$ on the optimality gap $\Delta_k := f(x^{(k)}) - f(\bar x)$ where $\bar x$ is one of the minimizers for $f$ satisfying \hyperref[assumption:1]{assumption \ref*{assumption:1}}. 
-                \pause \item [3.] A line search routine can be applied, and the stepsize should satisfy the conditions: $m_x(\mathcal Px|L)\le f(x)$. 
+                \pause \item [3.] A line search routine can be applied, and the stepsize should satisfy the conditions: $m_x(\mathcal Px|L)\le f(x)$, it is possible by the Lipschitz Gradient property. 
             \end{itemize}
         \end{frame}
         
@@ -242,7 +246,7 @@
                         \STATE{\textbf{Input:} $x^{(0)}, x^{(-1)}, L, h, g$; 2 initial guesses and stepsize L}
                         \STATE{$y^{(0)} = x^{(0)} + \theta_k (x^{(0)} - x^{(-1)})$}
                         \FOR{$k = 1, \cdots, N$}
-                            \STATE{$x^{(k)} = \text{prox}_{h, l^{-1}}(y^{(k)} + l^{-1}\nabla g(y^{(k)})) =: \mathcal Py^{(k)}$}
+                            \STATE{$x^{(k)} = \text{prox}_{h, L^{-1}}(y^{(k)} + L^{-1}\nabla g(y^{(k)})) =: \mathcal P_{L^{-1}}^{g, h}(y^{(k)})$}
                             \STATE{$y^{(k + 1)} = x^{(k)} + \theta_k(x^{(k)} - x^{(k - 1)})$}
                         \ENDFOR
                     \end{algorithmic}
@@ -261,14 +265,14 @@
             \end{lemma}
             \begin{itemize}
                 \item [1.] It is equivalent to the lemma 2.3 in the FISTA paper\cite{paper:FISTA}
-                \pause \item [2.] Proof for convergence without and without the momentum uses this lemma. 
+                \pause \item [2.] Proof for convergence with and without the momentum uses this lemma. 
             \end{itemize}
         \end{frame}
         \begin{frame}{Some Physical Quantities}
             \begin{itemize}
                 \item [1.] $v^{(k)} = x^{(k)} - x^{(k -1)}$ is the velocity term. 
                 \pause\item [2.] $\bar v^{(k)}= \theta_k v^{(k)}$ is the weighed velocity term. 
-                \pause\item [3.] $e^{(k)} := x^{(k)} - \bar x$, where $\bar x \in \arg\min_{x}(f(x))$, where $\bar x$ might not be unique. 
+                \pause\item [3.] $e^{(k)} := x^{(k)} - \bar x$, where $\bar x \in \arg\min_{x}(f(x))$, where $\bar x$ is fixed.
                 \pause\item [4.] $\Delta_k := f(x^{(k)}) - f(\bar x)$ which represent the optimality gap at step $k$. 
             \end{itemize}
         \end{frame}

@@ -140,7 +140,7 @@
         % \end{prop}
         % Using the identity that $\text{prox}_{f/\alpha} = \text{prox}_{f, \alpha}$, the proximal gradient is nonexpansive for all value of $\alpha$. 
         \begin{lemma}[Proximal Operator as Resolvant of Scaled Subgradient]\label{lemma:prox_alternative_form}
-            When the function $f$ is convex closed and proper, the $\text{prox}_{\alpha, f}$ can be viewed as the following operator $(I + \alpha \partial f)^{-1}$, which is also, a single-valued operator that sometimes has a nice closed form solution to it.
+            When the function $f$ is convex closed and proper, we view $\text{prox}_{\alpha, f}$ as the resolvant $(I + \alpha \partial f)^{-1}$, which is also, a single-valued operator that sometimes has a nice closed form solution to it.
         \end{lemma}
         \begin{proof}
             \begin{align*}
@@ -177,7 +177,7 @@
             Suppose $g$ is differentiable on the entire of $\mathbb E$. It is closed convex proper. It is strongly smooth with parameter $\alpha$ if and only if the gradient $\nabla g$ is globally Lipschitz continuous with a parameter of $\alpha$ and $g$ is closed and convex. 
         \end{theorem}
         \begin{proof}
-            For conciseness, we skip the proof here. To convince, consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{paper:FISTA} to show that strong smoothness implies globally Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient. 
+            For conciseness, we skip the proof here. To prove it, we consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{book:first_order_opt}. To prove that strong smoothness implies global Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient from $x$ to $y$. 
         \end{proof}
         
 \section{Proximal Gradient and Forward Backward Envelope}\label{sec:pg_forward_backward_env}
