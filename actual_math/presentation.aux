@@ -2,10 +2,13 @@
 \providecommand\hyper@newdestlabel[2]{}
 \providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
 \HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
 \global\let\oldnewlabel\newlabel
 \gdef\newlabel#1#2{\newlabelxx{#1}#2}
 \gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
 \AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
 \let\newlabel\oldnewlabel
 \fi}
 \fi}
@@ -18,71 +21,149 @@
 \@writefile{nav}{\headcommand {\beamer@framepages {1}{1}}}
 \@writefile{nav}{\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {2}{2}}}
-\@writefile{toc}{\beamer@sectionintoc {1}{Introduction and Prximal Operators}{3}{0}{1}}
+\citation{paper:FISTA}
+\@writefile{toc}{\beamer@sectionintoc {1}{Introduction and Proximal Operators}{3}{0}{1}}
 \@writefile{nav}{\headcommand {\beamer@sectionpages {1}{2}}}
 \@writefile{nav}{\headcommand {\beamer@subsectionpages {1}{2}}}
-\@writefile{nav}{\headcommand {\sectionentry {1}{Introduction and Prximal Operators}{3}{Introduction and Prximal Operators}{0}}}
+\@writefile{nav}{\headcommand {\sectionentry {1}{Introduction and Proximal Operators}{3}{Introduction and Proximal Operators}{0}}}
 \@writefile{toc}{\beamer@subsectionintoc {1}{1}{Taxonomy of Proximal type of Methods}{3}{0}{1}}
 \@writefile{nav}{\headcommand {\beamer@subsectionpages {3}{2}}}
 \@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{1}{1}{3}{Taxonomy of Proximal type of Methods}}}
 \@writefile{nav}{\headcommand {\slideentry {1}{1}{1}{3/3}{Taxonomy of Proximal type of Methods}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {3}{3}}}
-\@writefile{nav}{\headcommand {\slideentry {1}{1}{2}{4/4}{Taxonomy of Proximal type of Methods}{0}}}
-\@writefile{nav}{\headcommand {\beamer@framepages {4}{4}}}
-\@writefile{toc}{\beamer@subsectionintoc {1}{2}{The Proximal Operator}{5}{0}{1}}
-\@writefile{nav}{\headcommand {\beamer@subsectionpages {3}{4}}}
-\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{1}{2}{5}{The Proximal Operator}}}
-\@writefile{nav}{\headcommand {\slideentry {1}{2}{1}{5/5}{The Proximal Operator}{0}}}
-\@writefile{nav}{\headcommand {\beamer@framepages {5}{5}}}
-\newlabel{lemma:prox_alternative_form}{{2}{6}{Resolvant of the Subgradient}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {lemma:prox_alternative_form}{6}}
-\@writefile{nav}{\headcommand {\slideentry {1}{2}{2}{6/6}{The Proximal Operator}{0}}}
-\@writefile{nav}{\headcommand {\beamer@framepages {6}{6}}}
-\@writefile{nav}{\headcommand {\slideentry {1}{2}{3}{7/7}{The Proximal Operator}{0}}}
-\@writefile{nav}{\headcommand {\beamer@framepages {7}{7}}}
-\@writefile{toc}{\beamer@subsectionintoc {1}{3}{Strong Smoothness}{8}{0}{1}}
-\@writefile{nav}{\headcommand {\beamer@subsectionpages {5}{7}}}
-\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{1}{3}{8}{Strong Smoothness}}}
-\newlabel{def:strong_smoothness}{{4}{8}{Strong Smoothness}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {def:strong_smoothness}{8}}
-\@writefile{nav}{\headcommand {\slideentry {1}{3}{1}{8/8}{Strong Smoothness}{0}}}
+\@writefile{nav}{\headcommand {\slideentry {1}{1}{2}{4/7}{Taxonomy of Proximal type of Methods}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {4}{7}}}
+\@writefile{toc}{\beamer@subsectionintoc {1}{2}{The Proximal Operator}{8}{0}{1}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {3}{7}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{1}{2}{8}{The Proximal Operator}}}
+\@writefile{nav}{\headcommand {\slideentry {1}{2}{1}{8/8}{The Proximal Operator}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {8}{8}}}
-\@writefile{nav}{\headcommand {\slideentry {1}{3}{2}{9/9}{Strong Smoothness}{0}}}
+\newlabel{lemma:prox_alternative_form}{{2}{9}{Resolvant of the Subgradient}{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {lemma:prox_alternative_form}{9}}
+\@writefile{nav}{\headcommand {\slideentry {1}{2}{2}{9/9}{The Proximal Operator}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {9}{9}}}
-\@writefile{toc}{\beamer@subsectionintoc {1}{4}{A Major Assumption}{10}{0}{1}}
-\@writefile{nav}{\headcommand {\beamer@subsectionpages {8}{9}}}
-\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{1}{4}{10}{A Major Assumption}}}
-\newlabel{assumption:1}{{1}{10}{Convex Smooth Nonsmooth with Bounded Minimizers}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {assumption:1}{10}}
-\@writefile{nav}{\headcommand {\slideentry {1}{4}{1}{10/10}{A Major Assumption}{0}}}
+\@writefile{nav}{\headcommand {\slideentry {1}{2}{3}{10/10}{The Proximal Operator}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {10}{10}}}
-\@writefile{toc}{\beamer@sectionintoc {2}{Envelope and Prox 2 Points}{11}{0}{2}}
-\@writefile{nav}{\headcommand {\beamer@sectionpages {3}{10}}}
-\@writefile{nav}{\headcommand {\beamer@subsectionpages {10}{10}}}
-\@writefile{nav}{\headcommand {\sectionentry {2}{Envelope and Prox 2 Points}{11}{Envelope and Prox 2 Points}{0}}}
-\newlabel{thm:minimizer_envelope}{{6}{11}{Minimizer of the Envelope}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {thm:minimizer_envelope}{11}}
-\@writefile{nav}{\headcommand {\slideentry {2}{0}{1}{11/11}{}{0}}}
+\@writefile{toc}{\beamer@subsectionintoc {1}{3}{Strong Smoothness}{11}{0}{1}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {8}{10}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{1}{3}{11}{Strong Smoothness}}}
+\newlabel{def:strong_smoothness}{{4}{11}{Strong Smoothness}{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {def:strong_smoothness}{11}}
+\@writefile{nav}{\headcommand {\slideentry {1}{3}{1}{11/11}{Strong Smoothness}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {11}{11}}}
-\@writefile{nav}{\headcommand {\slideentry {2}{0}{2}{12/12}{}{0}}}
+\citation{paper:FISTA}
+\@writefile{nav}{\headcommand {\slideentry {1}{3}{2}{12/12}{Strong Smoothness}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {12}{12}}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Proximal Gradient With Fixed Step-sizes}}{13}{}\protected@file@percent }
-\newlabel{alg:1}{{1}{13}{Envelope and Prox 2 Points}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {alg:1}{13}}
-\@writefile{nav}{\headcommand {\slideentry {2}{0}{3}{13/13}{}{0}}}
+\@writefile{toc}{\beamer@subsectionintoc {1}{4}{A Major Assumption}{13}{0}{1}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {11}{12}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{1}{4}{13}{A Major Assumption}}}
+\newlabel{assumption:1}{{1}{13}{Convex Smooth Nonsmooth with Bounded Minimizers}{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {assumption:1}{13}}
+\@writefile{nav}{\headcommand {\slideentry {1}{4}{1}{13/13}{A Major Assumption}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {13}{13}}}
-\@writefile{nav}{\headcommand {\slideentry {2}{0}{4}{14/14}{}{0}}}
+\@writefile{toc}{\beamer@sectionintoc {2}{Envelope and Secret Sauce}{14}{0}{2}}
+\@writefile{nav}{\headcommand {\beamer@sectionpages {3}{13}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {13}{13}}}
+\@writefile{nav}{\headcommand {\sectionentry {2}{Envelope and Secret Sauce}{14}{Envelope and Secret Sauce}{0}}}
+\@writefile{toc}{\beamer@subsectionintoc {2}{1}{Forward Backwards Envelope}{14}{0}{2}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {14}{13}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{2}{1}{14}{Forward Backwards Envelope}}}
+\newlabel{thm:minimizer_envelope}{{6}{14}{Minimizer of the Envelope}{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {thm:minimizer_envelope}{14}}
+\@writefile{nav}{\headcommand {\slideentry {2}{1}{1}{14/14}{Forward Backwards Envelope}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {14}{14}}}
-\bibdata{bib.tex}
-\@writefile{toc}{\beamer@sectionintoc {3}{References}{15}{0}{3}}
-\@writefile{nav}{\headcommand {\beamer@sectionpages {11}{14}}}
-\@writefile{nav}{\headcommand {\beamer@subsectionpages {11}{14}}}
-\@writefile{nav}{\headcommand {\sectionentry {3}{References}{15}{References}{0}}}
-\@writefile{nav}{\headcommand {\slideentry {3}{0}{1}{15/15}{}{0}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{1}{2}{15/15}{Forward Backwards Envelope}{0}}}
 \@writefile{nav}{\headcommand {\beamer@framepages {15}{15}}}
-\@writefile{nav}{\headcommand {\beamer@partpages {1}{15}}}
-\@writefile{nav}{\headcommand {\beamer@subsectionpages {15}{15}}}
-\@writefile{nav}{\headcommand {\beamer@sectionpages {15}{15}}}
-\@writefile{nav}{\headcommand {\beamer@documentpages {15}}}
-\@writefile{nav}{\headcommand {\gdef \inserttotalframenumber {15}}}
-\gdef \@abspage@last{15}
+\@writefile{toc}{\beamer@subsectionintoc {2}{2}{The Proximal Gradient Algorithm}{16}{0}{2}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {14}{15}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{2}{2}{16}{The Proximal Gradient Algorithm}}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{alg:1}{{1}{16}{Proximal Gradient With Fixed Step-sizes\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {alg:1}{16}}
+\@writefile{nav}{\headcommand {\slideentry {2}{2}{1}{16/16}{The Proximal Gradient Algorithm}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {16}{16}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{2}{2}{17/19}{The Proximal Gradient Algorithm}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {17}{19}}}
+\newlabel{alg:fista_template}{{2}{20}{Template Proximal Gradient Method With Momentum\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {alg:fista_template}{20}}
+\@writefile{nav}{\headcommand {\slideentry {2}{2}{3}{20/20}{The Proximal Gradient Algorithm}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {20}{20}}}
+\citation{paper:FISTA}
+\@writefile{toc}{\beamer@subsectionintoc {2}{3}{The Secret Sauce}{21}{0}{2}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {16}{20}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{2}{3}{21}{The Secret Sauce}}}
+\newlabel{lemma:prox_two_p}{{7}{21}{Prox Step 2 Points}{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {lemma:prox_two_p}{21}}
+\citation{paper:FISTA}
+\@writefile{nav}{\headcommand {\slideentry {2}{3}{1}{21/22}{The Secret Sauce}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {21}{22}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{3}{2}{23/26}{The Secret Sauce}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {23}{26}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{3}{3}{27/27}{The Secret Sauce}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {27}{27}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{3}{4}{28/28}{The Secret Sauce}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {28}{28}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{3}{5}{29/29}{The Secret Sauce}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {29}{29}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{3}{6}{30/30}{The Secret Sauce}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {30}{30}}}
+\@writefile{nav}{\headcommand {\slideentry {2}{3}{7}{31/31}{The Secret Sauce}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {31}{31}}}
+\@writefile{toc}{\beamer@sectionintoc {3}{Numerical Experiments}{32}{0}{3}}
+\@writefile{nav}{\headcommand {\beamer@sectionpages {14}{31}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {21}{31}}}
+\@writefile{nav}{\headcommand {\sectionentry {3}{Numerical Experiments}{32}{Numerical Experiments}{0}}}
+\@writefile{toc}{\beamer@subsectionintoc {3}{1}{LASSO}{32}{0}{3}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {32}{31}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{3}{1}{32}{LASSO}}}
+\@writefile{nav}{\headcommand {\slideentry {3}{1}{1}{32/32}{LASSO}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {32}{32}}}
+\@writefile{nav}{\headcommand {\slideentry {3}{1}{2}{33/33}{LASSO}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {33}{33}}}
+\@writefile{nav}{\headcommand {\slideentry {3}{1}{3}{34/34}{LASSO}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {34}{34}}}
+\@writefile{toc}{\beamer@subsectionintoc {3}{2}{Image Deconvolution with Noise}{35}{0}{3}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {32}{34}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionentry {0}{3}{2}{35}{Image Deconvolution with Noise}}}
+\@writefile{nav}{\headcommand {\slideentry {3}{2}{1}{35/35}{Image Deconvolution with Noise}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {35}{35}}}
+\newlabel{fig:blurred_alto}{{2}{36}{The image is blurred by the Gaussian Blurred matrix $A$ with a tiny amount of noise on the level of $2\times 10^{-2}$ that is barely observable. Zoom in to observe the tiny amount of Gaussian noise on top of the blur.\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {fig:blurred_alto}{36}}
+\@writefile{nav}{\headcommand {\slideentry {3}{2}{2}{36/36}{Image Deconvolution with Noise}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {36}{36}}}
+\newlabel{fig:1a}{{3a}{37}{\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {fig:1a}{37}}
+\newlabel{sub@fig:1a}{{a}{37}{\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {sub@fig:1a}{37}}
+\newlabel{fig:1b}{{3b}{37}{\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {fig:1b}{37}}
+\newlabel{sub@fig:1b}{{b}{37}{\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {sub@fig:1b}{37}}
+\newlabel{fig:1c}{{3c}{37}{\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {fig:1c}{37}}
+\newlabel{sub@fig:1c}{{c}{37}{\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {sub@fig:1c}{37}}
+\newlabel{fig:alto_deblurred}{{3}{37}{(a) $\alpha = 0$, without any one norm penalty, is not robust to the additional noise. (b) $\alpha = 0.01$, there is a tiny amount of $\lambda $. (c) $\alpha = 0.1$, it is more penalty compared to (a).\relax }{Doc-Start}{}}
+\@writefile{snm}{\beamer@slide {fig:alto_deblurred}{37}}
+\@writefile{nav}{\headcommand {\slideentry {3}{2}{3}{37/37}{Image Deconvolution with Noise}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {37}{37}}}
+\@writefile{toc}{\beamer@sectionintoc {4}{Conclusion}{38}{0}{4}}
+\@writefile{nav}{\headcommand {\beamer@sectionpages {32}{37}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {35}{37}}}
+\@writefile{nav}{\headcommand {\sectionentry {4}{Conclusion}{38}{Conclusion}{0}}}
+\@writefile{nav}{\headcommand {\slideentry {4}{0}{1}{38/38}{}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {38}{38}}}
+\bibdata{refs.bib}
+\bibcite{paper:FISTA}{\hyperlink {beamerbibpaper:FISTA}{1}}
+\@writefile{toc}{\beamer@sectionintoc {5}{References}{39}{0}{5}}
+\@writefile{nav}{\headcommand {\beamer@sectionpages {38}{38}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {38}{38}}}
+\@writefile{nav}{\headcommand {\sectionentry {5}{References}{39}{References}{0}}}
+\@writefile{nav}{\headcommand {\slideentry {5}{0}{1}{39/39}{}{0}}}
+\@writefile{nav}{\headcommand {\beamer@framepages {39}{39}}}
+\@writefile{nav}{\headcommand {\beamer@partpages {1}{39}}}
+\@writefile{nav}{\headcommand {\beamer@subsectionpages {39}{39}}}
+\@writefile{nav}{\headcommand {\beamer@sectionpages {39}{39}}}
+\@writefile{nav}{\headcommand {\beamer@documentpages {39}}}
+\@writefile{nav}{\headcommand {\gdef \inserttotalframenumber {30}}}
+\gdef \@abspage@last{39}

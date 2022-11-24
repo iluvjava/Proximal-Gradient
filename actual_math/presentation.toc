@@ -1,7 +1,14 @@
-\beamer@sectionintoc {1}{Introduction and Prximal Operators}{3}{0}{1}
+\beamer@sectionintoc {1}{Introduction and Proximal Operators}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{Taxonomy of Proximal type of Methods}{3}{0}{1}
-\beamer@subsectionintoc {1}{2}{The Proximal Operator}{5}{0}{1}
-\beamer@subsectionintoc {1}{3}{Strong Smoothness}{8}{0}{1}
-\beamer@subsectionintoc {1}{4}{A Major Assumption}{10}{0}{1}
-\beamer@sectionintoc {2}{Envelope and Prox 2 Points}{11}{0}{2}
-\beamer@sectionintoc {3}{References}{15}{0}{3}
+\beamer@subsectionintoc {1}{2}{The Proximal Operator}{8}{0}{1}
+\beamer@subsectionintoc {1}{3}{Strong Smoothness}{11}{0}{1}
+\beamer@subsectionintoc {1}{4}{A Major Assumption}{13}{0}{1}
+\beamer@sectionintoc {2}{Envelope and Secret Sauce}{14}{0}{2}
+\beamer@subsectionintoc {2}{1}{Forward Backwards Envelope}{14}{0}{2}
+\beamer@subsectionintoc {2}{2}{The Proximal Gradient Algorithm}{16}{0}{2}
+\beamer@subsectionintoc {2}{3}{The Secret Sauce}{21}{0}{2}
+\beamer@sectionintoc {3}{Numerical Experiments}{32}{0}{3}
+\beamer@subsectionintoc {3}{1}{LASSO}{32}{0}{3}
+\beamer@subsectionintoc {3}{2}{Image Deconvolution with Noise}{35}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{38}{0}{4}
+\beamer@sectionintoc {5}{References}{39}{0}{5}
