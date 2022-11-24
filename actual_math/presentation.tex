@@ -2,12 +2,14 @@
 \usetheme{Madrid}
 \usepackage[utf8]{inputenc}
 
-
+\usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
 \DeclareMathOperator {\argmin}{argmin}
+\usepackage{algorithmic}
+\usepackage{algorithm}
 
 \author{Hongda Li}
 \title{Proximal Gradient: Convergence, Implementations and Applications}
@@ -81,7 +83,7 @@
             \end{definition}  
         \end{frame}
         \begin{frame}{Prox is the Resolvant of Subgradient}
-            \begin{lemma}[Resolvant of the Subgradient]
+            \begin{lemma}[Resolvant of the Subgradient]\label{lemma:prox_alternative_form}
                 When the function $f$ is convex closed and proper, the $\text{prox}_{\alpha, f}$ can be viewed as the following operator $(I + \alpha \partial f)^{-1}$. 
             \end{lemma}
             \begin{proof}
@@ -158,10 +160,60 @@
                 + h(y) =: m_x(y|\beta) \quad \forall y \in \mathbb E, 
             \end{align*}    
         \end{block}
-        \begin{block}{Minimizers wrt to $y$}
-            
+        In brief, suppose we are at the point $x$ of the iterations we are minimizing the function $m_x(y|\beta)$ to obtain the next point for our iterations.
+        \begin{theorem}[Minimizer of the Envelope]\label{thm:minimizer_envelope}
+            The minimizer for the envelope has a closed form, and it is $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$, with \hyperref[assumption:1]{assumption \ref*{assumption:1}}. 
+        \end{theorem}
+    \end{frame}
+    \begin{frame}{The Prox Gradient Operator}
+        \begin{proof}{Minimizer of the Envelope}
+            We consider minimizing the envelope; zero is in the subgradient of the upper bounding function $m_x(y|\beta)$. 
+            \begin{align*}
+                \mathbf 0 &\in 
+                \nabla g(x) + {\beta}(y - x) + \partial h(y)
+                \\
+                \nabla g(x) + \beta x & \in
+                \beta y + \partial h(y)
+                \\
+                -\beta^{-1} \nabla g(x) + x &\in y + \beta^{-1} \partial h(y)
+                \\
+                -\beta^{-1} \nabla g(x) + x &\in [I + \beta^{-1} \partial h](y)
+                \\
+                \implies
+                [I + \beta^{-1}\partial h]^{-1}(- \beta^{-1} \nabla g(x) + x) 
+                & \ni y,
+            \end{align*}
+            recall \hyperref[lemma:prox_alternative_form]{lemma \ref*{lemma:prox_alternative_form}}, it's the operator $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$. 
+        \end{proof}
+    \end{frame}
+    \begin{frame}{Prox Step and the Proximal Gradient Algorithm}
+        \begin{block}{The Prox Step}
+            For simplicty we will be calling the point $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$ ``the prox step'', and we denote it as $\mathcal P_{\beta^{-1}}^{g, h}(x)$ when there is no ambiguity we simply use $\mathcal Px$.     
         \end{block}
-        
+        \begin{block}{The Proximal Gradient Method}
+            \begin{algorithm}[H]
+                \algsetup{linenosize=\tiny}
+                \scriptsize
+                \begin{algorithmic}[1]
+                \STATE{\textbf{Input:} $g, h$, smooth and nonsmooth, $L$ stepsize, $x^{(0)}$ an initial guess of solution. }
+                \FOR{$k=1, 2,\cdots, N$}
+                    \STATE{\quad $x^{(k + 1)} = \mathcal P_L^{g, h}x^{(k)}$}
+                    \IF{$x^{(k + 1)}, x^{(k)}$ close enough}
+                        \STATE{\textbf{Break}}
+                    \ENDIF
+                \ENDFOR
+                \end{algorithmic}
+                \caption{Proximal Gradient With Fixed Step-sizes}
+                \label{alg:1}
+            \end{algorithm}
+        \end{block}
+    \end{frame}
+    \begin{frame}{The proximal Gradient Method}
+        \begin{itemize}
+            \item [1.] Converges Monotonically for stepsize $L \ge L_g$. 
+            \item [2.] It has a convergence rate of $\mathcal O(1/k)$ on the optimality gap $\Delta_k := f(x^{(k)}) - f(\bar x)$ where $\bar x$ is one of the minimizers for $f$ satisfiying \hyperref[assumption:1]{assumption \ref*{assumption:1}}. 
+            \item [3.] Line search routine can be applied and the stepsize should satisfies the conditions that: 
+        \end{itemize}
     \end{frame}
 
 
