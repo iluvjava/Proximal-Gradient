@@ -247,7 +247,7 @@
         \begin{theorem}[Stepsize that Ensures Monotone Decrease]\label{thm:monotone_decrease}
             The step size $L^{-1}$ of the proximal gradient that guarantees a decrease in the objective value has to satisfy: $L \ge L_g$, where $L_g$ is the Lipschitz constant for the gradient of the function $g$ (recall \hyperref[thm:cvx_lipz_grad]{theorem \ref*{thm:cvx_lipz_grad}}) and $\mathcal Px$ is $\mathcal P_{L^{-1}}^{g, h}(x)$. 
         \end{theorem}
-        \begin{proof}Consider the fact that the envelope at the prox step is smaller than the point where the envelope is touching with the function $f$ at $x$ (recall \hyperref[thm:minimizer_envelope]{theorem \ref*{thm:minimizer_envelope}}), we have $m_x(\mathcal Px|L_f)\le f(x)$ which gives: 
+        \begin{proof}Consider the fact that the envelope at the prox step is smaller than the point where the envelope is touching with the function $f$ at $x$ (recall \hyperref[thm:minimizer_envelope]{theorem \ref*{thm:minimizer_envelope}}). By the minimzing property of $\mathcal x$ on the upperbounding function we have $m_x(\mathcal Px|L_f)\le m_x(x) = f(x)$ which gives: 
             \begin{align*}
                 m_x(\mathcal Px|L) \le m_x(\mathcal Px|L_f) 
                 &\le f(x)
