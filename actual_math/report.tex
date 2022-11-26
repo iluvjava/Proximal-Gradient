@@ -67,7 +67,7 @@
     commentstyle     = \color{ForestGreen},
     showstringspaces = false,
 }
-\title{Proximal Gradient: Convergence, Implementations and Applications}
+\title{FISTA Review}
 \author{Hongda Li}
 
 \begin{document}
@@ -139,8 +139,8 @@
         %     $$
         % \end{prop}
         % Using the identity that $\text{prox}_{f/\alpha} = \text{prox}_{f, \alpha}$, the proximal gradient is nonexpansive for all value of $\alpha$. 
-        \begin{lemma}[Proximal Operator as Resolvant of Scaled Subgradient]\label{lemma:prox_alternative_form}
-            When the function $f$ is convex closed and proper, we view $\text{prox}_{\alpha, f}$ as the resolvant $(I + \alpha \partial f)^{-1}$, which is also, a single-valued operator that sometimes has a nice closed form solution to it.
+        \begin{lemma}[Proximal Operator as resolvent of Scaled Subgradient]\label{lemma:prox_alternative_form}
+            When the function $f$ is convex closed and proper, we view $\text{prox}_{\alpha, f}$ as the resolvent $(I + \alpha \partial f)^{-1}$, which is also, a single-valued operator that sometimes has a nice closed form solution to it.
         \end{lemma}
         \begin{proof}
             \begin{align*}
@@ -159,12 +159,12 @@
                 x &\in 
                 (\alpha \partial f + I)(y^+)
                 \\
-                y &\in (\alpha\partial f+ I)^{-1}(x).
+                y^+ &\in (\alpha\partial f+ I)^{-1}(x).
             \end{align*}
         \end{proof}
-    \subsection{The Strong Smoothness}
-        \begin{definition}[Strong Smoothness]\label{def:strong_smoothness}
-            A differentiable function $g$ is called stronlgy smooth with a constant $\alpha$ then it satisfies: 
+    \subsection{The $\alpha$ Smoothness}
+        \begin{definition}[$\alpha$-Smoothness]\label{def:strong_smoothness}
+            A differentiable function $g$ is called $\alpha$-smooth with a constant $\alpha$ then it satisfies: 
             \begin{align}
                 |g(y) - g(x) - 
                 \langle \nabla g(x), y - x
@@ -172,12 +172,12 @@
                 \quad \forall x, y\in \mathbb E. 
             \end{align}    
         \end{definition}
-        The absolute value sign can be removed and replaced with $0\le$ when the function $g$ is a convex function.
-        \begin{theorem}[Lipschiz Gradient and Strong Smoothness Equivalence Under Convexit]\label{thm:cvx_lipz_grad}
-            Suppose $g$ is differentiable on the entire of $\mathbb E$. It is closed convex proper. It is strongly smooth with parameter $\alpha$ if and only if the gradient $\nabla g$ is globally Lipschitz continuous with a parameter of $\alpha$ and $g$ is closed and convex. 
+        We remove the absolute value sign when $g$ is convex. 
+        \begin{theorem}[Lipschiz Gradient and $\alpha$ Smoothness Equivalence Under Convexity]\label{thm:cvx_lipz_grad}
+            Suppose $g$ is differentiable on the entire of $\mathbb E$ and, it is closed convex proper then, it is $\alpha$-smooth if and only if the gradient $\nabla g$ is globally Lipschitz continuous with a parameter of $\alpha$ and $g$.
         \end{theorem}
         \begin{proof}
-            For conciseness, we skip the proof here. To prove it, we consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{book:first_order_opt}. To prove that strong smoothness implies global Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient from $x$ to $y$. 
+            For conciseness, we skip the proof here. To prove it, we consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{book:first_order_opt}. To prove that $\alpha$-smoothness implies global Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient from $x$ to $y$. 
         \end{proof}
         
 \section{Proximal Gradient and Forward Backward Envelope}\label{sec:pg_forward_backward_env}
@@ -186,7 +186,7 @@
         We will assume that $g:\mathbb E\mapsto \mathbb R$ is strongly smooth with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ is closed convex and proper. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(g) \cap \text{ri}\circ \text{dom}(h) \neq \emptyset$. We also assume that a set of minimizers exists for the function $f$ and that the set is bounded. Denote the minimizer using $\bar x$. 
     \end{assumption}
     
-    \subsection{Proximal Gradient Minimizes the Forward Backward Envelope}
+    \subsection{Proximal Gradient}
         First, we follow the intuitive idea of constructing an upper bounding function given a parameter $\beta$ as  $m_x(y|\beta)$; it can be interpreted as a surrogate function if one prefers for $g + h$ with $\beta \ge L_g$: 
         \begin{align*}
             & g(x) + h(x) \le 
@@ -202,7 +202,7 @@
             \right\rbrace. 
         \end{align*}
         
-        \begin{theorem}[Minimizer of the Envelope]\label{thm:minimizer_envelope}
+        \begin{theorem}[Minimizer of $m_x(y|\beta)$]\label{thm:minimizer_envelope}
             The minimizer for the envelope has a closed form, and it is $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$, with \hyperref[assumption:1]{assumption \ref*{assumption:1}}. 
         \end{theorem}
         \begin{proof}

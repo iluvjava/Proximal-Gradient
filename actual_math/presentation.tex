@@ -83,7 +83,7 @@
     \subsection{The Proximal Operator}
         \begin{frame}{Proximal Operator Definition}
             \begin{definition}[The Proximal Operator]
-                Let $f$ be convex closed and proper, then the proximal operator paramaterized by $\alpha > 0$ is a non-expansive mapping defined as: 
+                Let $f$ be convex closed and proper, then the proximal operator parameterized by $\alpha > 0$ is a non-expansive mapping defined as: 
                 \begin{align*}
                     \text{prox}_{f, \alpha}(x) := 
                     \arg\min_{y}\left\lbrace
@@ -92,7 +92,7 @@
                 \end{align*}
             \end{definition}  
             \begin{remark}
-                When $f$ is convex, closed and proper, 
+                When $f$ is convex, closed, and proper, 
             \end{remark}
         \end{frame}
         \begin{frame}{Prox is the Resolvant of Subgradient}
@@ -100,7 +100,7 @@
                 When the function $f$ is convex closed and proper, the $\text{prox}_{\alpha, f}$ can be viewed as the following operator $(I + \alpha \partial f)^{-1}$. 
             \end{lemma}
             \begin{proof}
-                Minimizer satisfies zero subgradient, 
+                Minimizer satisfies zero subgradient condition, 
                 {\scriptsize
                 \begin{align*}
                     \mathbf 0 &\in \partial
@@ -148,7 +148,6 @@
             \begin{block}{Remark}
                 The absolute value sign can be removed and replaced with $0\le$ on the left when the function $g$ is a convex function.
             \end{block}
-            
         \end{frame}
         \begin{frame}{Equivalence of Strong Smoothness and Lipschitz Gradient}
             \begin{theorem}[Lipschitz Gradient Equivalence under Convexity]

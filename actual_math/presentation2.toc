@@ -1,0 +1,14 @@
+\beamer@sectionintoc {1}{Context and Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{The Context}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{The Proximal Operator}{7}{0}{1}
+\beamer@sectionintoc {2}{Proximal Gradient and Accelerated Proximal Gradient}{10}{0}{2}
+\beamer@sectionintoc {3}{The Momentum Term}{15}{0}{3}
+\beamer@subsectionintoc {3}{1}{Questions to Answer}{15}{0}{3}
+\beamer@subsectionintoc {3}{2}{Some Quantities}{16}{0}{3}
+\beamer@subsectionintoc {3}{3}{Prox Two Step Lemma}{16}{0}{3}
+\beamer@subsectionintoc {3}{4}{Bounded Sequence}{16}{0}{3}
+\beamer@subsectionintoc {3}{5}{A Sketch of the Proof}{16}{0}{3}
+\beamer@sectionintoc {4}{Numerical Experiments}{16}{0}{4}
+\beamer@subsectionintoc {4}{1}{LASSO}{16}{0}{4}
+\beamer@subsectionintoc {4}{2}{Image Deconvolution with Noise}{19}{0}{4}
+\beamer@sectionintoc {5}{References}{22}{0}{5}
