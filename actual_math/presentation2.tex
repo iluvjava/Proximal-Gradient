@@ -14,7 +14,7 @@
 \usepackage{subcaption}
 \graphicspath{{.}}
 
-\author[1]{Beck Amir, Marcc Teboulle}
+\author[Hongda Li]{Hongda Li}
 
 
 \title{Fast Iterative Shrinkage-Thresholding Algorithm for Linear Inverse Problem}
@@ -41,18 +41,31 @@
 \newtheorem{assumption}{Assumption}
 
 \begin{document}
-    \begin{frame}
-        \titlepage
-    \end{frame}
-
-    \begin{frame}{ToC}
-        \tableofcontents
-    \end{frame}
+\begin{frame}
+    \titlepage
+\end{frame}
+\begin{frame}{The FISTA Paper}
+    \begin{center}
+        Fast Iterative Shrinkage-Thresholding Algorithm for Linear Inverse Problem
+        \\
+        {\footnotesize
+            A. Beck and M. Teboulle,
+            \\ SIAM J. IMAGING SCIENCES, Vol.2, 2009. 
+        }
+    \end{center}
+    \begin{center}
+        \includegraphics[width=7cm]{screen_shot_paper.png}    
+    \end{center}
+\end{frame}
+\begin{frame}{ToC}
+    \tableofcontents
+\end{frame}
 
 \section{Context and Introduction}
+    
     \subsection{The Context}
         \begin{frame}{Sum of Two Functions}
-            Consider a function $f$ that can be written into the sum of two functions. 
+            Consider a function $f$ that we can write into the sum of two functions. 
             \begin{align}
                 \min_{x} g(x) + h(x)
             \end{align}  
@@ -92,7 +105,7 @@
                    \Vert \nabla g(x) - \nabla g(y)\Vert \le \alpha\Vert y - x \Vert\quad 
                    \forall x, y \in \mathbb E,
                 \end{align*}
-                we assume $\Vert \cdot\Vert$ is the euclidean norm for simplicity. It has been shown in Beck's book, theorem 5.8\cite{book:first_order_opt}. 
+                we assume $\Vert \cdot\Vert$ is the euclidean norm for simplicity. In Beck's book, theorem 5.8\cite{book:first_order_opt}. 
             \end{block}
         \end{frame}
     \subsection{The Proximal Operator}
@@ -151,7 +164,7 @@
                     \begin{algorithmic}[1]
                     \STATE{\textbf{Input:} $g, h$, smooth and nonsmooth, $L$ stepsize, $x^{(0)}$ an initial guess of solution. }
                     \FOR{$k=1, 2,\cdots, N$}
-                        \STATE{\quad $x^{(k + 1)} = \arg\min_y \{h(x^{(k)}) + \langle \nabla g(x^{(k)}), y - x^{(k)}\rangle + \frac{L}{2}\Vert y - x^{(k)}\Vert^2\}$}
+                        \STATE{\quad $x^{(k + 1)} = \arg\min_y \{h(y) + \langle \nabla g(x^{(k)}), y - x^{(k)}\rangle + \frac{L}{2}\Vert y - x^{(k)}\Vert^2\}$}
                         \IF{$x^{(k + 1)}, x^{(k)}$ close enough}
                             \STATE{\textbf{Break}}
                         \ENDIF
@@ -175,10 +188,22 @@
             \end{align*}
             Moreover, it has shown that: 
             \begin{align*}
-                \underbrace{\text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))}_{=:\mathcal P_{\beta^{-1}}^{g, h}(x)} 
-                = \arg\min_{y} \{m_x(y)\}.  
+                \underbrace{
+                    \text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))
+                    }_{
+                        =:\mathcal P_{\beta^{-1}}^{g, h}(x)
+                    } 
+                = \arg\min_{y} \{m_x(y|\beta)\}.  
             \end{align*}
             The proximal gradient algorithm performs fixed point iterations on the proximal gradient operator. 
+        \end{frame}
+        \begin{frame}{A Plot for an Upper Bounding Function}
+            \begin{figure}[h]
+                \centering
+                \includegraphics[width=8cm]{the_upperbounding_fxn.png}
+                \caption{The upper bounding function that the proximal gradient algorithm is minimizing for each iteration. In this case $g(x) = \exp(1 + \log(x)), h(x) = |x|$}
+            \end{figure}
+
         \end{frame}
         \begin{frame}{Facts About Proximal Gradient Descent}
             With our Assumption A.1: 
@@ -260,7 +285,7 @@
     \begin{frame}{The Nesterov Momentum Sequence}
         In the algorithm we listed, the Nesterov momentum sequence consists of $\theta_k, t_k$ with $t_0 = 1$ given by
         \begin{align}
-            t_k = \frac{1 + \sqrt{1 + 4t_k^2}}{2}, \theta_k = \frac{t_k - 1}{t_{k + 1}}, t_0 = 1
+            t_{k+1} = \frac{1 + \sqrt{1 + 4t_k^2}}{2}, \theta_k = \frac{t_k - 1}{t_{k + 1}}, t_0 = 1
         \end{align}
         It is shown that the sequence of $t_k$ grows linearly and $t_k > (1 + k)/2$. 
     \end{frame}
@@ -373,7 +398,7 @@
             \end{figure}
         \end{frame}
         \begin{frame}{Results}
-            The plot of $\Vert y^{(k)} - x^{(k + 1)}\Vert_\infty$:
+            The plot of $\Vert y^{(k)} - x^{(k)}\Vert_\infty$:
             \begin{figure}[h]
                 \centering
                 \includegraphics[width=8cm]{simple_lass_pgrad.png}

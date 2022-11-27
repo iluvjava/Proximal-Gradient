@@ -1323,6 +1323,12 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss12.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss9.tfm
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/screen_shot_paper.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/screen_shot_paper.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/screen_shot_paper.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/screen_shot_paper.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/screen_shot_paper.png
 INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/presentation2.toc
 INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/presentation2.toc
 INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/presentation2.toc
@@ -1367,7 +1373,11 @@ INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm
-INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss9.tfm
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/the_upperbounding_fxn.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/the_upperbounding_fxn.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/the_upperbounding_fxn.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/the_upperbounding_fxn.png
+INPUT /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/the_upperbounding_fxn.png
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss10.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmss8.tfm
 INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
