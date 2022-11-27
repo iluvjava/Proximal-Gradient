@@ -1,6 +1,6 @@
 ### **Proximal-Gradient**
-The proximal gradient methods in julia. Credit to \<A Fast Iterative-Thresholding Algorithm for Linear Inverse Problem\> by Amir Beck and Marc Teboule. The implementations is based on their paper and the book by Amir \<First-Order method for Optimization\> is an essential reference for the theoretical background of this repo. 
 
+The proximal gradient methods in julia. Credit to \<A Fast Iterative-Thresholding Algorithm for Linear Inverse Problem\> by Amir Beck and Marc Teboule. The implementations is based on their paper and the book by Amir \<First-Order method for Optimization\> is an essential reference for the theoretical background of this repo. 
 
 ---
 ### **How to Run**
@@ -25,6 +25,10 @@ $$
 
 in which we solve it using the FISTA algorithm with $A$ being the discretized Guassian Blurr matrix. The example is in [here](applications/Inverse_linear.jl). The sparse matrix multiplication is slow in Julia, I don't have mental strength to optimize the speed yet. It's proved in Beck book that the convergence is first order for both the accelerated and unaccelerated case. 
 
+---
 ### **Math**
 
-Read [this](actual_math/report.pdf) for more math. 
+Read [this](actual_math/report.pdf) for more math. We did: 
+1. Coding up numerical experiment.
+2. Proved and explained everything.
+3. Showed where the Nesterov Momentum came from. 
