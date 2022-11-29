@@ -137,10 +137,10 @@
             \begin{align*}
                \text{prox}_{\delta_Q, \alpha}(x)=\underset{y}{\text{argmin}}
                \left\lbrace
-                    \delta_Q(y) + \frac{1}{\alpha}\Vert x - y\Vert^2
+                    \delta_Q(y) + \frac{1}{2\alpha}\Vert x - y\Vert^2
                \right\rbrace = \argmin_{y\in Q}\Vert x - y\Vert^2,
             \end{align*}
-            it searches for the closest point to the set $Q$ for all $\alpha > 0$, and it is called a projection. When $Q\neq \emptyset$ is convex and closed, the point is unique. 
+            it searches for the closest point to the set $Q$ for all $\alpha > 0$, and it is called a projection. The point is unique when $Q\neq \emptyset$ is convex and closed.
         \end{frame}
 
         \begin{frame}{Example of Prox}

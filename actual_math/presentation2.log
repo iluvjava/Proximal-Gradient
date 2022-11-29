@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  27 NOV 2022 13:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  28 NOV 2022 17:38
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -829,7 +829,7 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 <screen_shot_paper.png, id=97, 1037.8775pt x 743.77875pt>
 File: screen_shot_paper.png Graphic file (type png)
 <use screen_shot_paper.png>
-Package pdftex.def Info: screen_shot_paper.png  used on input line 60.
+Package pdftex.def Info: screen_shot_paper.png  used on input line 59.
 (pdftex.def)             Requested size: 199.16928pt x 142.72672pt.
 
 Overfull \hbox (78.92664pt too wide) has occurred while \output is active
@@ -846,15 +846,15 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 [3
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 79.
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 78.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 )
@@ -874,20 +874,20 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 ]
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
-(Font)              using `OT1/cmss/b/it' instead on input line 92.
+(Font)              using `OT1/cmss/b/it' instead on input line 91.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/b/it' undefined
-(Font)              using `OT1/cmss/b/n' instead on input line 92.
+(Font)              using `OT1/cmss/b/n' instead on input line 91.
 
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 92.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 91.
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/it' undefined
-(Font)              using `OT1/cmss/b/it' instead on input line 92.
+(Font)              using `OT1/cmss/b/it' instead on input line 91.
 
 LaTeX Font Info:    Font shape `OT1/cmss/b/it' in size <10.95> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 92.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 91.
 
 Overfull \hbox (78.92664pt too wide) has occurred while \output is active
  [][][][]  
@@ -941,7 +941,7 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 <the_upperbounding_fxn.png, id=300, 1204.5pt x 803.0pt>
 File: the_upperbounding_fxn.png Graphic file (type png)
 <use the_upperbounding_fxn.png>
-Package pdftex.def Info: the_upperbounding_fxn.png  used on input line 208.
+Package pdftex.def Info: the_upperbounding_fxn.png  used on input line 207.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 
 Overfull \hbox (78.92664pt too wide) has occurred while \output is active
@@ -1052,7 +1052,7 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 <simple_lass_obj.png, id=453, 1806.75pt x 1204.5pt>
 File: simple_lass_obj.png Graphic file (type png)
 <use simple_lass_obj.png>
-Package pdftex.def Info: simple_lass_obj.png  used on input line 400.
+Package pdftex.def Info: simple_lass_obj.png  used on input line 399.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 
 Overfull \hbox (78.92664pt too wide) has occurred while \output is active
@@ -1065,7 +1065,7 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 <simple_lass_pgrad.png, id=460, 1806.75pt x 1204.5pt>
 File: simple_lass_pgrad.png Graphic file (type png)
 <use simple_lass_pgrad.png>
-Package pdftex.def Info: simple_lass_pgrad.png  used on input line 407.
+Package pdftex.def Info: simple_lass_pgrad.png  used on input line 406.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 
 Overfull \hbox (78.92664pt too wide) has occurred while \output is active
@@ -1085,7 +1085,7 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 <blurred_img.jpg, id=472, 501.875pt x 501.875pt>
 File: blurred_img.jpg Graphic file (type jpg)
 <use blurred_img.jpg>
-Package pdftex.def Info: blurred_img.jpg  used on input line 427.
+Package pdftex.def Info: blurred_img.jpg  used on input line 426.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
 
 Overfull \hbox (78.92664pt too wide) has occurred while \output is active
@@ -1098,17 +1098,17 @@ Overfull \hbox (78.92664pt too wide) has occurred while \output is active
 <inverse_linear_experiment1-soln_img.jpg, id=483, 501.875pt x 501.875pt>
 File: inverse_linear_experiment1-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment1-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment1-soln_img.jpg  used on input line 448.
+Package pdftex.def Info: inverse_linear_experiment1-soln_img.jpg  used on input line 447.
 (pdftex.def)             Requested size: 85.35826pt x 85.3559pt.
 <inverse_linear_experiment2-soln_img.jpg, id=484, 501.875pt x 501.875pt>
 File: inverse_linear_experiment2-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment2-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment2-soln_img.jpg  used on input line 448.
+Package pdftex.def Info: inverse_linear_experiment2-soln_img.jpg  used on input line 447.
 (pdftex.def)             Requested size: 85.35826pt x 85.3559pt.
 <inverse_linear_experiment3-soln_img.jpg, id=485, 501.875pt x 501.875pt>
 File: inverse_linear_experiment3-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment3-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment3-soln_img.jpg  used on input line 448.
+Package pdftex.def Info: inverse_linear_experiment3-soln_img.jpg  used on input line 447.
 (pdftex.def)             Requested size: 85.35826pt x 85.3559pt.
 
 Overfull \hbox (78.92664pt too wide) has occurred while \output is active
@@ -1150,7 +1150,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  131i,19n,132p,543b,908s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/presentation2.pdf (33 pages, 1434810 bytes).
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/presentation2.pdf (33 pages, 1434825 bytes).
 PDF statistics:
  595 PDF objects out of 1000 (max. 8388607)
  437 compressed objects within 5 object streams

@@ -1,0 +1,94 @@
+\documentclass[]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts} 
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+% \usepackage{minted}
+% Basic Type Settings ----------------------------------------------------------
+\usepackage[margin=1in,footskip=0.25in]{geometry}
+\linespread{1}  % double spaced or single spaced
+\usepackage[fontsize=12pt]{fontsize}
+\usepackage{authblk}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}       % Theorem counter global 
+\newtheorem{prop}{Proposition}[section]  % proposition counter is section
+\newtheorem{lemma}{Lemma}[subsection]  % lemma counter is subsection
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}[subsection]
+{
+    % \theoremstyle{plain}
+    \newtheorem{assumption}{Assumption}
+}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+}
+\usepackage[final]{graphicx}
+\usepackage{listings}
+\usepackage{courier}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\newcommand{\indep}{\perp \!\!\! \perp}
+\usepackage{wrapfig}
+\graphicspath{{.}}
+\usepackage{fancyvrb}
+
+%%
+%% Julia definition (c) 2014 Jubobs
+%%
+\usepackage[T1]{fontenc}
+\usepackage{beramono}
+\usepackage[usenames,dvipsnames]{xcolor}
+\lstdefinelanguage{Julia}%
+  {morekeywords={abstract,break,case,catch,const,continue,do, else, elseif,%
+      end, export, false, for, function, immutable, import, importall, if, in,%
+      macro, module, otherwise, quote, return, switch, true, try, type, typealias,%
+      using, while},%
+   sensitive=true,%
+   alsoother={$},%
+   morecomment=[l]\#,%
+   morecomment=[n]{\#=}{=\#},%
+   morestring=[s]{"}{"},%
+   morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+\lstset{%
+    language         = Julia,
+    basicstyle       = \ttfamily,
+    keywordstyle     = \bfseries\color{blue},
+    stringstyle      = \color{magenta},
+    commentstyle     = \color{ForestGreen},
+    showstringspaces = false,
+}
+\title{This is The Title}
+\author{Name of the Author}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+    This is the Abstract
+\end{abstract}
+
+\numberwithin{equation}{subsection}
+\section{Introduction}
+    
+
+\section{Preliminaries}\label{sec:preliminaries}
+    
+\section{Blah Blah Bleeeh}
+    \subsection{Blah Blah Blah Bleeh Bleeh Bleeh}
+        
+
+\appendix
+\section{Bleeh Bleeh Bleeh I am not Listening}
+
+\bibliographystyle{plain}
+\bibliography{refs.bib}
+\end{document}
