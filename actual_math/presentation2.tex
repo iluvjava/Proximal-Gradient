@@ -1,7 +1,6 @@
 \documentclass[11pt]{beamer}
 \usetheme{Madrid}
 \usepackage[utf8]{inputenc}
-
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -13,13 +12,11 @@
 \usepackage{wrapfig}
 \usepackage{subcaption}
 \graphicspath{{.}}
+\usepackage[english]{babel}
+%Includes "References" in the table of contents
 
 \author[Hongda Li]{Hongda Li}
-
-
-\title{Fast Iterative Shrinkage-Thresholding Algorithm for Linear Inverse Problem}
-% Informe o seu email de contato no comando a seguir
-% Por exemplo, alcebiades.col@ufes.br
+\title[The FISTA Paper]{Fast Iterative Shrinkage-Thresholding Algorithm for Linear Inverse Problem}
 \newcommand{\email}{email}
 \setbeamercovered{transparent}
 \setbeamertemplate{navigation symbols}{}
@@ -30,7 +27,7 @@
 
 % ---------------------------------------------------------
 % Selecione um estilo de referência
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 
 %\bibliographystyle{abbrv}
 %\setbeamertemplate{bibliography item}{\insertbiblabel}
@@ -56,42 +53,53 @@
     \begin{center}
         \includegraphics[width=7cm]{screen_shot_paper.png}    
     \end{center}
+    A. Beck's Book: First Order Methods in Optimizations, MOS-SIAM Series on Optimization
+\end{frame}
+\section{References}
+    \begin{frame}{References}
+        \bibliography{refs.bib}
 \end{frame}
 \begin{frame}{ToC}
     \tableofcontents
 \end{frame}
 
-\section{Context and Introduction}
+
+\section{Introduction}
     
-    \subsection{The Context}
-        \begin{frame}{Sum of Two Functions}
-            Consider a function $f$ that we can write into the sum of two functions. 
+    \subsection{Context}
+        \begin{frame}{Sum of two functions}
+            Consider a function $f$ that we can write into the sum of two functions. $\mathbb E$ denotes the Euclidean space $\mathbb R^n$ where $n\in \mathbb N$ and $n$ is finite. 
             \begin{align}
-                \min_{x} g(x) + h(x)
+                \min_{x\in \mathbb E} g(x) + h(x), 
             \end{align}  
-            When $g(x)$ is Lipschitz smooth and $h(x)$, closed convex and proper, we can use Beck and Teboulle's FISTA algorithm. 
+            whenever $g(x)$ is Lipschitz smooth and $h(x)$, closed convex and proper, we can use Beck and Teboulle's FISTA algorithm. 
             \begin{itemize}
-                \item [1.] The function $h$ can be nonsmooth. 
-                \item [2.] Taking the proximal operator of $h$ has to be possible and easy to implement (More on that later).
+                \item [1.] $h$ can be nonsmooth. 
+                \item [2.] Taking the proximal operator of $h$ has to be possible and easy to implement (more on that later).
                 \item [3.] Under the right conditions, the FISTA algorithm converges with $\mathcal O(1/k^2)$. 
             \end{itemize}
         \end{frame}
         \begin{frame}{Contributions}
             \begin{itemize}
-                \item [1.] In Beck's and Teboulle's paper\cite{paper:FISTA}, they popularized the use of Nesterov Momentum for nonsmooth functions. 
-                \item [2.] Beck proved the convergence with the convexity assumption on $g, h$. 
-                \item [3.] The FISTA algorithm is provably faster than the alternative algorithm: ISTA, TWIST. 
+                \item [1.] In Beck's and Teboulle's paper \cite{paper:FISTA}, they popularized the use of Nesterov Momentum for nonsmooth functions. 
+                \item [2.] They proved the convergence with the convexity assumption on $g, h$. 
+                \item [3.] The FISTA algorithm is provably faster than the alternative algorithms: ISTA, TWIST. 
             \end{itemize}
         \end{frame}
-        \begin{frame}{A Major Assumption}
-            \begin{assumption}[Convex Smooth Nonsmooth with Bounded Minimizers]\label{assumption:1}
-                We will assume that $g:\mathbb E\mapsto \mathbb R$ is \textbf{strongly smooth} with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ \textbf{is closed convex and proper}. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(g) \cap \text{ri}\circ \text{dom}(h) \neq \emptyset$. We also assume that a set of minimizers exists for the function $f$ and that the set is bounded. Denote the minimizer using $\bar x$. 
+        \begin{frame}{A major assumption}
+            \begin{assumption}[Assumption A.1]\label{assumption:1}
+                \begin{itemize}
+                    \item [1] $g:\mathbb E\mapsto \mathbb R$ is \textbf{strongly smooth} with constant $L_g$
+                    \item [2] $h:\mathbb E \mapsto \bar{\mathbb R}$ \textbf{is closed convex and proper}.
+                    \item [3] Let $f := g + h$
+                    \item [4] $\text{ri}\circ \text{dom}(g) \cap \text{ri}\circ \text{dom}(h) \neq \emptyset$
+                    \item [5] A set of minimizers exists for the function $f$ and the set is bounded. Denote the minimizer using $\bar x$. 
+                \end{itemize}
             \end{assumption}
-            We refer to this as ``\textbf{Assumption A.1}''. 
         \end{frame}
-        \begin{frame}{Lipschitz Smoothness}
-            \begin{definition}[Strong Smoothness]\label{def:strong_smoothness}
-                A differentiable function $g$ is called strongly smooth with a constant $\alpha$ then it satisfies: 
+        \begin{frame}{Lipschitz smoothness}
+            \begin{definition}[Strong smoothness]\label{def:strong_smoothness}
+                A differentiable function $g$ is called strongly smooth with a constant $\alpha$ if it satisfies: 
                 \begin{align}
                     |g(y) - g(x) - 
                     \langle \nabla g(x), y - x
@@ -105,15 +113,15 @@
                    \Vert \nabla g(x) - \nabla g(y)\Vert \le \alpha\Vert y - x \Vert\quad 
                    \forall x, y \in \mathbb E,
                 \end{align*}
-                we assume $\Vert \cdot\Vert$ is the euclidean norm for simplicity. In Beck's book, theorem 5.8\cite{book:first_order_opt}. 
+                we assume $\Vert \cdot\Vert$ is the euclidean norm for simplicity. In Beck's book, thm 5.8 \cite{book:first_order_opt}. 
             \end{block}
         \end{frame}
-    \subsection{The Proximal Operator}
-        \begin{frame}{Proximal Operator Definition}
+    \subsection{The proximal operator}
+        \begin{frame}{Proximal operator definition}
             \begin{definition}[The Proximal Operator]
-                For a function $f$ with $\alpha \ge 0$, the proximal operator is defined as: 
+                For a function $f$ with $\alpha > 0$, the proximal operator is defined as: 
                 \begin{align*}
-                    \text{prox}_{f, \alpha}(x) := 
+                    \underset{{f, \alpha}}{\text{prox}}(x) := 
                     \arg\min_{y}\left\lbrace
                         f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2
                     \right\rbrace. 
@@ -123,41 +131,39 @@
                 The proximal operator is a singled-valued mapping when $f$ is convex, closed, and proper. 
             \end{remark}
         \end{frame}
-        \begin{frame}{Proixmal Operator and Set Projections}
+        \begin{frame}{Set projections}
             Observe that when $f$ is an indicator function $\delta_Q$ defined as: 
             \begin{align*}
                 \delta_Q(x) := 
                 \begin{cases}
                     0 & x \in Q,
                     \\
-                    \infty  & x \not \in Q, 
+                    \infty  & x \not \in Q.
                 \end{cases}
             \end{align*}
             the proximal operator of $\delta_Q$ is
             \begin{align*}
-               \text{prox}_{\delta_Q, \alpha}(x)=\underset{y}{\text{argmin}}
+               P(x) = \underset{{\delta_Q, \alpha}}{\text{prox}}(x) = \underset{y}{\text{argmin}}
                \left\lbrace
                     \delta_Q(y) + \frac{1}{2\alpha}\Vert x - y\Vert^2
-               \right\rbrace = \argmin_{y\in Q}\Vert x - y\Vert^2,
+               \right\rbrace = \underset{y\in Q}{\argmin}\Vert x - y\Vert^2,
             \end{align*}
             it searches for the closest point to the set $Q$ for all $\alpha > 0$, and it is called a projection. The point is unique when $Q\neq \emptyset$ is convex and closed.
         \end{frame}
-
-        \begin{frame}{Example of Prox}
-            \begin{definition}[Soft Thresholding]
+        \begin{frame}{Example of prox operator}
+            \begin{definition}[Soft thresholding]
                 For some $x \in \mathbb R$, the proximal operator of the absolute value is:
                 \begin{align*}
-                   \text{prox}_{\lambda \Vert\cdot \Vert_1, t}(x) = \text{sign}(x)\max(|x| - t\lambda , 0). 
+                   \text{prox}{\lambda \Vert\cdot \Vert_1, t}(x) = \text{sign}(x)\max(|x| - t\lambda , 0). 
                 \end{align*}
             \end{definition}
             One could interpret the $\text{sign}$ operator as projecting $x$ onto the interval $[-1, 1]$ and the $\max(|x| - t\lambda , 0)$ as the distance of the point $x$ to the interval $[-t\lambda, t\lambda]$. 
         \end{frame}
         
-
-\section{Proximal Gradient and Accelerated Proximal Gradient}
-    \subsection{Proximal Gradient}
-        \begin{frame}{The Proximal Gradient Algorithm}
-            \begin{block}{The Proximal Gradient Method}
+\section{Proximal gradient and accelerated proximal gradient}
+    \subsection{Proximal gradient}
+        \begin{frame}{The proximal gradient algorithm}
+            \begin{block}{The proximal gradient method}
                 \begin{algorithm}[H]
                     \algsetup{linenosize=\tiny}
                     \scriptsize
@@ -170,7 +176,7 @@
                         \ENDIF
                     \ENDFOR
                     \end{algorithmic}
-                    \caption{Proximal Gradient With Fixed Step-sizes}
+                    \caption{Proximal gradient with fixed step-sizes}
                     \label{alg:1}
                 \end{algorithm}
             \end{block}
@@ -179,14 +185,14 @@
                 \item [2.] It is a fixed-point iteration.
             \end{itemize}
         \end{frame}
-        \begin{frame}{The Upper Bounding Function}
+        \begin{frame}{The upper bounding function}
             Observe that when $g$ is Lipschitz smooth with constant $L_g$ then fix any point $x$ and for all $y\in \mathbb E$:  
             \begin{align*}
                 & g(x) + h(x) \le 
                 g(x) + \nabla g(x)^T(y - x) + \frac{\beta}{2} \Vert y - x\Vert^2
                 + h(y) =: m_x(y|\beta). 
             \end{align*}
-            Moreover, it has shown that: 
+            Moreover, we have: 
             \begin{align*}
                 \underbrace{
                     \text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))
@@ -197,25 +203,24 @@
             \end{align*}
             The proximal gradient algorithm performs fixed point iterations on the proximal gradient operator. 
         \end{frame}
-        \begin{frame}{A Plot for an Upper Bounding Function}
+        \begin{frame}{Upper bounding function example}
             \begin{figure}[h]
                 \centering
                 \includegraphics[width=8cm]{the_upperbounding_fxn.png}
-                \caption{The upper bounding function that the proximal gradient algorithm is minimizing for each iteration. In this case $g(x) = \exp(1 + \log(x)), h(x) = |x|$}
+                \caption{The upper bounding function that the proximal gradient algorithm is minimizing for each iteration. In this case $g(x) = \log(1 + \exp(x)), h(x) = |x|$}
             \end{figure}
-
         \end{frame}
-        \begin{frame}{Facts About Proximal Gradient Descent}
+        \begin{frame}{Facts about proximal gradient descent}
             With our Assumption A.1: 
             \begin{itemize}
-                \item [1.] It converges monotonically with a $\mathcal O(1/k)$ rate as shown in Beck's Boook\cite{book:first_order_opt} with a step size $L^{-1}$ such that $L > L_g$. 
-                \item [2.] When $h$ is the indicator function, it is just the projected subgradient method. When $h = 0$, this is the smooth gradient descent method where the norm of the fixed point error converges with $\mathcal O(1/k)$\cite{book:first_order_opt}. 
+                \item [1.] It converges monotonically with a $\mathcal O(1/k)$ rate as shown in Beck's Book \cite{book:first_order_opt} with a step size $L^{-1}$ such that $L > L_g$. 
+                \item [2.] When $h$ is the indicator function, it is just the projected subgradient method. When $h = 0$, this is the smooth gradient descent method where the norm of the fixed point error converges with $\mathcal O(1/k)$ \cite{book:first_order_opt}. 
                 \item [3.] The fixed point of the proximal gradient operator is the minimizer of $f$. 
             \end{itemize}
         \end{frame}
-    \subsection{The Accelerated Proximal Gradient}
-        \begin{frame}{The Accelerated Proximal Gradient Method}
-            \begin{block}{Momentum Template Method}
+    \subsection{The accelerated proximal gradient}
+        \begin{frame}{The accelerated proximal gradient method}
+            \begin{block}{Momentum template method}
                 {\scriptsize
                 \begin{algorithm}[H]
                     \begin{algorithmic}[1]
@@ -226,38 +231,38 @@
                             \STATE{$y^{(k + 1)} = x^{(k)} + \theta_k(x^{(k)} - x^{(k - 1)})$}
                         \ENDFOR
                     \end{algorithmic}
-                    \caption{Template Proximal Gradient Method With Momentum}\label{alg:fista_template}
+                    \caption{Template proximal gradient method with momentum}\label{alg:fista_template}
                 \end{algorithm}
                 }
             \end{block}
             In the case of FISTA, we use: 
             \begin{align*}
-                t_k = \frac{1 + \sqrt{1 + 4t_k^2}}{2}, \theta_k = \frac{t_k - 1}{t_{k + 1}}, t_0 = 1, x^{(-1)} = x^{(0)}
+                t_{k + 1} = \frac{1 + \sqrt{1 + 4t_k^2}}{2}, \theta_k = \frac{t_k - 1}{t_{k + 1}}, t_0 = 1, x^{(-1)} = x^{(0)}
             \end{align*}
         \end{frame}
-        \begin{frame}{Facts about the Accelerated Proximal Gradient Method}
+        \begin{frame}{Facts about the accelerated proximal gradient method}
             \begin{itemize}
-                \item [1.] When $h = 0$, this is Nesterov's famous accelerated gradient method proposed back in 1983. 
-                \item [2.] It is no longer a descent method. 
-                \item [3.] It has a convergence rate of $\mathcal O(1/k^2)$ under Assumption A.1, proved by Beck, Toboulle in the FISTA paper \cite{paper:FISTA}. 
+                \item [1.] When $h = 0$, the algorithm is Nesterov's famous accelerated gradient method proposed back in 1983. 
+                \item [2.] It is no longer a monotone method. 
+                \item [3.] It has a convergence rate of $\mathcal O(1/k^2)$ under Assumption A.1, proved by Beck, Teboulle in the FISTA paper \cite{paper:FISTA}. 
             \end{itemize}
         \end{frame}
     
 
-\section{The Momentum Term}
-    \subsection{Questions to Answer}
-        \begin{frame}{Some Important Questions to Address for the Second Half}
+\section{The momentum term}
+    \subsection{Questions to answer}
+        \begin{frame}{Some important questions to address for the second half}
             \begin{itemize}
                 \item [1.] Why does the sequence of $t_k, \theta_k$ makes sense?
                 \item [2.] What ideas are involved in proving that the convergence rate is $\mathcal O(1/k^2)$? 
                 \item [3.] If the above is true, what secret sauce cooks up the sequence $t_k, \theta_k$?
                 \begin{itemize}
-                    \item [$\bullet$] unfortunately, the secret cause is not the Nesterov momentum term $t_k$ but rather an inequality involving two sequences that give us a bound. 
+                    \item [$\bullet$] unfortunately, the secret sauce is not the Nesterov momentum term $t_k$ but rather an inequality involving two sequences that give us a bound. 
                 \end{itemize}
             \end{itemize}
         \end{frame}
-    \subsection{Bounded Sequence}
-        \begin{frame}{Two Bounded Sequence}
+    \subsection{Bounded sequence}
+        \begin{frame}{Two bounded sequence}
             The proof for the convergence rate for deriving the momentum sequence hinges on the following lemma about two sequences of numbers:
             \begin{lemma}[Two Bounded Sequences]
                 Consider the sequences $a_k, b_k \ge 0$ for $k\in \mathbb N$ with $a_1 + b_1 \le c$. Inductively the two sequences satisfy $a_{k} - a_{k + 1} \le b_{k + 1} - b_k$, which describes a sequence with oscillations bounded by the difference of another sequence. Consider the telescoping sum: 
@@ -282,25 +287,33 @@
                 \end{align*}
             \end{lemma}
         \end{frame}    
-    \begin{frame}{The Nesterov Momentum Sequence}
+    \begin{frame}{The Nesterov momentum sequence}
         In the algorithm we listed, the Nesterov momentum sequence consists of $\theta_k, t_k$ with $t_0 = 1$ given by
         \begin{align}
             t_{k+1} = \frac{1 + \sqrt{1 + 4t_k^2}}{2}, \theta_k = \frac{t_k - 1}{t_{k + 1}}, t_0 = 1
         \end{align}
         It is shown that the sequence of $t_k$ grows linearly and $t_k > (1 + k)/2$. 
     \end{frame}
-    \subsection{Some Quantities}
-        \begin{frame}{We Define the Following Quantities}
+    \subsection{Some quantities}
+        \begin{frame}{Some quantities and one lemma}
             \begin{itemize}
                 \item [1.] $v^{(k)} = x^{(k)} - x^{(k -1)}$ is the velocity term. 
                 \pause\item [2.] $\bar v^{(k)}= \theta_k v^{(k)}$ is the weighed velocity term. 
                 \pause\item [3.] $e^{(k)} := x^{(k)} - \bar x$, where $\bar x \in \arg\min_{x}(f(x))$, where $\bar x$ is fixed.
                 \pause\item [4.] $\Delta_k := f(x^{(k)}) - f(\bar x)$ which represent the optimality gap at step $k$. 
             \end{itemize}
+            
+            \begin{lemma}\label{lemma:prox_two_p}
+                With \hyperref[assumption:1]{assumption A.1}, and stepsize $\beta^{-1} > L_g$ for \hyperref[alg:1]{algorithm \ref*{alg:1}}, let $y\in \mathbb E$ and define $y^+ = \mathcal P_{\beta^{-1}}^{g, h}(y)$ we have for any $x\in \mathbb E$: 
+                \begin{align*}
+                    f(x) - f(y^+) \ge \frac{\beta}{2}\Vert y^+ - y\Vert^2 + 
+                    \beta \langle y - x, y^+ - y\rangle. 
+                \end{align*}
+            \end{lemma}
         \end{frame}
     \subsection{A Sketch of the Proof}
-        \begin{frame}{Form Matching to the Sequences}
-            From lemma 2.3 in Beck's FISTA paper, one can obtain the following two expressions using the quantities introduced: 
+        \begin{frame}{Form matching to the sequences}
+            From lemma 2.3 in Beck's FISTA paper, one can obtain the following two expressions using the template method and the quantities introduced: 
             \begin{block}{Substitute $x = x^{(k)}, y = y^{(k + 1)}$ lemma 2.3}
                 {\scriptsize
                     \begin{align*}
@@ -332,7 +345,7 @@
                 }
             \end{block}
         \end{frame}
-        \begin{frame}{The Sequences $t_k$}
+        \begin{frame}{The sequences $t_k$}
             For now, we don't know what the sequence $t_k$ is, but we can assume that $t_k > 1$ for all $k$ and using $(*), (\star)$ and consider $(t_{k + 1}^2- t_{k + 1})(*) + t_{k + 1}(\star)$ which gives us: 
             {\scriptsize
                 \begin{align*}
@@ -352,10 +365,10 @@
                     \tag{$\star \star$}
                 \end{align*}
                 }
-                If the form were to match the Two Bounded Sequences, it has to be the case that $t_{k + 1}\theta_k + 1 = t_{k}$ and $t^2_{k + 1} - t_{k + 1}^2 = t_k^2$. In this case, the Nesterov Momentum terms satisfy the conditions perfectly. 
+                If the form were to match the Two Bounded Sequences, it has to be the case that $t_{k + 1}\theta_k + 1 = t_{k}$ and $t^2_{k + 1} - t_{k + 1} = t_k^2$. In this case, the Nesterov Momentum terms satisfy the conditions perfectly. 
         \end{frame}
-        \begin{frame}{Using the Two Bounded Sequences}
-            It is not hard to show that the base case $a_1 + b_1 < c$ is bouned using Assumption A1, The Two Bounded Sequences give
+        \begin{frame}{Using the two bounded sequences}
+            It is not hard to show that the base case $a_1 + b_1 < c$ is bounded using Assumption A1, The Two Bounded Sequences give
             \begin{align}
                 a_N &\le c
                 \\
@@ -366,11 +379,11 @@
             And recall that $t_k \ge (k + 1)/2$, we can conclude that $\Delta_N$ convergences with rante $\mathcal O (1/N^2)$. 
         \end{frame}
     
-\section{Numerical Experiments}
+\section{Numerical experiments}
     \subsection{LASSO}
         \begin{frame}{Simple LASSO}
-            \begin{block}{The Lasso Problem}
-                Lasso minimizes the 2-norm objective with one norm penalty. 
+            \begin{block}{The LASSO problem}
+                LASSO minimizes the 2-norm objective with one norm penalty. 
                 \begin{align*}
                     \min_{x}\left\lbrace
                         \frac{1}{2}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1    
@@ -404,23 +417,23 @@
                 \includegraphics[width=8cm]{simple_lass_pgrad.png}
             \end{figure}
         \end{frame}
-    \subsection{Image Deconvolution with Noise}
+    \subsection{Image deconvolution with noise}
         \begin{frame}{Experiment Setup}
-            Given an image that is convoluted by a Guassian kernel with some guassian noise, we want to recover the image, given the parameters for convolutions. 
+            Given an image that is convoluted by a Gaussian kernel with some Gaussian noise, we want to recover the image, given the parameters for convolutions. 
             \begin{itemize}
-                \item [1.] Guassian blur with a discrete 15 by 15 kernel is a linear transform represented by a sparse matrix $A$ in the computer. 
+                \item [1.] Gaussian blur with a discrete 15 by 15 kernel is a linear transform represented by a sparse matrix $A$ in the computer. 
                 \item [2.] When an image is 500 by 500 with three color channels, $A$ is $750000 \times 750000$. 
                 \item [3.] Let the noise be on all normalized colors values with $N(0, 10^{-2})$
                 \item [4.] We let $\lambda = \alpha\times (3\times500^2)^{-1}$. 
                 \item [5.] Implemented in Julia, the code is too long to be shown here. 
             \end{itemize}        
         \end{frame}
-        \begin{frame}{The Blurred Image}
+        \begin{frame}{The blurred image}
             We consider blurring the image of a pink unicorn that I own. 
             \begin{figure}[H]
                 \centering
                 \includegraphics[width=5cm]{blurred_img.jpg}
-                \caption{The image is blurred by the Gaussian Blurred matrix $A$ with a tiny amount of noise on the level of $2\times 10^{-2}$ that is barely observable. Zoom in to observe the tiny amount of Gaussian noise on top of the blur.}
+                \caption{The image is blurred by the Gaussian blurred matrix $A$ with a tiny amount of noise on the level of $2\times 10^{-2}$ that is barely observable. Zoom in to observe the tiny amount of Gaussian noise on top of the blur.}
                 \label{fig:blurred_alto}
             \end{figure}
         \end{frame}
@@ -446,11 +459,6 @@
             \end{figure}
         \end{frame}
 
-    
 
 
-\section{References}
-    \begin{frame}{References}
-        \bibliography{refs.bib}
-    \end{frame}
 \end{document}

@@ -4,7 +4,7 @@ using LaTeXStrings, Plots
 """
 Performs the accelerated nesterov gradient descend, and there are many different options to choose from. 
 """
-N = 128
+N = 32
 A = Diagonal(LinRange(0, 2, N)[end:-1:1])
 b = zeros(N)
 
