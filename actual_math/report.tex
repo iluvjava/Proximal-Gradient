@@ -86,14 +86,14 @@
     where the objective is the sum of two functions. Algorithms developed for solving optimization problems of this format. We will list some algorithms with their convergence rate under different assumptions. 
     \begin{enumerate}
         \item [1.] The projected subgradient algorithm solves $h = \delta_Q$ where $Q$ is a closed convex set, and $g$ is closed and convex with $Q\subseteq\text{ri}\circ \text{dom}(g)$. The algorithm generates a sequence of $x^{(k)}$ where the weighted average of the sequence by step size has a convergence rate of $\mathcal O(1/\sqrt{k})$ in terms of the optimality; this result is from the convex analysis class I took before. For a more thorough exposition of the matter regarding the convergence of the optimality for the subgradient method under the choice of Polyak Step Size, refer to Theorem 8.13 of Beck's work\cite{book:first_order_opt}. 
-        \item [2.] We use the proximal Gradient algorithm when $g$ is strongly smooth, convex, closed, and proper function and $h$ has an easy-to-compute proximal oracle. Assuming $h$ is closed convex, proper, and coersive, the optimal and the minimizer exists, and the convergence rate is $\mathcal O(1/k)$. We will prove this result in our report. 
-        \item [3.] The Accelerated Proximal Algorithm is a modified version of the proximal gradient that uses Nesterov Momentum and converges with $\mathcal O(1/k^2)$ with an additional convexity assumption on $g$. The convergence can be even faster when more additional assumptions on $g$. We will prove the convergence results using the convexity assumption in this report.  
+        \item [2.] We use the proximal gradient algorithm when $g$ is strongly smooth, convex, closed, and proper function and $h$ has an easy-to-compute proximal oracle. Assuming $h$ is closed convex, proper, and coersive, the optimal and the minimizer exists, and the convergence rate is $\mathcal O(1/k)$. We will prove this result in our report. 
+        \item [3.] The accelerated proximal gradient is a modified proximal gradient that uses Nesterov Momentum and converges with $\mathcal O(1/k^2)$ with an additional convexity assumption on $g$. The convergence can be even faster when more additional assumptions on $g$. We will prove the convergence results using the convexity assumption in this report.  
     \end{enumerate}
-    In this report, we introduce the setup for the proximal gradient algorithms. We give proofs for the convergence results of the Proximal Gradient algorithms with fixed step sizes with and without the Nesterov Momentum. Finally, we also implemented some nontrivial examples of the algorithm in Julia\cite{bezanson2012julia}. The code that produces the plots for the numerical experiments is on my GitHub \href{https://github.com/iluvjava/Proximal-Gradient}{here}. 
+    In this report, we introduce the setup for the proximal gradient algorithms. We give proofs for the convergence results of the proximal gradient algorithms with fixed step sizes with and without the Nesterov Momentum. Finally, we also implemented some nontrivial examples of the algorithm in Julia\cite{bezanson2012julia}. The code that produces the plots for the numerical experiments is on my GitHub \href{https://github.com/iluvjava/Proximal-Gradient}{here}. 
     \par
-    For this report, some of the materials are in Amir Beck's textbook \cite{book:first_order_opt}, and the proof for the convergence of the Accelerated Proximal Gradient method closely follows the original paper for FISTA\cite{paper:FISTA} by Amir and Marc Teboulle. Other additional and specific materials might get used during the expression as well. 
+    For this report, some of the materials are in Amir Beck's textbook \cite{book:first_order_opt}, and the proof for the convergence of the accelerated proximal gradient method closely follows the original paper for FISTA\cite{paper:FISTA} by Amir and Marc Teboulle. Other additional and specific materials might get used during the expression as well. 
     \par 
-    In the \hyperref[sec:preliminaries]{section \ref*{sec:preliminaries}}, we introduce the minimum mathematical background needed to understand the proximal gradient method. We make use of the forward-backward envelope to introduce the proximal gradient method in \hyperref[sec:pg_forward_backward_env]{section \ref*{sec:pg_forward_backward_env}}. In addition, we introduce several fundamental lemmas related to the monotone property of the Proximal Gradient method and the choice of step size and extract out the important \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} for the proof of the accelerated case, which is in the appendix. In \hyperref[sec:pg_convergence]{section \ref*{sec:pg_convergence}}, we prove the convergence of the proximal gradient method under convexity and smoothness assumption with a fixed step size. Moreover, in \hyperref[sec:apg_intro]{section \ref*{sec:apg_intro}}, we state the proximal gradient algorithm with Nesterov acceleration (also referred to as FISTA). In the \hyperref[alg:fista_1]{appendix \ref*{sec:fista1_proof}}, we prove the better convergence of FISTA with meticulous detail without explicitly assuming that momentum term. Finally, for applications in \hyperref[sec:numerical_experiments]{section \ref*{sec:numerical_experiments}}, we consider the convergence of the optimality and the norm of the gradient mapping for the LASSO problem, and then we apply the LASSO algorithm for the task of deblurring images with high gaussian noise. In that section, we introduce other typical applications and extensions of the algorithm. 
+    In the \hyperref[sec:preliminaries]{section \ref*{sec:preliminaries}}, we introduce the minimum mathematical background needed to understand the proximal gradient method. We make use of the forward-backward envelope to introduce the proximal gradient method in \hyperref[sec:pg_forward_backward_env]{section \ref*{sec:pg_forward_backward_env}}. In addition, we introduce several fundamental lemmas related to the monotone property of the proximal gradient method and the choice of step size and extract out the important \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} for the proof of the accelerated case, which is in the appendix. In \hyperref[sec:pg_convergence]{section \ref*{sec:pg_convergence}}, we prove the convergence of the proximal gradient method under convexity and smoothness assumption with a fixed step size. Moreover, in \hyperref[sec:apg_intro]{section \ref*{sec:apg_intro}}, we state the proximal gradient algorithm with Nesterov acceleration (also referred to as FISTA). In the \hyperref[alg:fista_1]{appendix \ref*{sec:fista1_proof}}, we prove the better convergence of FISTA with meticulous detail without explicitly assuming that momentum term. Finally, for applications in \hyperref[sec:numerical_experiments]{section \ref*{sec:numerical_experiments}}, we consider the convergence of the optimality and the norm of the gradient mapping for the LASSO problem, and then we apply the LASSO algorithm for the task of deblurring images with high gaussian noise. In that section, we introduce other typical applications and extensions of the algorithm. 
     \subsection{Contributions}
         Nesterov first created gradient descent with momentum in 1983; Beck's contribution involves proving that the Nesterov accelerations work for the proximal gradient method. Beck popularized the use of momentum in the broader context to improve the convergence of algorithms such as the proximal gradient method. In our report, we made the following contributions: 
         \begin{itemize}
@@ -104,30 +104,30 @@
         \end{itemize}
 
 \section{Preliminaries}\label{sec:preliminaries}
-    The proximal operator is a crucial component of the algorithm, and its non-expansive property is relevant to the convergence of the Proximal Gradient under the non-convex case. We will not go into detail about the non-convex case. Under the assumption of convexity for $f$, the property of the strongly smooth function is more relevant. 
+    The proximal operator is a crucial component of the algorithm, and its non-expansive property is relevant to the convergence of the proximal gradient under the non-convex case. We will not go into detail about the non-convex case. Under the assumption of convexity for $f$, the property of the strongly smooth function is more relevant. 
     \subsection{The proximal operator}
         \begin{definition}[Proximal Operator and Moreau Envelope]
-            A Moreau Envelope $\text{env}_{\alpha, f}(x)$, $\text{prox}_{\alpha, f}$ the proximal operator are defined for some function $f$: 
+            A Moreau Envelope $\text{env}_{f, \alpha}(x)$, $\text{prox}_{\alpha f}$ the proximal operator are defined for some function $f$: 
             \begin{align*}
                 & \text{env}_{f, \alpha}(x) := \min_{y}\left\lbrace
                     f(y) + \frac{1}{2 \alpha }\Vert y - x\Vert^2
                 \right\rbrace, 
                 \\
-                & \text{prox}_{f, \alpha}(x) := 
+                & \text{prox}_{\alpha f}(x) := 
                 \arg\min_{y}\left\lbrace
                     f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2
                 \right\rbrace. 
             \end{align*}
         \end{definition}
         The proximal operator is a singleton when the function $f$ is convex, proper, and closed due to the strong convexity of $f(y) + 1/(2\alpha)\Vert y - x\Vert^2$. Observe that $\text{env}_{\alpha, f}(x) = (f\square \frac{1}{2\alpha}\Vert \cdot \Vert^2)(x)$, hence the infimal convolution gives us the interpretation that the epigraphs of the envelope are adding between the epigraph of these two functions. This conceptualization will help with the intuitive understanding of many proximal algorithms. 
-        In addition, please observe the following identities: 
-        $$
-        \begin{aligned}
-            & \text{prox}_{f/\alpha, 1} =  \text{prox}_{f, \alpha}
-            \\
-            & \alpha^{-1}\text{env}_{\alpha f, 1}(x) = \text{env}_{f, \alpha}(x). 
-        \end{aligned}
-        $$
+        % In addition, please observe the following identities: 
+        % $$
+        % \begin{aligned}
+        %     & \text{prox}_{f/\alpha, 1} =  \text{prox}_{f, \alpha}
+        %     \\
+        %     & \alpha^{-1}\text{env}_{\alpha f, 1}(x) = \text{env}_{f, \alpha}(x). 
+        % \end{aligned}
+        % $$
         % \begin{prop}[Proximal Operator is a Nonexpansive Mapping]
         %     Let $f:\mathbb E \mapsto \mathbb{\bar R}$ be a closed, convex proper function. then $\text{prox}_f(x)$, with $\alpha= 1$ is a singleton for every point $x\in \mathbb E$. Moreoever, for any points $x, y\in \mathbb E$ the estimate holds: 
         %     $$
@@ -176,7 +176,7 @@
             Suppose $g$ is differentiable on the entire of $\mathbb E$ and, it is closed convex proper then, it is $\alpha$-smooth if and only if the gradient $\nabla g$ is globally Lipschitz continuous with a parameter of $\alpha$ and $g$.
         \end{theorem}
         \begin{proof}
-            For conciseness, we skip the proof here. To prove it, we consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{book:first_order_opt}. To prove that $\alpha$-smoothness implies global Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient from $x$ to $y$. 
+            For conciseness, we skip the proof here. To prove it, we consider applying generalized Cauchy Inequality to (iv) in theorem 5.8 for Beck's textbook \cite{book:first_order_opt}. To prove that $\alpha$-smoothness implies global Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient from $x$ to $y$. 
         \end{proof}
         
 \section{Proximal gradient and forward backward envelope}\label{sec:pg_forward_backward_env}
@@ -202,7 +202,7 @@
         \end{align*}
         
         \begin{theorem}[Minimizer of $m_x(y|\beta)$]\label{thm:minimizer_envelope}
-            The minimizer for the envelope has a closed form, and it is $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$, with \hyperref[assumption:1]{assumption \ref*{assumption:1}}. 
+            The minimizer for the envelope has a closed form, and it is $\text{prox}_{ \beta^{-1}h}(x + \beta^{-1}\nabla g(x))$, with \hyperref[assumption:1]{assumption \ref*{assumption:1}}. 
         \end{theorem}
         \begin{proof}
             We consider minimizing the envelope; zero is in the subgradient of the upper bounding function $m_x(y|\beta)$. 
@@ -221,13 +221,13 @@
                 [I + \beta^{-1}\partial h]^{-1}(- \beta^{-1} \nabla g(x) + x) 
                 & \ni y,
             \end{align*}
-            using \hyperref[lemma:prox_alternative_form]{lemma \ref*{lemma:prox_alternative_form}}, the RHS is the operator $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$. 
+            using \hyperref[lemma:prox_alternative_form]{lemma \ref*{lemma:prox_alternative_form}}, the RHS is the operator $\text{prox}_{\beta^{-1}h}(x + \beta^{-1}\nabla g(x))$. 
         \end{proof}
         \begin{remark}
-            The minimizer of the envelope at $x$: $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$ is what we call \emph{prox step} for short, it makes the envelope $m_x(y|\beta)$ strictly lower than $f(x)$ for any point $x$ that is not the minimizer of $h + g$. 
+            The minimizer of the envelope at $x$: $\text{prox}_{\beta^{-1}h}(x + \beta^{-1}\nabla g(x))$ is what we call \emph{prox step} for short, it makes the envelope $m_x(y|\beta)$ strictly lower than $f(x)$ for any point $x$ that is not the minimizer of $h + g$. 
         \end{remark}
     \subsection{Fixed point of the prox step}\label{sec:fixed_point_prox}
-        Denote the prox step $\mathcal P_{\beta^{-1}}^{g, h}(x) = \text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))$, in most context without ambiguity it will be denoted as $\mathcal Px$. The fixed point of $\mathcal P$ is a point $x$ such that $x = \mathcal P x$ if and only if $x$ is the minimizer of $f$ when \hyperref[assumption:1]{assumption \ref*{assumption:1}} is true. We denoted the fixed point as $\bar x$. To see how this is true consider any $x^+$ such that $x^+ = \mathcal Px$, using subgradient of the envelope: 
+        Denote the prox step $\mathcal P_{\beta^{-1}}^{g, h}(x) = \text{prox}_{\beta^{-1}h}(x - \beta^{-1}\nabla g(x))$, in most context without ambiguity it will be denoted as $\mathcal Px$. The fixed point of $\mathcal P$ is a point $x$ such that $x = \mathcal P x$ if and only if $x$ is the minimizer of $f$ when \hyperref[assumption:1]{assumption \ref*{assumption:1}} is true. We denoted the fixed point as $\bar x$. To see how this is true consider any $x^+$ such that $x^+ = \mathcal Px$, using subgradient of the envelope: 
         \begin{align*}
             \mathbf 0 
             &\in \nabla g(x) + \beta(x^+ - x) + \partial h(x^+)
@@ -246,7 +246,7 @@
         \begin{theorem}[Stepsize that Ensures Monotone Decrease]\label{thm:monotone_decrease}
             The step size $L^{-1}$ of the proximal gradient that guarantees a decrease in the objective value has to satisfy: $L \ge L_g$, where $L_g$ is the Lipschitz constant for the gradient of the function $g$ (recall \hyperref[thm:cvx_lipz_grad]{theorem \ref*{thm:cvx_lipz_grad}}) and $\mathcal Px$ is $\mathcal P_{L^{-1}}^{g, h}(x)$. 
         \end{theorem}
-        \begin{proof}Consider the fact that the envelope at the prox step is smaller than the point where the envelope is touching with the function $f$ at $x$ (recall \hyperref[thm:minimizer_envelope]{theorem \ref*{thm:minimizer_envelope}}). By the minimzing property of $\mathcal x$ on the upperbounding function we have $m_x(\mathcal Px|L_f)\le m_x(x) = f(x)$ which gives: 
+        \begin{proof}Consider the fact that the envelope at the prox step is smaller than the point where the envelope is touching with the function $f$ at $x$ (recall \hyperref[thm:minimizer_envelope]{theorem \ref*{thm:minimizer_envelope}}). By the minimization property of $\mathcal P x$ on the upper-bounding function we have $m_x(\mathcal Px|L_f)\le m_x(x) = f(x)$ which gives: 
             \begin{align*}
                 m_x(\mathcal Px|L) \le m_x(\mathcal Px|L_f) 
                 &\le f(x)
@@ -292,11 +292,11 @@
                 \ENDIF
             \ENDFOR
             \end{algorithmic}
-            \caption{Proximal Gradient With Fixed Step-sizes}
+            \caption{proximal gradient With Fixed Step-sizes}
             \label{alg:1}
         \end{algorithm}
         \begin{remark}
-            The \hyperref[alg:1]{Proximal Gradient With Fixed Step Size} algorithm terminates either it reaches the iteration limit $N$ or the fixed point iterations on the operator $\mathcal P$ have converged. In some cases, we can obtain the Lipschitz constant for $g$ in advance; in other cases, it is not easy to obtain. 
+            The \hyperref[alg:1]{proximal gradient With Fixed Step Size} algorithm terminates either it reaches the iteration limit $N$ or the fixed point iterations on the operator $\mathcal P$ have converged. In some cases, we can obtain the Lipschitz constant for $g$ in advance; in other cases, it is not easy to obtain. 
         \end{remark}
 
 \section{Convergence of proximal gradient}\label{sec:pg_convergence}
@@ -464,7 +464,7 @@
         \end{proof}
 
 \section{Accelerated proximal gradient}\label{sec:apg_intro}
-    Here we state the Accelerated Proximal algorithm in Beck's Paper paper\cite{paper:FISTA} and prove the convergence in the appendix. The convergence proof follows what is in the paper but with more details in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the Proximal Gradient with Nesterov momentum applied to the LASSO problem. FISTA is an accelerated case of the ISTA algorithm, and it is the same as FISTA but without the Nesterov momentum. 
+    Here we state the accelerated proximal gradient in Beck's Paper paper\cite{paper:FISTA} and prove the convergence in the appendix. The convergence proof follows what is in the paper but with more details in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the proximal gradient with Nesterov momentum applied to the LASSO problem. FISTA is an accelerated case of the ISTA algorithm, and it is the same as FISTA but without the Nesterov momentum. 
     
     \subsection{Accelerated proximal gradient algorithm} 
         \begin{algorithm}[H]\label{alg:fista_1} 
@@ -515,7 +515,7 @@
         \par
         For this simple lasso problem, we make $A$ a diagonal 128 by 128 matrix, whose diagonals are points equally spaced in the interval $[0, 2]$. Observe that this is quadratic but not strongly convex. The right-hand side vector $b$ is the same as the diagonal of matrix $A$, but with every odd index replaced with a gaussian random noise on the level of $10^{-3}$. we performed the experiment with both ISTA and FISTA with $\lambda = 10^{-2}$. We use a step size of $0.2$ for both (It is there to prevent triggering the line search routine in the implementation). The initial guess vector $x^{(0)}$ is a vector of 3, which is the same for both FISTA and ISTA. 
         \par
-        For the experiment, we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_\infty$ in the none accelerated case and $\Vert y^{(k)} - x^{(k + 1)}\Vert_\infty$ in the accelerated case for each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Both algorithms terminate whenever the norm of the proximal gradient mapping is less than $10^{-10}$ during the iteration. We plotted the norm on a log scale. Observe that the type of convergence for FISTA is very different compared to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot resemble a curve at the start and quickly changes its behaviors in the later iterations. The convergence of iteration after 2000 is a straight line. This phenomenon indicates first-order convergence for ISTA. In FISTA, the overall convergence rate is slower than ISTA for 2000 iterations, and then it starts to slow down; nonetheless, it converges faster. We plot the objective value on the left of \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}}; the plot is on a log scale too. The optimal value $f(\bar x)$ is assumed to be whenever the gradient mapping has a norm within $10^{-10}$. Observe that FISTA already reaches the optimal around 476 iterations, disregarding that the norm of the gradient mapping is not within the tolerance. 
+        For the experiment, we record and present the objective values $f$ for each of the iterations and the norm of the proximal mapping $\Vert x^{(k + 1)} - x^{(k)}\Vert_\infty$ in the none accelerated case and $\Vert y^{(k)} - x^{(k)}\Vert_\infty$ in the accelerated case for each iteration. See \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}} for an illustration. Both algorithms terminate whenever the norm of the proximal gradient mapping is less than $10^{-10}$ during the iteration. We plotted the norm on a log scale. Observe that the type of convergence for FISTA is very different compared to the ISTA case. In the case of ISTA, the norm of the proximal mapping on the log plot resemble a curve at the start and quickly changes its behaviors in the later iterations. The convergence of iteration after 2000 is a straight line. This phenomenon indicates first-order convergence for ISTA. In FISTA, the overall convergence rate is slower than ISTA for 2000 iterations, and then it starts to slow down; nonetheless, it converges first. We plot the objective value on the left of \hyperref[fig:lasso_1]{figure \ref*{fig:lasso_1}}; the plot is on a log scale too. The optimal value $f(\bar x)$ is assumed to be the smallest value throughout all iterations. Observe that FISTA already reaches the optimal around 476 iterations, disregarding that the norm of the gradient mapping is not within the tolerance. 
         \begin{figure}[h]
             \centering
             \includegraphics*[width=8cm]{simple_lass_obj.png}
@@ -571,7 +571,7 @@
                 \STATE{$y^{(k + 1)} = x^{(k)} + \theta_k(x^{(k)} - x^{(k - 1)})$}
             \ENDFOR
         \end{algorithmic}
-        \caption{Template Proximal Gradient Method With Momentum}\label{alg:fista_template}
+        \caption{Template proximal gradient Method With Momentum}\label{alg:fista_template}
     \end{algorithm}
     \subsection{Preparations}
         \hyperref[alg:fista_template]{Algorithm \ref*{alg:fista_template}} is a template algorithm without any specific assumptions about $\theta_k$, and it is up to ourselves to find out the best update sequences for the momentum parameters $\theta_k$. To make the proof more intuitive than Beck's proof \cite{paper:FISTA}, we consider the following list of quantities that is more informative: 

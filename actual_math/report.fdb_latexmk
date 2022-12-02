@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex report"] 1670019761 "report.aux" "report.bbl" "report" 1670019763
+["bibtex report"] 1670020499 "report.aux" "report.bbl" "report" 1670020781
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/amsrefs/amsrn.bst" 1288397156 15073 94ff0422b36f7eea65c1e1332ae40dfb ""
   "refs.bib" 1670019405 5867 6454cd2f4380f05542e80dcc66589633 ""
-  "report.aux" 1670019762 8886 645edf69de7d7f484ab86572410bff62 "pdflatex"
+  "report.aux" 1670020781 8884 69f94ab65728649daf9067e3a20df5a7 "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
-["pdflatex"] 1670019761 "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf" "report" 1670019763
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux" 1670019762 8886 645edf69de7d7f484ab86572410bff62 ""
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" 1670019759 56030 aae79bcd425dd92b5c7e53b0f959bd78 ""
+["pdflatex"] 1670020780 "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf" "report" 1670020781
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux" 1670020781 8884 69f94ab65728649daf9067e3a20df5a7 ""
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.tex" 1670020776 56007 8b485df7e5d8245b4daea88b7e6d237b ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecbx1000.tfm" 1136768653 3584 2d666ecf6d466d8b007246bc2f94d9da ""
@@ -175,16 +175,16 @@
   "inverse_linear_experiment1-soln_img.jpg" 1668394923 281647 cdcf097e153e0ec3f765b37a19206694 ""
   "inverse_linear_experiment2-soln_img.jpg" 1668394923 192237 722f00389375ef15f1124f1ee455081b ""
   "inverse_linear_experiment3-soln_img.jpg" 1668394923 149059 5c3994487e576278482c465b829ebf88 ""
-  "report.aux" 1670019762 8886 645edf69de7d7f484ab86572410bff62 "pdflatex"
-  "report.bbl" 1670019761 1677 fb64f5b2fb0c7a8f3d8f9c32a5048653 "bibtex report"
-  "report.out" 1670019762 4177 46c0036fd3553618ed962dd1e2c74518 "pdflatex"
-  "report.tex" 1670019759 56030 aae79bcd425dd92b5c7e53b0f959bd78 ""
+  "report.aux" 1670020781 8884 69f94ab65728649daf9067e3a20df5a7 "pdflatex"
+  "report.bbl" 1670020499 1677 fb64f5b2fb0c7a8f3d8f9c32a5048653 "bibtex report"
+  "report.out" 1670020781 4177 46c0036fd3553618ed962dd1e2c74518 "pdflatex"
+  "report.tex" 1670020776 56007 8b485df7e5d8245b4daea88b7e6d237b ""
   "simple_lass_obj.png" 1668390702 95623 8446eb768acd58c8249c55b8b018423b ""
   "simple_lass_pgrad.png" 1668390702 135293 0a5c4352bd13a390a13469af58fb1bbc ""
   (generated)
+  "report.log"
   "report.aux"
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.log"
   "report.out"
   "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf"
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.log"
   "report.pdf"
-  "report.log"
