@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  1 DEC 2022 20:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  2 DEC 2022 14:22
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -296,38 +296,59 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 \@float@every@algorithm=\toks29
 \c@algorithm=\count290
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/amsrefs.sty
+Package: amsrefs 2013/03/07 v2.14
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/pcatcode.sty
+Package: pcatcode 2002/04/16 v1.04
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/ifoption.sty
+Package: ifoption 2002/03/04 v1.02
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/rkeyval.sty
+Package: rkeyval 2004/05/05 v1.08
+\@temptokenb=\toks30
+\rsk@toks=\toks31
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/textcmds.sty
+Package: textcmds 2012/08/02 v2.00
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/mathscinet.sty
+Package: mathscinet 2002/04/17 v1.05
+)
+\c@bib=\count291
+\@maxlabelwidth=\dimen170
+\c@bib@env=\count292
+\bib@dbfile=\read3
+\alpha@suffix=\count293
+\series@index=\count294
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/local/texlive/2021/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count291
-\Gm@cntv=\count292
-\c@Gm@tempcnt=\count293
-\Gm@bindingoffset=\dimen170
-\Gm@wd@mp=\dimen171
-\Gm@odd@mp=\dimen172
-\Gm@even@mp=\dimen173
-\Gm@layoutwidth=\dimen174
-\Gm@layoutheight=\dimen175
-\Gm@layouthoffset=\dimen176
-\Gm@layoutvoffset=\dimen177
-\Gm@dimlist=\toks30
+\Gm@cnth=\count295
+\Gm@cntv=\count296
+\c@Gm@tempcnt=\count297
+\Gm@bindingoffset=\dimen171
+\Gm@wd@mp=\dimen172
+\Gm@odd@mp=\dimen173
+\Gm@even@mp=\dimen174
+\Gm@layoutwidth=\dimen175
+\Gm@layoutheight=\dimen176
+\Gm@layouthoffset=\dimen177
+\Gm@layoutvoffset=\dimen178
+\Gm@dimlist=\toks32
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/fontsize/fontsize.sty
 Package: fontsize 2021/03/14 v0.8.1 'fontsize' package. Set main font sizes (Ivan Valbusa)
  (/usr/local/texlive/2021/texmf-dist/tex/latex/xkeyval/xkeyval.sty
 Package: xkeyval 2020/11/20 v2.8 package option processing (HA)
  (/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/local/texlive/2021/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks31
-\XKV@tempa@toks=\toks32
+\XKV@toks=\toks33
+\XKV@tempa@toks=\toks34
 )
-\XKV@depth=\count294
+\XKV@depth=\count298
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 )) (/usr/local/texlive/2021/texmf-dist/tex/latex/l3packages/xfp/xfp.sty (/usr/local/texlive/2021/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2021-02-18 L3 programming layer (loader) 
  (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count295
+\l__color_backend_stack_int=\count299
 \l__pdf_internal_box=\box52
 ))
 Package: xfp 2021-03-12 L3 Floating point unit
@@ -347,17 +368,17 @@ LaTeX3 Info: Defining command \printsamples with sig.
 Package: authblk 2001/02/27 1.3 (PWD)
 \affilsep=\skip62
 \@affilsep=\skip63
-\c@Maxaffil=\count296
-\c@authors=\count297
-\c@affil=\count298
+\c@Maxaffil=\count300
+\c@authors=\count301
+\c@affil=\count302
 )
-\c@theorem=\count299
-\c@prop=\count300
-\c@lemma=\count301
-\c@definition=\count302
-\c@remark=\count303
-\c@assumption=\count304
-Package hyperref Info: Option `colorlinks' set `true' on input line 34.
+\c@theorem=\count303
+\c@prop=\count304
+\c@lemma=\count305
+\c@definition=\count306
+\c@remark=\count307
+\c@assumption=\count308
+Package hyperref Info: Option `colorlinks' set `true' on input line 35.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2020/09/09 v1.2b Enhanced LaTeX Graphics (DPC,SPQR)
  (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics/graphics.sty
@@ -371,25 +392,25 @@ Package graphics Info: Driver file: pdftex.def on input line 105.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen178
-\Gin@req@width=\dimen179
+\Gin@req@height=\dimen179
+\Gin@req@width=\dimen180
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count305
+\lst@mode=\count309
 \lst@gtempboxa=\box53
-\lst@token=\toks33
-\lst@length=\count306
-\lst@currlwidth=\dimen180
-\lst@column=\count307
-\lst@pos=\count308
-\lst@lostspace=\dimen181
-\lst@width=\dimen182
-\lst@newlines=\count309
-\lst@lineno=\count310
-\lst@maxwidth=\dimen183
+\lst@token=\toks35
+\lst@length=\count310
+\lst@currlwidth=\dimen181
+\lst@column=\count311
+\lst@pos=\count312
+\lst@lostspace=\dimen182
+\lst@width=\dimen183
+\lst@newlines=\count313
+\lst@lineno=\count314
+\lst@maxwidth=\dimen184
  (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count311
-\lst@skipnumbers=\count312
+\c@lstnumber=\count315
+\lst@skipnumbers=\count316
 \lst@framebox=\box54
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
@@ -398,19 +419,19 @@ Package: listings 2020/03/24 1.8d (Carsten Heinz)
  (/usr/local/texlive/2021/texmf-dist/tex/latex/psnfss/courier.sty
 Package: courier 2020/03/25 PSNFSS-v9.3 (WaS) 
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen184
-\WF@size=\dimen185
-\c@WF@wrappedlines=\count313
+\wrapoverhang=\dimen185
+\WF@size=\dimen186
+\c@WF@wrappedlines=\count317
 \WF@box=\box55
-\WF@everypar=\toks34
+\WF@everypar=\toks36
 Package: wrapfig 2003/01/31  v 3.6
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2021/01/20 v3.7 verbatim text (tvz,hv)
-\FV@CodeLineNo=\count314
-\FV@InFile=\read3
+\FV@CodeLineNo=\count318
+\FV@InFile=\read4
 \FV@TabBox=\box56
-\c@FancyVerbLine=\count315
-\FV@StepNumber=\count316
+\c@FancyVerbLine=\count319
+\FV@StepNumber=\count320
 \FV@OutFile=\write3
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2020/08/10 v2.0s Standard LaTeX package
@@ -437,31 +458,31 @@ File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 )) (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 73.
-LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 74.
+LaTeX Font Info:    ... okay on input line 74.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 73.
+Package hyperref Info: Link coloring ON on input line 74.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -469,11 +490,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count317
+\c@section@level=\count321
 )
-LaTeX Info: Redefining \ref on input line 73.
-LaTeX Info: Redefining \pageref on input line 73.
-LaTeX Info: Redefining \nameref on input line 73.
+LaTeX Info: Redefining \ref on input line 74.
+LaTeX Info: Redefining \pageref on input line 74.
+LaTeX Info: Redefining \nameref on input line 74.
  (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.out) (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.out)
 \@outlinefile=\write4
 \openout4 = `report.out'.
@@ -515,60 +536,60 @@ LaTeX Info: Redefining \nameref on input line 73.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count318
-\scratchdimen=\dimen186
+\scratchcounter=\count322
+\scratchdimen=\dimen187
 \scratchbox=\box57
-\nofMPsegments=\count319
-\nofMParguments=\count320
-\everyMPshowfont=\toks35
-\MPscratchCnt=\count321
-\MPscratchDim=\dimen187
-\MPnumerator=\count322
-\makeMPintoPDFobject=\count323
-\everyMPtoPDFconversion=\toks36
+\nofMPsegments=\count323
+\nofMParguments=\count324
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count325
+\MPscratchDim=\dimen188
+\MPnumerator=\count326
+\makeMPintoPDFobject=\count327
+\everyMPtoPDFconversion=\toks38
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@lstlisting=\count324
-LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
+\c@lstlisting=\count328
+LaTeX Font Info:    Trying to load font information for U+msa on input line 83.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 83.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-LaTeX Font Info:    Calculating math sizes for size <14.39996> on input line 163.
+LaTeX Font Info:    Calculating math sizes for size <14.39996> on input line 164.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 163.
+(hyperref)                removing `math shift' on input line 164.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\alpha' on input line 163.
+(hyperref)                removing `\alpha' on input line 164.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 163.
+(hyperref)                removing `math shift' on input line 164.
 
 [4] [5]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 294.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 295.
  [6] [7] [8] [9] [10]
 <simple_lass_obj.png, id=245, 1806.75pt x 1204.5pt>
 File: simple_lass_obj.png Graphic file (type png)
 <use simple_lass_obj.png>
-Package pdftex.def Info: simple_lass_obj.png  used on input line 520.
+Package pdftex.def Info: simple_lass_obj.png  used on input line 521.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 <simple_lass_pgrad.png, id=247, 1806.75pt x 1204.5pt>
 File: simple_lass_pgrad.png Graphic file (type png)
 <use simple_lass_pgrad.png>
-Package pdftex.def Info: simple_lass_pgrad.png  used on input line 521.
+Package pdftex.def Info: simple_lass_pgrad.png  used on input line 522.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 
 
@@ -578,40 +599,42 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <blurred_img.jpg, id=262, 501.875pt x 501.875pt>
 File: blurred_img.jpg Graphic file (type jpg)
 <use blurred_img.jpg>
-Package pdftex.def Info: blurred_img.jpg  used on input line 535.
+Package pdftex.def Info: blurred_img.jpg  used on input line 536.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
 <inverse_linear_experiment1-soln_img.jpg, id=264, 501.875pt x 501.875pt>
 File: inverse_linear_experiment1-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment1-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment1-soln_img.jpg  used on input line 542.
+Package pdftex.def Info: inverse_linear_experiment1-soln_img.jpg  used on input line 543.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
 <inverse_linear_experiment2-soln_img.jpg, id=265, 501.875pt x 501.875pt>
 File: inverse_linear_experiment2-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment2-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment2-soln_img.jpg  used on input line 547.
+Package pdftex.def Info: inverse_linear_experiment2-soln_img.jpg  used on input line 548.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
 <inverse_linear_experiment3-soln_img.jpg, id=266, 501.875pt x 501.875pt>
 File: inverse_linear_experiment3-soln_img.jpg Graphic file (type jpg)
 <use inverse_linear_experiment3-soln_img.jpg>
-Package pdftex.def Info: inverse_linear_experiment3-soln_img.jpg  used on input line 552.
+Package pdftex.def Info: inverse_linear_experiment3-soln_img.jpg  used on input line 553.
 (pdftex.def)             Requested size: 142.26378pt x 142.26239pt.
- [12 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_obj.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_pgrad.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/blurred_img.jpg>] [13 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment1-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment2-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment3-soln_img.jpg>] [14] [15] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.bbl [16]) [17] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
+ [12 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_obj.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/simple_lass_pgrad.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/blurred_img.jpg>] [13 </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment1-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment2-soln_img.jpg> </Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/inverse_linear_experiment3-soln_img.jpg>] [14] [15] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.bbl [16]
+LaTeX Font Info:    Calculating math sizes for size <10.00012> on input line 26.
+) [17] (/Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: 46C0036FD3553618ED962DD1E2C74518;4177.
  ) 
 Here is how much of TeX's memory you used:
- 15026 strings out of 478994
- 225629 string characters out of 5858183
- 580431 words of memory out of 5000000
- 32147 multiletter control sequences out of 15000+600000
- 422680 words of font info for 76 fonts, out of 8000000 for 9000
+ 15978 strings out of 478994
+ 237738 string characters out of 5858183
+ 596292 words of memory out of 5000000
+ 33070 multiletter control sequences out of 15000+600000
+ 426374 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  81i,15n,89p,1689b,770s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (17 pages, 1262957 bytes).
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/actual_math/report.pdf (17 pages, 1285613 bytes).
 PDF statistics:
- 422 PDF objects out of 1000 (max. 8388607)
- 367 compressed objects within 4 object streams
- 111 named destinations out of 1000 (max. 500000)
+ 438 PDF objects out of 1000 (max. 8388607)
+ 381 compressed objects within 4 object streams
+ 116 named destinations out of 1000 (max. 500000)
  225 words of extra memory for PDF output out of 10000 (max. 10000000)
 

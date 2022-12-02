@@ -1,29 +1,60 @@
-\begin{thebibliography}{1}
+% \bib, bibdiv, biblist are defined by the amsrefs package.
+\begin{bibdiv}
+\begin{biblist}
 
-\bibitem{book:first_order_opt}
-Amir Beck.
-\newblock {\em First-Order Methods in Optimization}.
-\newblock Society for Industrial and Applied Mathematics, Philadelphia, PA,
-  2017.
+\bib{book:first_order_opt}{book}{
+      author={Beck, Amir},
+       title={First-order methods in optimization},
+   publisher={Society for Industrial and Applied Mathematics},
+     address={Philadelphia, PA},
+        date={2017},
+         url={https://epubs.siam.org/doi/abs/10.1137/1.9781611974997},
+}
 
-\bibitem{paper:FISTA}
-Amir Beck and Marc Teboulle.
-\newblock A fast iterative shrinkage-thresholding algorithm for linear inverse
-  problems, 2009.
+\bib{paper:FISTA}{article}{
+      author={Beck, Amir},
+      author={Teboulle, Marc},
+       title={A fast iterative shrinkage-thresholding algorithm for linear
+  inverse problems},
+        date={2009},
+     journal={SIAM Journal on Imaging Sciences},
+      volume={2},
+      number={1},
+       pages={183\ndash 202},
+      eprint={https://doi.org/10.1137/080716542},
+         url={https://doi.org/10.1137/080716542},
+}
 
-\bibitem{bezanson2012julia}
-Jeff Bezanson, Stefan Karpinski, Viral~B Shah, and Alan Edelman.
-\newblock Julia: A fast dynamic language for technical computing.
-\newblock {\em arXiv preprint arXiv:1209.5145}, 2012.
+\bib{bezanson2012julia}{article}{
+      author={Bezanson, Jeff},
+      author={Karpinski, Stefan},
+      author={Shah, Viral~B},
+      author={Edelman, Alan},
+       title={Julia: A fast dynamic language for technical computing},
+        date={2012},
+     journal={arXiv preprint arXiv:1209.5145},
+}
 
-\bibitem{book:ml_prob_murphy}
-Kevin~P. Murphy.
-\newblock {\em Probabilistic Machine Learning: An introduction}.
-\newblock MIT Press, 2022.
+\bib{book:ml_prob_murphy}{book}{
+      author={Murphy, Kevin~P.},
+       title={Probabilistic machine learning: An introduction},
+   publisher={MIT Press},
+        date={2022},
+         url={probml.ai},
+}
 
-\bibitem{paper:bloyd}
-Neal Parikh and Stephen Boyd.
-\newblock Proximal algorithms.
-\newblock {\em Found. Trends Optim.}, 1(3):127–239, jan 2014.
+\bib{paper:bloyd}{article}{
+      author={Parikh, Neal},
+      author={Boyd, Stephen},
+       title={Proximal algorithms},
+        date={2014jan},
+        ISSN={2167-3888},
+     journal={Found. Trends Optim.},
+      volume={1},
+      number={3},
+       pages={127–239},
+         url={https://doi.org/10.1561/2400000003},
+}
 
-\end{thebibliography}
+\end{biblist}
+\end{bibdiv}

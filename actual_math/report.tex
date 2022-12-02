@@ -8,6 +8,7 @@
 \usepackage{hyperref}
 \usepackage{algorithmic}
 \usepackage{algorithm}
+\usepackage{amsrefs}
 % \usepackage{minted}
 % Basic Type Settings ----------------------------------------------------------
 \usepackage[margin=1in,footskip=0.25in]{geometry}
@@ -316,7 +317,7 @@
             \end{align*}
         \end{theorem}
         \begin{proof}
-            This proof is standard and does not entirely resemble the proof showed in \cite[Aimir, Teboulle]{paper:FISTA}; nonetheless, we will extract a lemma out of this proof and use that as the foundation for the proof in the Nesterov Accelerated case of the proximal gradient algorithm.  
+            This proof is standard and does not entirely resemble the proof showed in Aimir, Teboulle\cite{paper:FISTA}; nonetheless, we will extract a lemma out of this proof and use that as the foundation for the proof in the Nesterov Accelerated case of the proximal gradient algorithm.  
             \par
             Firstly by choice of step size and the strong smoothness of the function $g$, we have the inequality: 
             \begin{align*}
@@ -504,7 +505,7 @@
                 \frac{1}{2}\Vert Ax - b\Vert^2_2 + \lambda\Vert x\Vert_1    
             \right\rbrace
         \end{align*}
-        For a brief background, this problem appears in the context of regression for a generalized linear model where we want sparse coefficients on the regression parameters. Theoretically, it corresponds to having a prior Laplace distribution for the regression parameters (See 11.4.1 in Murphy's\cite{book:ml_prob_murphy} book for more details.). The implementation is simple, and the proximal gradient oracle for $\Vert \cdot \Vert_1$ is given as: 
+        For a brief background, this problem appears in the context of regression for a generalized linear model where we want sparse coefficients on the regression parameters. Theoretically, it corresponds to having a prior Laplace distribution for the regression parameters (See 7.4 in Murphy's\cite{book:ml_prob_murphy} book for more details.). The implementation is simple, and the proximal gradient oracle for $\Vert \cdot \Vert_1$ is given as: 
         \begin{align*}
            (\text{prox}_{\lambda\Vert \cdot \Vert, t}(x))_i
            = 
@@ -792,6 +793,7 @@
         \end{align*}
         by \hyperref[lemma:fista_seq]{lemma \ref*{lemma:fista_seq}} asserts convergence for the above expression. We skip the proof for the sequence lower bound here. 
 
-\bibliographystyle{plain}
+\bibliographystyle{amsplain}
+\urlstyle{rm}
 \bibliography{refs.bib}
 \end{document}
