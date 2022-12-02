@@ -104,11 +104,10 @@
 
 \section{Preliminaries}\label{sec:preliminaries}
     The proximal operator is a crucial component of the algorithm, and its non-expansive property is relevant to the convergence of the Proximal Gradient under the non-convex case. We will not go into detail about the non-convex case. Under the assumption of convexity for $f$, the property of the strongly smooth function is more relevant. 
-    \subsection{The Proximal Operator}
+    \subsection{The proximal operator}
         \begin{definition}[Proximal Operator and Moreau Envelope]
             A Moreau Envelope $\text{env}_{\alpha, f}(x)$, $\text{prox}_{\alpha, f}$ the proximal operator are defined for some function $f$: 
-            $$
-            \begin{aligned}
+            \begin{align*}
                 & \text{env}_{f, \alpha}(x) := \min_{y}\left\lbrace
                     f(y) + \frac{1}{2 \alpha }\Vert y - x\Vert^2
                 \right\rbrace, 
@@ -117,8 +116,7 @@
                 \arg\min_{y}\left\lbrace
                     f(y) + \frac{1}{2\alpha} \Vert y - x\Vert^2
                 \right\rbrace. 
-            \end{aligned}
-            $$
+            \end{align*}
         \end{definition}
         The proximal operator is a singleton when the function $f$ is convex, proper, and closed due to the strong convexity of $f(y) + 1/(2\alpha)\Vert y - x\Vert^2$. Observe that $\text{env}_{\alpha, f}(x) = (f\square \frac{1}{2\alpha}\Vert \cdot \Vert^2)(x)$, hence the infimal convolution gives us the interpretation that the epigraphs of the envelope are adding between the epigraph of these two functions. This conceptualization will help with the intuitive understanding of many proximal algorithms. 
         In addition, please observe the following identities: 
@@ -162,7 +160,7 @@
                 y^+ &\in (\alpha\partial f+ I)^{-1}(x).
             \end{align*}
         \end{proof}
-    \subsection{The $\alpha$ Smoothness}
+    \subsection{The $\alpha$ smoothness}
         \begin{definition}[$\alpha$-Smoothness]\label{def:strong_smoothness}
             A differentiable function $g$ is called $\alpha$-smooth with a constant $\alpha$ then it satisfies: 
             \begin{align}
@@ -180,13 +178,13 @@
             For conciseness, we skip the proof here. To prove it, we consider applying generalized Cauchy Inequality to (iv) in Theorem 5.8 for Beck's textbook \cite{book:first_order_opt}. To prove that $\alpha$-smoothness implies global Lipschitz gradient, for the converse, consider taking some line integrals on the gradient and then using the global Lipschitz property of the gradient from $x$ to $y$. 
         \end{proof}
         
-\section{Proximal Gradient and Forward Backward Envelope}\label{sec:pg_forward_backward_env}
+\section{Proximal gradient and forward backward envelope}\label{sec:pg_forward_backward_env}
     We introduce the algorithm through the forward-backward envelope; this helps with the intuitive understanding of this algorithm. We then state some of the essential properties. The forward-backward envelope name came from a numerical method that simulates a gradient system that is the summation of stiff and nonstiff dynamics by using forward Euler on the nonstiff part and backward Euler on the stiff part. We will not discuss this specific interpretation of the proximal gradient method. For more detail regarding this interpretation of the proximal gradient method, refers to Bloyd's paper \cite{paper:bloyd}. 
     \begin{assumption}[Convex Smooth Nonsmooth with Bounded Minimizers]\label{assumption:1}
         We will assume that $g:\mathbb E\mapsto \mathbb R$ is strongly smooth with constant $L_g$ and $h:\mathbb E \mapsto \bar{\mathbb R}$ is closed convex and proper. We define $f := g + h$ to be the summed function and $\text{ri}\circ \text{dom}(g) \cap \text{ri}\circ \text{dom}(h) \neq \emptyset$. We also assume that a set of minimizers exists for the function $f$ and that the set is bounded. Denote the minimizer using $\bar x$. 
     \end{assumption}
     
-    \subsection{Proximal Gradient}
+    \subsection{Proximal gradient}
         First, we follow the intuitive idea of constructing an upper bounding function given a parameter $\beta$ as  $m_x(y|\beta)$; it can be interpreted as a surrogate function if one prefers for $g + h$ with $\beta \ge L_g$: 
         \begin{align*}
             & g(x) + h(x) \le 
@@ -227,7 +225,7 @@
         \begin{remark}
             The minimizer of the envelope at $x$: $\text{prox}_{h, \beta^{-1}}(x + \beta^{-1}\nabla g(x))$ is what we call \emph{prox step} for short, it makes the envelope $m_x(y|\beta)$ strictly lower than $f(x)$ for any point $x$ that is not the minimizer of $h + g$. 
         \end{remark}
-    \subsection{Fixed Point of the Prox Step}\label{sec:fixed_point_prox}
+    \subsection{Fixed point of the prox step}\label{sec:fixed_point_prox}
         Denote the prox step $\mathcal P_{\beta^{-1}}^{g, h}(x) = \text{prox}_{h, \beta^{-1}}(x - \beta^{-1}\nabla g(x))$, in most context without ambiguity it will be denoted as $\mathcal Px$. The fixed point of $\mathcal P$ is a point $x$ such that $x = \mathcal P x$ if and only if $x$ is the minimizer of $f$ when \hyperref[assumption:1]{assumption \ref*{assumption:1}} is true. We denoted the fixed point as $\bar x$. To see how this is true consider any $x^+$ such that $x^+ = \mathcal Px$, using subgradient of the envelope: 
         \begin{align*}
             \mathbf 0 
@@ -242,7 +240,7 @@
         \begin{remark}
             The operator $\beta(x - \mathcal Px)$ is called the gradient mapping in Amiar's Book \cite{book:first_order_opt}, and it has many more critical properties that are useful for the convergence proof of the proximal gradient method under many different contexts. Please observe that if the function $h \equiv 0$, the gradient mapping is simply the gradient of the function $g$. 
         \end{remark}
-    \subsection{Step-Sizes that Ensures Monotone Descent Property}
+    \subsection{Step-sizes that ensures monotone descent property}
         With \hyperref[assumption:1]{assumption \ref*{assumption:1}}, only a specific size of step-size can guarantee a decrease in the function value for the minimizers that minimize the envelope. 
         \begin{theorem}[Stepsize that Ensures Monotone Decrease]\label{thm:monotone_decrease}
             The step size $L^{-1}$ of the proximal gradient that guarantees a decrease in the objective value has to satisfy: $L \ge L_g$, where $L_g$ is the Lipschitz constant for the gradient of the function $g$ (recall \hyperref[thm:cvx_lipz_grad]{theorem \ref*{thm:cvx_lipz_grad}}) and $\mathcal Px$ is $\mathcal P_{L^{-1}}^{g, h}(x)$. 
@@ -282,7 +280,7 @@
         \begin{remark}
             The monotone decrease property of step size is useful for engineering the backtracking routine for the proximal gradient method. More specifically, as long as the step size $L^{-1}$ satisfies $m_x(\mathcal Px | L)\le f(x)$, then it is an acceptable step size. 
         \end{remark}
-    \subsection{Proximal Gradient Algorithm}
+    \subsection{Proximal gradient algorithm}
         \begin{algorithm}[H]
             \begin{algorithmic}[1]
             \STATE{\textbf{Input:} $g, h$, smooth and nonsmooth, $L$ stepsize, $x^{(0)}$ an initial guess of solution. }
@@ -300,9 +298,9 @@
             The \hyperref[alg:1]{Proximal Gradient With Fixed Step Size} algorithm terminates either it reaches the iteration limit $N$ or the fixed point iterations on the operator $\mathcal P$ have converged. In some cases, we can obtain the Lipschitz constant for $g$ in advance; in other cases, it is not easy to obtain. 
         \end{remark}
 
-\section{Convergence of Proximal Gradient}\label{sec:pg_convergence}
+\section{Convergence of proximal gradient}\label{sec:pg_convergence}
     Here, we give analysis for the convergence behaviors of the algorithm in \hyperref[alg:1]{\ref*{alg:1}} with fixed stepsizes and assumption \hyperref[assumption:1]{\ref*{assumption:1}} is true. 
-    \subsection{Convergence Under the Convex Case}
+    \subsection{Convergence under the convex case}
         Before the proof, we state some of the quantities that are involved in the proof. 
         \begin{enumerate}
             \item [1.] Recall from \hyperref[sec:fixed_point_prox]{section \ref*{sec:fixed_point_prox}} where $G_\beta(x) - \nabla g(x) \in \partial h(x^+)$ with $x^+ \in \mathcal P_{\beta^{-1}}^{g, h}(x)$, and this general condition is true for all values of $x$. We refer to $G_\beta(x)$ as the residual of the proximal gradient algorithm. Finally, $G_\beta(x) = \beta(x - x^+)$
@@ -464,10 +462,10 @@
             by substituting $x:=y$ and $z:= x$ in the last line, we completed the proof of the lemma. 
         \end{proof}
 
-\section{Accelerated Proximal Gradient}\label{sec:apg_intro}
+\section{Accelerated proximal gradient}\label{sec:apg_intro}
     Here we state the Accelerated Proximal algorithm in Beck's Paper paper\cite{paper:FISTA} and prove the convergence in the appendix. The convergence proof follows what is in the paper but with more details in the appendix. The FISTA algorithm stands for Fast Iterative Shrinkage-Thresholding Algorithm, which is the specific case of the Proximal Gradient with Nesterov momentum applied to the LASSO problem. FISTA is an accelerated case of the ISTA algorithm, and it is the same as FISTA but without the Nesterov momentum. 
     
-    \subsection{Accelerated Proximal Gradient Algorithm} 
+    \subsection{Accelerated proximal gradient algorithm} 
         \begin{algorithm}[H]\label{alg:fista_1} 
         \begin{algorithmic}[1]
             \STATE{\textbf{Input: the step size $\beta^{-1}$, and $x^{(0)}$ the initial guess. } }
@@ -483,7 +481,7 @@
         \end{algorithmic}\caption{FISTA With Constant Step Size}
         \end{algorithm}
 
-    \subsection{Convergence Under the Convex Case}
+    \subsection{Convergence under the convex case}
         \begin{theorem}[FISTA Convergence under Convexity]\label{thm:fista_convergence1}
             If \hyperref[assumption:1]{assumption \ref*{assumption:1}} is satisfied, then the FISTA algorithm has convergence result of: 
             \begin{align*}
@@ -497,7 +495,7 @@
             For a proof see \hyperref[sec:fista1_proof]{appendix \ref*{sec:fista1_proof}}
         \end{proof}
 
-\section{Numerical Experiments}\label{sec:numerical_experiments}
+\section{Numerical experiments}\label{sec:numerical_experiments}
     This section uses a simple LASSO algorithm to demonstrate convergence. We demonstrate a bigger application of image deblurring with noises using the FISTA algorithm. 
     \subsection*{Simple LASSO}
         As the name suggested, we consider the overuse example problem of: 
@@ -528,7 +526,7 @@
             The convergence rate of the optimality gap is linear when the smooth function $g$ is strongly convex; see theorem 10.29 of Beck's book\cite{book:first_order_opt} for the linear convergence of proximal gradient without acceleration. There are variants of FISTA, for example, the Restarted FISTA. Beck's book, Theorem 10.41 \cite{book:first_order_opt} discusses their convergence behaviors.
         \end{remark}
         
-    \subsection*{Image Deblurring}
+    \subsection*{Image deblurring}
         We reproduced some of the experiments conducted in Beck's FISTA paper \cite{paper:FISTA} but using larger images with colors. We consider a cartoon image of a pink unicorn (I own the image) of 500 by 500 pixels, three color channels, blurred. The matrix $A$ does the blurring. It is performing a convolution using discretized $15\times 15$ pixels gaussian kernel with a variance of $4$ on all pixels with a periodic boundary condition across all color channels independently. The implementation for $A$ is a for loop that constructs a sparse matrix $A$. The 750000 by 750000 sparse matrix $A$ acts independently on the vectorized image across all three color channels. More efficient ways exist, such as using the Kronecker product. However, for the sake of demonstration, the alternatives are unexplored because the explicit $A$ matrix allows us to reuse the code that made the previous demonstration. 
         \par
         The vector $b = Ax^+ + \epsilon$ where $x^+$ is the flattened array of the original image of all three color channels normalized to $[0, 1]$ using float64. The quantity $\epsilon$ is a zero mean gaussian noise vector with zero mean and variance of $2\times 10^{-2}$. Here we define $\lambda = \alpha\times (3\times500^2)^{-1}$, and we make 3 experiments with $\alpha = 0, 0.01, 0.1$. The initial guess vector $x^{(0)}$ is a random zero mean gaussian vector of unit variance. The blurred image is showed in \hyperref[fig:blurred_alto]{figure \ref*{fig:blurred_alto}}. Moreover, the results of the deblurring algorithm for different value of $\alpha$ is shown in \hyperref[fig:alto_deblurred]{figure \ref*{fig:alto_deblurred}}, observes that with $\lambda = 0$, the solution contains much noise. However, just a tiny amount of $\lambda$ prevents the noises on the black background on the recovered image. 
@@ -560,310 +558,8 @@
 
 
 \appendix
-% \begin{section}{Proof for Convergence of FISTA}\label{sec:fista1_proof}
-%     Here we prove \hyperref[thm:fista_convergence1]{theorem \ref*{thm:fista_convergence1}}. The proof closely follows Beck and Teboulle's work \cite{paper:FISTA}, and here we prove everything with extra details. 
-%     \begin{subsection}{The First Lemma}
-%         Recall from \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}
-%         and \hyperref[assumption:1]{assumption \ref*{assumption:1}}, instead of using $\beta^{-1}$ as our step size we use $L$. Here we introduce the notation $\delta_k = f(x^{(k)}) - f(\bar x)$ to denote the optimality gap at the $k$ iteration of the algorithm where $\bar x$ denotes one of the minimizer of the function $f$. 
-%         \begin{lemma}[FISTA First Lemma]\label{lemma:fista_first_lemma}
-%             The optimality gap generated via FISTA statisfies: 
-%             \begin{align*}
-%                 & 
-%                 \frac{2}{L}t^2_k \Delta_k - \frac{2}{L}t^2_{k + 1} \Delta_{k + 1} 
-%                 \ge 
-%                 \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
-%                 \\
-%                 & \Delta_k := f(x^{(k)}) - f(\bar x)
-%                 \\
-%                 & u^{(k)} := t_k x^{(k)} - (t_k - 1)x^{(k - 1)} - \bar x.
-%             \end{align*}
-%         \end{lemma}
-%         \begin{proof}
-%             We invoke the \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}} with $x = x^{(k)}, y = y^{(k +1)}$ to give: 
-%             \begin{align*}\label{lemma:fista_first_lemma_1}
-%                 f(x^{(k)}) - f\circ \mathcal P y^{(k + 1)}
-%                 & \ge 
-%                 \frac{L}{2}\Vert \mathcal Py^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
-%                 L \langle y^{(k + 1)} - x^{(k)}, 
-%                     \mathcal Py^{(k + 1)} - y^{(k + 1)}
-%                 \rangle
-%                 \\
-%                 f(x^{(k)}) - f(x^{(k + 1)}) 
-%                 & \ge 
-%                 \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
-%                 L 
-%                 \langle 
-%                     y^{(k + 1)} - x^{(k)}, 
-%                     x^{(k + 1)} - y^{(k + 1)}
-%                 \rangle, 
-%                 \\
-%                 \implies
-%                 2L^{-1} (\Delta_k - \Delta_{k + 1}) 
-%                 & \ge 
-%                 \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2 + 
-%                 2\langle x^{(k + 1)} - y^{(k + 1)}, y^{(k + 1)} - x^{(k)}\rangle. 
-%                 \tag{$*$}
-%             \end{align*}
-%             Observe that from the first line to the second line we invoke the definition for the updates for $x^{(k)}$ in the \hyperref[alg:fista_1]{FISTA Algorithm}. We then invoke the lemma again with $x:= \bar x, y = y^{(k + 1)}$, and it gives us: 
-%             \begin{align*}
-%                 f(\bar x) - f\circ \mathcal P y^{(k + 1)}
-%                 & \ge 
-%                 \frac{L}{2}\Vert \mathcal P y^{(k + 1)} - y^{(k + 1)}\Vert^2 
-%                 + L 
-%                 \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
-%                 \\
-%                 f(\bar x) - f(x^{(k + 1)}) 
-%                 &\ge 
-%                 \frac{L}{2}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-%                 + 
-%                 L \langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
-%                 \\
-%                 -2L^{-1}\Delta_{k + 1}
-%                 & \ge
-%                 \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-%                 + 
-%                 2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle. 
-%                 \tag{$\star$}
-%             \end{align*}
-%             Consider the expression $(t_k - 1)(*) + (\star)$, we obtain the LHS of that expression: 
-%             \begin{align*}
-%                 &(t_{k + 1} - 1)L^{-1} (\Delta_k - \Delta_{k + 1}) 
-%                 -
-%                 2L^{-1}\Delta_{k + 1}
-%                 \\
-%                 = \; &
-%                 2L^{-1}
-%                 ((t_{k + 1} + 1)\Delta_k - (t_{k + 1} - 1)\Delta_{k + 1} - \Delta_{k + 1})
-%                 \\
-%                 = \; &
-%                 2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1}),
-%                 \tag{$\star *$LHS}
-%             \end{align*}
-%             and then the RHS is: 
-%             \begin{align*}
-%                 & (t_{k + 1} - 1)\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-%                 + 
-%                 2(t_{k + 1} - 1)\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle 
-%                 \\
-%                 & \quad 
-%                 + \Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-%                 + 
-%                 2\langle y^{(k + 1)} - \bar x, x^{(k + 1)} - y^{(k + 1)}\rangle
-%                 \\
-%                 = \; &
-%                 t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-%                 + 
-%                 \langle 
-%                     x^{(k + 1)} - y^{(k + 1)}, 
-%                     \underbrace{2(t_{k + 1} - 1)(y^{(k + 1)} - x^{(k)}) + 2(y^{(k + 1)} - \bar x) }_
-%                     {
-%                         = 2(t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x)
-%                     }
-%                 \rangle
-%                 \\
-%                 = \; & 
-%                 t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-%                 + 
-%                 2\langle 
-%                     x^{(k + 1)} - y^{(k + 1)}, 
-%                     t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
-%                 \rangle. 
-%                 \tag{$\star *$RHS}
-%             \end{align*}
-%             The entirety of expression (3) is given by: 
-%             \begin{align*}
-%                 & 2L^{-1}((t_{k + 1} - 1)\Delta_k - t_{k + 1}\Delta_{k + 1})
-%                 \ge 
-%                 t_{k + 1}\Vert x^{(k + 1)} - y^{(k + 1)}\Vert^2
-%                 \\
-%                 & \quad 
-%                 + 
-%                 2\langle 
-%                     x^{(k + 1)} - y^{(k + 1)}, 
-%                     t_{k + 1}y^{(k + 1)} + (1 - t_{k + 1})x^{(k)} - \bar x
-%                 \rangle. 
-%                 \tag{$\star *$}
-%             \end{align*}
-%             The next part of the proof shows some of the magics involves in changing the LHS,RHS of $(\star *)$ to be the similar to what is in the theorem statement. It's accomplished by the relations for the sequence $t_k$, more specifically it's hinged on the relations $t_k^2 = t^2_{k + 1} - t_{k + 1}$ which is asserted by the FISTA algorithm. Using this fact we proceed by multiplying $t_{k + 1}$ on both sides of $(\star *)$ and obtain: 
-%             \begin{align*}
-%                 & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
-%                 \\
-%                 & \hspace{2em}
-%                 \begin{aligned}
-%                     & \ge 
-%                     \Vert t_{k + 1}(x^{(k + 1)} - y^{(k + 1)})\Vert^2 - 
-%                     2\langle 
-%                         t_{k + 1}(x^{(k + 1)} - y^{(k + 1)}), 
-%                         t_{k + 1}y^{(k + 1)} - 
-%                         (t_{k + 1} - 1)x^{(k)} - \bar x
-%                     \rangle
-%                 \end{aligned}
-%                 \\
-%                 & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
-%                 \\ 
-%                 &\hspace{2em}
-%                 \begin{aligned}
-%                     & \ge 
-%                     \Vert 
-%                         \underbrace{t_{k + 1}x^{(k + 1)}}_{
-%                             =:a
-%                         } - \underbrace{t_{k + 1}y^{(k + 1)}}_{
-%                             =:b
-%                         }
-%                     \Vert^2 
-%                     - 
-%                     2\langle 
-%                     \underbrace{ t_{k + 1}x^{(k + 1)}}_{=:a} - t_{k + 1}y^{(k + 1)}, 
-%                         \underbrace{t_{k + 1}y^{(k + 1)}}_{=:b} - 
-%                         \underbrace{((t_{k + 1} - 1)x^{(k)} + \bar x)}_{=:c}
-%                     \rangle
-%                     \\
-%                     & \ge 
-%                     \Vert a - b\Vert^2 + 2\langle a - b, b -c\rangle
-%                     \\
-%                     & = 
-%                     \Vert a - b\Vert^2 + \Vert b - c\Vert^2 + 
-%                     2\langle a-b, b -c\rangle - \Vert b - c\Vert^2
-%                     \\
-%                     &= 
-%                     \Vert a - c\Vert^2 - \Vert b - c\Vert^2
-%                     \\
-%                     &\ge 
-%                     \Vert 
-%                         t_{k+ 1}x^{(k + 1)} - 
-%                         (t_{k + 1} - 1)x_k - \bar x 
-%                     \Vert^2 - 
-%                     \Vert 
-%                         (t_{k + 1} - 1)x^{(k)} - t_{k + 1}y^{(k + 1)}
-%                         - \bar x
-%                     \Vert^2, 
-%                 \end{aligned}
-%             \end{align*}
-%             to prove the lemma, we need to match the form in the above 2 norm of the vector, we accomplish this by considering FISTA algorithm: 
-%             \begin{align*}
-%                 t_{k + 1}y^{(k + 1)} &= t_{k + 1}x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
-%                 \\
-%                 t_{k + 1}y^{(k + 1)} - (t_{k + 1}- 1)x^{(k)}
-%                 &= t_{k + 1}x^{(k)} - (t_{k + 1}- 1)x^{(k)} + (t_k - 1)(x^{(k)} - x^{(k - 1)})
-%                 \\
-%                 &= 
-%                 x^{(k)} + (t_k - 1)x^{(k)} - (t_k - 1)x^{(k - 1)}
-%                 \\
-%                 &= t_kx^{(k)} - (t_k - 1)x^{(k - 1)}, 
-%             \end{align*}
-%             cf from previously we have: 
-%             \begin{align*}
-%                 & 2L^{-1}(\Delta_k t_k^2 - \Delta_{k + 1}t_{k + 1}^2)
-%                 \\
-%                 &\ge 
-%                 \Vert 
-%                     t_{k + 1}x^{(k + 1)}
-%                     + 
-%                     (1 - t_{k + 1}) x^{(k)} - \bar x
-%                 \Vert^2
-%                 - 
-%                 \Vert t_kx^{(k)} + (1 - t_k)x^{(k -1)} - \bar x\Vert^2
-%                 \\
-%                 & \ge \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2.
-%             \end{align*}
-%             And that completes the proof of the Second Lemma. 
-%         \end{proof}
-%         \begin{remark}
-%             There should be some point, where we can infer the properties of the sequence $t_k$ instead of taking the sequence from FISTA algorithm for granted, there should also be a way to make a different decision during the proof so that this becomes the proof for the algorithm without the accelerations technique. 
-%         \end{remark}
-%     \end{subsection}
 
-%     \begin{subsection}{The Second Lemma}
-%         \begin{lemma}[FISTA Second Lemma]
-%             Let $\{a, b\}$ be positive real numbers sequence satisfying: $a_k - a_{k - 1}\ge b_{k + 1} - b_k, \forall k \ge 1$, with $a_1 + b_1 \le c, c > 0$, and then it would mean that $a_{k + 1}\le c$. 
-%         \end{lemma}
-%         \begin{proof}
-%             The base case of the proof is obvious by the fact that $b_1$ is positive, hence $a_1 \le c$ is true. the relation automatically holds true for all $k\ge 1$ because $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le c$, then $a_k - a_{k + 1}\ge b_{k + 1} - b_k \implies a_k + b_k \le a_{k + 1} + b_{k + 1} \implies a_{k + 1} + b_{k + 1} \le c\implies a_{k + 1}\le c$. 
-%         \end{proof}
-%     \end{subsection}
-
-%     \begin{subsection}{The Third Lemma}
-%         \begin{lemma}[FISTA Third Lemma]
-%             The FISTA asserts $t_k \ge (k + 1)/2, \forall k \ge 1$. 
-%         \end{lemma}
-%         \begin{align*}
-%             t_k 
-%             &\ge \frac{k + 1}{2}
-%             \\
-%             4t_k^2 
-%             &\ge 4\left(
-%                 \frac{k + 1}{2}
-%             \right)^2
-%             \\
-%             \implies 
-%             t_k &= \frac{1}{2}\left(
-%                 1 + \sqrt{1 + 4t_k^2}
-%             \right)
-%             \\
-%             &= 
-%             \frac{1}{2} + \frac{\sqrt{1 + (k + 1)^2}}{2}
-%             \\
-%             & \ge \frac{1 + k}{2}, 
-%         \end{align*}
-%     \end{subsection}
-%     \subsection{Convergence Proof}
-%         Firstly we define the quantities: 
-%         \begin{itemize}
-%             \item [1.] $a_k := (2/L)t_k^2 \Delta_k$.
-%             \item [2.] $b_k := \Vert u^{(k)}\Vert^2$.
-%             \item [3.] $c:= \Vert x^{(0)} - \bar x\Vert^2 = \Vert y^{(1)} - \bar x\Vert^2$. 
-%         \end{itemize}
-%         Recall from the first lemma, and we can represents it using the quantities listed above: 
-%         \begin{align*}
-%             2L^{-1}(\Delta_kt_k^2 - \Delta_{t + 1}t_{k + 1}^2) 
-%             &\ge 
-%             \Vert u^{(k + 1)}\Vert^2 - \Vert u^{(k)}\Vert^2
-%             \\
-%             a_k - a_{k + 1} &\ge 
-%             b_{k + 1} - b_k, 
-%         \end{align*}
-%         To demonstrate how the base case hold up for the second lamma, we consider \hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}, substituting $x^{(1)}$ for $x$ and $\bar x$ for $y$, implicitly using the fact that $\bar x$ is a fixed point of $\mathcal P$: 
-%         \begin{align*}
-%             \Delta_1& \ge 
-%             \frac{L}{2}\Vert \mathcal Py^{(1)} - y^{(1)}\Vert^2 + L 
-%             \langle y^{(1)} - \bar x, \mathcal P y^{(1)} - y^{(1)}\rangle
-%             \\
-%             & =
-%             \frac{L}{2}\Vert \mathcal P x^{(1)} - y^{(1)}\Vert^2 + L 
-%             \langle x^{(1)} - \bar x, x^{(1)} - y^{(1)}\rangle
-%             \\
-%             &= 
-%             \frac{L}{2}
-%             (\Vert x^{(1)} - \bar x\Vert^2 - \Vert y^{(1)} - \bar x\Vert^2)
-%             \\
-%             \implies
-%             2L^{-1}\Delta_1 
-%             &\le
-%             \underbrace{\Vert y^{(1)} - \bar x\Vert^2}_{=c} - \Vert x^{(1)} - \bar x\Vert^2
-%             \\
-%             \implies
-%             a_1 + b_1
-%             & \le c, 
-%         \end{align*}
-%         using the fact that $t_1 = 1$ we have $u^{(1)} = x^{(1)} - \bar x \implies b_1 = \Vert x^{(1)} - \bar x\Vert^2$, please observe that the above expression simplifies to $a_1 + b_1 \le c$. Invoking the second lemma, we have the claim that $a_{k + 1}\le c$, which is stated as: 
-%         \begin{align*}
-%             2L^{-1}t_{k + 1}^2\Delta_{k + 1} 
-%             &\le \Vert x^{(0)} - \bar x\Vert^2
-%             \\
-%             \implies
-%             \Delta_{k + 1}
-%             &\le 
-%             \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2t_k^2}
-%             \\
-%             & \le 
-%             \frac{L\Vert x^{(0)} - \bar x\Vert^2}{2 \times 2^{-2}(k + 1)^2}
-%             = 
-%             \frac{2L\Vert x^{(0)} - \bar x\Vert^2}{(k + 1)^2}, 
-%         \end{align*}
-%         and the proof is now complete.         
-% \end{section}
-
-\section{A Slightly Better Proof For Convergence of FISTA}\label{sec:fista1_proof}
+\section{A slightly better proof For convergence of FISTA}\label{sec:fista1_proof}
     In this section, we will go through a proof I made, and it does not require the momentum sequence $t_k$ for the FISTA algorithm under \hyperref[assumption:1]{assumption \ref*{assumption:1}}. We prepare the following template algorithm: 
     \begin{algorithm}
         \begin{algorithmic}[1]
@@ -884,7 +580,7 @@
             \item [3.] $e^{(k)} := x^{(k)} - \bar x$, where $\bar x \in \arg\min_{x}(f(x))$, where $\bar x$ might not be unique. 
             \item [4.] $\Delta_k := f(x^{(k)}) - f(\bar x)$ which represent the optimality gap at step $k$. 
         \end{itemize}
-    \subsection{The Momentum Magic}
+    \subsection{The momentum magic}
         We are looking for the right place to insert momentum in this part. We start by considering the prox 2 point lemma (\hyperref[lemma:prox_two_p]{lemma \ref*{lemma:prox_two_p}}) and substitute $x = x^{(k)}, y = y^{(k + 1)}$ gives: 
         \begin{align*}
             f(x^{(k)}) - f\circ \mathcal Py^{(k + 1)}
@@ -945,9 +641,9 @@
             \tag{$\star*$}
         \end{align*}
         unfortunately, at the current step, we will not be able to trigger the monotone property and sum it up like in the case without any momentum due to the term $t_{k + 1}$. Instead, we need to consider a new approach. In the next section, we highlight a format for two bounded sequences and reduce the above expression with some conditions on the sequence $t_k$. 
-    \subsection{2 Bounded Sequences}
+    \subsection{Two bounded sequences}
         For the sake of idealization, we may assume that there might exist a way to write $(\star*)$ in the format of $a_k- a_{k + 1}\ge b_{N+ 1} - b_k$. Therefore we introduce the following lemma: 
-        \begin{lemma}{2 Bounded Sequences}
+        \begin{lemma}{Two bounded sequences}
             Consider the sequences $a_k, b_k \ge 0$ for $k\in \mathbb N$ with $a_1 + b_1 \le c$. Inductively the two sequences satisfy $a_{k} - a_{k + 1} \le b_{k + 1} - b_k$, which describes a sequence with oscillations bounded by the difference of another sequence. Consider the telescoping sum: 
             \begin{align*}
                 a_{k} - a_{k + 1} 
@@ -974,7 +670,38 @@
             \par
             Additionally, we may consider adding a residual term for the sequences $a_{k} - a_{k + 1} \ge b_{k + 1} - b_k + r_k$ with a residual term, then the results $a_{N + 1}$ would be bounded by a larger quantity. This consideration allows for different sequences of $t_k, \theta_k$ is not necessarily satisfying ($\star**$) in the next section by introducing some error terms, opening up possibilities for more sequences that could potentially have different convergence properties. 
         \end{remark}
-    \subsection{Form Matching}
+    \subsection{The sequence grows linearly}
+        \begin{lemma}\label{lemma:fista_seq}
+            The sequence $t_k = \frac{1 + \sqrt{1 + 4t_{k -1}^2}}{2}$ with basecase $t_0 = 1$ satisfies 
+            \begin{align*}
+                t_k \ge \frac{1 + k}{2}. 
+            \end{align*}
+        \end{lemma}
+        \begin{proof}
+            The case when $k = 1, t_1 = 1$ holds true, and it is not hard to see that if for some $k$ it is true, then it is valid for $k + 1$ because: 
+            \begin{align*}
+                t_k 
+                &\ge \frac{k + 1}{2}
+                \\
+                4t_k^2 
+                &\ge 4\left(
+                    \frac{k + 1}{2}
+                \right)^2
+                \\
+                \implies 
+                t_{k + 1} &= \frac{1}{2}\left(
+                    1 + \sqrt{1 + 4t_k^2}
+                \right)
+                \\
+                &= 
+                \frac{1}{2} + \frac{\sqrt{1 + (k + 1)^2}}{2}
+                \\
+                & \ge \frac{2 + k}{2}, 
+            \end{align*}
+            because $\sqrt{1 + (k + 1)^2} \ge k + 1$. 
+        \end{proof}
+        
+    \subsection{Form matching}
         Our goal is to match the terms in the previous expression $(\star*)$ to the form: $a_k - a_{k + 1}\le b_{k + 1} - b$. To accomplish that, we simplify $(\star*)$ by multiplying both sides by $t_{k + 1}$ (so that we can move the constant to the inside of the norm instead of letting it dangle outside) and we assume it to be a positive quantity larger than one: 
         \begin{align*}
             & \quad 2L^{-1}((t_{k + 1}^2 - t_{k + 1})\Delta_k - t_{k + 1}^2\Delta_{k + 1})
@@ -1063,7 +790,7 @@
             \\
             2L^{-1}t_{N + 1}^2\Delta_{N + 1} &\le \Vert e^{(0)} - v^{(0)}\Vert^2, 
         \end{align*}
-        interestingly, the sequence defined in $t_k$ has a lower bound of $(k + 1)/2$, which will assert convergence for the above expression. We skip the proof for the sequence lower bound here. 
+        by \hyperref[lemma:fista_seq]{lemma \ref*{lemma:fista_seq}} asserts convergence for the above expression. We skip the proof for the sequence lower bound here. 
 
 \bibliographystyle{plain}
 \bibliography{refs.bib}
