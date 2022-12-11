@@ -19,8 +19,11 @@ end
 h = 0.01*OneNorm()
 g = SquareNormResidual(A, b)
 
-ResultsA = ProxGradient(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, nesterov_momentum=true, epsilon=1e-10)
-ResultsB = ProxGradient(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, nesterov_momentum=false, epsilon=1e-10)
+ResultsA = ProxGradNesterov(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
+ResultsB = ProxGradISTA(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
+ResultsC = ProxGradMomentum(g, h, CubicMomentum() , 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
+
+# Plotting the gradient mapping error. 
 fig = plot(
     (ResultsA.gradient_mapping_norm)[1:end - 2], yaxis=:log10, 
     title="Gradient Mapping Norm", 
@@ -32,21 +35,33 @@ plot!(fig,
     (ResultsB.gradient_mapping_norm)[1:end - 2], 
     yaxis=:log10, label="ISTA"
 )
+plot!(fig,
+    (ResultsC.gradient_mapping_norm)[1:end - 2], 
+    yaxis=:log10, label="Cubic"
+)
+
 fig |> display
 savefig(fig, "simple_lass_pgrad.png")
 
+# Plotting the objective value of the function. 
 Fista_Min_Obj = argmin(ResultsA.objective_vals)
+Polyak_Min_Obj = argmin(ResultsC.objective_vals)
+Min_Obj_Idx = min(Fista_Min_Obj, Polyak_Min_Obj)
+
 fig2 = plot(
-    ResultsA.objective_vals[1:min(Fista_Min_Obj - 1, length(ResultsA.objective_vals))] .- minimum(ResultsA.objective_vals),
+    ResultsA.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsA.objective_vals))] .- minimum(ResultsA.objective_vals),
     title="Objective Values", label="FISTA", 
     ylabel=L"[f + g](x_k) - [f + g](\bar x)", xlabel="Iteration Number: k",
     yaxis=:log10;
     dpi=300
 )
 plot!(
-    ResultsB.objective_vals[1:min(Fista_Min_Obj - 1, length(ResultsB.objective_vals))] .- ResultsB.objective_vals[end], 
+    ResultsB.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsB.objective_vals))] .- ResultsB.objective_vals[end], 
     label="ISTA"
 )
-
+plot!(
+    ResultsC.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsB.objective_vals))] .- ResultsB.objective_vals[end], 
+    label="Cubic"
+)
 fig2 |> display
 savefig(fig2, "simple_lass_obj.png")

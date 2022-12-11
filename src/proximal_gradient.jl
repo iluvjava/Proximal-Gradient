@@ -119,19 +119,32 @@ Performs the proximal gradient algorithm, and there are many options to make lif
 * Linear Search: 
     Specify whether we should use line search. This works for both the smooth and the 
     accelerated case. 
+
+### Positional Arugments
+- `g::SmoothFxn`
+- `h::NonsmoothFxn`
+- `x0::Vector{T1} `
+- `step_size::Union{T2, Nothing}=nothing`
+
+### Named Arguments
+- `itr_max::Int=1000`
+- `epsilon::AbstractFloat=1e-10`
+- `line_search::Bool=false`
+- `nesterov_momentum::Bool = false`
+- `results_holder::ProxGradResults=ProxGradResults()`
 """
 function ProxGradient(
-        g::SmoothFxn, 
-        h::NonsmoothFxn, 
-        x0::Vector{T1}, 
-        step_size::Union{T2, Nothing}=nothing;
-        itr_max::Int=1000,
-        epsilon::AbstractFloat=1e-10, 
-        line_search::Bool=false, 
-        nesterov_momentum::Bool = false, 
-        results_holder::ProxGradResults=ProxGradResults()
-    ) where {T1 <: Number, T2 <: Number}
-
+    g::SmoothFxn, 
+    h::NonsmoothFxn, 
+    x0::Vector{T1}, 
+    step_size::Union{T2, Nothing}=nothing;
+    itr_max::Int=1000,
+    epsilon::AbstractFloat=1e-10, 
+    line_search::Bool=false, 
+    nesterov_momentum::Bool = false, 
+    results_holder::ProxGradResults=ProxGradResults()
+) where {T1 <: Number, T2 <: Number}
+    @warn "Function ProxGradient is being deprecated, use ProxGrad Custom and its variants instead. "
     @assert itr_max > 0 "The maximum number of iterations is a strictly positive integers. "
     line_search = step_size === nothing ? true : line_search
     step_size = step_size === nothing ? 1 : step_size
@@ -177,6 +190,159 @@ function ProxGradient(
     results_holder.soln = last_x
     return results_holder
 end
+
+
+"""
+This function fullfill a template for proximal gradient method. One can susbtitute different updating functions 
+for the proximal gradient method. You can only update the momentum term. If more information is needed, make it 
+a functor instead of a function. 
+
+### Positional Arugments
+- `g::SmoothFxn`
+- `h::NonsmoothFxn`
+- seq::Union{MomentumTerm, Function},
+- `x0::Vector{T1} `
+- `step_size::Union{T2, Nothing}=nothing`
+
+### Named Arguments
+- `itr_max::Int=1000`
+- `epsilon::AbstractFloat=1e-10`
+- `line_search::Bool=false`
+- `nesterov_momentum::Bool = false`
+- `results_holder::ProxGradResults=ProxGradResults()`
+"""
+function ProxGradMomentum( 
+    g::SmoothFxn, 
+    h::NonsmoothFxn, 
+    seq::Union{MomentumTerm, Function},
+    x0::Vector{T1}, 
+    step_size::Union{T2, Nothing}=nothing;
+    itr_max::Int=1000,
+    epsilon::AbstractFloat=1e-10, 
+    line_search::Bool=false, 
+    results_holder::ProxGradResults=ProxGradResults()
+) where {T1 <: Number, T2 <: Number}
+    @assert itr_max > 0 "The maximum number of iterations is a strictly positive integers. "
+    line_search = step_size === nothing ? true : line_search
+    step_size = step_size === nothing ? 1 : step_size
+
+    y = x0                                                                      # <-- This one is also for the momentum. 
+    l = step_size                                                               # <-- initial step size. 
+    Q(x, y, l) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*l)          # Quadratic upper bounding function  
+    last_itr = 0
+    last_x = x0
+    Initiate!(results_holder, x0, h(x0) + g(x0), l)
+    @showprogress for k in 1:itr_max
+        x⁺ = Prox(h, l, y - l*Grad(g, y))
+        while line_search && g(x⁺) > Q(y, x⁺, l) + eps(T1)                      # Line search 
+            l /= 2
+            x⁺ = Prox(h, l, y - l*Grad(g, y))
+        end
+        Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l)                 # Register the results
+        pgrad_norm = norm(y - x⁺, Inf)
+        y = x⁺ + seq()*(x⁺ - last_x)                                            # Update the parameters
+        last_x = x⁺
+        if pgrad_norm < epsilon                                                 # check for termination conditions
+            last_itr = k
+            break
+        end
+    end
+    # determine exit flag.
+    if last_itr == itr_max
+        results_holder.flags = 1
+    end
+    results_holder.soln = last_x
+    return results_holder
+end
+
+"""
+Perform Proximal Gradient with Nesterov Momentum update. 
+------
+
+### Positional Arugments
+- `g::SmoothFxn`
+- `h::NonsmoothFxn`
+- `x0::Vector{T1} `
+- `step_size::Union{T2, Nothing}=nothing`
+
+### Named Arguments
+- `itr_max::Int=1000`
+- `epsilon::AbstractFloat=1e-10`
+- `line_search::Bool=false`
+- `nesterov_momentum::Bool = false`
+- `results_holder::ProxGradResults=ProxGradResults()`
+"""
+function ProxGradNesterov(
+    g::SmoothFxn, 
+    h::NonsmoothFxn,
+    x0::Vector{T1}, 
+    step_size::Union{T2, Nothing}=nothing;
+    itr_max::Int=1000,
+    epsilon::AbstractFloat=1e-10, 
+    line_search::Bool=false, 
+    results_holder::ProxGradResults=ProxGradResults()
+) where {T1 <: Number, T2 <: Number}
+return ProxGradMomentum( 
+    g, 
+    h, 
+    NesterovMomentum(),
+    x0, 
+    step_size;
+    itr_max=itr_max,
+    epsilon=epsilon, 
+    line_search=line_search, 
+    results_holder=results_holder,
+) end
+
+
+function ProxGradISTA(
+    g::SmoothFxn, 
+    h::NonsmoothFxn,
+    x0::Vector{T1}, 
+    step_size::Union{T2, Nothing}=nothing;
+    itr_max::Int=1000,
+    epsilon::AbstractFloat=1e-10, 
+    line_search::Bool=false, 
+    results_holder::ProxGradResults=ProxGradResults()
+) where {T1 <: Number, T2 <: Number}
+return ProxGradMomentum( 
+    g, 
+    h, 
+    ()->0,
+    x0, 
+    step_size;
+    itr_max=itr_max,
+    epsilon=epsilon, 
+    line_search=line_search, 
+    results_holder=results_holder,
+) end
+
+
+function ProxGradPolyak( 
+    g::SmoothFxn, 
+    h::NonsmoothFxn, 
+    alpha::Number,
+    x0::Vector{T1}, 
+    step_size::Union{T2, Nothing}=nothing;
+    itr_max::Int=1000,
+    epsilon::AbstractFloat=1e-10, 
+    line_search::Bool=false, 
+    results_holder::ProxGradResults=ProxGradResults()
+) where {T1 <: Number, T2 <: Number}
+    @assert alpha <= 1 "The momentum term for ProxGradPolyak has to be less than one, but we have alpha=$alpha instead."
+return ProxGradMomentum( 
+    g, 
+    h, 
+    ()->alpha,
+    x0, 
+    step_size;
+    itr_max=itr_max,
+    epsilon=epsilon, 
+    line_search=line_search, 
+    results_holder=results_holder,
+) end
+
+
 
 # N = 64
 # A = Diagonal(LinRange(0, 2, N))
