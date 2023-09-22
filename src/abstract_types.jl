@@ -35,6 +35,8 @@ abstract type MomentumTerm
 end
 
 
+
+### ====================================================================================================================
 mutable struct NesterovMomentum <: MomentumTerm
     k::Int
     t::Vector{Float64}
@@ -55,7 +57,7 @@ end
 Functor to compute the Nesterov Momentum Term.
 
 """
-function (this::NesterovMomentum)()
+function (this::NesterovMomentum)(; kwargs...)
     t = this.t[this.k]
     t_next = 1/2 + sqrt(1 + 4t^2)/2
     push!(this.t, t_next)
@@ -64,6 +66,8 @@ function (this::NesterovMomentum)()
 end
 
 
+
+### ====================================================================================================================
 """
 This is a new one. 
 """
@@ -86,7 +90,7 @@ mutable struct CubicMomentum <: MomentumTerm
 end
 
 
-function (this::CubicMomentum)()
+function (this::CubicMomentum)(; kwargs...)
     t = this.t[end]
     s = t
     t⁺ = cbrt(2t + 1/27 + (1/3)*sqrt(2t/(1 + s))) - 1/3
@@ -97,3 +101,9 @@ function (this::CubicMomentum)()
     return theta
 end
 
+### ====================================================================================================================
+
+mutable struct AdaptiveMomentum <: MomentumTerm
+
+
+end

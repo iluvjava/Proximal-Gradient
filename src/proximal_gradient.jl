@@ -226,21 +226,26 @@ function ProxGradMomentum(
     line_search = step_size === nothing ? true : line_search
     step_size = step_size === nothing ? 1 : step_size
 
-    y = x0                                                                      # <-- This one is also for the momentum. 
-    l = step_size                                                               # <-- initial step size. 
-    Q(x, y, l) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*l)          # Quadratic upper bounding function  
-    last_itr = 0
+    y = x0                                                              # <-- This one is also for the momentum. 
     last_x = x0
+    last∇ = Grad(g, y)
+    l = step_size                                                               # <-- initial step size. 
+    Q(x, y, l) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*l)          # The descent lemma.  
+    last_itr = 0                                                                # Exit iteration
+    
+    
     Initiate!(results_holder, x0, h(x0) + g(x0), l)
     @showprogress for k in 1:itr_max
-        x⁺ = Prox(h, l, y - l*Grad(g, y))
-        while line_search && g(x⁺) > Q(y, x⁺, l) + eps(T1)                      # Line search 
+        x⁺ = Prox(h, l, y - l*last∇)                                            # prox gradient
+        while (line_search && g(x⁺) > Q(y, x⁺, l) + eps(T1))                    # Line search 
             l /= 2
-            x⁺ = Prox(h, l, y - l*Grad(g, y))
+            x⁺ = Prox(h, l, y - l*last∇)
         end
         Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l)                 # Register the results
         pgrad_norm = norm(y - x⁺, Inf)
-        y = x⁺ + seq()*(x⁺ - last_x)                                            # Update the parameters
+                                                                                # Update the parameters
+        y = x⁺ + seq(;grad_current=Grad(g, x⁺), grad_last=Grad(g, last_x))*(x⁺ - last_x)                                            
+        last∇ = Grad(g, y)
         last_x = x⁺
         if pgrad_norm < epsilon                                                 # check for termination conditions
             last_itr = k
@@ -305,10 +310,10 @@ function ProxGradISTA(
     line_search::Bool=false, 
     results_holder::ProxGradResults=ProxGradResults()
 ) where {T1 <: Number, T2 <: Number}
-return ProxGradMomentum( 
+return ProxGradMomentum(
     g, 
     h, 
-    ()->0,
+    (;kwargs...)->0,
     x0, 
     step_size;
     itr_max=itr_max,
