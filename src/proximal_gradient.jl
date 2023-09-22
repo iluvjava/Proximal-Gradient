@@ -243,8 +243,9 @@ function ProxGradMomentum(
         end
         Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l)                 # Register the results
         pgrad_norm = norm(y - x⁺, Inf)
+        θ = seq(;x=x⁺, last_x=last_x, grad_current=Grad(g, x⁺), grad_last=Grad(g, last_x), step_size=l)
                                                                                 # Update the parameters
-        y = x⁺ + seq(;grad_current=Grad(g, x⁺), grad_last=Grad(g, last_x))*(x⁺ - last_x)                                            
+        y = x⁺ + θ*(x⁺ - last_x)                                            
         last∇ = Grad(g, y)
         last_x = x⁺
         if pgrad_norm < epsilon                                                 # check for termination conditions

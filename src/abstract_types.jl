@@ -105,5 +105,17 @@ end
 
 mutable struct AdaptiveMomentum <: MomentumTerm
 
+    function AdaptiveMomentum()
+        this = new()
+        return this
+    end
 
+end
+
+
+function (this::AdaptiveMomentum)(;x, last_x, grad_current, grad_last, step_size, kwargs...)
+    β = dot(x - last_x, grad_current - grad_last)
+    L = step_size^(-1)
+    λ = sqrt((2L)/β)
+    return (λ - 1)/(λ + 1)
 end

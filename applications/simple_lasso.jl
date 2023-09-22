@@ -4,8 +4,8 @@ using LaTeXStrings, Plots
 """
 Performs the accelerated nesterov gradient descend, and there are many different options to choose from. 
 """
-N = 32
-A = Diagonal(LinRange(0, 2, N)[end:-1:1])
+N = 512
+A = Diagonal(LinRange(0.2, 2, N)[end:-1:1])
 b = zeros(N)
 
 for II in eachindex(b)
@@ -16,12 +16,12 @@ for II in eachindex(b)
     end
 end
 
-h = 0.01*OneNorm()
+h = 0.0*OneNorm()
 g = SquareNormResidual(A, b)
 
 ResultsA = ProxGradNesterov(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
 ResultsB = ProxGradISTA(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
-ResultsC = ProxGradMomentum(g, h, CubicMomentum() , 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
+ResultsC = ProxGradMomentum(g, h, AdaptiveMomentum() , 3*ones(N), 0.2, itr_max=8000, line_search=true, epsilon=1e-10)
 
 # Plotting the gradient mapping error. 
 fig = plot(
@@ -61,7 +61,7 @@ plot!(
 )
 plot!(
     ResultsC.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsB.objective_vals))] .- ResultsB.objective_vals[end], 
-    label="Cubic"
+    label="Adaptive"
 )
 fig2 |> display
 savefig(fig2, "simple_lass_obj.png")
