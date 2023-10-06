@@ -79,12 +79,12 @@ function Run(
     g = SquareNormResidual(A, b)
     h = length(b)*lambda*OneNorm()
     Results_Holder = ProxGradResults(80)
-    ProxGradient(
+    ProxGradMomentum(
         g, 
         h, 
+        AdaptiveMomentum(),
         randn(size(b)), 
-        0.01,
-        nesterov_momentum=true, 
+        0.1, 
         line_search=true,
         itr_max=640, 
         results_holder = Results_Holder
@@ -113,8 +113,8 @@ end
 
 
 
-t1 = Threads.@spawn begin; return Run("inverse_linear_experiment1", 0); end
-t2 = Threads.@spawn begin; return Run("inverse_linear_experiment2", 0.01); end
+# t1 = Threads.@spawn begin; return Run("inverse_linear_experiment1", 0); end
+# t2 = Threads.@spawn begin; return Run("inverse_linear_experiment2", 0.01); end
 t3 = Threads.@spawn begin; return Run("inverse_linear_experiment3", 0.1); end
 
 

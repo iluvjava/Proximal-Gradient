@@ -364,7 +364,7 @@ function ProxGradPolyak(
 return ProxGradMomentum( 
     g, 
     h, 
-    ()->alpha,
+    (;kwargs...)->alpha,
     x0, 
     step_size;
     itr_max=itr_max,
