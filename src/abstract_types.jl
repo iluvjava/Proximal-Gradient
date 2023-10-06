@@ -16,7 +16,6 @@ abstract type NonsmoothFxn <: Fxn
 end
 
 
-
 """
 A type the models smooth functions. 
 * Ask for the value at some point.
@@ -48,6 +47,7 @@ mutable struct NesterovMomentum <: MomentumTerm
         this.t = Vector{Float64}()
         this.theta = Vector{Float64}()
         push!(this.t, 1)
+        this()
         return this
     end
 
@@ -104,9 +104,16 @@ end
 ### ====================================================================================================================
 
 mutable struct AdaptiveMomentum <: MomentumTerm
+    k::Int
+    t::Vector{Float64}
+    theta::Vector{Float64}
 
     function AdaptiveMomentum()
         this = new()
+        this.k = 1
+        this.t = Vector{Float64}()
+        this.theta = Vector{Float64}()
+        push!(this.t, 1)
         return this
     end
 
@@ -114,8 +121,16 @@ end
 
 
 function (this::AdaptiveMomentum)(;x, last_x, grad_current, grad_last, step_size, kwargs...)
-    β = dot(x - last_x, grad_current - grad_last)
     L = step_size^(-1)
-    λ = sqrt((2L)/β)
-    return (λ - 1)/(λ + 1)
+    d = norm(x - last_x)
+    if d == 0
+        return 0
+    end
+    β = min(L, 2*dot(x - last_x, grad_current - grad_last)/d^2)
+    if β <= 0
+        return 0
+    end
+    λ = sqrt(L/β) # condition numb
+    θ = (λ - 1)/(λ + 1)
+    return θ
 end

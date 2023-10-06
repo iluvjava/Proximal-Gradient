@@ -28,15 +28,16 @@ results and using with the dictionary data structure.
 """
 mutable struct ProxGradResults
     
-    gradient_mappings::Dict{Int, Vector}       # collect sparsely 
-    gradient_mapping_norm::Vector{Real}     # always collect
-    objective_vals::Vector{Real}            # Always collect
-    solns::Dict{Int, Vector}                   # collect sparsely 
+    gradient_mappings::Dict{Int, Vector}        # collect sparsely 
+    gradient_mapping_norm::Vector{Real}         # always collect
+    objective_vals::Vector{Real}                # Always collect
+    solns::Dict{Int, Vector}                    # collect sparsely 
     soln::Vector                                # the final solution
-    step_sizes::Vector{Real}                # always collect. 
-    flags::Int                                 # collect at last
-    collection_interval::Int                   # specified on initializations. 
-    itr_counter::Int                           # updated within this class. 
+    step_sizes::Vector{Real}                    # always collect. 
+    flags::Int                                  # collect at last
+    collection_interval::Int                    # specified on initializations. 
+    itr_counter::Int                            # updated within this class. 
+    momentums::Vector{Real}                     # Store the momentum sequence
     
     """
         You have the option to specify how frequently you want the results to be collected, because 
@@ -49,6 +50,7 @@ mutable struct ProxGradResults
         this.objective_vals = Vector{Real}()
         this.solns = Dict{Int, Vector}()
         this.step_sizes = Vector{Real}()
+        this.momentums = Vector{Real}()
         this.flags = 0
         this.itr_counter = -1
         this.collection_interval = collection_interval
@@ -66,11 +68,17 @@ it at least need the initial conditions for the gradient descend algorithms.
 - `objective_initial::Real`: The initial objective value for the optimization problem. 
 - `step_size::Real`: The initial step size for running the algorithm. 
 """
-function Initiate!(this::ProxGradResults, x0::Vector, obj_initial::Real, step_size::Real)
+function Initiate!(this::ProxGradResults, 
+    x0::Vector, 
+    obj_initial::Real, 
+    step_size::Real, 
+    momentum::Real=0
+)
     this.itr_counter = 0
     this.solns[this.itr_counter] = x0
     push!(this.objective_vals, obj_initial)
     push!(this.step_sizes, step_size)
+    push!(this.momentums, momentum)
     return nothing
 end
 
@@ -79,7 +87,13 @@ During each iteration, we have the option to store the parameters when the algor
 - `this::ProxGradResults`: This is the type that the function acts on. 
 - `soln::Vector`: This is the solution vector at the current iteration of the algorithm. 
 """
-function Register!(this::ProxGradResults, obj::Real, soln::Vector, pgrad_map::Vector, step_size::Real)
+function Register!(
+    this::ProxGradResults, 
+    obj::Real, soln::Vector, 
+    pgrad_map::Vector, 
+    step_size::Real, 
+    momentum::Real
+)
     if this.itr_counter == -1
         error("ProxGrad Results is called without initiation.")
     end
@@ -88,6 +102,7 @@ function Register!(this::ProxGradResults, obj::Real, soln::Vector, pgrad_map::Ve
     push!(this.objective_vals, obj)
     push!(this.gradient_mapping_norm, norm(pgrad_map))
     push!(this.step_sizes, step_size)
+    push!(this.momentums, momentum)
 
     if mod(k, this.collection_interval) == 0
         this.solns[k] = copy(soln)
@@ -95,6 +110,7 @@ function Register!(this::ProxGradResults, obj::Real, soln::Vector, pgrad_map::Ve
     end
     return nothing
 end
+
 
 """
     Get all the sparsely collected solutions as an array of vectors. 
@@ -157,7 +173,7 @@ function ProxGradient(
     Q(x, y, l) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*l)
     last_itr = 0
     last_x = x0
-    Initiate!(results_holder, x0, h(x0) + g(x0), l)
+    Initiate!(results_holder, x0, h(x0) + g(x0), l, t)
     @showprogress for k in 1:itr_max
         
         x⁺ = Prox(h, l, y - l*Grad(g, y))
@@ -190,6 +206,7 @@ function ProxGradient(
     results_holder.soln = last_x
     return results_holder
 end
+
 
 
 """
@@ -225,28 +242,36 @@ function ProxGradMomentum(
     @assert itr_max > 0 "The maximum number of iterations is a strictly positive integers. "
     line_search = step_size === nothing ? true : line_search
     step_size = step_size === nothing ? 1 : step_size
-
-    y = x0                                                              # <-- This one is also for the momentum. 
+    y = x0                                                                      # <-- This one is also for the momentum. 
     last_x = x0
+    x⁺ = x0
     last∇ = Grad(g, y)
+    ∇ = last∇
+    last_y = y
     l = step_size                                                               # <-- initial step size. 
     Q(x, y, l) = g(x) + dot(Grad(g, x), y - x) + (norm(y - x)^2)/(2*l)          # The descent lemma.  
     last_itr = 0                                                                # Exit iteration
     
-    
     Initiate!(results_holder, x0, h(x0) + g(x0), l)
     @showprogress for k in 1:itr_max
-        x⁺ = Prox(h, l, y - l*last∇)                                            # prox gradient
+        x⁺ = Prox(h, l, y - l*∇)
         while (line_search && g(x⁺) > Q(y, x⁺, l) + eps(T1))                    # Line search 
             l /= 2
-            x⁺ = Prox(h, l, y - l*last∇)
+            x⁺ = Prox(h, l, y - l*∇)
         end
-        Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l)                 # Register the results
+        
         pgrad_norm = norm(y - x⁺, Inf)
-        θ = seq(;x=x⁺, last_x=last_x, grad_current=Grad(g, x⁺), grad_last=Grad(g, last_x), step_size=l)
-                                                                                # Update the parameters
+        θ = seq(
+            ;x=y,
+            last_x=last_y, 
+            grad_current=∇, 
+            grad_last=last∇, step_size=l
+        )
+        Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l, θ)                 # Register the results
+        last_y = y
         y = x⁺ + θ*(x⁺ - last_x)                                            
-        last∇ = Grad(g, y)
+        last∇ = ∇
+        ∇ = Grad(g, y)
         last_x = x⁺
         if pgrad_norm < epsilon                                                 # check for termination conditions
             last_itr = k

@@ -4,8 +4,8 @@ using LaTeXStrings, Plots
 """
 Performs the accelerated nesterov gradient descend, and there are many different options to choose from. 
 """
-N = 512
-A = Diagonal(LinRange(0.2, 2, N)[end:-1:1])
+N = 2048
+A = Diagonal(LinRange(0.1, 2, N)[end:-1:1])
 b = zeros(N)
 
 for II in eachindex(b)
@@ -19,9 +19,9 @@ end
 h = 0.0*OneNorm()
 g = SquareNormResidual(A, b)
 
-ResultsA = ProxGradNesterov(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
-ResultsB = ProxGradISTA(g, h, 3*ones(N), 0.2, itr_max=8000, line_search=false, epsilon=1e-10)
-ResultsC = ProxGradMomentum(g, h, AdaptiveMomentum() , 3*ones(N), 0.2, itr_max=8000, line_search=true, epsilon=1e-10)
+ResultsA = ProxGradNesterov(g, h, 3*ones(N), 0.1, itr_max=8000, line_search=true, epsilon=1e-10)
+ResultsB = ProxGradISTA(g, h, 3*ones(N), 0.1, itr_max=8000, line_search=true, epsilon=1e-10)
+ResultsC = ProxGradMomentum(g, h, AdaptiveMomentum() , 3*ones(N), 0.1, itr_max=8000, line_search=true, epsilon=1e-10)
 
 # Plotting the gradient mapping error. 
 fig = plot(
@@ -44,9 +44,10 @@ fig |> display
 savefig(fig, "simple_lass_pgrad.png")
 
 # Plotting the objective value of the function. 
-Fista_Min_Obj = argmin(ResultsA.objective_vals)
-Polyak_Min_Obj = argmin(ResultsC.objective_vals)
-Min_Obj_Idx = min(Fista_Min_Obj, Polyak_Min_Obj)
+MIN_OBJ_IDX1 = argmin(ResultsA.objective_vals)
+MIN_OBJ_IDX2 = argmin(ResultsB.objective_vals)
+MIN_OBJ3_IDX3 = argmin(ResultsC.objective_vals)
+Min_Obj_Idx = min(MIN_OBJ_IDX1, MIN_OBJ_IDX2, MIN_OBJ3_IDX3)
 
 fig2 = plot(
     ResultsA.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsA.objective_vals))] .- minimum(ResultsA.objective_vals),
@@ -56,12 +57,27 @@ fig2 = plot(
     dpi=300
 )
 plot!(
-    ResultsB.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsB.objective_vals))] .- ResultsB.objective_vals[end], 
+    fig2, 
+    ResultsB.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsB.objective_vals))] .- minimum(ResultsB.objective_vals), 
     label="ISTA"
 )
 plot!(
-    ResultsC.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsB.objective_vals))] .- ResultsB.objective_vals[end], 
+    fig2, 
+    ResultsC.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsC.objective_vals))] .- minimum(ResultsC.objective_vals), 
     label="Adaptive"
 )
 fig2 |> display
 savefig(fig2, "simple_lass_obj.png")
+
+SEQ_SHOW = 800
+fig3 = plot(
+    ResultsA.momentums[1:min(SEQ_SHOW, ResultsA.momentums|>length)], 
+    title="The Momentum", 
+    label="FISTA θ", 
+    dpi=300
+)
+plot!(
+    fig3, ResultsC.momentums[1:min(SEQ_SHOW, ResultsC.momentums|>length)], 
+    label="Adaptive"
+)
+fig3|>display

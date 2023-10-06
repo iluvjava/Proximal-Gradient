@@ -30,9 +30,14 @@ function Grad(this::SquareNormResidual, x::AbstractVector{T}) where {T <: Number
 end
 
 
+
+
+#### ===========================================================================
 """
  The logistic loss function, binary classifications. 
 """
 mutable struct LogisticLoss <: SmoothFxn
 
 end
+
+
