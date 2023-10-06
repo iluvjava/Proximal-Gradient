@@ -5,7 +5,7 @@ using LaTeXStrings, Plots
 Performs the accelerated nesterov gradient descend, and there are many different options to choose from. 
 """
 N = 1024
-α = 0.1   # The alpha you want for the Hessian of ||Ax - b||^2
+α = 0.001   # The alpha you want for the Hessian of ||Ax - b||^2
 L = 1       # The lipschitz gradient constant. 
 κ = sqrt(L/α)
 
