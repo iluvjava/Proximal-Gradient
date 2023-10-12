@@ -5,7 +5,7 @@ using LaTeXStrings, Plots
 Performs the accelerated nesterov gradient descend, and there are many different options to choose from. 
 """
 N = 1024
-α = 0.001   # The alpha you want for the Hessian of ||Ax - b||^2
+α = 1e-10   # The alpha you want for the Hessian of ||Ax - b||^2
 L = 1       # The lipschitz gradient constant. 
 κ = sqrt(L/α)
 
@@ -16,17 +16,22 @@ for II in eachindex(b)
     if mod(II, 2) == 1
         b[II] = A[II, II]
     else
-        b[II] = rand()*1e-2
+        b[II] = rand()*1e-3
     end
 end
 
-h = 0.0*OneNorm()
-g = SquareNormResidual(A, b)
+h = 0.04*OneNorm()
+# g = SquareNormResidual(A, b)
+scales = rand(N)
+g = Jancky(α*ones(N), diag(A).^2 .+ 2*eps(Float64))
+x0 = 1e4*ones(N)
 
-ResultsA = ProxGradNesterov(g, h, 300*ones(N), 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
-ResultsB = ProxGradISTA(g, h, 300*ones(N), 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
-ResultsC = ProxGradMomentum(g, h, AdaptiveMomentum() , 300*ones(N), 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
-ResultsD = ProxGradPolyak(g, h, (κ - 1)/(κ + 1), 300*ones(N), 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
+
+
+ResultsA = ProxGradNesterov(g, h, x0, 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
+ResultsB = ProxGradISTA(g, h, x0, 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
+ResultsC = ProxGradMomentum(g, h, AdaptiveMomentum() , x0, 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
+ResultsD = ProxGradPolyak(g, h, (κ - 1)/(κ + 1), x0, 1/L, itr_max=8000, line_search=true, epsilon=1e-10)
 
 # Plotting the gradient mapping error. 
 fig = plot(
@@ -52,16 +57,18 @@ plot!(fig,
 fig |> display
 savefig(fig, "simple_lass_pgrad.png")
 
-# Plotting the objective value of the function. 
-MIN_OBJ_IDX1 = argmin(ResultsA.objective_vals)
-MIN_OBJ_IDX2 = argmin(ResultsB.objective_vals)
-MIN_OBJ3_IDX3 = argmin(ResultsC.objective_vals)
-MIN_OBJ_IDX4 = argmin(ResultsD.objective_vals)
-Min_Obj_Idx = min(MIN_OBJ_IDX1, MIN_OBJ_IDX2, MIN_OBJ3_IDX3, MIN_OBJ_IDX4)
 
+MIN_OBJ_IDX = min(MIN_OBJ_IDX1, MIN_OBJ_IDX2, MIN_OBJ3_IDX3, MIN_OBJ_IDX4)
+MIN_OF_ALL = vcat(
+    ResultsA.objective_vals,
+    ResultsB.objective_vals, 
+    ResultsC.objective_vals, 
+    ResultsD.objective_vals
+)|>minimum 
+MIN_OF_ALL -= 2*eps(Float64)*MIN_OF_ALL
 
 fig2 = plot(
-    ResultsA.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsA.objective_vals))] .- minimum(ResultsA.objective_vals),
+    ResultsA.objective_vals .- MIN_OF_ALL,
     title="Objective Values", label="FISTA", 
     ylabel=L"[f + g](x_k) - [f + g](\bar x)", xlabel="Iteration Number: k",
     yaxis=:log10;
@@ -69,18 +76,18 @@ fig2 = plot(
 )
 plot!(
     fig2, 
-    ResultsB.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsB.objective_vals))] .- minimum(ResultsB.objective_vals), 
+    ResultsB.objective_vals .- MIN_OF_ALL, 
     label="ISTA"
 )
 plot!(
     fig2, 
-    ResultsC.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsC.objective_vals))] .- minimum(ResultsC.objective_vals), 
+    ResultsC.objective_vals .- MIN_OF_ALL, 
     label="Adaptive"
 )
 
 plot!(
     fig2, 
-    ResultsD.objective_vals[1:min(Min_Obj_Idx - 1, length(ResultsD.objective_vals))] .- minimum(ResultsD.objective_vals), 
+    ResultsD.objective_vals .- MIN_OF_ALL, 
     label="V-FISTA"
 )
 

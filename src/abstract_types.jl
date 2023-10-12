@@ -126,11 +126,17 @@ function (this::AdaptiveMomentum)(;x, last_x, grad_current, grad_last, step_size
     if d == 0
         return 0
     end
-    β = min(L, 2*dot(x - last_x, grad_current - grad_last)/d^2)
+    β = min(L, dot(x - last_x, grad_current - grad_last)/d^2)
     if β <= 0
         return 0
     end
     λ = sqrt(L/β) # condition numb
     θ = (λ - 1)/(λ + 1)
+
+    # t = norm(grad_current - grad_last)*norm(x - last_x)/dot(grad_current - grad_last, x - last_x)
+    # if isnan(t)
+    #     return 0
+    # end
+    # θ = (t - 1)/(t + 1)
     return θ
 end
