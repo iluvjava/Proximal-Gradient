@@ -4,8 +4,8 @@ using LaTeXStrings, Plots
 """
 Performs the accelerated nesterov gradient descend, and there are many different options to choose from. 
 """
-N = 1024
-α = 1e-10   # The alpha you want for the Hessian of ||Ax - b||^2
+N = 128
+α = 1e-1   # The alpha you want for the Hessian of ||Ax - b||^2
 L = 1       # The lipschitz gradient constant. 
 κ = sqrt(L/α)
 
@@ -20,10 +20,10 @@ for II in eachindex(b)
     end
 end
 
-h = 0.04*OneNorm()
+h = 0.0*OneNorm()
 # g = SquareNormResidual(A, b)
 scales = rand(N)
-g = Jancky(α*ones(N), diag(A).^2 .+ 2*eps(Float64))
+g = Jancky(α*ones(N), diag(A).^2)
 x0 = 1e4*ones(N)
 
 
