@@ -1,5 +1,6 @@
 using Plots, LaTeXStrings
 
+### We visualize the upper surrougate function that derives the proximal gradient operator. 
 g(x) = log(exp(x) + 1)
 h(x) = abs(x)
 ∇g(x) = (exp(x))/(exp(x) + 1)

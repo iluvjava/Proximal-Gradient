@@ -219,7 +219,7 @@ a functor instead of a function.
 - `h::NonsmoothFxn`
 - seq::Union{MomentumTerm, Function},
 - `x0::Vector{T1} `
-- `step_size::Union{T2, Nothing}=nothing`
+- `step_size::Union{T2, Nothing}=nothing`, (optional)
 
 ### Named Arguments
 - `itr_max::Int=1000`
@@ -228,7 +228,7 @@ a functor instead of a function.
 - `nesterov_momentum::Bool = false`
 - `results_holder::ProxGradResults=ProxGradResults()`
 """
-function ProxGradMomentum( 
+function ProxGradGeneric( 
     g::SmoothFxn, 
     h::NonsmoothFxn, 
     seq::Union{MomentumTerm, Function},
@@ -259,7 +259,6 @@ function ProxGradMomentum(
             l /= 2
             x⁺ = Prox(h, l, y - l*∇)
         end
-        
         pgrad_norm = norm(y - x⁺, Inf)
         θ = seq(
             ;x=y,
@@ -267,7 +266,7 @@ function ProxGradMomentum(
             grad_current=∇, 
             grad_last=last∇, step_size=l
         )
-        Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l, θ)                 # Register the results
+        Register!(results_holder, h(x⁺) + g(x⁺), x⁺, y - x⁺, l, θ)              # Register the results
         last_y = y
         y = x⁺ + θ*(x⁺ - last_x)                                            
         last∇ = ∇
@@ -313,7 +312,7 @@ function ProxGradNesterov(
     line_search::Bool=false, 
     results_holder::ProxGradResults=ProxGradResults()
 ) where {T1 <: Number, T2 <: Number}
-return ProxGradMomentum( 
+return ProxGradGeneric( 
     g, 
     h, 
     NesterovMomentum(),
@@ -336,7 +335,7 @@ function ProxGradISTA(
     line_search::Bool=false, 
     results_holder::ProxGradResults=ProxGradResults()
 ) where {T1 <: Number, T2 <: Number}
-return ProxGradMomentum(
+return ProxGradGeneric(
     g, 
     h, 
     (;kwargs...)->0,
@@ -349,7 +348,7 @@ return ProxGradMomentum(
 ) end
 
 
-function ProxGradPolyak( 
+function ProxGradNesterovFixed( 
     g::SmoothFxn, 
     h::NonsmoothFxn, 
     alpha::Number,
@@ -361,7 +360,7 @@ function ProxGradPolyak(
     results_holder::ProxGradResults=ProxGradResults()
 ) where {T1 <: Number, T2 <: Number}
     @assert alpha <= 1 "The momentum term for ProxGradPolyak has to be less than one, but we have alpha=$alpha instead."
-return ProxGradMomentum( 
+return ProxGradGeneric( 
     g, 
     h, 
     (;kwargs...)->alpha,
@@ -373,6 +372,27 @@ return ProxGradMomentum(
     results_holder=results_holder,
 ) end
 
+
+"""
+Proximal gradient with adaptive momentum. Wrapper function for the generic prox grad momentum.
+"""
+function ProxGradAdaptiveMomentum(
+    g::SmoothFxn, 
+    h::NonsmoothFxn,
+    x0::Vector{T1}, 
+    step_size::Union{T2, Nothing}=nothing;
+    itr_max::Int=1000,
+    epsilon::AbstractFloat=1e-10, 
+    line_search::Bool=false, 
+    results_holder::ProxGradResults=ProxGradResults()
+)where {T1 <: Number, T2 <: Number}
+return ProxGradGeneric(
+    g, h, AdaptiveMomentum(), x0, step_size; 
+    itr_max = itr_max, 
+    epsilon=epsilon, 
+    line_search=line_search, 
+    results_holder = results_holder
+) end
 
 
 # N = 64

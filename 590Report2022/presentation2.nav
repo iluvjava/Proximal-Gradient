@@ -1,0 +1,100 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{References}{3}{References}{0}}
+\headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\slideentry {1}{0}{2}{4/4}{}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\beamer@sectionpages {3}{4}}
+\headcommand {\beamer@subsectionpages {3}{4}}
+\headcommand {\sectionentry {2}{Introduction}{5}{Introduction}{0}}
+\headcommand {\beamer@subsectionpages {5}{4}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{5}{Context}}
+\headcommand {\slideentry {2}{1}{1}{5/5}{Context}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {2}{1}{2}{6/6}{Context}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\slideentry {2}{1}{3}{7/7}{Context}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\slideentry {2}{1}{4}{8/8}{Context}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\beamer@subsectionpages {5}{8}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{9}{The proximal operator}}
+\headcommand {\slideentry {2}{2}{1}{9/9}{The proximal operator}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\slideentry {2}{2}{2}{10/10}{The proximal operator}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {2}{2}{3}{11/11}{The proximal operator}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\beamer@sectionpages {5}{11}}
+\headcommand {\beamer@subsectionpages {9}{11}}
+\headcommand {\sectionentry {3}{Proximal gradient and accelerated proximal gradient}{12}{Proximal gradient and accelerated proximal gradient}{0}}
+\headcommand {\beamer@subsectionpages {12}{11}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{12}{Proximal gradient}}
+\headcommand {\slideentry {3}{1}{1}{12/12}{Proximal gradient}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {3}{1}{2}{13/13}{Proximal gradient}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {3}{1}{3}{14/14}{Proximal gradient}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {3}{1}{4}{15/15}{Proximal gradient}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\beamer@subsectionpages {12}{15}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{16}{The accelerated proximal gradient}}
+\headcommand {\slideentry {3}{2}{1}{16/16}{The accelerated proximal gradient}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {3}{2}{2}{17/17}{The accelerated proximal gradient}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\beamer@sectionpages {12}{17}}
+\headcommand {\beamer@subsectionpages {16}{17}}
+\headcommand {\sectionentry {4}{The momentum term}{18}{The momentum term}{0}}
+\headcommand {\beamer@subsectionpages {18}{17}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{18}{Questions to answer}}
+\headcommand {\slideentry {4}{1}{1}{18/18}{Questions to answer}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\beamer@subsectionpages {18}{18}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{19}{Bounded sequence}}
+\headcommand {\slideentry {4}{2}{1}{19/19}{Bounded sequence}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {4}{2}{2}{20/20}{Bounded sequence}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\beamer@subsectionpages {19}{20}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{21}{Some quantities}}
+\headcommand {\slideentry {4}{3}{1}{21/24}{Some quantities}{0}}
+\headcommand {\beamer@framepages {21}{24}}
+\headcommand {\beamer@subsectionpages {21}{24}}
+\headcommand {\beamer@subsectionentry {0}{4}{4}{25}{A Sketch of the Proof}}
+\headcommand {\slideentry {4}{4}{1}{25/25}{A Sketch of the Proof}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {4}{4}{2}{26/26}{A Sketch of the Proof}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\slideentry {4}{4}{3}{27/27}{A Sketch of the Proof}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\beamer@sectionpages {18}{27}}
+\headcommand {\beamer@subsectionpages {25}{27}}
+\headcommand {\sectionentry {5}{Numerical experiments}{28}{Numerical experiments}{0}}
+\headcommand {\beamer@subsectionpages {28}{27}}
+\headcommand {\beamer@subsectionentry {0}{5}{1}{28}{LASSO}}
+\headcommand {\slideentry {5}{1}{1}{28/28}{LASSO}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\slideentry {5}{1}{2}{29/29}{LASSO}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\slideentry {5}{1}{3}{30/30}{LASSO}{0}}
+\headcommand {\beamer@framepages {30}{30}}
+\headcommand {\beamer@subsectionpages {28}{30}}
+\headcommand {\beamer@subsectionentry {0}{5}{2}{31}{Image deconvolution with noise}}
+\headcommand {\slideentry {5}{2}{1}{31/31}{Image deconvolution with noise}{0}}
+\headcommand {\beamer@framepages {31}{31}}
+\headcommand {\slideentry {5}{2}{2}{32/32}{Image deconvolution with noise}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\slideentry {5}{2}{3}{33/33}{Image deconvolution with noise}{0}}
+\headcommand {\beamer@framepages {33}{33}}
+\headcommand {\beamer@partpages {1}{33}}
+\headcommand {\beamer@subsectionpages {31}{33}}
+\headcommand {\beamer@sectionpages {28}{33}}
+\headcommand {\beamer@documentpages {33}}
+\headcommand {\gdef \inserttotalframenumber {30}}

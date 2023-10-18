@@ -1,0 +1,15 @@
+\begin{thebibliography}{1}
+
+\bibitem{paper:FISTA}
+Amir Beck and Marc Teboulle.
+\newblock A fast iterative shrinkage-thresholding algorithm for linear inverse
+  problems.
+\newblock {\em SIAM Journal on Imaging Sciences}, 2(1):183--202, 2009.
+
+\bibitem{book:first_order_opt}
+Amir Beck.
+\newblock {\em First-Order Methods in Optimization}.
+\newblock Society for Industrial and Applied Mathematics, Philadelphia, PA,
+  2017.
+
+\end{thebibliography}
