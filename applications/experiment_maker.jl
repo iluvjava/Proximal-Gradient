@@ -2,9 +2,6 @@
 include("../src/proximal_gradient.jl")
 using LaTeXStrings, Plots
 
-
-
-
 # Implement the functions here to make the objective function and experiment parameters ================================
 
 
@@ -25,7 +22,7 @@ Function can take in whatever, but it must return, and in the following order:
 a smooth, nonsmooth function, and an initial guess that is compatible with the functions
 returned. 
 """
-function TestInstance()
+function TestInstance1()
 
     A = Diagonal(LinRange(sqrt(α), sqrt(L), N)[end:-1:1])
     b = zeros(N)
@@ -40,17 +37,25 @@ function TestInstance()
 
     h = 0.0*OneNorm()
     # g = SquareNormResidual(A, b)
-    scales = rand(N)
     g = Jancky(α*ones(N), diag(A).^2)
     x0 = 1e4*ones(N)
     return g, h, x0, L
 end
 
+
+
+
+
 # Implement the following function to make additional visualization. 
 
 
 # ======================================================================================================================
+# EXPERIMENT PROFILE
+# ======================================================================================================================
+
+"The name is for naming the folder for an instance for the experiment. "
 EXPERIMENT_NAME = "Experiment1"
+"The folder to put the specific test instance plots and data. "
 RESULTS_FOLDER = "../experiment_results/"
 """
 `TEST_ALGORITHMS` is a list of generic function that must has function header of: 
@@ -91,7 +96,8 @@ TEST_ALGORITHMS_NAMES = ["FISTA", "ISTA", "Adaptive", "Fixed Momentum"]
 MAX_ITR = 8000
 LINE_SEARCH = true
 TOL = 1e-10
-INSTANCE = TestInstance
+INSTANCE = TestInstance1
+INSTANCE_PLOTTER = nothing
 PARALLEL = false
 
 

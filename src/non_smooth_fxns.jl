@@ -83,9 +83,9 @@ end
 
 
 ### ============================================================================
-### Indicator for an polyhedral set. 
+### Indicator function for a hyper rectangloid
 ### ============================================================================
-mutable struct AffineIndicator
+mutable struct HyperRectanguloidIndicator <: NonsmoothFxn
     
 
 

@@ -78,3 +78,6 @@ Returns the gradient of the 2 norm residual function.
 function Grad(this::Jancky, x::AbstractVector{T}) where {T <: Number}
     return @. (this.alpha + this.beta)*x/2 - (this.beta - this.alpha)*cos(x)/2
 end
+
+
+

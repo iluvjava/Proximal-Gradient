@@ -20,7 +20,7 @@ end
 A type the models smooth functions. 
 * Ask for the value at some point.
 * Has a gradient. 
-* Can be proxed (not necessary)
+* Can be proxed, implemented by `Prox` (optional)
 """
 abstract type SmoothFxn <: Fxn
 
