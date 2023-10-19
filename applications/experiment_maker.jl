@@ -20,14 +20,14 @@ the function must return a type `::ProxGradResults`.
 
 """
 function GetTestAlgorithms(::GenericTestInstance)
-    @assert "Abstract type function `GetTestAlgorithms` for `$(typeof(this))` called, you haven't implemented something for this to be triggered. "
+    @error "Abstract type function `GetTestAlgorithms` for `$(typeof(this))` called, you haven't implemented something for this to be triggered. "
 end
 
 """
 Get a list of names for displaying the legends on the plot for different convergence rates of the algorithm. 
 """
 function GetTestAlgorithmsNames(this::GenericTestInstance)
-    @assert "Abstract function `GetTestAlgorithmsNames` for `$(typeof(this))` called, you haven't implemented something for this to be triggered. "
+    @error "Abstract function `GetTestAlgorithmsNames` for `$(typeof(this))` called, you haven't implemented something for this to be triggered. "
 end
 
 """
@@ -38,7 +38,16 @@ Get the test parameters for experiments, Function must return the following vari
     - `η::Number`, the step size
 """
 function GetParameters(this::GenericTestInstance)
-    @assert "Abstract function `GetParameters` for `$(typeof(this))` called, "
+    @error "Abstract function `GetParameters` for `$(typeof(this))` called, you haven't implemented the method for your type yet. "
+end
+
+
+"""
+The function will be call at the end of the tests to return the results for the test instance. So the test instance 
+    can do further specialize testing if it wants. 
+"""
+function RegisterResultsPostProcessing(this::GenericTestInstance, ::Vector{ProxGradResults})
+    @error "Abstract function `RegisterResultsPostProcessing` for `$(typeof(this))` is called, you haven't implemented the method for your type yet. "
 end
 
 # ======================================================================================================================
@@ -69,14 +78,16 @@ mutable struct TestInstanceExample <: GenericTestInstance
     h
     "(Must Have)the initial guess for all test algorithms. "
     x0
-    
+    "The results of the test instances"
+    results::Union{Vector{ProxGradResults}, Nothing}
 
     function TestInstanceExample(N::Int=128, alpha::Number=1e-3, L=1)
         # Establish parameters. 
         b = zeros(N)
         b[1] = -1
+        κ = L/alpha
         h = 0.0*OneNorm()
-        A = Diagonal(LinRange(α, L, N))
+        A = Diagonal(LinRange(alpha, L, N))
         g = Quadratic(A, b, 0)
         x0 = ones(N)
         @assert alpha <= L "The `alpha` should be `≤ L`, but we had L = $(L), and alpha = $(alpha). "
@@ -89,38 +100,36 @@ mutable struct TestInstanceExample <: GenericTestInstance
         this.h = h
         this.g = g
         this.x0 = x0
-        this.test_algorithm = [ProxGradNesterov, ProxGradISTA, ProxGradAdaptiveMomentum, 
-        
-        # A fancy lambda function due parametric dependence on test isntance parameter. 
-        function()(
-            g::SmoothFxn, 
-            h::NonsmoothFxn, 
-            x0::Vector{T1}, 
-            step_size::Union{T2, Nothing}=nothing;
-            itr_max::Int=1000,
-            epsilon::AbstractFloat=1e-10, 
-            line_search::Bool=false, 
-            results_holder::ProxGradResults=ProxGradResults()
-        ) where {T1 <: Number, T2 <: Number}
-        return ProxGradGeneric( 
-            g, 
-            h, 
-            (;kwargs...)->(κ - 1)/(κ + 1),
-            x0, 
-            step_size;
-            itr_max=itr_max,
-            epsilon=epsilon, 
-            line_search=line_search, 
-            results_holder=results_holder,
-        ) end]
+        this.results = nothing
+        this.implementations = [ProxGradNesterov, ProxGradISTA, ProxGradAdaptiveMomentum, 
+            # A fancy lambda function due parametric dependence on test isntance parameter. 
+            function()(
+                g::SmoothFxn, 
+                h::NonsmoothFxn, 
+                x0::Vector{T1}, 
+                step_size::Union{T2, Nothing}=nothing;
+                itr_max::Int=1000,
+                epsilon::AbstractFloat=1e-10, 
+                line_search::Bool=false, 
+                results_holder::ProxGradResults=ProxGradResults()
+            ) where {T1 <: Number, T2 <: Number}
+            return ProxGradGeneric( 
+                g, 
+                h, 
+                (;kwargs...)->(sqrt(κ) - 1)/(sqrt(κ) + 1),
+                x0, 
+                step_size;
+                itr_max=itr_max,
+                epsilon=epsilon, 
+                line_search=line_search, 
+                results_holder=results_holder,
+            ) end]
         this.names = ["FISTA", "ISTA", "Adaptive", "Fixed Momentum"]
-    
         return this 
 
     end
 
 end
-
 
 
 function GetTestAlgorithms(this::TestInstanceExample)
@@ -133,44 +142,21 @@ function GetTestAlgorithmsNames(this::TestInstanceExample)
 end
 
 
-function GetParameters(this::GenericTestInstance)
+function GetParameters(this::TestInstanceExample)
     return this.g, this.h, this.x0, 1/this.L
 end
 
-
-
-
-# My global variable for the below test instance. 
-N = 256
-α = 1e-3   # The alpha you want for the Hessian of ||Ax - b||^2
-L = 1       # The lipschitz gradient constant. 
-κ = sqrt(L/α)
-
-"""
-`function GetExperimentFxnInstances()`
-
-Function can take in whatever, but it must return, and in the following order: 
-- g::SmoothFxn,
-- h::NonsmoothFxn, 
-- x0::?????, 
-- η::Number
-a smooth, nonsmooth function, and an initial guess that is compatible with the functions
-returned. 
-"""
-function TestInstance1()
-
-    A = Diagonal(LinRange(α, L, N))
-    b = zeros(N)
-    b[1] = -1
-
-    h = 0.0*OneNorm()
-    g = Quadratic(A, b, 0)
-    # g = Jancky(α*ones(N), diag(A).^2)
-    x0 = ones(N)
-    return g, h, x0, L
+function RegisterResultsPostProcessing(this::TestInstanceExample, results::Vector{ProxGradResults})
+    @info "Experiment done. "
 end
 
 
+"""
+Construct an instance of total variation minimization problem for the simple test algorithm. 
+"""
+mutable struct TotalVeriationMinimizations()
+
+end
 
 
 
@@ -178,7 +164,7 @@ end
 
 
 # ======================================================================================================================
-# EXPERIMENT PROFILE
+# EXPERIMENT PROFILE, SETTINGS 
 # ======================================================================================================================
 
 "The name is for naming the folder for an instance for the experiment. "
@@ -189,37 +175,6 @@ RESULTS_FOLDER = "../experiment_results/"
 `TEST_ALGORITHMS` is a list of generic function that must has function header of: 
     `(g::SmoothFxn, h::SmoothFxn, x0::Vector{Number}, step_size::Union{Number, Nothing}; itr_max, epsilon, line_search)`
 """
-TEST_ALGORITHMS = [ProxGradNesterov, ProxGradISTA, ProxGradAdaptiveMomentum, 
-    # A fancy lambda function due parametric dependence on test isntance parameter. 
-    function()(
-        g::SmoothFxn, 
-        h::NonsmoothFxn, 
-        x0::Vector{T1}, 
-        step_size::Union{T2, Nothing}=nothing;
-        itr_max::Int=1000,
-        epsilon::AbstractFloat=1e-10, 
-        line_search::Bool=false, 
-        results_holder::ProxGradResults=ProxGradResults()
-    ) where {T1 <: Number, T2 <: Number}
-    return ProxGradGeneric( 
-        g, 
-        h, 
-        (;kwargs...)->(κ - 1)/(κ + 1),
-        x0, 
-        step_size;
-        itr_max=itr_max,
-        epsilon=epsilon, 
-        line_search=line_search, 
-        results_holder=results_holder,
-    ) end]
-
-"""
-A list of names for the algorithms, they are for displaying on the plots. 
-"""
-TEST_ALGORITHMS_NAMES = ["FISTA", "ISTA", "Adaptive", "Fixed Momentum"]
-
-
-# Experiment Settings. 
 
 MAX_ITR = 1000
 LINE_SEARCH = true
@@ -235,6 +190,8 @@ PARALLEL = false
 ### ====================================================================================================================
 
 
+TEST_ALGORITHMS_NAMES = INSTANCE |> GetTestAlgorithmsNames
+
 if (INSTANCE|>GetTestAlgorithms |> length) == 0
     @error "There is no instance to test, var `TEST_ALGORITHMS` empty. "
 end
@@ -243,7 +200,7 @@ end
 
 g, h, x0, η = INSTANCE|>GetParameters
 RESULTS = Vector{ProxGradResults}()
-for test_algorithm in TEST_ALGORITHMS
+for test_algorithm in INSTANCE |> GetTestAlgorithms
     push!(
         RESULTS, 
         test_algorithm(
@@ -290,7 +247,21 @@ for j in 2:length(RESULTS)
 end
 FIG2|>display
 
+SEQ_RNG = typemax(Int)
+FIG3 = plot(
+    RESULTS[1].momentums[1:min(SEQ_RNG, RESULTS[1].momentums|>length)], 
+    title="The Momentum", 
+    label="FISTA θ", 
+    dpi=300
+)
 
+for j in 2:length(RESULTS)
+    plot!(
+        FIG3, 
+        RESULTS[j].momentums[1:min(SEQ_RNG, RESULTS[j].momentums|>length)]
+    )
+end
 
+FIG3 |> display
 
-
+RegisterResultsPostProcessing(INSTANCE, RESULTS)
