@@ -30,9 +30,6 @@ function Grad(this::SquareNormResidual, x::AbstractVector{T}) where {T <: Number
 end
 
 
-
-
-
 """
  The logistic loss function, binary classifications. 
 """
@@ -40,15 +37,21 @@ mutable struct LogisticLoss <: SmoothFxn
 
 end
 
-#### ===========================================================================
-
+#### ===================================================================================================================
+#### MR SUPER JANKY FUNCTION 
+#### ===================================================================================================================
 """
 Janky Function Number 1. 
 - `alpha::Vectors` Strong convexity index, elementwise. 
 - `beta::Vectors` Beta smoothness index, elementwise
+
+the function is elemenwise of: `(x^2)*(α[i] + β[i])/4 - (β[i] - α[i])*sin(x[i])/2)`, 
+The function is lipschitz smooth with beta and strongly convex with alpha. 
 """
 mutable struct Jancky <: SmoothFxn
+    "vector of strong convexity index. "
     alpha::Vector
+    "vector of lipschitz smooth constant. "
     beta::Vector
 
     function Jancky(alpha::Vector{T}, beta::Vector{T}) where {T <: Number}
@@ -80,4 +83,37 @@ function Grad(this::Jancky, x::AbstractVector{T}) where {T <: Number}
 end
 
 
+#### ===================================================================================================================
 
+"""
+Function evaluates to `dot(x, A*x)/2 + dot(b, x)+ c`
+"""
+mutable struct Quadratic <: SmoothFxn
+    "Squared matrix. "
+    A::AbstractMatrix
+    "A vector. "
+    b::AbstractVector
+    "A constant offset for the quadratic function. "
+    c::Number
+
+    function Quadratic(A::AbstractMatrix, b::AbstractVector, c::Number)
+        @assert size(A, 1) == size(A, 2) "Type `Quadratic` smooth function requires a squared matrix `A`, but instead we got "*
+        "size(A) = $(size(A)). "
+        @assert size(A, 1) == size(b, 1) "Type `Quadratic has unmathced dimension between matrix `A` and vector constant `b`. "
+        this = new(A, b, c)
+        return this 
+    end
+end
+
+
+function (this::Quadratic)(x::AbstractVector)
+    A, b, c = (this.A, this.b, this.c)
+    return 0.5*dot(x, A*x) + dot(b, x) + c
+end
+
+
+function Grad(this::Quadratic, x::AbstractVector)
+    A, b, _ = (this.A, this.b, this.c)
+    @assert length(x) == length(b) "`x` passed to Grad of `::Quadratic` has the wrong dimension"    
+    return 0.5*(A + A')*x + b
+end

@@ -23,8 +23,8 @@ end
 """
 The output of the elementwise absolute value on the function. 
 """
-function (::OneNorm)(arg::AbstractArray{T}) where {T<:Number}
-    return abs.(arg)|>sum
+function (this::OneNorm)(arg::AbstractArray{T}) where {T<:Number}
+    return this.multiplier*abs.(arg)|>sum
 end
 
 
@@ -85,8 +85,48 @@ end
 ### ============================================================================
 ### Indicator function for a hyper rectangloid
 ### ============================================================================
+
+"""
+The struct indicate Cartesian cross product of the set 
+### Fields
+- `multiplier`: `m` the multiplier on every entries of the one norm, has to be 
+non-negative. 
+"""
 mutable struct HyperRectanguloidIndicator <: NonsmoothFxn
-    
+    l::AbstractVector
+    u::AbstractVector
+
+    function HyperRectanguloidIndicator(l::AbstractVector, u::AbstractVector)
+        @assert length(l) == lengh(u) "The length of `l, u` is not matching when "*
+        "instanitating mutable struct `HyperRectanguloidIndicator`, we have `u` of length"*
+        "$(length(u)) and `l` of length $(length(l))" 
+        @assert all((x) -> x >= 0, u - l) "The case `l.<u` is not true, cannot "*
+        "instantiate type `HyperRectanguloidIndicator`. "
+
+        this = new()
+        this.l = l 
+        this.u = u
+        return this
+    end
 
 
 end
+
+
+"""
+Evaluate function at a given point. Return zero 
+"""
+function (::HyperRectanguloidIndicator)(x::AbstractArray{T}) where {T <: Number}
+    good = all(i -> i >= 0, x - this.l) && all(i -> i >= 0, this.u - x)
+    return good ? 0 : inf
+end
+
+
+"""
+Proximal operator on the indicator function for `HyperRectanguloidIndicator` is 
+a projection of `x` onto the set. 
+"""
+function Prox(this::HyperRectanguloidIndicator, x::AbstractArray)
+    return @. min(max(x, this.l), this.u)
+end
+

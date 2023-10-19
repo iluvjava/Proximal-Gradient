@@ -58,7 +58,6 @@ fig |> display
 savefig(fig, "simple_lass_pgrad.png")
 
 
-MIN_OBJ_IDX = min(MIN_OBJ_IDX1, MIN_OBJ_IDX2, MIN_OBJ3_IDX3, MIN_OBJ_IDX4)
 MIN_OF_ALL = vcat(
     ResultsA.objective_vals,
     ResultsB.objective_vals, 
