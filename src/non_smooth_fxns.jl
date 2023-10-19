@@ -97,7 +97,7 @@ mutable struct HyperRectanguloidIndicator <: NonsmoothFxn
     u::AbstractVector
 
     function HyperRectanguloidIndicator(l::AbstractVector, u::AbstractVector)
-        @assert length(l) == lengh(u) "The length of `l, u` is not matching when "*
+        @assert length(l) == length(u) "The length of `l, u` is not matching when "*
         "instanitating mutable struct `HyperRectanguloidIndicator`, we have `u` of length"*
         "$(length(u)) and `l` of length $(length(l))" 
         @assert all((x) -> x >= 0, u - l) "The case `l.<u` is not true, cannot "*
@@ -116,7 +116,7 @@ end
 """
 Evaluate function at a given point. Return zero 
 """
-function (::HyperRectanguloidIndicator)(x::AbstractArray{T}) where {T <: Number}
+function (this::HyperRectanguloidIndicator)(x::AbstractArray{T}) where {T <: Number}
     good = all(i -> i >= 0, x - this.l) && all(i -> i >= 0, this.u - x)
     return good ? 0 : inf
 end
@@ -126,7 +126,7 @@ end
 Proximal operator on the indicator function for `HyperRectanguloidIndicator` is 
 a projection of `x` onto the set. 
 """
-function Prox(this::HyperRectanguloidIndicator, x::AbstractArray)
+function Prox(this::HyperRectanguloidIndicator, ::Float64,x::AbstractArray)
     return @. min(max(x, this.l), this.u)
 end
 

@@ -1,6 +1,6 @@
 
 include("../src/proximal_gradient.jl")
-using LaTeXStrings, Plots, LuxurySparse
+using LaTeXStrings, Plots, LuxurySparse, SparseArrays, Arpack
 
 # Implement the functions here to make the objective function and experiment parameters ================================
 
@@ -162,7 +162,7 @@ to seek the minimum of the dual and then solve for the primal solution.
 - 
 
 """
-mutable struct TotalVariationMinimizations1D
+mutable struct TVMin1D <: GenericTestInstance
     
     # Test instance parameters. 
     "(Must have) The functions that are algorithm imeplementations that we indended to test. "
@@ -173,7 +173,7 @@ mutable struct TotalVariationMinimizations1D
     g
     "(Must Have)The non-smooth function. "
     h
-    "(Must Have) the initial guess for all test algorithms. "
+    "The dual variable solution. "
     x0
     "The results of the test instances"
     results::Union{Vector{ProxGradResults}, Nothing}
@@ -182,29 +182,137 @@ mutable struct TotalVariationMinimizations1D
     "The total signal length including the boundary points. "
     N::Number
     "The noise corrupted signal. "
-    u_hat::Vector{Number}
+    u_hat::Vector
+    "The time ticks. "
+    t::Vector
     "The signal interval diaginal matrix, it's for the approximated Trapzoid rule. "
-    D::AbstractMatrix{Number}
+    D::AbstractMatrix
     "The first order finite difference matrix. "
-    C::AbstractMatrix{Number}
+    C::AbstractMatrix
+    "Lipschitz constant. "
+    L::Number
+    "Strong convexity number. "
+    alpha::Number
 
+    
 
-    function TotalVariationMinimizations1D(time_ticks::Vector{T1}, signal::Vector{T2}, alpha::Number) where {T1<: Number, T2<:Number}
+    function TVMin1D(time_ticks::Vector{T1}, signal::Vector{T2}, alpha::Number) where {T1<: Number, T2<:Number}
         @assert length(time_ticks) == length(signal) "The signal length and the time ticks label doesn't equal, we have "*
         "signal length of $(length(signal)), and time tick length of $(length(time_ticks)). "
         interval_lengths = time_ticks[2:end] - time_ticks[1:end - 1]
         @assert all(i -> i > 0, interval_lengths) "The `time_ticks` are not ordered correctly, its element is not strictly monotone increasing. "
+        @assert alpha > 0 "Variable alpha should be greater than zero strictly. "
+        # Setting up problem parameers -----------------------------------------
         this = new()
-        D = Diagonal(interval_lengths)
+        this.results = nothing 
+        N = this.N = length(signal)
+        û = this.u_hat = signal
+        this.t = time_ticks
+        # D matrix...
+        D = Diagonal(vcat(interval_lengths[1], 2.0*interval_lengths[1:end - 1], interval_lengths[end]))
         D[1, 1] = (1/2)*D[1, 1]
         D[end, end] = (1/2)*D[end, end]
+        this.D = convert(Diagonal{Float64}, D)
+        # C matrix... 
+        row_idx = Vector{Float64}()
+        col_idx = Vector{Float64}()
+        vals = Vector{Float64}()
+        for i = 1:N-1
+            push!(row_idx, i)
+            push!(col_idx, i)
+            push!(vals, -1.0)
+            push!(row_idx, i)
+            push!(col_idx, i + 1)
+            push!(vals, 1.0)
+        end
+        C = sparse(row_idx, col_idx, vals)
+        this.C = C
+        # Dual Objective function smooth and non-smooth. 
+        A = C*inv(D)*C'
+        b = C*û 
+        this.g = Quadratic(A, b, 0)
+        this.h = HyperRectanguloidIndicator(-fill(alpha, N - 1), fill(alpha, N - 1))
+        this.x0 = zeros(N - 1)
+        # Setting up experiment parameters -------------------------------------
+        # Estimate kappa for fixed step momentum method. 
+        L = this.L = eigs(A, nev=1, which=:LM)[1][1]
+        α = this.alpha = eigs(A, nev=1, which=:SM, maxiter=3000, tol=1e-10)[1][1]
+        ConstructImplementations!(this, L/α)
         
-
         return this 
     end
 
+    function TVMin1D(N::Int=64,alpha::Number=10) 
+        return TVMin1D(1:2N|>collect, vcat(-ones(N), ones(N)) .+ 0.3rand(2N), alpha)
+    end
 
 end
+
+
+function ConstructImplementations!(this::TVMin1D, kappa::Number)
+    κ = kappa
+    this.implementations = [ProxGradNesterov, ProxGradISTA, ProxGradAdaptiveMomentum, 
+    # A fancy lambda function due parametric dependence on test isntance parameter. 
+    function()(
+        g::SmoothFxn, 
+        h::NonsmoothFxn, 
+        x0::Vector{T1}, 
+        step_size::Union{T2, Nothing}=nothing;
+        itr_max::Int=1000,
+        epsilon::AbstractFloat=1e-10, 
+        line_search::Bool=false, 
+        results_holder::ProxGradResults=ProxGradResults()
+    ) where {T1 <: Number, T2 <: Number}
+    return ProxGradGeneric( 
+        g, 
+        h, 
+        (;kwargs...)->(sqrt(κ) - 1)/(sqrt(κ) + 1),
+        x0, 
+        step_size;
+        itr_max=itr_max,
+        epsilon=epsilon, 
+        line_search=line_search, 
+        results_holder=results_holder,
+    ) end]
+    this.names = ["FISTA", "ISTA", "Adaptive", "Fixed Momentum"]
+
+    return nothing
+end
+
+function GetTestAlgorithms(this::TVMin1D)
+    return this.implementations
+end
+
+
+function GetTestAlgorithmsNames(this::TVMin1D)
+    return this.names
+end
+
+function GetParameters(this::TVMin1D)
+    return this.g, this.h, this.x0, 1/this.L
+end
+
+function RecoverPrimalSolution(this::TVMin1D, soln::AbstractVector)
+    û, D, C = (this.u_hat, this.D, this.C)
+    return û + inv(D)*C'*soln
+end
+
+
+function RegisterResultsPostProcessing(this::TVMin1D, results::Vector{ProxGradResults})
+    getprimal(x) = RecoverPrimalSolution(this, x)
+    toplot = [getprimal(r.soln) for r in results]
+    println("To plot: ")
+    println(typeof(toplot[1]))
+    
+    fig = plot(this.u_hat, color=RGBA{Float64}(1, 0, 0, 0.2), legend=:bottomright, label="signal with noise")
+    for (j, data) in toplot|>enumerate
+        plot!(fig, data, label=this.names[j])
+    end
+    
+    display(fig)
+    return nothing
+end
+
 
 
 
@@ -221,10 +329,10 @@ RESULTS_FOLDER = "../experiment_results/"
     `(g::SmoothFxn, h::SmoothFxn, x0::Vector{Number}, step_size::Union{Number, Nothing}; itr_max, epsilon, line_search)`
 """
 
-MAX_ITR = 1000
+MAX_ITR = 1500
 LINE_SEARCH = true
 TOL = 1e-10
-INSTANCE = TestInstanceExample()
+INSTANCE = TVMin1D(64, 5)
 INSTANCE_PLOTTER = nothing
 PARALLEL = false
 
