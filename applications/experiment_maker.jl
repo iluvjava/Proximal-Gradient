@@ -1,6 +1,6 @@
 
 include("../src/proximal_gradient.jl")
-using LaTeXStrings, Plots
+using LaTeXStrings, Plots, LuxurySparse
 
 # Implement the functions here to make the objective function and experiment parameters ================================
 
@@ -55,6 +55,20 @@ end
 # ======================================================================================================================
 
 mutable struct TestInstanceExample <: GenericTestInstance
+    "(Must have) The functions that are algorithm imeplementations that we indended to test. "
+    implementations::Vector{Function}
+    "(Must Have) The names for the algorithms when plotting the legends. "
+    names::Vector{String}
+    "(Must Have)The smooth function. "
+    g
+    "(Must Have)The non-smooth function. "
+    h
+    "(Must Have) the initial guess for all test algorithms. "
+    x0
+    "The results of the test instances"
+    results::Union{Vector{ProxGradResults}, Nothing}
+
+    
     "Dimension for the problem. "
     N
     "Strong convexity index. "
@@ -68,25 +82,12 @@ mutable struct TestInstanceExample <: GenericTestInstance
     "The constant vector used for the quadratic objective function. "
     b
 
-    "(Must have) The functions that are algorithm imeplementations that we indended to test. "
-    implementations::Vector{Function}
-    "(Must Have) The names for the algorithms when plotting the legends. "
-    names::Vector{String}
-    "(Must Have)The smooth function. "
-    g
-    "(Must Have)The non-smooth function. "
-    h
-    "(Must Have)the initial guess for all test algorithms. "
-    x0
-    "The results of the test instances"
-    results::Union{Vector{ProxGradResults}, Nothing}
-
-    function TestInstanceExample(N::Int=128, alpha::Number=1e-3, L=1)
+    function TestInstanceExample(N::Int=2048, alpha::Number=1e-3, L=1)
         # Establish parameters. 
         b = zeros(N)
         b[1] = -1
         κ = L/alpha
-        h = 0.0*OneNorm()
+        h = 0.1*OneNorm()
         A = Diagonal(LinRange(alpha, L, N))
         g = Quadratic(A, b, 0)
         x0 = ones(N)
@@ -151,16 +152,60 @@ function RegisterResultsPostProcessing(this::TestInstanceExample, results::Vecto
 end
 
 
+
+
 """
-Construct an instance of total variation minimization problem for the simple test algorithm. 
+Construct an instance of total variation minimization problem for the simple test algorithm. We use Uzawa's algorithm
+to seek the minimum of the dual and then solve for the primal solution. 
+
+# Constructor Parameters
+- 
+
 """
-mutable struct TotalVeriationMinimizations()
+mutable struct TotalVariationMinimizations1D
+    
+    # Test instance parameters. 
+    "(Must have) The functions that are algorithm imeplementations that we indended to test. "
+    implementations::Vector{Function}
+    "(Must Have) The names for the algorithms when plotting the legends. "
+    names::Vector{String}
+    "(Must Have)The smooth function. "
+    g
+    "(Must Have)The non-smooth function. "
+    h
+    "(Must Have) the initial guess for all test algorithms. "
+    x0
+    "The results of the test instances"
+    results::Union{Vector{ProxGradResults}, Nothing}
+
+    # Problem parameters: 
+    "The total signal length including the boundary points. "
+    N::Number
+    "The noise corrupted signal. "
+    u_hat::Vector{Number}
+    "The signal interval diaginal matrix, it's for the approximated Trapzoid rule. "
+    D::AbstractMatrix{Number}
+    "The first order finite difference matrix. "
+    C::AbstractMatrix{Number}
+
+
+    function TotalVariationMinimizations1D(time_ticks::Vector{T1}, signal::Vector{T2}, alpha::Number) where {T1<: Number, T2<:Number}
+        @assert length(time_ticks) == length(signal) "The signal length and the time ticks label doesn't equal, we have "*
+        "signal length of $(length(signal)), and time tick length of $(length(time_ticks)). "
+        interval_lengths = time_ticks[2:end] - time_ticks[1:end - 1]
+        @assert all(i -> i > 0, interval_lengths) "The `time_ticks` are not ordered correctly, its element is not strictly monotone increasing. "
+        this = new()
+        D = Diagonal(interval_lengths)
+        D[1, 1] = (1/2)*D[1, 1]
+        D[end, end] = (1/2)*D[end, end]
+        
+
+        return this 
+    end
+
 
 end
 
-
-
-# Implement the following function to make additional visualization. 
 
 
 # ======================================================================================================================
@@ -250,15 +295,17 @@ FIG2|>display
 SEQ_RNG = typemax(Int)
 FIG3 = plot(
     RESULTS[1].momentums[1:min(SEQ_RNG, RESULTS[1].momentums|>length)], 
-    title="The Momentum", 
-    label="FISTA θ", 
+    title="The Momentum Multiplier", 
+    xlabel="Iteration number k", 
+    label=TEST_ALGORITHMS_NAMES[1], 
     dpi=300
 )
 
 for j in 2:length(RESULTS)
     plot!(
         FIG3, 
-        RESULTS[j].momentums[1:min(SEQ_RNG, RESULTS[j].momentums|>length)]
+        RESULTS[j].momentums[1:min(SEQ_RNG, RESULTS[j].momentums|>length)], 
+        label=TEST_ALGORITHMS_NAMES[j] 
     )
 end
 
