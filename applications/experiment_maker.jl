@@ -324,17 +324,29 @@ end
 EXPERIMENT_NAME = "Experiment1"
 "The folder to put the specific test instance plots and data. "
 RESULTS_FOLDER = "../experiment_results/"
-"""
-`TEST_ALGORITHMS` is a list of generic function that must has function header of: 
-    `(g::SmoothFxn, h::SmoothFxn, x0::Vector{Number}, step_size::Union{Number, Nothing}; itr_max, epsilon, line_search)`
-"""
 
+
+"Maximum number of iterations for all the algorithms for testing. "
 MAX_ITR = 1500
+"Whether to use line search for the experiments. "
 LINE_SEARCH = true
+"The tolerance for the proximal gradient type algorithm. "
 TOL = 1e-10
+"The experiment instance, should be of type `GenericTestInstance`" 
 INSTANCE = TVMin1D(64, 5)
-INSTANCE_PLOTTER = nothing
+
+# TODO: not implemented yet. 
+"Whether to run experiment parallel on multiple cores. " 
 PARALLEL = false
+
+# Experiment results presentation settings. 
+"List of line styles for plotting the curves. "
+LINE_STYLES = [:solid, :dash, :dot, :dashdot, :dashdotdot]
+"List of marker styles to use for the plot"
+MARKER_SHAPE =  fill(:none, LINE_STYLES|>length)
+"Width of the line when plotting out in px"
+LINE_WIDTH =3
+
 
 
 
@@ -344,12 +356,16 @@ PARALLEL = false
 
 
 TEST_ALGORITHMS_NAMES = INSTANCE |> GetTestAlgorithmsNames
+TEST_ALGORITHMS = INSTANCE |> GetTestAlgorithms
 
-if (INSTANCE|>GetTestAlgorithms |> length) == 0
+if (TEST_ALGORITHMS |> length) == 0
     @error "There is no instance to test, var `TEST_ALGORITHMS` empty. "
 end
-@assert length(INSTANCE|>GetTestAlgorithmsNames) == length(INSTANCE|>GetTestAlgorithms) "The length of "*
+@assert length(TEST_ALGORITHMS) == length(INSTANCE|>GetTestAlgorithms) "The length of "*
 "`TEST_ALGORITHMS` and `TEST_ALGORITHMS` doesn't match. They should. "
+if length(TEST_ALGORITHMS) > 5 
+    @error "We run out of plot styles for this experiment setup. Plase upgrade the code. "
+end
 
 g, h, x0, η = INSTANCE|>GetParameters
 RESULTS = Vector{ProxGradResults}()
@@ -370,13 +386,18 @@ FIG1 = plot(
     ylabel=L"\left\Vert y_{k} - x_{k + 1} \right\Vert", 
     label=TEST_ALGORITHMS_NAMES[1], 
     xlabel="Iteration Number: k", 
+    linewidth=LINE_WIDTH, 
+    legend=:bottomleft,
     dpi=300
 )
 for j in 2:length(RESULTS)
     plot!(
         FIG1, RESULTS[j].gradient_mapping_norm[1:end-2], 
         yaxis=:log10,
-        label=TEST_ALGORITHMS_NAMES[j]
+        label=TEST_ALGORITHMS_NAMES[j], 
+        linestyle=LINE_STYLES[j], 
+        markershape=MARKER_SHAPE[j], 
+        linewidth=LINE_WIDTH
     )
 end
 FIG1|>display
@@ -388,14 +409,19 @@ FIG2 = plot(
     RESULTS[1].objective_vals .- MIN_OBJALL, 
     title="Objective Values", label=TEST_ALGORITHMS_NAMES[1], 
     ylabel=L"[f + g](x_k) - [f + g](\bar x)", xlabel="Iteration number k", 
-    yaxis=:log10; 
+    yaxis=:log10, 
+    linewidth=LINE_WIDTH, 
+    legend=:bottomleft,
     dpi = 300
 )
 for j in 2:length(RESULTS)
     plot!(
         FIG2, RESULTS[j].objective_vals .- MIN_OBJALL, 
         yaxis=:log10,
-        label=TEST_ALGORITHMS_NAMES[j]
+        label=TEST_ALGORITHMS_NAMES[j], 
+        linestyle=LINE_STYLES[j], 
+        markershape=MARKER_SHAPE[j], 
+        linewidth=LINE_WIDTH
     )
 end
 FIG2|>display
@@ -406,6 +432,8 @@ FIG3 = plot(
     title="The Momentum Multiplier", 
     xlabel="Iteration number k", 
     label=TEST_ALGORITHMS_NAMES[1], 
+    linewidth=LINE_WIDTH,
+    legend=:bottomleft,
     dpi=300
 )
 
@@ -413,7 +441,10 @@ for j in 2:length(RESULTS)
     plot!(
         FIG3, 
         RESULTS[j].momentums[1:min(SEQ_RNG, RESULTS[j].momentums|>length)], 
-        label=TEST_ALGORITHMS_NAMES[j] 
+        label=TEST_ALGORITHMS_NAMES[j], 
+        linestyle=LINE_STYLES[j], 
+        markershape=MARKER_SHAPE[j], 
+        linewidth=LINE_WIDTH
     )
 end
 
