@@ -237,6 +237,7 @@ mutable struct TVMin1D <: GenericTestInstance
         # Estimate kappa for fixed step momentum method. 
         L = this.L = eigs(A, nev=1, which=:LM)[1][1]
         α = this.alpha = eigs(A, nev=1, which=:SM, maxiter=3000, tol=1e-10)[1][1]
+        this.alpha = (1 + 1e-10)*this.alpha  # numerical stability
         ConstructImplementations!(this, L/α)
         
         return this 
@@ -304,7 +305,7 @@ function RegisterResultsPostProcessing(this::TVMin1D, results::Vector{ProxGradRe
     println("To plot: ")
     println(typeof(toplot[1]))
     
-    fig = plot(this.u_hat, color=RGBA{Float64}(1, 0, 0, 0.2), legend=:bottomright, label="signal with noise")
+    fig = plot(this.u_hat, color=RGBA{Float64}(0, 0, 0, 0.4), legend=:bottomright, label="signal with noise")
     for (j, data) in toplot|>enumerate
         plot!(fig, data, label=this.names[j])
     end
