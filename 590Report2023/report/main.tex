@@ -80,36 +80,35 @@
 \maketitle
 
 \begin{abstract}
-    In this paper we review the paper written by Walkington \cite{noel_nesterovs_nodate} on the topic of proximal gradient with Nesterov accelerations. 
-    We compare the performance of FISTA method and some of its variants with numerical experiments on the total variation minimization problem, in addition we propose a heuristic estimation of strong convexity parameter and demonstrate that it converges faster when applied. 
-    We give literature review on the frontier theoretical development on the FISTA algorithm. 
-    We correct  one misconception occured in Walkington \cite{noel_nesterovs_nodate} regarding Nesterov's proof of lower bound on the optimality of first order algorithms.  
-    We present a better proof of linear convergence of FISTA under strong convexity assumption from Beck \cite[theorem 10.7.7]{beck_first-order_nodate} by eliminating an identity used in the their proof. 
+    In this paper, we review the paper written by Walkington \cite{noel_nesterovs_nodate} on the topic of proximal gradient with Nesterov accelerations. 
+    We compare the performance of the FISTA method and some of its variants with numerical experiments on the total variation minimization problem; in addition, we propose a heuristic estimation of the strong convexity parameter and demonstrate that it converges faster when applied. 
+    We give a literature review on the frontier theoretical development of the FISTA algorithm. 
+    We correct one misconception that occurred in Walkington \cite{noel_nesterovs_nodate} regarding Nesterov's proof of lower bound on the optimality of first-order algorithms.  
+    We present a better proof of linear convergence of FISTA under strong convexity assumption from Beck \cite[theorem 10.7.7]{beck_first-order_nodate} by eliminating an identity used in their proof. 
 \end{abstract}
 
 
 \section{Preliminaries}
-    In this section, We present and model the problem of denoising one dimension signal. 
-    The dual objective function of the problem derived in this section motivates the use of Accelerated Proximal Gradient with smooth, non-sooth composite objective function. 
-    The following content are mostly summarized from Walkington \cite{noel_nesterovs_nodate}, section 1, and section 4. They are supplemented by my own writings. 
-
+    In this section, We motivate the discussion about denoising a one-dimensional signal. 
+    The dual objective function of the problem derived in this section motivates the use of Accelerated Proximal Gradient with smooth, non-smooth composite objective function.
+    We summarized it from Walkington \cite{noel_nesterovs_nodate}, sections 1 and 4. 
     \subsection{Signal Denoising in One Dimension}
-        Let a one dimensional singal be $u: \mathbb [0, 1]\mapsto \mathbb R$ and $u$ experiences absolute continuity. 
-        This class of absolutely continuous function can model discrete signal because digital signal are piecewise constant. 
-        Let $\hat u$ denotes an observation of $u$ corrupted by noise. 
+        Let a one dimensional singal be $u: \mathbb [0, 1]\mapsto \mathbb R$ and $u$. 
+        Regularizing the derivative of the signal using the L1 norm helps recover the digital signal if it's a piecewise constant function. 
+        This is called a Total Variation (TV) minimization. 
+        Let $\hat u$ denote an observation of $u$ corrupted by noise. 
         The denoised signal is the minimizer of f(u),
         \[
             f(u) = \int_0^1 \frac{1}{2} 
             (u - \hat u)^2 + \alpha |u'|dt. 
         \]
-        A practical approach on modern computing devices would necessitate discritization of the integral. 
-        We use trapzidal rule and second order forward difference for the derivative. 
+        Practical implementations for modern computing devices would necessitate discretization of the integral. 
+        \par
+        We use the trapezoidal rule and second-order forward difference for the derivative. 
         Let $\hat u \in \mathbb R^{N+1}$, a vector in the form of $\hat u = [\hat u_0\; \cdots \; \hat u_{N}]$, let $t_0<  \cdots <t_N$ be a sequence of time corresponded to each observation of $\hat u_i$. 
-        The time intervals are $h_i = t_{i} - t_{i-1}$ for $i=1, \cdots, N$, not necessarily equally spaced, hence the formulation below is slightly more general than Walkington\cite{noel_nesterovs_nodate}. 
-        We derive the approximation of the integral by doing
+        The time intervals are $h_i = t_{i} - t_{i-1}$ for $i=1, \cdots, N$, not necessarily equally spaced, making this formulation below is slightly more general than Walkington\cite{noel_nesterovs_nodate}. 
+        We derive the approximation of the integral. Denote $s_i = u_i - \hat u_i$. 
         \begin{align*}
-            & \text{Denote } s_i = u_i - \hat u_i, 
-            \\
             \frac{1}{2}\int_{0}^{1} (u - \hat u)^2 dt + 
             \alpha \int_0^1 |u'| dt
             &\approx
@@ -142,10 +141,10 @@
             &= 
             \frac{1}{2}\langle u - \hat u, D(u - \hat u)\rangle + \alpha \Vert Cu\Vert_1. 
         \end{align*}
-    The above formulation suggests smooth, non-smooth additive composite objective for $f(u)$. 
-    This type of optimization method can be solved via the Proximal Gradient method and its variants. 
-    Unfortunately the non-smooth part $\alpha\Vert Cu\Vert_1$ presents computational difficulty if matrix $C$ is unfriendly for proximal resolvent operator. 
-    One way to bypass the difficulty involves reformulating with $p = Cu$, and solve the dual problem. 
+    The above formulation suggests a smooth, non-smooth additive composite objective for $f(u)$. 
+    The Proximal Gradient method and its variants can solve this optimization problem. 
+    Unfortunately, the non-smooth part $\alpha\Vert Cu\Vert_1$ presents computational difficulty if matrix $C$ is unfriendly for the prox operator. 
+    One way to bypass the difficulty involves reformulating with $p = Cu$ and solving the dual problem. 
     \subsection*{Dual Reformulation}
         Let $p = Cu$, $C\in \mathbb R^{(N + 1)\times N}$ with $D \in \mathbb R^{(N + 1)\times (N + 1)}$, we reformulate it into 
         \[
@@ -185,7 +184,7 @@
             \langle \hat u, C^T \lambda\rangle - 
             \delta_{[-\alpha, \alpha]^N}(p). 
         \]
-        Observe that the above admit hyper box indicator function that makes the resolvent friendlier because proximal operator of indicator is projection, in the case of projecting onto hyper box, the operator is simple. 
+        Observe that the above admits a hyperbox indicator function that makes the prox operator friendlier because the proximal operator of the indicator is projection; in the case of projecting onto the box, the operator is simple. 
         Given dual variable $\lambda$, primal is obtained by 
         \begin{align*}
             u &= \text{argmin}_u \mathcal L((u, p), \lambda) 
@@ -194,64 +193,102 @@
             \\
             \implies u &= \hat u + D^{-1}C^T\lambda. 
         \end{align*}
-        At this point, we had a formulation such that, solving $-g(u)$ is an easy task with the smooth non-smooth additive objective, and obtaining the primal solution is simple as well since $D^{-1}$ is a diagonal matrix. 
+        $-g(\lambda)$ is easier to optimize, and obtaining the primal solution is also simple since $D^{-1}$ is a diagonal matrix. 
     \subsection{FISTA has Worse Convergence Guarantee for Strongly Convex Objectives}
         The dual objective for a total variation minimization problem is a strongly convex and Lipschitz smooth function because of the norm induced by the positive definite matrix $D^{-1}$. 
-        It's in a form where FISTA propsed by \cite{beck_fast_2009-1} can solve with a convergence rate of $\mathcal O(1/k^2)$ on the objective value of the function. 
+        It's in a form where FISTA proposed by \cite{beck_fast_2009-1} can solve with a convergence rate of $\mathcal O(1/k^2)$ on the objective value of the function. 
         However, highlighted in Walkington\cite{noel_nesterovs_nodate}, the proximal gradient method without acceleration achieves $\mathcal O((1 - 1/\kappa)^k)$ convergence rate. 
         Which is faster.
-        The parameter $\kappa$ is the condition number, in this case it would be $L/\alpha$, where $L$ is the lipschitz smooth constant of $g(u)$ and $\alpha$ is the strong convexity constant for $g(u)$. 
-        We emphasize here that for the class of strongly convex objectives, Proximal Gradient without acceleration has a better theoretical convergence results than the accelerated version. 
-        This surprising facts hints at a fundamental difference between methods with, and without Nesterov's acceleration. 
-        It sparks the discussion in this paper on the variants of FISTA in hope of providing some insights on the reasons for Nesterove's momentum based method's inability to adapt the convergence rate with objective has strong convexity. 
-        For the terminologies, we use FISTA to specifically refers to the proximal gradient method presented by Beck and Teboulle\cite{beck_fast_2009-1}. We use Accelerated Proximal Gradient method (APG) to refer to the class of first order acceleration algorithms developed/inspired from FISTA. 
+        The parameter $\kappa$ is the condition number; in this case, it would be $L/\alpha$, where $L$ is the Lipschitz smooth constant of $g(u)$ and $\alpha$ is the strong convexity constant for $g(u)$. 
+        \par
+        We emphasize that the Proximal Gradient without acceleration has better theoretical convergence results than the accelerated version for the class of strongly convex objectives. 
+        It sparks the discussion in this paper on the variants of FISTA, hoping to provide some insights on why Nesterove's momentum-based method's inability to adapt the convergence rate with objective has strong convexity. 
+        For the terminologies, we use FISTA to refer to the proximal gradient method presented by Beck and Teboulle\cite{beck_fast_2009-1}. We use the Accelerated Proximal Gradient method (APG) to refer to the first-order acceleration algorithms developed/inspired by FISTA. 
+        \par
+        Finally, whether the original FISTA or Nesterov Accelerated gradient has linear convergence with the presence of strong convexity (or potentially other weaker conditions) is not known during our research and literature review. 
 
     \subsection{Outline of the Paper}
         \hyperref[sec:Literatures]{Section \ref*{sec:Literatures}} consists of 3 parts. 
-        Reviewing of iteratures on the problem of total variation minimization for image/signal denoising and deblurring is the first part. 
+        The first part reviews the literature on the problem of Total Variation (TV) minimization for image/signal denoising and deblurring. 
         Presenting FISTA and its variants is the second part. 
-        Reviewing the algorithmic tricks and improvements applied to the APG is the third parts. 
+        The third part reviews the algorithmic tricks and improvements applied to the APG. 
         \hyperref[sec:optimal_lower_bound]{Section \ref*{sec:optimal_lower_bound}} addresses a mistake made in Walkington's writing \cite[theorem 2.4]{noel_nesterovs_nodate}. 
-        We will talk about what a first order method is and the fact that the lower complexity bound on the objective value and iterates for a fixed iteration, is achieved by a different function. 
-        We discuss how this omitting the details of this theorem creates potential misconceptions of other frontier research ideas. 
+        We will discuss a first-order method and how a different function achieves the lower complexity bound on the objective value and iterates for a fixed iteration. 
+        We discuss how omitting the details of this theorem creates potential misconceptions of other frontier research ideas. 
         \hyperref[sec:fista_strong_convexity]{Section \ref*{sec:fista_strong_convexity}} presents a proof that I adapted from Amir Beck's writing \cite[theorem 10.7.7]{beck_first-order_nodate}. 
-        The proof is slightly more general and it removed an equality to strengthens interpretibility and generality. 
-        \hyperref[sec:numerics]{Section \ref*{sec:numerics}} presents plots of convergence and results of applying variants of Accelerated Proximal Methods to the Total Variation problem. 
+        The proof is slightly more general, removing one equality to strengthen interpretability and generality. 
+        \hyperref[sec:numerics]{Section \ref*{sec:numerics}} presents plots of convergence and results of applying variants of APG to the TV problem. 
         
-
-        
-        
-
 
 \section{Literatures Review}\label{sec:Literatures}
     \subsection{Total Variation Minimizations}
-        Total Variation (TV) minimization method was introduced by Rudin-Osher and Fatemi in \cite{rudin_nonlinear_1992}. 
-        They pioneer the theories of TV minimizations by solving PDE. 
-        They discussed the empirical observation that L1 regularizations term produces sharper images. 
-        Walkington \cite{noel_nesterovs_nodate} a basic formulation of one dimensional signal denoising. 
-        However it's important to keep in mind that this is a problem that motivates a variety of modern computational methods and theories. 
+        Rudin-Osher and Fatemi introduced the Total Variation (TV) minimization method in \cite{rudin_nonlinear_1992}. 
+        They pioneer the theories of TV minimization by solving PDE. 
+        They discussed the empirical observation that the L1 regularization term produces sharper images. 
+        Walkington \cite{noel_nesterovs_nodate} a basic formulation of one-dimensional signal denoising. 
+        However, it's essential to keep in mind that this is a problem that motivates a variety of modern computational methods and theories. 
         We will list some of them for context. 
-        Goldstein, et al in \cite[3.2.1]{goldstein_field_2016} showcased the dual reformulation of a 2D signal recovery with $\Vert \nabla u\Vert$ as the regularizations term. 
+        \par
+        Goldstein et al. in \cite[3.2.1]{goldstein_field_2016} showcased the dual reformulation of a 2D signal recovery with $\Vert \nabla u\Vert$ as the regularizations term. 
         We note that this norm is without the squared. 
-        A more hardcore, detailed coverage of reformulating the dual with a L1 penalty terms for 2D signal recovery is in \cite{beck_fast_2009}. 
-        For a full survey of state of arts computational methods applied to TV minimizations see Chambolle \cite{chambolle_introduction_2016}. 
-        For a detailed exposition of mathematical theories regarding variational analysis on different type of TV problems and statistical inferences based interpretations of TV regularization term, consult the work by Chambolle et al\cite{fornasier_introduction_2010}. 
+        A more hardcore, detailed coverage of reformulating the dual with L1 penalty terms for 2D signal recovery is in \cite{beck_fast_2009}. 
+        For a complete survey of the state of arts computational methods applied to TV minimizations, see Chambolle \cite{chambolle_introduction_2016}. 
+        For a detailed exposition of mathematical theories regarding variational analysis on different types of TV problems and statistical inferences-based interpretations of the TV regularization term, consult the work by Chambolle et al.\cite{fornasier_introduction_2010}.
         For frontier work of applying non-convex penalty term and its theoretical guarantee consult \cite{an_enhanced_2023}, \cite{an_springback_2022}. 
     \subsection*{Variants of FISTA}
-        For different Variants of FISTA, we specifically refer to first order acceleration method based on Nesterov's Framework, adhering to Nesterov's lectures \cite{nesterov_lecture_2018} and Beck's book \cite[chapter 10]{beck_first-order_nodate}. 
-        Nesterov's lectures focuses on establishing the most general frameworks for this type of methods. 
-        Nesterov approach doesn't handle function that is non-smooth, at least not directly. 
-        However, in his lectures, he derived a generic accelerated gradient algorithm (2.2.7) based on the idea of accelerating sequences. 
+        Walkington's writing on the method of V-FISTA and accelerated gradient\cite[section 4, section 3]{noel_nesterovs_nodate} consists of proofs that are too short and uninformative for good understanding. 
+        The frustration motivates us to look for better proofs of the algorithm's convergence rate in other literature. 
+        It was a surprise that Walkington did not cite Nesterov's new book\cite{nesterov_lectures_2018}. 
+        We contextualize Walkington's approach with Amir Beck's book\cite{beck_first-order_nodate} and Nesterov's book \cite{nesterov_lectures_2018}. 
+        \par
+        For different Variants of FISTA, we specifically refer to the first-order acceleration method based on Nesterov's Framework, adhering to Nesterov's lecture \cite{nesterov_lecture_2018} and Beck's book \cite[chapter 10]{beck_first-order_nodate}. 
+        The algorithm that all three writers were talking about is the V-FISTA algorithm (\hyperref[alg:V-FISTA]{algorithm \ref*{alg:V-FISTA}}). 
+        \begin{algorithm}[H]
+            \begin{algorithmic}[1]
+                \STATE{\textbf{Input: }($f, g, x^{(0)}$)}
+                \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
+                \STATE{$x^{(k + 1)} = \text{prox}_{1/L g}(y^{(k)} - (1/L) \nabla f(y^{(k)}))$}
+                \STATE{$y^{(k + 1)} = x^{(k + 1)} + \left(\frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}\right)(x^{(k + 1)} - x^{(k)})$}
+            \end{algorithmic}\caption{V-FISTA}
+            \label{alg:V-FISTA}
+        \end{algorithm}
+        The V-FISTA algorithm (\hyperref[alg:V-FISTA]{algorithm \ref*{alg:V-FISTA}}), when applied to an objective function of the type $F = f + g$, where $f$ is prox friendly and $g$ is L-Lipschitz and $\sigma$-strongly convex, it achieves a convergece rate of $\mathcal O((1 - 1/\sqrt{\kappa})^k)$ for the function objective. 
+        This convergent rate is faster than $\mathcal O((1 - 1/\kappa)^k)$ for the proximal gradient. 
+        The parameter $\kappa = L/\sigma$ is carefully chosen to achieve a linear convergence rate. 
+        \par
+        The V-FISTA algorithm contains more parameters. 
+        A $L$-Lipschitz smooth convex function $g$, is $\sigma$-strongly by adding $\sigma \Vert \cdot\Vert^2/2$. 
+        Hence, define $g_\sigma(x) = f(x) + \sigma \Vert x\Vert^2/2$ then we have $\lim_{\sigma \rightarrow 0} g_\sigma(x) = f(x)$. The function transitions smoothly from a strongly convex function to just a convex function. 
+        It's tempted to think that if we take the limit of $\sigma\rightarrow 0$ on V-FISTA (\hyperref[alg:V-FISTA]{algorithm \ref*{alg:V-FISTA}}) would yield the FISTA algorithm, analogous to the function $f_\sigma\rightarrow f$.
+        However, this is not the case since $\lim_{\sigma\rightarrow 0}\kappa = \infty$, making 
+        \[
+            \lim_{\sigma\rightarrow 0} \frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1} = 1. 
+        \]
+        This didn't result in FISTA. 
+        Finding one generic algorithm to derive and describe both FISTA and V-FISTA would be of good interest.
+        \par
+        As it turns out, Nesterov\cite{nesterov_lecture_2018} derived the smooth counterpart of both algorithms from one generic algorithm\cite[(2.2.7)]{nesterov_lecture_2018}, but his argument is not directly applicable to a function of smooth and non-smooth composite. 
+        Nesterov's lectures focus on establishing the most general frameworks for this method class. 
+        His approach doesn't handle function that is non-smooth, at least not directly. 
+        Nesterov's completed derivation of the linear convergence rate and sub-linear convergence rate is in theorem 2.2.2, based on the results of lemma 2.2.4. 
+        We emphasize that in Nesterov's writing, his derivation of linear and sub-linear convergence of the function objective was done in lemma 2.2.4, without the assumption of a minimizer, for Lipschitz smooth function with and without/without strong convexity, in one single proof. 
+        Amir Beck's book had the algorithm V-FISTA presented in 10.7.7; it's an algorithm that is the same as Nesterov's algorithm: 2.2.22, with the addition of a proximal operator.
+        Unfortunately, Amir Beck doesn't have a unified framework of descriptions of both FISTA and V-FISTA.  
+        \par
+        There are other variants of FISTA. 
+        the MFISTA method proposed by Beck \cite[theorem 5.1]{beck_fast_2009-1}, was empirically more robust and stable. However, it still retains the $\mathcal O (1/k^2)$ convergence rate at that time. 
+        The idea of restarting FISTA, however, refuses to die. 
+        More recently, the work of \cite{alamo_restart_2019} proposed a condition of restarting FISTA such that a global linear convergence rate can be achieved based on the quadratic growth condition, a weaker condition than strong convexity. 
+        Faster forward to the frontier, Aujol et al.\cite{aujol_fista_2022} proposed an automatic restart algorithm that achieves faster convergence without knowing the strong convexity (or the weaker quadratic growth condition) parameter in prior. 
+        They then developed the idea into a parameter-free algorithm in their work \cite{aujol_parameter-free_2023}. 
+        \par
+        Simultaneously, looking for a unified framework behind Nesterov's acceleration theory continues. 
+        One of the recent theoretical improvements by\cite{ahn_understanding_2022} that is based on the new writing from Nesterov's book, derived and unified a lot of variants of Nesterov's acceleration method using the proximal point method proposed by Rockefeller. 
 
         
-        Nesterov's derivation of the linear convergence rate, and sub-linear convergences rate, were completed in theorem 2.2.2, based on the results of lemma 2.2.4. 
-        We emphasize that in Nesterov's writing, his derivation of linear and sub-linear convergence of the function objective were done in lemma 2.2.4, without the assumption of a minimizer, and for Lipschitz smooth function with and without strong convexity. 
-        Amir Beck's book had the algorithm V-FISTA presented in 10.7.7, it's an algorithm that is exactly the same as Nesterov's algorithm: 2.2.22, with the addition of a proximal operator. 
-        \begin{algorithm}\label{alg:V-FISTA}
-        \begin{algorithmic}[1]
-            \STATE{\textbf{Input: }($f, g, x^{(0)}$)}
-        \end{algorithmic}\caption{V-FISTA}
-        \end{algorithm}
+
+
+        
 
         
 

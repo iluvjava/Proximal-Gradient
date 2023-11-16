@@ -108,15 +108,52 @@ C.~An, H.-N. Wu, and X.~Yuan, ``Enhanced total variation minimization for
   \url{http://arxiv.org/abs/2110.06754}
 \BIBentrySTDinterwordspacing
 
+\bibitem{nesterov_lectures_2018}
+\BIBentryALTinterwordspacing
+Y.~Nesterov, \emph{Lectures on {Convex} {Optimization}}, ser. Springer
+  {Optimization} and {Its} {Applications}.\hskip 1em plus 0.5em minus
+  0.4em\relax Cham: Springer International Publishing, 2018, vol. 137.
+  [Online]. Available: \url{http://link.springer.com/10.1007/978-3-319-91578-4}
+\BIBentrySTDinterwordspacing
+
 \bibitem{nesterov_lecture_2018}
 \BIBentryALTinterwordspacing
-Y.~Nesterov, ``\BIBforeignlanguage{en}{Lecture on {Convex} {Optimizations}
-  {Chapter} 2, {Smooth} {Convex} {Optimization}},'' in
+------, ``\BIBforeignlanguage{en}{Lecture on {Convex} {Optimizations} {Chapter}
+  2, {Smooth} {Convex} {Optimization}},'' in
   \emph{\BIBforeignlanguage{en}{Lectures on {Convex} {Optimization}}}, ser.
   Springer {Optimization} and {Its} {Applications}, Y.~Nesterov, Ed.\hskip 1em
   plus 0.5em minus 0.4em\relax Cham: Springer International Publishing, 2018,
   pp. 59--137. [Online]. Available:
   \url{https://doi.org/10.1007/978-3-319-91578-4_2}
+\BIBentrySTDinterwordspacing
+
+\bibitem{alamo_restart_2019}
+\BIBentryALTinterwordspacing
+T.~Alamo, P.~Krupa, and D.~Limon, ``Restart {FISTA} with {Global} {Linear}
+  {Convergence},'' Dec. 2019, arXiv:1906.09126 [math]. [Online]. Available:
+  \url{http://arxiv.org/abs/1906.09126}
+\BIBentrySTDinterwordspacing
+
+\bibitem{aujol_fista_2022}
+\BIBentryALTinterwordspacing
+J.-F. Aujol, C.~H. Dossal, H.~Labarrière, and A.~Rondepierre, ``{FISTA}
+  restart using an automatic estimation of the growth parameter,'' May 2022.
+  [Online]. Available: \url{https://hal.science/hal-03153525}
+\BIBentrySTDinterwordspacing
+
+\bibitem{aujol_parameter-free_2023}
+\BIBentryALTinterwordspacing
+J.-F. Aujol, L.~Calatroni, C.~Dossal, H.~Labarrière, and A.~Rondepierre,
+  ``\BIBforeignlanguage{en}{Parameter-{Free} {FISTA} by {Adaptive} {Restart}
+  and {Backtracking}},'' \emph{\BIBforeignlanguage{en}{arXiv.org}}, Jul. 2023.
+  [Online]. Available: \url{https://arxiv.org/abs/2307.14323v1}
+\BIBentrySTDinterwordspacing
+
+\bibitem{ahn_understanding_2022}
+\BIBentryALTinterwordspacing
+K.~Ahn and S.~Sra, ``Understanding {Nesterov}'s {Acceleration} via {Proximal}
+  {Point} {Method},'' Jun. 2022, arXiv:2005.08304 [cs, math]. [Online].
+  Available: \url{http://arxiv.org/abs/2005.08304}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
