@@ -73,67 +73,196 @@
     showstringspaces = false,
 }
 
-\title{Generic Report}
-\author{Name of the Author}
+\title{MATH 590 2023 FALL REPORT}
+\author{HONGDA LI}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-    What is life? Why are we here? Where did we come from?
+    In this paper we review the paper written by Walkington \cite{noel_nesterovs_nodate} on the topic of proximal gradient with Nesterov accelerations. 
+    We compare the performance of FISTA method and some of its variants with numerical experiments on the total variation minimization problem, in addition we propose a heuristic estimation of strong convexity parameter and demonstrate that it converges faster when applied. 
+    We give literature review on the frontier theoretical development on the FISTA algorithm. 
+    We correct  one misconception occured in Walkington \cite{noel_nesterovs_nodate} regarding Nesterov's proof of lower bound on the optimality of first order algorithms.  
+    We present a better proof of linear convergence of FISTA under strong convexity assumption from Beck \cite[theorem 10.7.7]{beck_first-order_nodate} by eliminating an identity used in the their proof. 
 \end{abstract}
 
 
 \section{Introduction}
-    This is an introduction. 
+    In this section, We present and model the problem of denoising one dimension signal to motivate the use of Accelerated Gradient with smooth, non-sooth composite objective function. 
+    The following content are mostly summarized from Walkington \cite{noel_nesterovs_nodate}, section 1, and section 4. They are supplemented by my own writings. 
 
-\section{Preliminaries}\label{sec:preliminaries}
-    \hyperref[sec:preliminaries]{This} is the preliminary (hyperref without text labeling). 
-    
-\section{Blah Blah Bleeeh}
-    This is the blah blah bleeeh section. 
-    \subsection{Blah Blah Blah Bleeh Bleeh Bleeh}
-    Check out this cool Bibtext ref \cite[this]{texbook}, woooooooooah, also it's in plain style. For some mind altering psychodelic, read \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} for the experience. For some brain expanding julia code, read \hyperref[code:brain_expand]{brain expanding julia code}. 
-    \begin{algorithm}
-        \begin{algorithmic}[t]
-            \STATE{\textbf{Input: $X^{(t)}$}}
-            \STATE{$Y^{(t)} \sim q (\cdot | X^{(t)})$}
-            \STATE{
-                $ 
-                \rho(x, y) := 
-                \min\left\lbrace
-                    \frac{f(y)}{f(x)}\frac{q(x|y)}{q(y|x)}, 1
-                \right\rbrace
-                $ 
-            }
-            \STATE{
-                $
-                X^{(t + 1)} := 
-                \begin{cases}
-                    Y^{(t)} & \text{w.p}:  \rho(X^{(t)}, Y^{(t)})
-                    \\
-                    X^{(t)} &  \text{otherwise}
-                \end{cases}$
-            }
-        \end{algorithmic}
-        \caption{Metropolis Chain}
-        \label{alg:mhc}
-    \end{algorithm}
-    \label{code:brain_expand}
-    \lstinputlisting[language=julia, basicstyle=\ttfamily\scriptsize,numbers=left]{Code/juliacode.jl}
-    
+    \subsection{Modeling for Signal Denoising in One Dimension}
+        Let a one dimensional singal be $u: \mathbb [0, 1]\mapsto \mathbb R$ and $u$ experiences absolute continuity. 
+        This class of absolutely continuous function can model discrete signal because digital signal are piecewise constant. 
+        Let $\hat u$ denotes an observation of $u$ corrupted by noise. 
+        The denoised signal is the minimizer of f(u) defined  as
+        \[
+            f(u) = \int_0^1 \frac{1}{2} 
+            (u - \hat u)^2 + \alpha |u'|dt. 
+        \]
+        A practical approach on modern computing devices would necessitate discritization of the integral. 
+        We use trapzidal rule and second order forward difference for the derivative. 
+        Let $\hat u \in \mathbb R^{N+1}$, a vector in the form of $\hat u = [\hat u_0\; \cdots \; \hat u_{N}]$, let $t_0<  \cdots <t_N$ be a sequence of time corresponded to each observation of $\hat u_i$. 
+        The time intervals are $h_i = t_{i} - t_{i-1}$ for $i=1, \cdots, N$, not necessarily equally spaced, hence the formulation below is slightly more general than Walkington\cite{noel_nesterovs_nodate}. 
+        We derive the approximation of the integral by doing
+        \begin{align*}
+            & \text{Denote } s_i = u_i - \hat u_i, 
+            \\
+            \frac{1}{2}\int_{0}^{1} (u - \hat u)^2 dt + 
+            \alpha \int_0^1 |u'| dt
+            &\approx
+            \frac{1}{2}
+            \sum_{i = 0}^{N}
+            \left(
+                \frac{s_i^2 + s_{i + 1}^2}{2}
+            \right)h_{i + 1}
+            + 
+            \alpha
+            \sum_{i = 1}^{N}
+            \left|
+                \frac{u_{i} - u_{i - 1}}{h_{i + 1}}
+            \right|
+            \\
+            & \triangleright\; \text{let } 
+            C\in \mathbb R^{N\times (N + 1)} \text{ be upper bi-diagonal with }(1, -1)
+            \\
+            &= \frac{1}{2}\left(
+                \frac{s_0^2h_1}{2} + \frac{s_N^2h_N}{2}
+                + 
+                \sum_{i = 1}^{N - 1}s_i^2 h_i
+            \right) + \alpha\Vert Cu\Vert_1
+            \\
+            & 
+            \triangleright \; \text{using } D\in \mathbb R^{N \times (N + 1)},
+            \\
+            & \triangleright\; D := \text{diag}(h_1/2, h_1, h_2, \cdots, h_N, h_N/2)
+            \\
+            &= 
+            \frac{1}{2}\langle u - \hat u, D(u - \hat u)\rangle + \alpha \Vert Cu\Vert_1. 
+        \end{align*}
+    The above formulation suggests smooth, non-smooth additive composite objective for $f(u)$. 
+    This type of optimization method can be solved via the Proximal Gradient method and its variants. 
+    Unfortunately the non-smooth part $\alpha\Vert Cu\Vert_1$ presents computational difficulty if matrix $C$ is unfriendly for proximal resolvent operator. 
+    One way to bypass the difficulty involves reformulating with $p = Cu$, and solve the dual problem. 
+    This approach is possible when $D$ is positive semi-definite, which in our case, it is. 
+    \subsection*{Dual Reformulation}
+        Let $p = Cu$, $C\in \mathbb R^{(N + 1)\times N}$ with $D \in \mathbb R^{(N + 1)\times (N + 1)}$, we reformulate it into 
+        \[
+            \min_{u\in \mathbb R^{N + 1}}     
+            \left\lbrace
+                \left.
+                    \underbrace{\frac{1}{2}\langle (u - \hat u), D(u - \hat u)}_{f(u)}\rangle 
+                    + 
+                    \underbrace{\alpha \Vert p\Vert_1}_{h(p)}
+                \right| 
+                p = Cu
+            \right\rbrace, 
+        \]
+        producing Lagrangian of the form 
+        \[
+            \mathcal L((u, p), \lambda) = 
+            f(u) + h(p) + \langle \lambda, p - Cu\rangle. 
+        \]
+        The dual is
+        \begin{align*}
+            g(\lambda) &:= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
+            \left\lbrace
+                \mathcal L{(u, p), \lambda}
+            \right\rbrace
+            \\
+            &= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
+            \left\lbrace
+                f(u) + h(p) + \langle \lambda, p - Cu\rangle
+            \right\rbrace
+            \\
+            &= 
+            -f^\star (-C^T\lambda) - h^\star(p). 
+        \end{align*}
+        With the assumption that $D$ is positive definite, we have 
+        \[
+            g(\lambda) = -\frac{1}{2}    \Vert C^T\lambda\Vert^2_{D^{-1}} - 
+            \langle \hat u, C^T \lambda\rangle - 
+            \delta_{[-\alpha, \alpha]^N}(p). 
+        \]
+        Observe that the above admit hyper box indicator function that makes the resolvent friendlier because proximal operator of indicator is projection, in the case of projecting onto hyper box, the operator is simple. 
+        Given dual variable $\lambda$, primal is obtained by 
+        \begin{align*}
+            u &= \text{argmin}_u \mathcal L((u, p), \lambda) 
+            \\
+            \partial_u \mathcal L((u, p), \lambda) &= D(u - \hat u) - C^T\lambda = \mathbf 0
+            \\
+            \implies u &= \hat u + D^{-1}C^T\lambda. 
+        \end{align*}
+        At this point, we had a formulation such that, solving $-g(u)$ is an easy task with the smooth non-smooth additive objective, and obtaining the primal solution is simple as well since $D^{-1}$ is a diagonal matrix. 
+    \subsection{Algorithmic Approach}
+        The dual objective is a strongly convex and Lipschitz smooth function because of the norm induced by the positive definite matrix $D^{-1}$. 
+        It's in a form where FISTA propsed by \cite{beck_fast_2009-1} can solve with a convergence rate of $\mathcal O(1/k^2)$ on the objective value of the function. 
+        However, it's highlighted in Walkington\cite{noel_nesterovs_nodate}, the proximal gradient method without acceleration achieves $\mathcal O((1 - 1/\kappa)^k)$ convergence rate. 
+        The parameter $\kappa$ is the condition number, in this case it would be $L/\alpha$, where L is the lipschitz smooth constant of $g$ and $\alpha$ is the strong convexity constant for $g$. 
+        We emphasize here that for the class of strongly convex objectives, Proximal Gradient without acceleration has a better theoretical convergence results than the accelerated version. 
+        This counter intuitive fact sparks the discussion in this paper on the variants of FISTA in hope of providing some insights on the reasons for Nesterove's momentum based method's inability to adapt the convergence rate with objective has strong convexity. 
+
+    \subsection{Outline of the Paper}
+        In 
+        
         
 
+
+\section{Literatures Review}\label{sec:Literatures}
+    
+    \subsection{Subsections}
+\section{Nesterov's Lower Bound Clarified}
+    \subsection{title}
+
+\section{A Better Proof for FISTA Under Strong Convexity}
+    
+    \subsection{Subsection}
+
+    % Check out this cool Bibtext ref \cite[this]{texbook}, woooooooooah, also it's in plain style. For some mind altering psychodelic, read \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} for the experience. For some brain expanding julia code, read \hyperref[code:brain_expand]{brain expanding julia code}. 
+    % \begin{algorithm}
+    %     \begin{algorithmic}[t]
+    %         \STATE{\textbf{Input: $X^{(t)}$}}
+    %         \STATE{$Y^{(t)} \sim q (\cdot | X^{(t)})$}
+    %         \STATE{
+    %             $ 
+    %             \rho(x, y) := 
+    %             \min\left\lbrace
+    %                 \frac{f(y)}{f(x)}\frac{q(x|y)}{q(y|x)}, 1
+    %             \right\rbrace
+    %             $ 
+    %         }
+    %         \STATE{
+    %             $
+    %             X^{(t + 1)} := 
+    %             \begin{cases}
+    %                 Y^{(t)} & \text{w.p}:  \rho(X^{(t)}, Y^{(t)})
+    %                 \\
+    %                 X^{(t)} &  \text{otherwise}
+    %             \end{cases}$
+    %         }
+    %     \end{algorithmic}
+    %     \caption{Metropolis Chain}
+    %     \label{alg:mhc}
+    % \end{algorithm}
+    % \label{code:brain_expand}
+    % \lstinputlisting[language=julia, basicstyle=\ttfamily\scriptsize,numbers=left]{Code/juliacode.jl}
+
+    
+\section{A Modified FISTA Under Strong Convexity}
+    This is the Bleeh Bleeh Bleeh I am not Listening section.         
+
+\section{Numerical Experiments}
+
 \appendix
-\section{Bleeh Bleeh Bleeh I am not Listening}
-    This is the Bleeh Bleeh Bleeh I am not Listening section. 
-
-\section{This section is in another .tex file} 
-    \input{Sections/section.tex}
 
 
+\section{Appendix} 
+    \input{Sections/appendix.tex}
 
-\bibliographystyle{plain}
+
+
+\bibliographystyle{IEEEtran}
 \bibliography{refs.bib}
 
 
