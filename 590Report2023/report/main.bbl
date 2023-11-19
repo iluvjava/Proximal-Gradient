@@ -118,14 +118,6 @@ C.~An, H.-N. Wu, and X.~Yuan, ``Enhanced total variation minimization for
   \url{http://arxiv.org/abs/2110.06754}
 \BIBentrySTDinterwordspacing
 
-\bibitem{nesterov_lectures_2018}
-\BIBentryALTinterwordspacing
-Y.~Nesterov, \emph{Lectures on {Convex} {Optimization}}, ser. Springer
-  {Optimization} and {Its} {Applications}.\hskip 1em plus 0.5em minus
-  0.4em\relax Cham: Springer International Publishing, 2018, vol. 137.
-  [Online]. Available: \url{http://link.springer.com/10.1007/978-3-319-91578-4}
-\BIBentrySTDinterwordspacing
-
 \bibitem{chambolle_convergence_2015}
 \BIBentryALTinterwordspacing
 A.~Chambolle and C.~Dossal, ``\BIBforeignlanguage{en}{On the {Convergence} of
@@ -133,21 +125,6 @@ A.~Chambolle and C.~Dossal, ``\BIBforeignlanguage{en}{On the {Convergence} of
   {Algorithm}”},'' \emph{\BIBforeignlanguage{en}{Journal of Optimization
   Theory and Applications}}, vol. 166, no.~3, pp. 968--982, Sep. 2015.
   [Online]. Available: \url{https://doi.org/10.1007/s10957-015-0746-4}
-\BIBentrySTDinterwordspacing
-
-\bibitem{aujol_fista_2022}
-\BIBentryALTinterwordspacing
-J.-F. Aujol, C.~H. Dossal, H.~Labarrière, and A.~Rondepierre, ``{FISTA}
-  restart using an automatic estimation of the growth parameter,'' May 2022.
-  [Online]. Available: \url{https://hal.science/hal-03153525}
-\BIBentrySTDinterwordspacing
-
-\bibitem{aujol_parameter-free_2023}
-\BIBentryALTinterwordspacing
-J.-F. Aujol, L.~Calatroni, C.~Dossal, H.~Labarrière, and A.~Rondepierre,
-  ``\BIBforeignlanguage{en}{Parameter-{Free} {FISTA} by {Adaptive} {Restart}
-  and {Backtracking}},'' \emph{\BIBforeignlanguage{en}{arXiv.org}}, Jul. 2023.
-  [Online]. Available: \url{https://arxiv.org/abs/2307.14323v1}
 \BIBentrySTDinterwordspacing
 
 \bibitem{alamo_gradient_2019}
@@ -164,6 +141,21 @@ O.~Fercoq and Z.~Qu, ``Adaptive restart of accelerated gradient methods under
   local quadratic growth condition,'' \emph{IMA Journal of Numerical Analysis},
   vol.~39, no.~4, pp. 2069--2095, Oct. 2019, arXiv:1709.02300 [math]. [Online].
   Available: \url{http://arxiv.org/abs/1709.02300}
+\BIBentrySTDinterwordspacing
+
+\bibitem{aujol_fista_2022}
+\BIBentryALTinterwordspacing
+J.-F. Aujol, C.~H. Dossal, H.~Labarrière, and A.~Rondepierre, ``{FISTA}
+  restart using an automatic estimation of the growth parameter,'' May 2022.
+  [Online]. Available: \url{https://hal.science/hal-03153525}
+\BIBentrySTDinterwordspacing
+
+\bibitem{aujol_parameter-free_2023}
+\BIBentryALTinterwordspacing
+J.-F. Aujol, L.~Calatroni, C.~Dossal, H.~Labarrière, and A.~Rondepierre,
+  ``\BIBforeignlanguage{en}{Parameter-{Free} {FISTA} by {Adaptive} {Restart}
+  and {Backtracking}},'' \emph{\BIBforeignlanguage{en}{arXiv.org}}, Jul. 2023.
+  [Online]. Available: \url{https://arxiv.org/abs/2307.14323v1}
 \BIBentrySTDinterwordspacing
 
 \bibitem{su_differential_2015}
@@ -198,6 +190,37 @@ I.~Necoara, Y.~Nesterov, and F.~Glineur, ``\BIBforeignlanguage{en}{Linear
 K.~Ahn and S.~Sra, ``Understanding {Nesterov}'s {Acceleration} via {Proximal}
   {Point} {Method},'' Jun. 2022, arXiv:2005.08304 [cs, math]. [Online].
   Available: \url{http://arxiv.org/abs/2005.08304}
+\BIBentrySTDinterwordspacing
+
+\bibitem{jang_computer-assisted_2023}
+\BIBentryALTinterwordspacing
+U.~Jang, S.~D. Gupta, and E.~K. Ryu, ``Computer-{Assisted} {Design} of
+  {Accelerated} {Composite} {Optimization} {Methods}: {OptISTA},'' May 2023,
+  arXiv:2305.15704 [math]. [Online]. Available:
+  \url{http://arxiv.org/abs/2305.15704}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nesterov_lectures_2018}
+\BIBentryALTinterwordspacing
+Y.~Nesterov, \emph{Lectures on {Convex} {Optimization}}, ser. Springer
+  {Optimization} and {Its} {Applications}.\hskip 1em plus 0.5em minus
+  0.4em\relax Cham: Springer International Publishing, 2018, vol. 137.
+  [Online]. Available: \url{http://link.springer.com/10.1007/978-3-319-91578-4}
+\BIBentrySTDinterwordspacing
+
+\bibitem{bubeck_convex_2015}
+\BIBentryALTinterwordspacing
+S.~Bubeck, ``Convex {Optimization}: {Algorithms} and {Complexity},'' Nov. 2015,
+  arXiv:1405.4980 [cs, math, stat]. [Online]. Available:
+  \url{http://arxiv.org/abs/1405.4980}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nesterov_introductory_2004}
+\BIBentryALTinterwordspacing
+Y.~Nesterov, \emph{Introductory {Lectures} on {Convex} {Optimization}}, ser.
+  Applied {Optimization}, P.~M. Pardalos and D.~W. Hearn, Eds.\hskip 1em plus
+  0.5em minus 0.4em\relax Boston, MA: Springer US, 2004, vol.~87. [Online].
+  Available: \url{http://link.springer.com/10.1007/978-1-4419-8853-9}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

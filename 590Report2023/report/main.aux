@@ -47,10 +47,6 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2}Literatures Review}{3}{section.2}\protected@file@percent }
 \newlabel{sec:Literatures}{{2}{3}{Literatures Review}{section.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Total Variation Minimizations}{3}{subsection.2.1}\protected@file@percent }
-\citation{noel_nesterovs_nodate}
-\citation{nesterov_lectures_2018}
-\citation{beck_first-order_nodate}
-\citation{nesterov_lectures_2018}
 \citation{beck_fast_2009-1}
 \citation{chambolle_convergence_2015}
 \citation{beck_first-order_nodate}
@@ -59,16 +55,16 @@
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Generic FISTA\relax }}{4}{algorithm.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{alg:generic_FISTA}{{1}{4}{Generic FISTA\relax }{algorithm.1}{}}
-\citation{aujol_fista_2022}
-\citation{aujol_parameter-free_2023}
-\citation{alamo_gradient_2019}
 \citation{alamo_gradient_2019}
 \citation{fercoq_adaptive_2019}
+\citation{aujol_fista_2022}
+\citation{aujol_parameter-free_2023}
 \citation{su_differential_2015}
 \citation{attouch_rate_2016}
 \citation{nesterov_lecture_2018}
 \citation{necoara_linear_2019}
 \citation{ahn_understanding_2022}
+\citation{jang_computer-assisted_2023}
 \citation{nesterov_lectures_2018}
 \citation{noel_nesterovs_nodate}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Nesterov's Lower Bound Clarified}{5}{section.3}\protected@file@percent }
@@ -79,21 +75,26 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Lower Complexity Bounds for $L$-Lipschitz Smooth Function}{6}{subsection.3.2}\protected@file@percent }
 \newlabel{thm:nesterov_lower_bnd}{{3.2.1}{6}{Nesterov's Claim of Lower Bound}{theorem.3.2.1}{}}
 \citation{noel_nesterovs_nodate}
+\citation{bubeck_convex_2015}
+\citation{nesterov_introductory_2004}
+\citation{attouch_rate_2016}
+\newlabel{thm:walkington_lowerbound}{{3.2.2}{7}{Walkington's Claim of Lower Bound}{theorem.3.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Discussion}{7}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}FISTA Under Strong Convexity}{7}{section.4}\protected@file@percent }
+\newlabel{sec:fista_strong_convexity}{{4}{7}{FISTA Under Strong Convexity}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Subsection}{7}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Adding Non-smoothness in Nesterov's Generic Method}{7}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Subsection}{7}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Numerical Experiments}{7}{section.6}\protected@file@percent }
+\newlabel{sec:numerics}{{6}{7}{Numerical Experiments}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Subsection}{7}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Appendix}{7}{appendix.A}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{refs.bib}
 \bibcite{noel_nesterovs_nodate}{1}
 \bibcite{beck_first-order_nodate}{2}
 \bibcite{nesterov_lecture_2018}{3}
 \bibcite{beck_fast_2009-1}{4}
-\newlabel{thm:walkington_lowerbound}{{3.2.2}{7}{Walkington's Claim of Lower Bound}{theorem.3.2.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}FISTA Under Strong Convexity}{7}{section.4}\protected@file@percent }
-\newlabel{sec:fista_strong_convexity}{{4}{7}{FISTA Under Strong Convexity}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Subsection}{7}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Numerical Experiments}{7}{section.5}\protected@file@percent }
-\newlabel{sec:numerics}{{5}{7}{Numerical Experiments}{section.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Appendix}{7}{appendix.A}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Subsection}{7}{subsection.A.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Cute Subsection}{7}{subsection.A.2}\protected@file@percent }
 \bibcite{beck_fast_2009}{5}
 \bibcite{rudin_nonlinear_1992}{6}
 \bibcite{goldstein_field_2016}{7}
@@ -101,14 +102,19 @@
 \bibcite{fornasier_introduction_2010}{9}
 \bibcite{an_enhanced_2023}{10}
 \bibcite{an_springback_2022}{11}
-\bibcite{nesterov_lectures_2018}{12}
-\bibcite{chambolle_convergence_2015}{13}
-\bibcite{aujol_fista_2022}{14}
-\bibcite{aujol_parameter-free_2023}{15}
-\bibcite{alamo_gradient_2019}{16}
-\bibcite{fercoq_adaptive_2019}{17}
-\bibcite{su_differential_2015}{18}
-\bibcite{attouch_rate_2016}{19}
-\bibcite{necoara_linear_2019}{20}
-\bibcite{ahn_understanding_2022}{21}
+\bibcite{chambolle_convergence_2015}{12}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Subsection}{8}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Cute Subsection}{8}{subsection.A.2}\protected@file@percent }
+\bibcite{alamo_gradient_2019}{13}
+\bibcite{fercoq_adaptive_2019}{14}
+\bibcite{aujol_fista_2022}{15}
+\bibcite{aujol_parameter-free_2023}{16}
+\bibcite{su_differential_2015}{17}
+\bibcite{attouch_rate_2016}{18}
+\bibcite{necoara_linear_2019}{19}
+\bibcite{ahn_understanding_2022}{20}
+\bibcite{jang_computer-assisted_2023}{21}
+\bibcite{nesterov_lectures_2018}{22}
+\bibcite{bubeck_convex_2015}{23}
+\bibcite{nesterov_introductory_2004}{24}
 \gdef \@abspage@last{9}

@@ -254,11 +254,11 @@
         For a detailed exposition of mathematical theories regarding variational analysis on different types of TV problems and statistical inferences-based interpretations of the TV regularization term, consult the work by Chambolle et al.\cite{fornasier_introduction_2010}.
         For frontier work of applying non-convex penalty term and its theoretical guarantee consult \cite{an_enhanced_2023}, \cite{an_springback_2022}. 
     \subsection*{Variants of FISTA}
-        Walkington's writing on the method of V-FISTA and accelerated gradient\cite[section 4, section 3]{noel_nesterovs_nodate} consists of proofs that are too short and uninformative for good understanding. 
-        The frustration motivates us to look for better proofs of the algorithm's convergence rate in other literature. 
-        It was a surprise that Walkington did not cite Nesterov's new book\cite{nesterov_lectures_2018}. 
-        We contextualize Walkington's approach with Amir Beck's book\cite{beck_first-order_nodate} and Nesterov's book \cite{nesterov_lectures_2018}. 
-        \par
+        % Walkington's writing on the method of V-FISTA and accelerated gradient\cite[section 4, section 3]{noel_nesterovs_nodate} consists of proofs that are too short and uninformative for good understanding. 
+        % The frustration motivates us to look for better proofs of the algorithm's convergence rate in other literature. 
+        % It was a surprise that Walkington did not cite Nesterov's new book in 2018\cite{nesterov_lectures_2018}. 
+        % We contextualize Walkington's approach with Amir Beck's book\cite{beck_first-order_nodate} and Nesterov's book \cite{nesterov_lectures_2018}. 
+        % \par
         Different variants of FISTA differ by the sequence involved for their momentum method. 
         Choosing different parameters in \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} produces variants of FISTA. 
         \begin{algorithm}[H]
@@ -275,12 +275,14 @@
             \label{alg:generic_FISTA}
         \end{algorithm}
         The scope of \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} considers the additive composition of convex smooth and nonsmooth $f = g + h$ function with $g$ being a $L$-smooth function. 
-        Chaning $\mathcal T_L, \theta_{k + 1}$ and $\mathcal S$, produce different variants of FISTA. 
+        Changing $\mathcal T_L, \theta_{k + 1}$ and $\mathcal S$, produce different variants of FISTA. 
         \begin{itemize}
             \item [1.] Original FISTA proposed by Beck \cite{beck_fast_2009-1} considers $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, with $\mathcal T_L x = \text{prox}_{L^{-1}h}(x  - L^{-1}\nabla g(x))$ and $t_0 = 1$. 
-            This achieves $\mathcal O(1/k^2)$ on the objective value. 
+            It achieves $\mathcal O(1/k^2)$ on the objective value. 
             Our literature review didn't discover proofs for the convergence of the iterates. We also didn't find proofs for a convergence rate faster than $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity. 
-            \item [2.] A version of FISTA where the iterates have weak convergence was proved in Chambolle, Dossal \cite{chambolle_convergence_2015}. It's a variant where $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
+            \item [2.] 
+            This is a variant where $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
+            Proved in Chambolle, Dossal \cite{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit weak convergence. $T_L$ is the same as (1.). 
             \item [3.] Using $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$ where $\kappa = L/\sigma$, with $\sigma$ being the strong convexity constant produces V-FISTA in Beck \cite[10.7.7]{beck_first-order_nodate}\cite[3.3]{noel_nesterovs_nodate}. $\mathcal T_L$ is the same as (1.). 
             \item [4.] A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla f(x^{(k + 1)}), f(x^{(k)})$ using 
             \[
@@ -301,15 +303,17 @@
         For our problem posed in section \ref*{sec:preliminaries}, the V-FISTA algorithm variant (3.), when applied to the dual objective, achieves a convergence rate of $\mathcal O((1 - 1/\sqrt{\kappa})^k)$ for the function objective. 
         For larger $\kappa$, this produces a significantly better convergence rate than gradient descent, which is $\mathcal O((1 - 1/\kappa)^k)$, and FISTA, which is $\mathcal O(1/k^2)$. 
         \par
-        Variants (3.) is simple; unfortunately, obtaining $\sigma$ in itself could be prohibitively expensive and require knowledge about the Hessian. 
+        Variants (3.) is simple; unfortunately, obtaining $\sigma$ in itself could be prohibitively expensive and require knowledge about the inverse of hessian (in the case of our TV Minimization problem). 
         Underestimation of $\sigma$ slows down the convergence rate. 
         This observation sparks research interest in a method that achieves approximately $\mathcal O((1 - 1/\sqrt{k})^k)$ linear convergence rate for strongly convex objectives and still retains $\mathcal O(1/k^2)$ for Lipschitz-smooth functions in general. 
         One of the other interests is designing a unified theoretical framework to describe all variants of APG. 
         \par
-        To address the first issue, Aujol et al.\cite{aujol_fista_2022} proposed an automatic restart algorithm that achieves faster convergence without knowing the prior strong convexity (or weaker quadratic growth condition) parameter $\sigma$. 
+        To address the first issue, people use the idea of restarting FISTA.
+        Earlier attempts proved an asymptotic fast linear convergence rate under quadratic growth conditions by triggering the restart of FISTA based on the gradient mapping norm. 
+        See \cite{alamo_gradient_2019}\cite{fercoq_adaptive_2019}. 
+        Aujol et al.\cite{aujol_fista_2022} proposed an automatic restart algorithm that achieves fast linear convergence without knowing the prior strong convexity (or weaker quadratic growth condition) parameter $\sigma$. 
+        Their bound is not asymptotic. 
         Later, they developed the idea into a parameter-free algorithm in their work \cite{aujol_parameter-free_2023}. 
-        Earlier attempts proved a fast linear convergence rate under quadratic growth conditions by triggering the restart of FISTA based on the gradient mapping norm. 
-        See \cite{alamo_gradient_2019}\cite{alamo_gradient_2019}\cite{fercoq_adaptive_2019}. 
         The interests gather around restarting FISTA because spending too much computational effort would be competing against the Proximal Quasi-Newton method, questioning the use of momentum in the first place. 
         \par
         On the theoretical side, Su et al. \cite{su_differential_2015} identifies a second-order differential equation with the exact limit of (1.). 
@@ -319,14 +323,22 @@
         In Nesterov\cite{nesterov_lecture_2018}, he proposed a generic algorithm that can derive variants (1.), (3.), and more using the idea of Estimating Sequences and Functions. 
         He constructed a proof of convergence on his generic algorithm, demonstrating both linear and sub-linear convergence rates (depending on the parameter) on the functions' objective value without assuming the minimizers' existence. 
         For Nesterov's involvement in proving convergence of APG in the non-convex settings, consult \cite{necoara_linear_2019}. 
-        Finally, for a theoretical underpinning of Nesterov's generic method in his book, consult Ahn and Sra\cite{ahn_understanding_2022}. 
+        For a theoretical underpinning of Nesterov's generic method in his book, consult Ahn and Sra\cite{ahn_understanding_2022}. 
         They derived a lot of variants of APGs using the Proximal Point method of Rockafellar and discussed the unified theme of a "similar triangle" behind the Nesterov APG method. 
+        \par
+        Finally, the most recent hardcore idea in theory and practice is from Jang et al. \cite{jang_computer-assisted_2023}. 
+        They squeezed out a constant from the convergence rate of FISTA by formulating the search for a faster algorithm as a QCQP. 
+        They call their algorithm OptISTA. 
+        Their approach is based on the performance estimation problem (PEP). 
 
 
 \section{Nesterov's Lower Bound Clarified}\label{sec:optimal_lower_bound}
     Nesterov discussed his claim of the lower convergence rate for the first-order method on differentiable function in his book\cite{nesterov_lectures_2018}. 
     Walkington\cite{noel_nesterovs_nodate} rephrased his work with one crucial mistake in understanding Nesterov's claim. 
+    \par
+    A precise understanding is required to prevent confusion and lack of forethought in further research.
     We detail Nesterov's claim and provide context for understanding the mistakes in Walkington. 
+    We comment on how the claim relates to other works at the end of the section. 
     \newcommand*{\GAfirst}{\text{GA}^{\text{1st}}} % DEFINE LOCAL COMMANDS
     We use the following notations
     \begin{itemize}
@@ -377,7 +389,8 @@
             For any $1\le k \le 1/2(n - 1)$, for all $x^{(0)}\in \mathbb R^n$, there exists a Lipschitz smooth convex function in $\mathbb R^n$ such that for all algorithm from $\GAfirst$, we have the lower bound for the optimality gap for the function values and its iterates: 
             \[
                 f\left(x^{(k)}\right) - f^* \ge 
-                \frac{3L \Vert x - x^*\Vert^2}{32(k + 1)^2}, \quad \Vert x^{(k)} - x^*\Vert \ge \frac{1}{8} \Vert x^{(0)} - x^*\Vert.     
+                \frac{3L \Vert x - x^*\Vert^2}{32(k + 1)^2}, 
+                \quad \Vert x^{(k)} - x^*\Vert^2 \ge \frac{1}{8} \Vert x^{(0)} - x^*\Vert^2.     
             \]
             Where $x^*$ is the minimizer of $f$, so that $f(x^*) = \inf_{x}f(x)$. 
         \end{theorem}
@@ -419,8 +432,7 @@
             $k$ parameterized $f_k$, which Nesterov did in his proof. 
             We emphasize that $f_k$ is different depending on what $k$ is. 
             In addition, observe that minimizer $x^*$ is assumed to exist. 
-            \par
-            We are unsure how the theorem generalizes to infinite dimension Hilbert space due to the assumption of $x^*$ and the function Nesterov used in his proof. 
+            We believe that the theorem is generalizable to infinite dimensional Hilbert spaces. 
         \end{remark}
         We now quote Walkington \cite[theorem 2.4]{noel_nesterovs_nodate}
         \begin{theorem}[Walkington's Claim of Lower Bound]\label{thm:walkington_lowerbound}
@@ -440,8 +452,20 @@
             where $L$ is the Lipschitz constant of the gradient. 
         \end{theorem}
         \begin{remark}
-
+            \hyperref[thm:walkington_lowerbound]{Theorem \ref*{thm:walkington_lowerbound}} and 
+            \hyperref[thm:nesterov_lower_bnd]{theorem \ref*{thm:nesterov_lower_bnd}} is completely different. 
+            The former claims there exists a single function from $\mathcal F_{L}^{1,1}(\mathcal H)$ introduces the lower bound for all values of $k$, and all algorithms from $\GAfirst$, but the latter didn't claim that. 
+            The difference would remain in infinite dimension Hilbert space if we were to generalize \hyperref[thm:nesterov_lower_bnd]{thorem \ref*{thm:nesterov_lower_bnd}}. 
+            There is no proof after Walkington's claim; we can't know if he had his way of proving the latter claim. 
+            It makes us think it is likely a missed detail in his writing. 
         \end{remark}
+    \subsection{Discussion}
+        Walkington cited Bubeck \cite[thm 3.14]{bubeck_convex_2015}, and Nesterov's old 2004 book\cite{nesterov_introductory_2004} for the lower bound claim. 
+        Bubeck has the correct claim, and it's the same as Nesterov. 
+        Attouch's claim in \cite[thm 1]{attouch_rate_2016} doesn't contradict \hyperref[thm:nesterov_lower_bnd]{theorem \ref*{thm:nesterov_lower_bnd}} because he fixed function $\Phi$ function and the existence of minimizer $x^*$ is not assumed. 
+        
+
+
 
 \section{FISTA Under Strong Convexity}\label{sec:fista_strong_convexity}
     
@@ -476,10 +500,10 @@
     % \label{code:brain_expand}
     % \lstinputlisting[language=julia, basicstyle=\ttfamily\scriptsize,numbers=left]{Code/juliacode.jl}
 
-            
-
+\section{Adding Non-smoothness in Nesterov's Generic Method}
+    \subsection{Subsection}
 \section{Numerical Experiments}\label{sec:numerics}
-    
+    \subsection{Subsection}
 \appendix
 
 \section{Appendix} 

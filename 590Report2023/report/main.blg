@@ -14,47 +14,48 @@ Database file #1: refs.bib
 Warning--empty year in noel_nesterovs_nodate
 Warning--empty year in beck_first-order_nodate
 Warning--empty journal in aujol_fista_2022
+Warning--empty journal in bubeck_convex_2015
 
 Done.
-You've used 21 entries,
+You've used 24 entries,
             4087 wiz_defined-function locations,
-            969 strings with 12172 characters,
-and the built_in function-call counts, 17215 in all, are:
-= -- 1504
-> -- 347
-< -- 145
-+ -- 192
-- -- 55
-* -- 975
-:= -- 2771
-add.period$ -- 44
-call.type$ -- 21
-change.case$ -- 32
+            988 strings with 12766 characters,
+and the built_in function-call counts, 18680 in all, are:
+= -- 1629
+> -- 377
+< -- 146
++ -- 205
+- -- 62
+* -- 1050
+:= -- 3051
+add.period$ -- 50
+call.type$ -- 24
+change.case$ -- 38
 chr.to.int$ -- 330
-cite$ -- 24
-duplicate$ -- 1170
-empty$ -- 1249
-format.name$ -- 72
-if$ -- 3904
+cite$ -- 28
+duplicate$ -- 1281
+empty$ -- 1377
+format.name$ -- 81
+if$ -- 4224
 int.to.chr$ -- 0
-int.to.str$ -- 21
-missing$ -- 195
-newline$ -- 128
-num.names$ -- 25
-pop$ -- 383
+int.to.str$ -- 24
+missing$ -- 220
+newline$ -- 143
+num.names$ -- 30
+pop$ -- 442
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1299
+skip$ -- 1410
 stack$ -- 0
-substring$ -- 817
-swap$ -- 1050
-text.length$ -- 35
+substring$ -- 823
+swap$ -- 1126
+text.length$ -- 36
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 21
-warning$ -- 3
-while$ -- 76
-width$ -- 23
-write$ -- 296
-(There were 3 warnings)
+type$ -- 24
+warning$ -- 4
+while$ -- 80
+width$ -- 26
+write$ -- 331
+(There were 4 warnings)
