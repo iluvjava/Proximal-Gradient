@@ -311,7 +311,7 @@ function RegisterResultsPostProcessing(this::TVMin1D, results::Vector{ProxGradRe
         color=RGBA{Float64}(0, 0, 0, 0.4), 
         legend=:bottomright, 
         label="signal with noise", 
-        title="TV Minimization with α=$(this.beta)"
+        title=L"‖∇u‖_{1}"*" has penalty: $(this.beta)"
         )
     for (j, data) in toplot|>enumerate
         plot!(
