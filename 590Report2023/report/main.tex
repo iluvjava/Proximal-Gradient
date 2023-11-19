@@ -266,7 +266,7 @@
                 \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
                 \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
                 \FOR{$k = 0, 1, \cdots$}
-                    \STATE{$x^{(k + 1)} = \mathcal T_L y^{(k)}$}
+                    \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
                     \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
                     \STATE{Execute subroutine $\mathcal S$. }
                 \ENDFOR
@@ -275,30 +275,34 @@
             \label{alg:generic_FISTA}
         \end{algorithm}
         The scope of \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} considers the additive composition of convex smooth and nonsmooth $f = g + h$ function with $g$ being a $L$-smooth function. 
-        Changing $\mathcal T_L, \theta_{k + 1}$ and $\mathcal S$, produce different variants of FISTA. 
+        Changing $T_L, \theta_{k + 1}$ and $\mathcal S$, produce different variants of FISTA. 
         \begin{itemize}
-            \item [1.] Original FISTA proposed by Beck \cite{beck_fast_2009-1} considers $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, with $\mathcal T_L x = \text{prox}_{L^{-1}h}(x  - L^{-1}\nabla g(x))$ and $t_0 = 1$. 
+            \item [1.] 
+                Original FISTA proposed by Beck \cite{beck_fast_2009-1} considers $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, with $T_L x = \text{prox}_{L^{-1}h}(x  - L^{-1}\nabla g(x))$ and $t_0 = 1$. 
             It achieves $\mathcal O(1/k^2)$ on the objective value. 
             Our literature review didn't discover proofs for the convergence of the iterates. We also didn't find proofs for a convergence rate faster than $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity. 
             \item [2.] 
-            This is a variant where $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
+                This is a variant where $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
             Proved in Chambolle, Dossal \cite{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit weak convergence. $T_L$ is the same as (1.). 
-            \item [3.] Using $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$ where $\kappa = L/\sigma$, with $\sigma$ being the strong convexity constant produces V-FISTA in Beck \cite[10.7.7]{beck_first-order_nodate}\cite[3.3]{noel_nesterovs_nodate}. $\mathcal T_L$ is the same as (1.). 
-            \item [4.] A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla f(x^{(k + 1)}), f(x^{(k)})$ using 
-            \[
-                \sigma \approx \langle \nabla f(x^{(k + 1)}) - \nabla f(x^{(k)}), x^{(k + 1)} - x^{(k)}\rangle/ 
-                \Vert x^{(k + 1)} - x^{(k)}\Vert^2. 
-            \]
+            \item [3.] 
+                Using $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$ where $\kappa = L/\sigma$, with $\sigma$ being the strong convexity constant produces V-FISTA in Beck \cite[10.7.7]{beck_first-order_nodate}\cite[3.3]{noel_nesterovs_nodate}. $T_L$ is the same as (1.). 
+            \item [4.] 
+                A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla f(x^{(k + 1)}), f(x^{(k)})$ using 
+                \[
+                    \sigma \approx \langle \nabla f(x^{(k + 1)}) - \nabla f(x^{(k)}), x^{(k + 1)} - x^{(k)}\rangle/ 
+                    \Vert x^{(k + 1)} - x^{(k)}\Vert^2. 
+                \]
             It yields excellent results for the numerical experiments. 
-            \item [5.] MFISTA in Beck\cite{beck_fast_2009} is produced by adding $\mathcal S$ to be the procedure
-            \[
-                (y^{(k + 1)}, t_{k + 1}) = \begin{cases}
-                    (x^{(k + 1)}, 1) & f(y^{(k + 1)}) > f(x^{(k + 1)}),
-                    \\
-                    (y^{(k + 1)}, t_{k + 1}) & \text{else}. 
-                \end{cases}
-            \]
-            This condition asserts a monotone decrease in the objective value. If the objective with momentum increases, it resets the momentum for the next iteration.  It has a convergence rate of $\mathcal O(1/k^2)$ back then. Our review of the literature didn't confirm the existence of a proof where it has a faster convergence than $\mathcal O((1 - 1/\kappa)^k)$ under the presence of strong convexity. 
+            \item [5.] 
+                MFISTA in Beck\cite{beck_fast_2009} is produced by adding $\mathcal S$ to be the procedure
+                \[
+                    (y^{(k + 1)}, t_{k + 1}) = \begin{cases}
+                        (x^{(k + 1)}, 1) & f(y^{(k + 1)}) > f(x^{(k + 1)}),
+                        \\
+                        (y^{(k + 1)}, t_{k + 1}) & \text{else}. 
+                    \end{cases}
+                \]
+                This condition asserts a monotone decrease in the objective value. If the objective with momentum increases, it resets the momentum for the next iteration.  It has a convergence rate of $\mathcal O(1/k^2)$ back then. Our review of the literature didn't confirm the existence of a proof where it has a faster convergence than $\mathcal O((1 - 1/\kappa)^k)$ under the presence of strong convexity. 
         \end{itemize}
         For our problem posed in section \ref*{sec:preliminaries}, the V-FISTA algorithm variant (3.), when applied to the dual objective, achieves a convergence rate of $\mathcal O((1 - 1/\sqrt{\kappa})^k)$ for the function objective. 
         For larger $\kappa$, this produces a significantly better convergence rate than gradient descent, which is $\mathcal O((1 - 1/\kappa)^k)$, and FISTA, which is $\mathcal O(1/k^2)$. 
@@ -465,8 +469,90 @@
         
 
 \section{FISTA Under Strong Convexity}\label{sec:fista_strong_convexity}
-    
-    \subsection{Subsection}
+    In this section, we show several claims on the convergence proof of the algorithm of V-FISTA. 
+    Beck \cite[10.7.7]{beck_first-order_nodate} inspires the works. 
+    We removed one identity from their proof to reveal more transparency and interpretability. 
+    The original author intends to convince the reader with as few words as possible. 
+    We intend to educate and share thoughts. 
+    We present the essential claims here to expedite understanding of the big picture. 
+    The proofs with details are in the appendix. 
+    \subsection{Setting up the Stage}
+        Starting with \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}}, $\theta_k = (t_k - 1)/(t_k + 1)$. 
+        We consider $f = g + h$, $g$ is Lipschitz smooth with constant $L$, and strongly convex with constant $\sigma$. 
+        $h$ is convex. 
+        The parameters, $\theta_k$, and $t_k$ will be determined as we review the proof. 
+        $t_{0} = 1$ is the base case for $t_k$ sequence; it represents the fact that there are no accelerations on the first step of the algorithm; its value depends on what we want it to be. 
+        \par
+        Here is a list of quantities we constructed for a better exposition. 
+        \begin{itemize}
+            \item [1.] $s^{(k)} = x^{(k)} - x^{(k - 1)}$, the velocity vector,
+            for all $k\ge 1$. 
+            \item [2.] $e^{(k)} = x^{(k)} - \bar x$, the error vector at the kth iteration, for $k \ge 0$. 
+            \item [3.] $\theta_k = (t_k -1)/(t_k + 1)$, which is the momentum step size. 
+            \item [4.] $u^{(k)} = \bar x + t_{k}(x^{(k - 1)} - x^{(k)}) - x^{(k - 1)}$, the error term extrapolated with the velocity. We take $u^{(0)} = \bar x - x^{(0)}$. 
+            \item [5.] $\delta_k = f(x^{(k)}) - f_*$, with $f_* = f(\bar x) = \inf_x f(x)$. 
+            \item [6.] The quantity $R_k$ plays a crucial role in the proof; it's
+            $$
+                R_k = 
+                \frac{\sigma(t_{k + 1} - 1)}{2}
+                \left\Vert
+                    x^{(k)} - \bar x
+                \right\Vert^2 
+                - 
+                \frac{L - \sigma}{2}
+                \left\Vert
+                    \bar x + t_{k + 1}\left( x^{(k)} - y^{(k)}\right) - x^{(k)}
+                \right\Vert^2
+            $$
+            \item [7.] $\kappa = L/\sigma$, the condition number, it would be that $\kappa \ge 0$. 
+            \item [8.] $q = \sigma/L$, the reciprical of the condition number. It would be that $q \in (0, 1)$. 
+        \end{itemize}
+    \subsection{Convergence Claim}
+        \begin{lemma}\label{lemma:convergence-prep}
+            If there exists a sequence $(t_k)_{k\in \mathbb N}, C_k$ such that 
+            \begin{align}
+                \begin{cases}
+                    \frac{C_k}{t_{k + 1}^2} = \frac{L(1 - t^{-1}_{k + 1})}{2t_{k}^2}
+                    \\
+                    R_k + C_k\left\Vert
+                        u^{(k)}
+                    \right\Vert^2 \ge 0, 
+                \end{cases}
+            \end{align}
+            then 
+            \begin{align*}
+                \delta_{k + 1}
+                \le 
+                \left(
+                    \prod_{i = 0}^{k} (1 - t_k^{-1})
+                \right)\left(
+                    \delta_0 + \frac{L}{2t_0}\left\Vert
+                        u^{(0)}
+                    \right\Vert^2
+                \right). 
+            \end{align*}
+        \end{lemma}
+
+        \begin{prop}
+            The choice of $t_k = t_{k + 1} = \sqrt{L/\sigma}\; \forall k\ge 0$ makes the proposed condition in \hyperref[lemma:convergence-prep]{proposition \ref*{lemma:convergence-prep}} true. 
+            Hence, the V-FISTA variant (3.) has a convergence rate bound 
+            \[
+                \delta_{k + 1}
+                \le 
+                \left(
+                    \frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}
+                \right)^k\left(
+                    \delta_0 + \frac{L}{2t_0}\left\Vert
+                        u^{(0)}
+                    \right\Vert^2
+                \right).     
+            \]
+        \end{prop}
+
+
+        
+        
+        
 
     % Check out this cool Bibtext ref \cite[this]{texbook}, woooooooooah, also it's in plain style. For some mind altering psychodelic, read \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} for the experience. For some brain expanding julia code, read \hyperref[code:brain_expand]{brain expanding julia code}. 
     % \begin{algorithm}
@@ -498,7 +584,10 @@
     % \lstinputlisting[language=julia, basicstyle=\ttfamily\scriptsize,numbers=left]{Code/juliacode.jl}
 
 \section{Adding Non-smoothness in Nesterov's Generic Method}
-    \subsection{Subsection}
+
+    \subsection{Setting up the Stage}
+
+
 \section{Numerical Experiments}\label{sec:numerics}
     
     \subsection{Subsection}
