@@ -82,14 +82,15 @@
 \begin{abstract}
     In this paper, we review the paper written by Walkington \cite{noel_nesterovs_nodate} on the topic of proximal gradient with Nesterov accelerations. 
     We compare the performance of the FISTA method and some of its variants with numerical experiments on the total variation minimization problem; in addition, we propose a heuristic estimation of the strong convexity parameter and demonstrate that it converges faster when applied. 
-    We give a literature review on the frontier theoretical development of the FISTA algorithm. 
+    We give a literature review on the frontier for both the theories and applications around FISTA. 
     We correct one misconception that occurred in Walkington \cite{noel_nesterovs_nodate} regarding Nesterov's proof of lower bound on the optimality of first-order algorithms.  
     We present a better proof of linear convergence of FISTA under strong convexity assumption from Beck \cite[theorem 10.7.7]{beck_first-order_nodate} by eliminating an identity used in their proof. 
+    Finally, we use the Forward Backward Envelope to adapt smooth non-smooth additive objective to Nesterov's generic accelerated gradient algorithm \cite[2.2.7]{nesterov_lecture_2018}. 
 \end{abstract}
 
 
-\section{Preliminaries}
-    In this section, We motivate the discussion about denoising a one-dimensional signal. 
+\section{Preliminaries}\label{sec:preliminaries}
+    In this section, We initiate the discussion by denoising a one-dimensional signal. 
     The dual objective function of the problem derived in this section motivates the use of Accelerated Proximal Gradient with smooth, non-smooth composite objective function.
     We summarized it from Walkington \cite{noel_nesterovs_nodate}, sections 1 and 4. 
     \subsection{Signal Denoising in One Dimension}
@@ -197,15 +198,15 @@
     \subsection{FISTA has Worse Convergence Guarantee for Strongly Convex Objectives}
         The dual objective for a total variation minimization problem is a strongly convex and Lipschitz smooth function because of the norm induced by the positive definite matrix $D^{-1}$. 
         It's in a form where FISTA proposed by \cite{beck_fast_2009-1} can solve with a convergence rate of $\mathcal O(1/k^2)$ on the objective value of the function. 
-        However, highlighted in Walkington\cite{noel_nesterovs_nodate}, the proximal gradient method without acceleration achieves $\mathcal O((1 - 1/\kappa)^k)$ convergence rate. 
+        However, highlighted in Walkington\cite{noel_nesterovs_nodate}, the proximal gradient method without acceleration achieves $\mathcal O\left((1 - 1/\kappa)^k\right)$ convergence rate. 
         Which is faster.
         The parameter $\kappa$ is the condition number; in this case, it would be $L/\alpha$, where $L$ is the Lipschitz smooth constant of $g(u)$ and $\alpha$ is the strong convexity constant for $g(u)$. 
         \par
         We emphasize that the Proximal Gradient without acceleration has better theoretical convergence results than the accelerated version for the class of strongly convex objectives. 
-        It sparks the discussion in this paper on the variants of FISTA, hoping to provide some insights on why Nesterove's momentum-based method's inability to adapt the convergence rate with objective has strong convexity. 
+        It sparks the discussion in this paper on the variants of FISTA, hoping to provide some insights on why Nesterov's momentum-based method's inability to adapt the convergence rate with objective has strong convexity. 
         For the terminologies, we use FISTA to refer to the proximal gradient method presented by Beck and Teboulle\cite{beck_fast_2009-1}. We use the Accelerated Proximal Gradient method (APG) to refer to the first-order acceleration algorithms developed/inspired by FISTA. 
         \par
-        Finally, whether the original FISTA or Nesterov Accelerated gradient has linear convergence with the presence of strong convexity (or potentially other weaker conditions) is not known during our research and literature review. 
+        Finally, whether the original FISTA\cite{beck_fast_2009} or Nesterov Accelerated gradient from 1983 has linear convergence with the presence of strong convexity (or potentially other weaker conditions) is not known during our research and literature review. 
 
     \subsection{Outline of the Paper}
         \hyperref[sec:Literatures]{Section \ref*{sec:Literatures}} consists of 3 parts. 
@@ -225,7 +226,7 @@
         Rudin-Osher and Fatemi introduced the Total Variation (TV) minimization method in \cite{rudin_nonlinear_1992}. 
         They pioneer the theories of TV minimization by solving PDE. 
         They discussed the empirical observation that the L1 regularization term produces sharper images. 
-        Walkington \cite{noel_nesterovs_nodate} a basic formulation of one-dimensional signal denoising. 
+        Walkington \cite{noel_nesterovs_nodate} gives a basic formulation of one-dimensional signal denoising. 
         However, it's essential to keep in mind that this is a problem that motivates a variety of modern computational methods and theories. 
         We will list some of them for context. 
         \par
@@ -241,61 +242,87 @@
         It was a surprise that Walkington did not cite Nesterov's new book\cite{nesterov_lectures_2018}. 
         We contextualize Walkington's approach with Amir Beck's book\cite{beck_first-order_nodate} and Nesterov's book \cite{nesterov_lectures_2018}. 
         \par
-        For different Variants of FISTA, we specifically refer to the first-order acceleration method based on Nesterov's Framework, adhering to Nesterov's lecture \cite{nesterov_lecture_2018} and Beck's book \cite[chapter 10]{beck_first-order_nodate}. 
-        The algorithm that all three writers were talking about is the V-FISTA algorithm (\hyperref[alg:V-FISTA]{algorithm \ref*{alg:V-FISTA}}). 
+        Different variants of FISTA differ by the sequence involved for their momentum method. 
+        Choosing different parameters in \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} produces variants of FISTA. 
         \begin{algorithm}[H]
             \begin{algorithmic}[1]
-                \STATE{\textbf{Input: }($f, g, x^{(0)}$)}
+                \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
                 \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
-                \STATE{$x^{(k + 1)} = \text{prox}_{1/L g}(y^{(k)} - (1/L) \nabla f(y^{(k)}))$}
-                \STATE{$y^{(k + 1)} = x^{(k + 1)} + \left(\frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}\right)(x^{(k + 1)} - x^{(k)})$}
-            \end{algorithmic}\caption{V-FISTA}
-            \label{alg:V-FISTA}
+                \FOR{$k = 0, 1, \cdots$}
+                    \STATE{$x^{(k + 1)} = \mathcal T_L y^{(k)}$}
+                    \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
+                    \STATE{Execute subroutine $\mathcal S$. }
+                \ENDFOR
+            \end{algorithmic}
+            \caption{Generic FISTA}
+            \label{alg:generic_FISTA}
         \end{algorithm}
-        The V-FISTA algorithm (\hyperref[alg:V-FISTA]{algorithm \ref*{alg:V-FISTA}}), when applied to an objective function of the type $F = f + g$, where $f$ is prox friendly and $g$ is L-Lipschitz and $\sigma$-strongly convex, it achieves a convergece rate of $\mathcal O((1 - 1/\sqrt{\kappa})^k)$ for the function objective. 
-        This convergent rate is faster than $\mathcal O((1 - 1/\kappa)^k)$ for the proximal gradient. 
-        The parameter $\kappa = L/\sigma$ is carefully chosen to achieve a linear convergence rate. 
+        The scope of \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} considers the additive composition of convex smooth and nonsmooth $f = g + h$ function with $g$ being a $L$-smooth function. 
+        Chaning $\mathcal T_L, \theta_{k + 1}$ and $\mathcal S$, produce different variants of FISTA. 
+        \begin{itemize}
+            \item [1.] Original FISTA proposed by Beck \cite{beck_fast_2009-1} considers $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, with $\mathcal T_L x = \text{prox}_{L^{-1}h}(x  - L^{-1}\nabla g(x))$ and $t_0 = 1$. 
+            This achieves $\mathcal O(1/k^2)$ on the objective value. 
+            Our literature review didn't discover proofs for the convergence of the iterates. We also didn't find proofs for a convergence rate faster than $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity. 
+            \item [2.] A version of FISTA where the iterates have weak convergence was proved in Chambolle, Dossal \cite{chambolle_convergence_2015}. It's a variant where $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
+            \item [3.] Using $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$ where $\kappa = L/\sigma$, with $\sigma$ being the strong convexity constant produces V-FISTA in Beck \cite[10.7.7]{beck_first-order_nodate}\cite[3.3]{noel_nesterovs_nodate}. $\mathcal T_L$ is the same as (1.). 
+            \item [4.] A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla f(x^{(k + 1)}), f(x^{(k)})$ using 
+            \[
+                \sigma \approx \langle \nabla f(x^{(k + 1)}) - \nabla f(x^{(k)}), x^{(k + 1)} - x^{(k)}\rangle/ 
+                \Vert x^{(k + 1)} - x^{(k)}\Vert^2. 
+            \]
+            It yields excellent results for the numerical experiments. 
+            \item [5.] MFISTA in Beck\cite{beck_fast_2009} is produced by adding $\mathcal S$ to be the procedure
+            \[
+                (y^{(k + 1)}, t_{k + 1}) = \begin{cases}
+                    (x^{(k + 1)}, 1) & f(y^{(k + 1)}) > f(x^{(k + 1)}),
+                    \\
+                    (y^{(k + 1)}, t_{k + 1}) & \text{else}. 
+                \end{cases}
+            \]
+            This condition asserts a monotone decrease in the objective value. If the objective with momentum increases, it resets the momentum for the next iteration.  It has a convergence rate of $\mathcal O(1/k^2)$ back then. Our review of the literature didn't confirm the existence of a proof where it has a faster convergence than $\mathcal O((1 - 1/\kappa)^k)$ under the presence of strong convexity. 
+        \end{itemize}
+        For our problem posed in section \ref*{sec:preliminaries}, the V-FISTA algorithm variant (3.), when applied to the dual objective, achieves a convergence rate of $\mathcal O((1 - 1/\sqrt{\kappa})^k)$ for the function objective. 
+        For larger $\kappa$, this produces a significantly better convergence rate than gradient descent, which is $\mathcal O((1 - 1/\kappa)^k)$, and FISTA, which is $\mathcal O(1/k^2)$. 
         \par
-        The V-FISTA algorithm contains more parameters. 
-        A $L$-Lipschitz smooth convex function $g$, is $\sigma$-strongly by adding $\sigma \Vert \cdot\Vert^2/2$. 
-        Hence, define $g_\sigma(x) = f(x) + \sigma \Vert x\Vert^2/2$ then we have $\lim_{\sigma \rightarrow 0} g_\sigma(x) = f(x)$. The function transitions smoothly from a strongly convex function to just a convex function. 
-        It's tempted to think that if we take the limit of $\sigma\rightarrow 0$ on V-FISTA (\hyperref[alg:V-FISTA]{algorithm \ref*{alg:V-FISTA}}) would yield the FISTA algorithm, analogous to the function $f_\sigma\rightarrow f$.
-        However, this is not the case since $\lim_{\sigma\rightarrow 0}\kappa = \infty$, making 
-        \[
-            \lim_{\sigma\rightarrow 0} \frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1} = 1. 
-        \]
-        This didn't result in FISTA. 
-        Finding one generic algorithm to derive and describe both FISTA and V-FISTA would be of good interest.
+        Variants (3.) is simple; unfortunately, obtaining $\sigma$ in itself could be prohibitively expensive and require knowledge about the Hessian. 
+        Underestimation of $\sigma$ slows down the convergence rate. 
+        This observation sparks research interest in a method that achieves approximately $\mathcal O((1 - 1/\sqrt{k})^k)$ linear convergence rate for strongly convex objectives and still retains $\mathcal O(1/k^2)$ for Lipschitz-smooth functions in general. 
+        One of the other interests is designing a unified theoretical framework to describe all variants of APG. 
         \par
-        As it turns out, Nesterov\cite{nesterov_lecture_2018} derived the smooth counterpart of both algorithms from one generic algorithm\cite[(2.2.7)]{nesterov_lecture_2018}, but his argument is not directly applicable to a function of smooth and non-smooth composite. 
-        Nesterov's lectures focus on establishing the most general frameworks for this method class. 
-        His approach doesn't handle function that is non-smooth, at least not directly. 
-        Nesterov's completed derivation of the linear convergence rate and sub-linear convergence rate is in theorem 2.2.2, based on the results of lemma 2.2.4. 
-        We emphasize that in Nesterov's writing, his derivation of linear and sub-linear convergence of the function objective was done in lemma 2.2.4, without the assumption of a minimizer, for Lipschitz smooth function with and without/without strong convexity, in one single proof. 
-        Amir Beck's book had the algorithm V-FISTA presented in 10.7.7; it's an algorithm that is the same as Nesterov's algorithm: 2.2.22, with the addition of a proximal operator.
-        Unfortunately, Amir Beck doesn't have a unified framework of descriptions of both FISTA and V-FISTA.  
+        To address the first issue, Aujol et al.\cite{aujol_fista_2022} proposed an automatic restart algorithm that achieves faster convergence without knowing the prior strong convexity (or weaker quadratic growth condition) parameter $\sigma$. 
+        Later, they developed the idea into a parameter-free algorithm in their work \cite{aujol_parameter-free_2023}. 
+        Earlier attempts proved a fast linear convergence rate under quadratic growth conditions by triggering the restart of FISTA based on the gradient mapping norm. 
+        See \cite{alamo_gradient_2019}\cite{alamo_gradient_2019}\cite{fercoq_adaptive_2019}. 
+        The interests gather around restarting FISTA because spending too much computational effort would be competing against the Proximal Quasi-Newton method, questioning the use of momentum in the first place. 
         \par
-        There are other variants of FISTA. 
-        the MFISTA method proposed by Beck \cite[theorem 5.1]{beck_fast_2009-1}, was empirically more robust and stable. However, it still retains the $\mathcal O (1/k^2)$ convergence rate at that time. 
-        The idea of restarting FISTA, however, refuses to die. 
-        More recently, the work of \cite{alamo_restart_2019} proposed a condition of restarting FISTA such that a global linear convergence rate can be achieved based on the quadratic growth condition, a weaker condition than strong convexity. 
-        Faster forward to the frontier, Aujol et al.\cite{aujol_fista_2022} proposed an automatic restart algorithm that achieves faster convergence without knowing the strong convexity (or the weaker quadratic growth condition) parameter in prior. 
-        They then developed the idea into a parameter-free algorithm in their work \cite{aujol_parameter-free_2023}. 
-        \par
-        Simultaneously, looking for a unified framework behind Nesterov's acceleration theory continues. 
-        One of the recent theoretical improvements by\cite{ahn_understanding_2022} that is based on the new writing from Nesterov's book, derived and unified a lot of variants of Nesterov's acceleration method using the proximal point method proposed by Rockefeller. 
-
-        
-
-
-        
-
-        
-
+        On the theoretical side, Su et al. \cite{su_differential_2015} identifies a second-order differential equation with the exact limit of (1.). 
+        A dynamical system understanding of FISTA and APG, in general, enables a wider variety of mathematical tools. 
+        For example, in Attouch and Peypouquet \cite{attouch_rate_2016}, they showed a $o(1/k^2)$ convergence rate of variant (2.) based on the ODE understanding. 
+        We emphasize that it's the little-o and not the big-O. 
+        In Nesterov\cite{nesterov_lecture_2018}, he proposed a generic algorithm that can derive variants (1.), (3.), and more using the idea of Estimating Sequences and Functions. 
+        He constructed a proof of convergence on his generic algorithm, demonstrating both linear and sub-linear convergence rates (depending on the parameter) on the functions' objective value without assuming the minimizers' existence. 
+        For Nesterov's involvement in proving convergence of APG in the non-convex settings, consult \cite{necoara_linear_2019}. 
+        Finally, for a theoretical underpinning of Nesterov's generic method in his book, consult Ahn and Sra\cite{ahn_understanding_2022}. 
+        They derived a lot of variants of APGs using the Proximal Point method of Rockafellar and discussed the unified theme of a "similar triangle" behind the Nesterov APG method. 
 
 
 \section{Nesterov's Lower Bound Clarified}\label{sec:optimal_lower_bound}
-    \subsection{title}
+    Nesterov discussed his claim of the lower convergence rate for the first-order method on differentiable function in his book\cite{nesterov_lectures_2018}. 
+    Walkington\cite{noel_nesterovs_nodate} rephrased his work with one crucial mistake in understanding Nesterov's claim. 
+    We detail Nesterov's claim and provide context for understanding the mistakes in Walkington. 
+    \subsection{First-order Method}
+        The following is rephrased from Assumption \cite[2.1.4]{nesterov_lecture_2018}. 
+        \begin{definition}[First Order Method]
+            \newcommand*{\GAfirst}{\text{GA}^{\text{1st}}}
+            We are in $\mathbb R^n$ for now. Given $x^{(0)} \in \mathbb R^n$, an iterative algorithm generates sequence of $\left(x^{(n)}\right)_{n \in \mathbb N}$ in the space. All classes $\in \GAfirst$ satisfy that 
+            \begin{align*}
+                x^{(k + 1)} \in \left\{x^{(0)}\right\} + 
+                \text{span}\left\{\nabla f\left(x^{(i)}\right)\right\}_{i = 1}^{k - 1}.
+            \end{align*}
+        \end{definition}
+        Let $\mathcal A^k_fx^{(0)}$ denotes the solution of the k-th iterate $x^{(k)}$ generated by an algorithm $\mathcal A \in \text{GA}^{1}$, with initial guess $x^{(0)}$.
+
+        
 
 \section{FISTA Under Strong Convexity}\label{sec:fista_strong_convexity}
     

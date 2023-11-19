@@ -38,6 +38,17 @@ A.~Beck, \emph{\BIBforeignlanguage{en}{First-{Order} {Methods} in
   \url{https://epubs.siam.org/doi/book/10.1137/1.9781611974997}
 \BIBentrySTDinterwordspacing
 
+\bibitem{nesterov_lecture_2018}
+\BIBentryALTinterwordspacing
+Y.~Nesterov, ``\BIBforeignlanguage{en}{Lecture on {Convex} {Optimizations}
+  {Chapter} 2, {Smooth} {Convex} {Optimization}},'' in
+  \emph{\BIBforeignlanguage{en}{Lectures on {Convex} {Optimization}}}, ser.
+  Springer {Optimization} and {Its} {Applications}, Y.~Nesterov, Ed.\hskip 1em
+  plus 0.5em minus 0.4em\relax Cham: Springer International Publishing, 2018,
+  pp. 59--137. [Online]. Available:
+  \url{https://doi.org/10.1007/978-3-319-91578-4_2}
+\BIBentrySTDinterwordspacing
+
 \bibitem{beck_fast_2009-1}
 \BIBentryALTinterwordspacing
 A.~Beck and M.~Teboulle, ``\BIBforeignlanguage{en}{A {Fast} {Iterative}
@@ -45,6 +56,15 @@ A.~Beck and M.~Teboulle, ``\BIBforeignlanguage{en}{A {Fast} {Iterative}
   \emph{\BIBforeignlanguage{en}{SIAM Journal on Imaging Sciences}}, vol.~2,
   no.~1, pp. 183--202, Jan. 2009. [Online]. Available:
   \url{http://epubs.siam.org/doi/10.1137/080716542}
+\BIBentrySTDinterwordspacing
+
+\bibitem{beck_fast_2009}
+\BIBentryALTinterwordspacing
+------, ``Fast {Gradient}-{Based} {Algorithms} for {Constrained} {Total}
+  {Variation} {Image} {Denoising} and {Deblurring} {Problems},'' \emph{IEEE
+  Transactions on Image Processing}, vol.~18, no.~11, pp. 2419--2434, Nov.
+  2009, conference Name: IEEE Transactions on Image Processing. [Online].
+  Available: \url{https://ieeexplore.ieee.org/document/5173518}
 \BIBentrySTDinterwordspacing
 
 \bibitem{rudin_nonlinear_1992}
@@ -61,16 +81,6 @@ T.~Goldstein, C.~Studer, and R.~Baraniuk, ``A {Field} {Guide} to
   {Forward}-{Backward} {Splitting} with a {FASTA} {Implementation},'' Dec.
   2016, arXiv:1411.3406 [cs]. [Online]. Available:
   \url{http://arxiv.org/abs/1411.3406}
-\BIBentrySTDinterwordspacing
-
-\bibitem{beck_fast_2009}
-\BIBentryALTinterwordspacing
-A.~Beck and M.~Teboulle, ``Fast {Gradient}-{Based} {Algorithms} for
-  {Constrained} {Total} {Variation} {Image} {Denoising} and {Deblurring}
-  {Problems},'' \emph{IEEE Transactions on Image Processing}, vol.~18, no.~11,
-  pp. 2419--2434, Nov. 2009, conference Name: IEEE Transactions on Image
-  Processing. [Online]. Available:
-  \url{https://ieeexplore.ieee.org/document/5173518}
 \BIBentrySTDinterwordspacing
 
 \bibitem{chambolle_introduction_2016}
@@ -116,22 +126,13 @@ Y.~Nesterov, \emph{Lectures on {Convex} {Optimization}}, ser. Springer
   [Online]. Available: \url{http://link.springer.com/10.1007/978-3-319-91578-4}
 \BIBentrySTDinterwordspacing
 
-\bibitem{nesterov_lecture_2018}
+\bibitem{chambolle_convergence_2015}
 \BIBentryALTinterwordspacing
-------, ``\BIBforeignlanguage{en}{Lecture on {Convex} {Optimizations} {Chapter}
-  2, {Smooth} {Convex} {Optimization}},'' in
-  \emph{\BIBforeignlanguage{en}{Lectures on {Convex} {Optimization}}}, ser.
-  Springer {Optimization} and {Its} {Applications}, Y.~Nesterov, Ed.\hskip 1em
-  plus 0.5em minus 0.4em\relax Cham: Springer International Publishing, 2018,
-  pp. 59--137. [Online]. Available:
-  \url{https://doi.org/10.1007/978-3-319-91578-4_2}
-\BIBentrySTDinterwordspacing
-
-\bibitem{alamo_restart_2019}
-\BIBentryALTinterwordspacing
-T.~Alamo, P.~Krupa, and D.~Limon, ``Restart {FISTA} with {Global} {Linear}
-  {Convergence},'' Dec. 2019, arXiv:1906.09126 [math]. [Online]. Available:
-  \url{http://arxiv.org/abs/1906.09126}
+A.~Chambolle and C.~Dossal, ``\BIBforeignlanguage{en}{On the {Convergence} of
+  the {Iterates} of the “{Fast} {Iterative} {Shrinkage}/{Thresholding}
+  {Algorithm}”},'' \emph{\BIBforeignlanguage{en}{Journal of Optimization
+  Theory and Applications}}, vol. 166, no.~3, pp. 968--982, Sep. 2015.
+  [Online]. Available: \url{https://doi.org/10.1007/s10957-015-0746-4}
 \BIBentrySTDinterwordspacing
 
 \bibitem{aujol_fista_2022}
@@ -147,6 +148,49 @@ J.-F. Aujol, L.~Calatroni, C.~Dossal, H.~Labarrière, and A.~Rondepierre,
   ``\BIBforeignlanguage{en}{Parameter-{Free} {FISTA} by {Adaptive} {Restart}
   and {Backtracking}},'' \emph{\BIBforeignlanguage{en}{arXiv.org}}, Jul. 2023.
   [Online]. Available: \url{https://arxiv.org/abs/2307.14323v1}
+\BIBentrySTDinterwordspacing
+
+\bibitem{alamo_gradient_2019}
+\BIBentryALTinterwordspacing
+T.~Alamo, P.~Krupa, and D.~Limon, ``Gradient {Based} {Restart} {FISTA},'' in
+  \emph{2019 {IEEE} 58th {Conference} on {Decision} and {Control} ({CDC})},
+  Dec. 2019, pp. 3936--3941, iSSN: 2576-2370. [Online]. Available:
+  \url{https://ieeexplore.ieee.org/document/9029983}
+\BIBentrySTDinterwordspacing
+
+\bibitem{fercoq_adaptive_2019}
+\BIBentryALTinterwordspacing
+O.~Fercoq and Z.~Qu, ``Adaptive restart of accelerated gradient methods under
+  local quadratic growth condition,'' \emph{IMA Journal of Numerical Analysis},
+  vol.~39, no.~4, pp. 2069--2095, Oct. 2019, arXiv:1709.02300 [math]. [Online].
+  Available: \url{http://arxiv.org/abs/1709.02300}
+\BIBentrySTDinterwordspacing
+
+\bibitem{su_differential_2015}
+\BIBentryALTinterwordspacing
+W.~Su, S.~Boyd, and E.~J. Candes, ``\BIBforeignlanguage{en}{A {Differential}
+  {Equation} for {Modeling} {Nesterov}'s {Accelerated} {Gradient} {Method}:
+  {Theory} and {Insights}},'' \emph{\BIBforeignlanguage{en}{arXiv.org}}, Mar.
+  2015. [Online]. Available: \url{https://arxiv.org/abs/1503.01243v2}
+\BIBentrySTDinterwordspacing
+
+\bibitem{attouch_rate_2016}
+\BIBentryALTinterwordspacing
+H.~Attouch and J.~Peypouquet, ``The {Rate} of {Convergence} of {Nesterov}'s
+  {Accelerated} {Forward}-{Backward} {Method} is {Actually} {Faster} {Than}
+  \$1/k{\textasciicircum}2\$,'' \emph{SIAM Journal on Optimization}, vol.~26,
+  no.~3, pp. 1824--1834, Jan. 2016, publisher: Society for Industrial and
+  Applied Mathematics. [Online]. Available:
+  \url{https://epubs.siam.org/doi/10.1137/15M1046095}
+\BIBentrySTDinterwordspacing
+
+\bibitem{necoara_linear_2019}
+\BIBentryALTinterwordspacing
+I.~Necoara, Y.~Nesterov, and F.~Glineur, ``\BIBforeignlanguage{en}{Linear
+  convergence of first order methods for non-strongly convex optimization},''
+  \emph{\BIBforeignlanguage{en}{Mathematical Programming}}, vol. 175, no.~1,
+  pp. 69--107, May 2019. [Online]. Available:
+  \url{https://doi.org/10.1007/s10107-018-1232-1}
 \BIBentrySTDinterwordspacing
 
 \bibitem{ahn_understanding_2022}
