@@ -348,6 +348,7 @@
     \end{itemize}
     \subsection{First-order Method}
         The following is rephrased from Assumption \cite[2.1.4]{nesterov_lecture_2018}. 
+        We came up with the two examples to illustrate the definition for better understanding. 
         \begin{definition}[First Order Method]
             We are in $\mathbb R^n$ for now. Given $x^{(0)} \in \mathbb R^n$, an iterative algorithm generates sequence of $\left(x^{(n)}\right)_{n \in \mathbb N}$ in the space. All $\mathcal A \in \GAfirst$ satisfy that 
             \begin{align*}
@@ -355,8 +356,6 @@
                 \text{span}\left\{\nabla f\left(x^{(i)}\right)\right\}_{i = 1}^{j - 1} \quad \forall f, \forall 1\le j \le k -1. 
             \end{align*}
         \end{definition}
-
-        We came up with the following example to illustrate the definition. 
         \begin{exmp}[Fixed Step Descent]
             The method of fixed-step gradient descent, $x^{(k + 1)} = x^{(k)} - L^{-1}\nabla f(x^{(k)})$ is $ \bar {\mathcal A}\in \GAfirst$ achieves a maximal decrease in objective value for all $f\in \mathcal F_{L}^{1, 1}$ given $x^{(k)}$, it can be understood as 
             \[
@@ -464,8 +463,6 @@
         Bubeck has the correct claim, and it's the same as Nesterov. 
         Attouch's claim in \cite[thm 1]{attouch_rate_2016} doesn't contradict \hyperref[thm:nesterov_lower_bnd]{theorem \ref*{thm:nesterov_lower_bnd}} because he fixed function $\Phi$ function and the existence of minimizer $x^*$ is not assumed. 
         
-
-
 
 \section{FISTA Under Strong Convexity}\label{sec:fista_strong_convexity}
     

@@ -193,17 +193,20 @@ mutable struct TVMin1D <: GenericTestInstance
     L::Number
     "Strong convexity number. "
     alpha::Number
+    "The L1 Pental Term"
+    beta::Number
 
     
 
-    function TVMin1D(time_ticks::Vector{T1}, signal::Vector{T2}, alpha::Number) where {T1<: Number, T2<:Number}
+    function TVMin1D(time_ticks::Vector{T1}, signal::Vector{T2}, beta::Number) where {T1<: Number, T2<:Number}
         @assert length(time_ticks) == length(signal) "The signal length and the time ticks label doesn't equal, we have "*
         "signal length of $(length(signal)), and time tick length of $(length(time_ticks)). "
         interval_lengths = time_ticks[2:end] - time_ticks[1:end - 1]
         @assert all(i -> i > 0, interval_lengths) "The `time_ticks` are not ordered correctly, its element is not strictly monotone increasing. "
-        @assert alpha > 0 "Variable alpha should be greater than zero strictly. "
+        @assert beta > 0 "Variable alpha should be greater than zero strictly. "
         # Setting up problem parameers -----------------------------------------
         this = new()
+        this.beta = beta
         this.results = nothing 
         N = this.N = length(signal)
         û = this.u_hat = signal
@@ -228,23 +231,23 @@ mutable struct TVMin1D <: GenericTestInstance
         C = sparse(row_idx, col_idx, vals)
         this.C = C
         # Dual Objective function smooth and non-smooth. 
-        A = C*inv(D)*C'
+        global A = C*inv(D)*C'
         b = C*û 
         this.g = Quadratic(A, b, 0)
-        this.h = HyperRectanguloidIndicator(-fill(alpha, N - 1), fill(alpha, N - 1))
+        this.h = HyperRectanguloidIndicator(-fill(beta, N - 1), fill(beta, N - 1))
         this.x0 = zeros(N - 1)
         # Setting up experiment parameters -------------------------------------
         # Estimate kappa for fixed step momentum method. 
-        L = this.L = eigs(A, nev=1, which=:LM)[1][1]
-        α = this.alpha = eigs(A, nev=1, which=:SM, maxiter=3000, tol=1e-10)[1][1]
-        this.alpha = (1 + 1e-10)*this.alpha  # numerical stability
+        L = this.L = eigs(A, nev=(size(A, 1)), which=:LM, maxiter=3000, tol=1e-8)[1][1]
+        α = this.alpha = eigs(A, nev=(size(A, 1)), which=:SM, maxiter=3000, tol=1e-8)[1][1]
+        # this.alpha = this.alpha  # numerical stability
         ConstructImplementations!(this, L/α)
         
         return this 
     end
 
     function TVMin1D(N::Int=64,alpha::Number=10) 
-        return TVMin1D(1:2N|>collect, vcat(-ones(N), ones(N)) .+ 0.3rand(2N), alpha)
+        return TVMin1D(1:2N|>collect, vcat(-ones(N), ones(N)) .+ 0.4rand(2N), alpha)
     end
 
 end
@@ -302,15 +305,26 @@ end
 function RegisterResultsPostProcessing(this::TVMin1D, results::Vector{ProxGradResults})
     getprimal(x) = RecoverPrimalSolution(this, x)
     toplot = [getprimal(r.soln) for r in results]
-    println("To plot: ")
     println(typeof(toplot[1]))
-    
-    fig = plot(this.u_hat, color=RGBA{Float64}(0, 0, 0, 0.4), legend=:bottomright, label="signal with noise")
+    fig = plot(
+        this.u_hat, 
+        color=RGBA{Float64}(0, 0, 0, 0.4), 
+        legend=:bottomright, 
+        label="signal with noise", 
+        title="TV Minimization with α=$(this.beta)"
+        )
     for (j, data) in toplot|>enumerate
-        plot!(fig, data, label=this.names[j])
+        plot!(
+            fig, 
+            data, 
+            label=this.names[j], 
+            linestyle=LINE_STYLES[j], 
+            markershape=MARKER_SHAPE[j], 
+            linewidth=LINE_WIDTH
+        )
     end
-    
     display(fig)
+    savefig(fig, RESULTS_FOLDER*"/recovered_signal.png")
     return nothing
 end
 
@@ -324,17 +338,17 @@ end
 "The name is for naming the folder for an instance for the experiment. "
 EXPERIMENT_NAME = "Experiment1"
 "The folder to put the specific test instance plots and data. "
-RESULTS_FOLDER = "../experiment_results/"
+RESULTS_FOLDER = "experiment_results"
 
 
 "Maximum number of iterations for all the algorithms for testing. "
-MAX_ITR = 1500
+MAX_ITR = 5000
 "Whether to use line search for the experiments. "
 LINE_SEARCH = true
 "The tolerance for the proximal gradient type algorithm. "
 TOL = 1e-10
 "The experiment instance, should be of type `GenericTestInstance`" 
-INSTANCE = TVMin1D(64, 5)
+INSTANCE = TVMin1D(256, 10)
 
 # TODO: not implemented yet. 
 "Whether to run experiment parallel on multiple cores. " 
@@ -402,6 +416,7 @@ for j in 2:length(RESULTS)
     )
 end
 FIG1|>display
+savefig(FIG1, "$(RESULTS_FOLDER)/grad_map_norm.png")
 
 # Plot the objective values for different algorithms. 
 MIN_OBJALL = vcat([obj.objective_vals for obj in RESULTS]...)|>minimum
@@ -426,6 +441,7 @@ for j in 2:length(RESULTS)
     )
 end
 FIG2|>display
+savefig(FIG2, RESULTS_FOLDER*"/"*"obj_vals.svg")
 
 SEQ_RNG = typemax(Int)
 FIG3 = plot(
@@ -450,5 +466,6 @@ for j in 2:length(RESULTS)
 end
 
 FIG3 |> display
+savefig(FIG3, RESULTS_FOLDER*"/"*"momentum.png")
 
 RegisterResultsPostProcessing(INSTANCE, RESULTS)

@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main"] 1700375254 "main.aux" "main.bbl" "main" 1700378252
+["bibtex main"] 1700375254 "main.aux" "main.bbl" "main" 1700381419
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/IEEEtran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1700378252 6323 e01ab29ca87a689b50572ad0f62f848d "pdflatex"
+  "main.aux" 1700381419 6323 e01ab29ca87a689b50572ad0f62f848d "pdflatex"
   "refs.bib" 1700373748 52249 6f2fa5fdf4c28b369e8ff5f5c3918eb6 ""
   (generated)
-  "main.bbl"
   "main.blg"
-["pdflatex"] 1700378251 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf" "main" 1700378252
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.aux" 1700378252 6323 e01ab29ca87a689b50572ad0f62f848d ""
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" 1700378251 32820 956fcd7f663e33032da2c2544630ddb0 ""
+  "main.bbl"
+["pdflatex"] 1700381418 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf" "main" 1700381419
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.aux" 1700381419 6323 e01ab29ca87a689b50572ad0f62f848d ""
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" 1700381418 32837 309cc104ca3daa8ce3fb1219f1c151fd ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecbx0500.tfm" 1136768653 3584 0913860e6fa2bdf78ecaf460b391112b ""
@@ -177,14 +177,14 @@
   "/usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1639775816 2724744 21efffca8bfeec89977fe7c6aafcfaa8 ""
   "/usr/local/texlive/2021/texmf.cnf" 1616695596 577 4c1911a7228e554c6032256d3cf5567d ""
   "Sections/appendix.tex" 1700096611 102 a2612dded2a917e47dd63ccb51b64774 ""
-  "main.aux" 1700378252 6323 e01ab29ca87a689b50572ad0f62f848d "pdflatex"
+  "main.aux" 1700381419 6323 e01ab29ca87a689b50572ad0f62f848d "pdflatex"
   "main.bbl" 1700375254 10197 b0229dedb7fa032e324c6d23e0c67553 "bibtex main"
-  "main.out" 1700378252 3402 1a5f443a375af91883b486f3721422c2 "pdflatex"
-  "main.tex" 1700378251 32820 956fcd7f663e33032da2c2544630ddb0 ""
+  "main.out" 1700381419 3402 1a5f443a375af91883b486f3721422c2 "pdflatex"
+  "main.tex" 1700381418 32837 309cc104ca3daa8ce3fb1219f1c151fd ""
   (generated)
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf"
-  "main.log"
   "main.aux"
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.log"
+  "main.log"
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf"
   "main.pdf"
   "main.out"
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.log"
