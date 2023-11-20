@@ -274,7 +274,7 @@
             \caption{Generic FISTA}
             \label{alg:generic_FISTA}
         \end{algorithm}
-        The scope of \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} considers the additive composition of convex smooth and nonsmooth $f = g + h$ function with $g$ being a $L$-smooth function. 
+        The scope of \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} considers the additive composition of convex smooth and nonsmooth $F = g + h$ function with $g$ being a $L$-smooth function. 
         Changing $T_L, \theta_{k + 1}$ and $\mathcal S$, produce different variants of FISTA. 
         \begin{itemize}
             \item [1.] 
@@ -287,9 +287,9 @@
             \item [3.] 
                 Using $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$ where $\kappa = L/\sigma$, with $\sigma$ being the strong convexity constant produces V-FISTA in Beck \cite[10.7.7]{beck_first-order_nodate}\cite[3.3]{noel_nesterovs_nodate}. $T_L$ is the same as (1.). 
             \item [4.] 
-                A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla f(x^{(k + 1)}), f(x^{(k)})$ using 
+                A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla g(x^{(k + 1)}), g(x^{(k)})$ using 
                 \[
-                    \sigma \approx \langle \nabla f(x^{(k + 1)}) - \nabla f(x^{(k)}), x^{(k + 1)} - x^{(k)}\rangle/ 
+                    \sigma \approx \langle \nabla g(x^{(k + 1)}) - \nabla g(x^{(k)}), x^{(k + 1)} - x^{(k)}\rangle/ 
                     \Vert x^{(k + 1)} - x^{(k)}\Vert^2. 
                 \]
             It yields excellent results for the numerical experiments. 
@@ -297,7 +297,7 @@
                 MFISTA in Beck\cite{beck_fast_2009} is produced by adding $\mathcal S$ to be the procedure
                 \[
                     (y^{(k + 1)}, t_{k + 1}) = \begin{cases}
-                        (x^{(k + 1)}, 1) & f(y^{(k + 1)}) > f(x^{(k + 1)}),
+                        (x^{(k + 1)}, 1) & F(y^{(k + 1)}) > F(x^{(k + 1)}),
                         \\
                         (y^{(k + 1)}, t_{k + 1}) & \text{else}. 
                     \end{cases}
@@ -480,7 +480,7 @@
         Starting with \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}}, $\theta_k = (t_k - 1)/(t_k + 1)$. 
         We consider $f = g + h$, $g$ is Lipschitz smooth with constant $L$, and strongly convex with constant $\sigma$. 
         $h$ is convex. 
-        The parameters, $\theta_k$, and $t_k$ will be determined as we review the proof. 
+        The parameters, $\theta_k$, and $t_k$, will be determined as we review the proof. 
         $t_{0} = 1$ is the base case for $t_k$ sequence; it represents the fact that there are no accelerations on the first step of the algorithm; its value depends on what we want it to be. 
         \par
         Here is a list of quantities we constructed for a better exposition. 
@@ -508,6 +508,7 @@
             \item [8.] $q = \sigma/L$, the reciprical of the condition number. It would be that $q \in (0, 1)$. 
         \end{itemize}
     \subsection{Convergence Claim}
+        We proposed the following alternative for proving the convergence rate of V-FISTA. 
         \begin{lemma}\label{lemma:convergence-prep}
             If there exists a sequence $(t_k)_{k\in \mathbb N}, C_k$ such that 
             \begin{align}
@@ -532,8 +533,18 @@
                 \right). 
             \end{align*}
         \end{lemma}
-
+        \begin{proof}
+            see \hyperref[proof:vfist-convergence-prep]{\ref*{proof:vfist-convergence-prep}}.    
+        \end{proof}
+        
         \begin{prop}\label{prop:vfista-generic-convergence}
+            If the sequence $(t_k)_{k \ge \mathbb N}$ by $t_{k}$ satisfies 
+            $t_{k + 1} = 1 + \frac{t_k^2(1 - q)}{t_k + 1}$, and $t_{k + 1} \ge t_k + 1 - t_k^2q$ and $t_k > 1$ for all $k\ge 0$, then \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} stays true. 
+        \end{prop}
+        \begin{proof}
+            See \hyperref[proof:vfista-generic-convergence]{\ref*{proof:vfista-generic-convergence}}. 
+        \end{proof}
+        \begin{prop}\label{prop:vfista-linear-convergence}
             The choice of $t_k = t_{k + 1} = \sqrt{L/\sigma}\; \forall k\ge 0$ makes the proposed condition in \hyperref[lemma:convergence-prep]{proposition \ref*{lemma:convergence-prep}} true. 
             Hence, the V-FISTA variant (3.) has a convergence rate bound 
             \[
@@ -548,11 +559,27 @@
                 \right).     
             \]
         \end{prop}
-        \begin{prop}
-            If the sequence $(t_k)_{k \ge \mathbb N}$ by $t_{k}$ satisfies 
-            $t_{k + 1} = 1 + \frac{t_k^2(1 - q)}{t_k + 1}$, and $t_{k + 1} \ge t_k + 1 - t_k^2q$, for all $k\ge 0$, then \hyperref[prop:vfista-generic-convergence]{proposition \ref*{prop:vfista-generic-convergence}} stays stays true. 
-            
-        \end{prop}
+        \begin{proof}
+            From \hyperref[prop:vfista-generic-convergence]{proposition \ref*{prop:vfista-generic-convergence}} we have 
+            \begin{align*}
+                \frac{t_{k + 1} - 1}{t^2_k(1 - q)}
+                    -
+                \frac{1}{t_k + 1} &= 0
+                \\
+                & \triangleright\; \text{if } t_{k + 1} = t_k, \text{ then}
+                \\
+                \frac{t - 1}{t^2(1 - q)} &= \frac{1}{t + 1}
+                \\
+                t^2(1 - q) 
+                &= t^2 - 1
+                \\
+                t^2q &= 1
+                \\
+                t &= \pm \sqrt{\frac{L}{\sigma}}, 
+            \end{align*}
+            with $t_k > 1$ it has to be $t = \sqrt{\frac{L}{\sigma}}$. 
+        \end{proof}
+        
 
 
         
@@ -598,6 +625,7 @@
     \subsection{Subsection}
 \appendix
 
+\pagebreak
 \section{Appendix} 
     \input{Sections/appendix.tex}
 
