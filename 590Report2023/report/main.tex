@@ -577,15 +577,9 @@
                 \\
                 t &= \pm \sqrt{\frac{L}{\sigma}}, 
             \end{align*}
-            with $t_k > 1$ it has to be $t = \sqrt{\frac{L}{\sigma}}$. 
+            with $t_k > 1$ it has to be $t_k = \sqrt{\frac{L}{\sigma}}$ for all $k \ge 0$. 
+            With that we have $t_{k + 1} = t_{k} + 1 - t_k^2 q = t_k + 1 - 1 = t_k$, hence the inequality is also satisfied. 
         \end{proof}
-        
-
-
-        
-        
-        
-
     % Check out this cool Bibtext ref \cite[this]{texbook}, woooooooooah, also it's in plain style. For some mind altering psychodelic, read \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} for the experience. For some brain expanding julia code, read \hyperref[code:brain_expand]{brain expanding julia code}. 
     % \begin{algorithm}
     %     \begin{algorithmic}[t]
@@ -616,14 +610,16 @@
     % \lstinputlisting[language=julia, basicstyle=\ttfamily\scriptsize,numbers=left]{Code/juliacode.jl}
 
 \section{Adding Non-smoothness in Nesterov's Generic Method}
-
     \subsection{Setting up the Stage}
+    
 
 
 \section{Numerical Experiments}\label{sec:numerics}
-    
+    We consider a signal length of $512$, with $t_k = k$, and $t_k = 0$ for $0\le t \le 256$ and $t_k = 1$ for $257\le t\le 512$. 
     \subsection{Subsection}
+        
 \appendix
+
 
 \pagebreak
 \section{Appendix} 
