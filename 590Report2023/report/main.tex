@@ -490,7 +490,7 @@
             \item [2.] $e^{(k)} = x^{(k)} - \bar x$, the error vector at the kth iteration, for $k \ge 0$. 
             \item [3.] $\theta_k = (t_k -1)/(t_k + 1)$, which is the momentum step size. 
             \item [4.] $u^{(k)} = \bar x + t_{k}(x^{(k - 1)} - x^{(k)}) - x^{(k - 1)}$, the error term extrapolated with the velocity. We take $u^{(0)} = \bar x - x^{(0)}$. 
-            \item [5.] $\delta_k = f(x^{(k)}) - f_*$, with $f_* = f(\bar x) = \inf_x f(x)$. 
+            \item [5.] $\delta_k = f(x^{(k)}) - f_{\text{opt}}$, with $f_{\text{opt}} = f(\bar x) = \inf_x f(x)$. 
             \item [6.] The quantity $R_k$ plays a crucial role in the proof; it's
             $$
                 R_k = 
@@ -533,7 +533,7 @@
             \end{align*}
         \end{lemma}
 
-        \begin{prop}
+        \begin{prop}\label{prop:vfista-generic-convergence}
             The choice of $t_k = t_{k + 1} = \sqrt{L/\sigma}\; \forall k\ge 0$ makes the proposed condition in \hyperref[lemma:convergence-prep]{proposition \ref*{lemma:convergence-prep}} true. 
             Hence, the V-FISTA variant (3.) has a convergence rate bound 
             \[
@@ -547,6 +547,11 @@
                     \right\Vert^2
                 \right).     
             \]
+        \end{prop}
+        \begin{prop}
+            If the sequence $(t_k)_{k \ge \mathbb N}$ by $t_{k}$ satisfies 
+            $t_{k + 1} = 1 + \frac{t_k^2(1 - q)}{t_k + 1}$, and $t_{k + 1} \ge t_k + 1 - t_k^2q$, for all $k\ge 0$, then \hyperref[prop:vfista-generic-convergence]{proposition \ref*{prop:vfista-generic-convergence}} stays stays true. 
+            
         \end{prop}
 
 

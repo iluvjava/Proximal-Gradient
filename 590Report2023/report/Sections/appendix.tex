@@ -1,6 +1,67 @@
-This is a new section. 
-\subsection{Proof for V-FISTA Claims}
-This is a subsection. 
+\subsection{Proof for Lemma \ref*{lemma:convergence-prep}}
+    For better notation we use $T$ to denote the proximal gradient operator $T_L$ appeared in \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}}. 
+    We need the following lemma to start the proof. 
+    \begin{lemma}[Proximal Gradient Lemma]
+        With $f = g + h$, where $h$ is convex, closed and proper, with $g$ be $L$-Lipschitz smooth with a constant of $L$, let $y\in \mathbb E$, defining $y^+ = T(y)$ being the proximal gradient step, then for any $x\in \mathbb E$, we have: 
+        $$
+        \begin{aligned}
+        f(x) - f(y^+) \ge \frac{L}{2}\Vert x - y^+\Vert^2 - \frac{L}{2}\Vert x - y\Vert^2 + D_g(x, y),
+        \end{aligned}
+        $$
+        Where $D_g(x, y):= g(x) - g(y) - \langle \nabla g(y), x -y\rangle$ is the Bregman Divergence for the smooth part of the sum: $g$. 
+    \end{lemma}
+    See \cite[remark 10.17]{beck_first-order_nodate} for this theorem. 
+    \begin{proof}
+        from lemma,
+        \begin{align}
+            F(x) - F\circ T(y) &\ge 
+            \frac{L}{2}\Vert x - T (y)\Vert^2 - \frac{L}{2}\Vert x - y\Vert^2 + D_g(x, y)
+            \\
+            & \triangleright \text{ strong convexity of g makes }
+            D_g(x, y) \ge \frac{\sigma}{2}\Vert y - x\Vert^2
+            \\
+            & \ge \frac{L}{2}\Vert x - Ty\Vert^2 - \frac{L - \sigma}{2}\Vert x - y\Vert^2. 
+        \end{align}\label{eqn:proxgrad_lemma}
+
+        With $k\ge 0$, make a sequence $(t_k)_{k\in \mathbb N}$, we consider:
+        \begin{itemize}
+            \item [1.] $x = t^{-1}_{k + 1}\bar x + (1 - t^{-1}_{k + 1})x^{(k)}, y = y^{(k)}$. 
+            \item [2.] $\bar x \in \underset{x}{\text{argmin}}\; f(x)$ and $f(\bar x) = f_{\text{opt}}$. 
+        \end{itemize}
+        substituting the above into \hyperref[eqn:proxgrad_lemma]{\ref*{eqn:proxgrad_lemma}} then the RHS yields 
+        \begin{align*}
+            x - T(y) &=  t^{-1}_{k+1} \bar x + (1 - t^{-1}_{k+1}) x^{(k)} - T y^{(k)}
+            \\
+            &= t^{-1}_{k+1} \bar x + (1 - t^{-1}_{k+1}) x^{(k)} - x^{(k + 1)}
+            \\
+            &= t^{-1}_{k + 1}\left(
+                \bar x + (t_{k+1} - 1)x^{(k)} - t_{k+1}x^{(k + 1)}
+            \right)
+            \\
+            &= t^{-1}_{k + 1} \left(
+                \bar x + t_{k+1} \left(
+                    x^{(k)} - x^{(k + 1)}
+                \right) - x^{(k)}
+            \right)
+            \\
+            x - y &= t^{-1}_{k+1} \bar x + (1 - t_{k+1}^{-1}) x^{(k)} - y^{(k)}
+            \\
+            &= t^{-1}_{k + 1}\left(
+                \bar x + (t_{k+1} - 1)x^{(k)} - t_{k+1} y^{(k)}
+            \right)
+            \\
+            &= t^{-1}_{k + 1}
+            \left(
+                \bar x + t_{k+1} \left(
+                    x^{(k)} - y^{(k)}
+                \right) - x^{(k)}
+            \right), 
+        \end{align*}
+        
+
+    \end{proof}
+    
+        
 
 \subsection{Cute Subsection}
 
