@@ -223,4 +223,13 @@ Y.~Nesterov, \emph{Introductory {Lectures} on {Convex} {Optimization}}, ser.
   Available: \url{http://link.springer.com/10.1007/978-1-4419-8853-9}
 \BIBentrySTDinterwordspacing
 
+\bibitem{bezanson_julia_2017}
+\BIBentryALTinterwordspacing
+J.~Bezanson, A.~Edelman, S.~Karpinski, and V.~B. Shah, ``Julia: {A} {Fresh}
+  {Approach} to {Numerical} {Computing},'' \emph{SIAM Review}, vol.~59, no.~1,
+  pp. 65--98, Jan. 2017, publisher: Society for Industrial and Applied
+  Mathematics. [Online]. Available:
+  \url{https://epubs.siam.org/doi/10.1137/141000671}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

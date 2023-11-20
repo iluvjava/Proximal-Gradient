@@ -17,45 +17,45 @@ Warning--empty journal in aujol_fista_2022
 Warning--empty journal in bubeck_convex_2015
 
 Done.
-You've used 24 entries,
+You've used 25 entries,
             4087 wiz_defined-function locations,
-            988 strings with 12766 characters,
-and the built_in function-call counts, 18680 in all, are:
-= -- 1629
-> -- 377
-< -- 146
-+ -- 205
-- -- 62
-* -- 1050
-:= -- 3051
-add.period$ -- 50
-call.type$ -- 24
-change.case$ -- 38
-chr.to.int$ -- 330
-cite$ -- 28
-duplicate$ -- 1281
-empty$ -- 1377
-format.name$ -- 81
-if$ -- 4224
+            995 strings with 12970 characters,
+and the built_in function-call counts, 19654 in all, are:
+= -- 1718
+> -- 400
+< -- 155
++ -- 217
+- -- 66
+* -- 1104
+:= -- 3209
+add.period$ -- 52
+call.type$ -- 25
+change.case$ -- 40
+chr.to.int$ -- 348
+cite$ -- 29
+duplicate$ -- 1347
+empty$ -- 1440
+format.name$ -- 86
+if$ -- 4446
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 220
-newline$ -- 143
-num.names$ -- 30
-pop$ -- 442
+int.to.str$ -- 25
+missing$ -- 232
+newline$ -- 148
+num.names$ -- 31
+pop$ -- 461
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1410
+skip$ -- 1484
 stack$ -- 0
-substring$ -- 823
-swap$ -- 1126
-text.length$ -- 36
+substring$ -- 868
+swap$ -- 1189
+text.length$ -- 39
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 24
+type$ -- 25
 warning$ -- 4
-while$ -- 80
-width$ -- 26
-write$ -- 331
+while$ -- 85
+width$ -- 27
+write$ -- 346
 (There were 4 warnings)

@@ -347,8 +347,10 @@ MAX_ITR = 5000
 LINE_SEARCH = true
 "The tolerance for the proximal gradient type algorithm. "
 TOL = 1e-10
+
+### INITIATE EXPERIMENT INSTANCE HERE!!!!
 "The experiment instance, should be of type `GenericTestInstance`" 
-INSTANCE = TVMin1D(256, 10)
+INSTANCE = TVMin1D(256, 0.5)
 
 # TODO: not implemented yet. 
 "Whether to run experiment parallel on multiple cores. " 

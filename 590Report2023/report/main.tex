@@ -289,8 +289,8 @@
             \item [4.] 
                 A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla g(x^{(k + 1)}), g(x^{(k)})$ using 
                 \[
-                    \sigma \approx \langle \nabla g(x^{(k + 1)}) - \nabla g(x^{(k)}), x^{(k + 1)} - x^{(k)}\rangle/ 
-                    \Vert x^{(k + 1)} - x^{(k)}\Vert^2. 
+                    \sigma \approx \langle \nabla g(y^{(k + 1)}) - \nabla g(y^{(k)}), y^{(k + 1)} - y^{(k)}\rangle/ 
+                    \Vert y^{(k + 1)} - y^{(k)}\Vert^2. 
                 \]
             It yields excellent results for the numerical experiments. 
             \item [5.] 
@@ -478,7 +478,7 @@
     The proofs with details are in the appendix. 
     \subsection{Setting up the Stage}
         Starting with \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}}, $\theta_k = (t_k - 1)/(t_k + 1)$. 
-        We consider $f = g + h$, $g$ is Lipschitz smooth with constant $L$, and strongly convex with constant $\sigma$. 
+        We consider $F = g + h$, $g$ is Lipschitz smooth with constant $L$, and strongly convex with constant $\sigma$. 
         $h$ is convex. 
         The parameters, $\theta_k$, and $t_k$, will be determined as we review the proof. 
         $t_{0} = 1$ is the base case for $t_k$ sequence; it represents the fact that there are no accelerations on the first step of the algorithm; its value depends on what we want it to be. 
@@ -616,12 +616,74 @@
 
 \section{Numerical Experiments}\label{sec:numerics}
     We consider a signal length of $512$, with $t_k = k$, and $t_k = 0$ for $0\le t \le 256$ and $t_k = 1$ for $257\le t\le 512$. 
+    We apply \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}}, variants (4.) to the TV minimization problem with initial guess $x^{(0)} = \mathbf 0$, $\theta_1 = 0$. 
+    During the execution of the algorithm, we record the following quantities 
+    \begin{itemize}
+        \item [1.] The gradient mapping norm $\left\Vert y^{(k)} - T(y^{(k)})\right\Vert$. 
+        \item [2.] The optimality gap $F(x^{(k)}) - F_{\text{opt}}$, we estimate the optimality gap by choosing the smallest $F(x^{(k)})$ to be the minimum value from all competing algorithms, for all $k\ge 0$. 
+        \item [3.] The $\theta_k$, i.e., the momentum term. 
+    \end{itemize}
+    The algorithm terminates upon $\Vert y^{(k)} - T(y^{(k)}) \Vert \le 10^{-10}$, or, a maximum iteration threshold is hit. 
+    We use the Julia programming language \cite{bezanson_julia_2017} for the numerical implementation; see the GitHub repository \href{https://github.com/iluvjava/Proximal-Gradient/tree/main/applications}{here}.
     \subsection{Subsection}
-        
+        We showcase the results of $\alpha =10$ in \hyperref[fig:results1]{figure \ref*{fig:results1}}. 
+        \begin{figure}[H]
+            \centering
+            \subfloat[Gradient mapping norm]{
+                \includegraphics*[width=8cm]{Assets/results1/grad_map_norm.png}
+            }
+            \subfloat[Objective value]{
+                \includegraphics*[width=8cm]{Assets/results1/obj_vals.png}
+            }
+            \\
+            \subfloat[Momentum]{
+                \includegraphics*[width=8cm]{Assets/results1/momentum.png}
+            }
+            \subfloat[Signal Recovery]
+            {
+                \includegraphics*[width=8cm]{Assets/results1/recovered_signal.png}
+            }
+            \caption{Experiments with $\alpha = 10$, in legend, adaptive refers to our method of spectral momentum, fixed momentum refers to V-FISTA. }
+            \label{fig:results1}
+        \end{figure}
+        Different values of $\alpha$ affect the results for recovering the signal and convergences. 
+        A smaller value of $\alpha$ creates difficulty for the convergence for many methods except ISTA. 
+        It also severely affects the recovered signal.
+        See \hyperref[fig:results2]{figure \ref*{fig:results2}} for more information. 
+        \begin{figure}[H]
+            \centering
+            \subfloat[Gradient mapping norm]{
+                \includegraphics*[width=8cm]{Assets/results2/grad_map_norm.png}
+            }
+            \subfloat[Objective value]{
+                \includegraphics*[width=8cm]{Assets/results2/obj_vals.png}
+            }
+            \\
+            \subfloat[Momentum]{
+                \includegraphics*[width=8cm]{Assets/results2/momentum.png}
+            }
+            \subfloat[Signal Recovery]
+            {
+                \includegraphics*[width=8cm]{Assets/results2/recovered_signal.png}
+            }
+            \caption{Experiments with $\alpha = 0.5$, in legend, adaptive refers to our method of spectral momentum, fixed momentum refers to V-FISTA. }
+            \label{fig:results2}
+        \end{figure}
+        Our method of spectral momentum, described as variant (4.), has overwhelmingly fast empirical convergence results for the TV minimization problem. 
+        Its effectiveness is still under investigation. 
+        We call it the spectral momentum method because of the method of Spectral Adapative Stepsize. 
+        This method is described in \cite[4.1]{goldstein_field_2016}, which uses the same formula to estimate the smallest eigenvalues for the Hessian. 
+        However, our method is entirely different because we applied the estimation to the $\kappa$ term for the momentum on V-FISTA. 
+
+\section*{Acknowledgement}
+    Professor Shawn Wang at UBCO, who is also my advisor. 
+    He had doubts about what I said and asked great questions. 
+    That helps me develop a better understanding of Nesterov's lower complexity bound. 
+
+\pagebreak        
 \appendix
 
 
-\pagebreak
 \section{Appendix} 
     \input{Sections/appendix.tex}
 
