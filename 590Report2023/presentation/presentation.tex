@@ -17,6 +17,7 @@
 \usepackage{amsthm}
 \theoremstyle{definition}
 \newtheorem{exmp}{Example}[section]
+\newtheorem{prop}{Proposition}[section]
 
 \author{Hongda Li}
 \title{A Discussion on The Nesterov Momentum and Variants of FISTA with TV Minmizations Application}
@@ -225,7 +226,7 @@
         Main observations
         \begin{itemize}
             \item [1.] FISTA is non-robust to strong convexity; it experiences the same $\mathcal (1/k^2)$. 
-            \item [2.] However, ISTA would be $\mathcal O(1 - 1/\kappa)^k)$ under strong convexity, with $\kappa = L/\sigma$, for $L$-Lipschitz smooth and $\sigma$ strongly on the smooth part of the FB splitting objective. 
+            \item [2.] However, ISTA would be $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity, with $\kappa = L/\sigma$, for $L$-Lipschitz smooth and $\sigma$ strongly on the smooth part of the FB splitting objective. 
         \end{itemize}
     \end{frame}
         
@@ -361,7 +362,6 @@
     \end{frame}
     \begin{frame}{MFISTA}
         MFISTA was an early attempt at improving FISTA. 
-        
         \begin{itemize}
             \item [1.] Requires frequent computing of the objective, slowing it by a constant factor compared to FISTA. 
             \item [2.] There is no better convergence rate than $\mathcal O(1/k^2)$ from our research. 
@@ -491,21 +491,133 @@
             where $L$ is the Lipschitz constant of the gradient. 
         \end{theorem}\label{thm:walkington_lowerbound}
     \end{frame}
-    \begin{frame}
+    \begin{frame}{The Differences Between Their Claims}
         \begin{itemize}
-            \item The former claims there exists a single function from $\mathcal F_{L}^{1,1}(\mathcal H)$ introduces the lower bound for all values of $k$, and all algorithms from $\GAfirst$, but the latter didn't claim that. 
-            \item The difference would remain in infinite dimension Hilbert space if we were to generalize \hyperref[thm:nesterov_lower_bnd]{thorem \ref*{thm:nesterov_lower_bnd}}.
+            \item Walkingon claimed there exists a single function from $\mathcal F_{L}^{1,1}(\mathcal H)$ that introduces the lower bound for all values of $k$, and all algorithms from $\GAfirst$, but the latter didn't claim that. 
+            \item The difference would remain in infinite dimension Hilbert space if we generalize Nesterov's lower bound claim. 
             \item No contradiction from Attouch and Peypouquet\cite{attouch_rate_2016} on $o(1/k^2)$ because they fixed $\Phi$ in the proof. 
         \end{itemize}
         There is no proof after Walkington's claim; we can't know if he had his way of proving the latter claim. 
         It makes us think it is likely a missed detail in his writing. 
     \end{frame}
+
  
 
 \section{V-FISTA Under Strong Convexity}
-    \begin{frame}{Statement of Convergence Results for V-FISTA Convergence under Strong Convexity}
+
+    \begin{frame}{Preparing for Strong Convexity Convergence of V-FISTA}
+        To understand the proof, we introduce the following quantities for simplicity. 
+        \begin{itemize}
+            \item [1.] $s^{(k)} = x^{(k)} - x^{(k - 1)}$, the velocity vector,
+            for all $k\ge 1$. 
+            \item [2.] $e^{(k)} = x^{(k)} - \bar x$, the error vector at the kth iteration, for $k \ge 0$. 
+            \item [3.] $\theta_k = (t_k -1)/(t_k + 1)$, which is the momentum step size. 
+            \item [4.] $u^{(k)} = \bar x + t_{k}(x^{(k - 1)} - x^{(k)}) - x^{(k - 1)}$, the error term extrapolated with the velocity. We take $u^{(0)} = \bar x - x^{(0)}$. 
+            \item [5.] $\delta_k = f(x^{(k)}) - f_{\text{opt}}$, with $f_{\text{opt}} = f(\bar x) = \inf_x f(x)$. 
+            \item [6.] The quantity $R_k$ plays a crucial role in the proof; it's
+            {\small
+                $$
+                R_k = 
+                \frac{\sigma(t_{k + 1} - 1)}{2}
+                \left\Vert
+                    x^{(k)} - \bar x
+                \right\Vert^2 
+                - 
+                \frac{L - \sigma}{2}
+                \left\Vert
+                    \bar x + t_{k + 1}\left( x^{(k)} - y^{(k)}\right) - x^{(k)}
+                \right\Vert^2
+                $$
+            }
+            \item [7.] $\kappa = L/\sigma$, the condition number, it would be that $\kappa \ge 0$. 
+            \item [8.] $q = \sigma/L$, the reciprical of the condition number. It would be that $q \in (0, 1)$. 
+        \end{itemize}
+
+    \end{frame}
+
+    \begin{frame}{V-FISTA Generic Convergence}
+        \begin{lemma}[Generic Convergence Results]\label{lemma:convergence-prep}
+            If there exists a sequence $(t_k)_{k\in \mathbb N}, C_k$ such that 
+            \begin{align}
+                \begin{cases}
+                    \frac{C_k}{t_{k + 1}^2} = \frac{L(1 - t^{-1}_{k + 1})}{2t_{k}^2}
+                    \\
+                    R_k + C_k\left\Vert
+                        u^{(k)}
+                    \right\Vert^2 \ge 0, 
+                \end{cases}
+            \end{align}
+            then 
+            \begin{align*}
+                \delta_{k + 1}
+                \le 
+                \left(
+                    \prod_{i = 0}^{k} (1 - t_k^{-1})
+                \right)\left(
+                    \delta_0 + \frac{L}{2t_0^2}\left\Vert
+                        u^{(0)}
+                    \right\Vert^2
+                \right). 
+            \end{align*}
+        \end{lemma}
+        \begin{proof}
+            In the appendix of the report. 
+        \end{proof}
+    \end{frame}
+    \begin{frame}{A Sufficient Condition for Convergence}
+        \begin{prop}[Sufficient Conditions for Generic Convergence]
+            If the sequence $(t_k)_{k \ge \mathbb N}$ by $t_{k}$ satisfies 
+            $t_{k + 1} = 1 + \frac{t_k^2(1 - q)}{t_k + 1}$, and $t_{k + 1} \ge t_k + 1 - t_k^2q$ and $t_k > 1$ for all $k\ge 0$, then \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} (Generic Convergence Results) stays true. 
+        \end{prop}
+        \begin{proof}
+            In the appendix of the report. 
+        \end{proof}
+    \end{frame}
+
+    \begin{frame}{Fixed Momentum Convergence}
+        \begin{prop}
+            The choice of $t_k = t_{k + 1} = \sqrt{\frac{L}{\sigma}}$ for all $k \ge 0$, then proposition (Sufficient Conditions for Generic Convergence) is true. 
+            Hence, the V-FISTA variant (3.) has a convergence rate bound 
+            \[
+                \delta_{k + 1}
+                \le 
+                \left(
+                    1 - \frac{1}{\sqrt{\kappa}}
+                \right)^k\left(
+                    \delta_0 + \frac{L}{2t_0^2}\left\Vert
+                        u^{(0)}
+                    \right\Vert^2
+                \right).        
+            \]
+        \end{prop}
+    \end{frame}
+    \begin{frame}
+        \begin{proof}
+            we have 
+            \begin{align*}
+                \frac{t_{k + 1} - 1}{t^2_k(1 - q)}
+                    -
+                \frac{1}{t_k + 1} &= 0
+                \quad 
+                \triangleright\; \text{by } t_{k + 1} = t_k, \text{ then}
+                \\
+                \frac{t - 1}{t^2(1 - q)} &= \frac{1}{t + 1}
+                \\
+                t^2(1 - q) 
+                &= t^2 - 1
+                \\
+                t^2q &= 1
+                \\
+                t &= \pm \sqrt{\frac{L}{\sigma}}, 
+            \end{align*}
+            with $t_k > 1$ it has to be $t_k = \sqrt{\frac{L}{\sigma}}$ for all $k \ge 0$. 
+            With that we have $t_{k + 1} = t_{k} + 1 - t_k^2 q = t_k + 1 - 1 = t_k$, hence the inequality is also satisfied. 
+        \end{proof}
+        
         
     \end{frame}
+
+
 
 \section{More Numerical Results}
 

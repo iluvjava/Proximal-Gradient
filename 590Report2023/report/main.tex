@@ -552,7 +552,7 @@
                 \delta_{k + 1}
                 \le 
                 \left(
-                    \frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}
+                    1 - \frac{1}{\sqrt{\kappa}}
                 \right)^k\left(
                     \delta_0 + \frac{L}{2t_0^2}\left\Vert
                         u^{(0)}
@@ -586,6 +586,7 @@
             We came up with this proof and this way of presenting to understand Amir's proof\cite[10.7.7]{beck_first-order_nodate}. 
             If the reader is interested in a proof that aims for genericity and arguably did a better job than the above claims, see Chambolle\cite[Appendix B]{chambolle_introduction_2016}. 
         \end{remark}
+        
     % Check out this cool Bibtext ref \cite[this]{texbook}, woooooooooah, also it's in plain style. For some mind altering psychodelic, read \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} for the experience. For some brain expanding julia code, read \hyperref[code:brain_expand]{brain expanding julia code}. 
     % \begin{algorithm}
     %     \begin{algorithmic}[t]
@@ -678,7 +679,7 @@
         Our method of spectral momentum, described as variant (4.), has overwhelmingly fast empirical convergence results for the TV minimization problem. 
         Its effectiveness is still under investigation. 
         We call it the spectral momentum method because of the method of Spectral Adapative Stepsize. 
-        This method is described in \cite[4.1]{goldstein_field_2016}, which uses the same formula to estimate the smallest eigenvalues for the Hessian. 
+        As described in \cite[4.1]{goldstein_field_2016}, the method uses the same formula to estimate the smallest eigenvalues for the Hessian. 
         However, our method is entirely different because we applied the estimation to the $\kappa$ term for the momentum on V-FISTA. 
 
 \section*{Acknowledgement}

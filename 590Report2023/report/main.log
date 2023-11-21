@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  20 NOV 2023 18:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  21 NOV 2023 12:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -580,44 +580,44 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 <Assets/results1/grad_map_norm.png, id=263, 1806.75pt x 1204.5pt>
 File: Assets/results1/grad_map_norm.png Graphic file (type png)
 <use Assets/results1/grad_map_norm.png>
-Package pdftex.def Info: Assets/results1/grad_map_norm.png  used on input line 640.
+Package pdftex.def Info: Assets/results1/grad_map_norm.png  used on input line 641.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 <Assets/results1/obj_vals.png, id=265, 1806.75pt x 1204.5pt>
 File: Assets/results1/obj_vals.png Graphic file (type png)
 <use Assets/results1/obj_vals.png>
-Package pdftex.def Info: Assets/results1/obj_vals.png  used on input line 643.
+Package pdftex.def Info: Assets/results1/obj_vals.png  used on input line 644.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 <Assets/results1/momentum.png, id=267, 1806.75pt x 1204.5pt>
 File: Assets/results1/momentum.png Graphic file (type png)
 <use Assets/results1/momentum.png>
-Package pdftex.def Info: Assets/results1/momentum.png  used on input line 647.
+Package pdftex.def Info: Assets/results1/momentum.png  used on input line 648.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results1/recovered_signal.png, id=269, 602.25pt x 401.5pt>
+<Assets/results1/recovered_signal.png, id=269, 1806.75pt x 1204.5pt>
 File: Assets/results1/recovered_signal.png Graphic file (type png)
 <use Assets/results1/recovered_signal.png>
-Package pdftex.def Info: Assets/results1/recovered_signal.png  used on input line 651.
-(pdftex.def)             Requested size: 227.62204pt x 151.75064pt.
+Package pdftex.def Info: Assets/results1/recovered_signal.png  used on input line 652.
+(pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
  [9]
 <Assets/results2/grad_map_norm.png, id=279, 1806.75pt x 1204.5pt>
 File: Assets/results2/grad_map_norm.png Graphic file (type png)
 <use Assets/results2/grad_map_norm.png>
-Package pdftex.def Info: Assets/results2/grad_map_norm.png  used on input line 663.
+Package pdftex.def Info: Assets/results2/grad_map_norm.png  used on input line 664.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 <Assets/results2/obj_vals.png, id=281, 1806.75pt x 1204.5pt>
 File: Assets/results2/obj_vals.png Graphic file (type png)
 <use Assets/results2/obj_vals.png>
-Package pdftex.def Info: Assets/results2/obj_vals.png  used on input line 666.
+Package pdftex.def Info: Assets/results2/obj_vals.png  used on input line 667.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
 <Assets/results2/momentum.png, id=283, 1806.75pt x 1204.5pt>
 File: Assets/results2/momentum.png Graphic file (type png)
 <use Assets/results2/momentum.png>
-Package pdftex.def Info: Assets/results2/momentum.png  used on input line 670.
+Package pdftex.def Info: Assets/results2/momentum.png  used on input line 671.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results2/recovered_signal.png, id=285, 602.25pt x 401.5pt>
+<Assets/results2/recovered_signal.png, id=285, 1806.75pt x 1204.5pt>
 File: Assets/results2/recovered_signal.png Graphic file (type png)
 <use Assets/results2/recovered_signal.png>
-Package pdftex.def Info: Assets/results2/recovered_signal.png  used on input line 674.
-(pdftex.def)             Requested size: 227.62204pt x 151.75064pt.
+Package pdftex.def Info: Assets/results2/recovered_signal.png  used on input line 675.
+(pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
  [10 </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/grad_map_norm.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/obj_vals.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/momentum.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/recovered_signal.png>] [11 </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/grad_map_norm.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/obj_vals.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/momentum.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/recovered_signal.png>] (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Sections/appendix.tex [12] [13] [14] [15]) (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.bbl
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `en'. Using the pattern for
@@ -685,7 +685,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  81i,17n,89p,534b,672s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0500.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf (18 pages, 1209185 bytes).
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf (18 pages, 1470519 bytes).
 PDF statistics:
  520 PDF objects out of 1000 (max. 8388607)
  438 compressed objects within 5 object streams

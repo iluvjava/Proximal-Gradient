@@ -75,26 +75,34 @@
 \headcommand {\sectionentry {5}{V-FISTA Under Strong Convexity}{35}{V-FISTA Under Strong Convexity}{0}}
 \headcommand {\slideentry {5}{0}{1}{35/35}{}{0}}
 \headcommand {\beamer@framepages {35}{35}}
-\headcommand {\beamer@sectionpages {35}{35}}
-\headcommand {\beamer@subsectionpages {35}{35}}
-\headcommand {\sectionentry {6}{More Numerical Results}{36}{More Numerical Results}{0}}
-\headcommand {\beamer@sectionpages {36}{35}}
-\headcommand {\beamer@subsectionpages {36}{35}}
-\headcommand {\sectionentry {7}{References}{36}{References}{0}}
-\headcommand {\slideentry {7}{0}{1}{36/36}{}{0}}
+\headcommand {\slideentry {5}{0}{2}{36/36}{}{0}}
 \headcommand {\beamer@framepages {36}{36}}
-\headcommand {\slideentry {7}{0}{1}{36/37}{}{0}}
-\headcommand {\beamer@framepages {36}{37}}
-\headcommand {\slideentry {7}{0}{1}{36/38}{}{0}}
-\headcommand {\beamer@framepages {36}{38}}
-\headcommand {\slideentry {7}{0}{1}{36/39}{}{0}}
-\headcommand {\beamer@framepages {36}{39}}
-\headcommand {\slideentry {7}{0}{1}{36/40}{}{0}}
-\headcommand {\beamer@framepages {36}{40}}
-\headcommand {\slideentry {7}{0}{1}{36/41}{}{0}}
-\headcommand {\beamer@framepages {36}{41}}
-\headcommand {\beamer@partpages {1}{41}}
-\headcommand {\beamer@subsectionpages {36}{41}}
-\headcommand {\beamer@sectionpages {36}{41}}
-\headcommand {\beamer@documentpages {41}}
-\headcommand {\gdef \inserttotalframenumber {37}}
+\headcommand {\slideentry {5}{0}{3}{37/37}{}{0}}
+\headcommand {\beamer@framepages {37}{37}}
+\headcommand {\slideentry {5}{0}{4}{38/38}{}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\slideentry {5}{0}{5}{39/39}{}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\beamer@sectionpages {35}{39}}
+\headcommand {\beamer@subsectionpages {35}{39}}
+\headcommand {\sectionentry {6}{More Numerical Results}{40}{More Numerical Results}{0}}
+\headcommand {\beamer@sectionpages {40}{39}}
+\headcommand {\beamer@subsectionpages {40}{39}}
+\headcommand {\sectionentry {7}{References}{40}{References}{0}}
+\headcommand {\slideentry {7}{0}{1}{40/40}{}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\slideentry {7}{0}{1}{40/41}{}{0}}
+\headcommand {\beamer@framepages {40}{41}}
+\headcommand {\slideentry {7}{0}{1}{40/42}{}{0}}
+\headcommand {\beamer@framepages {40}{42}}
+\headcommand {\slideentry {7}{0}{1}{40/43}{}{0}}
+\headcommand {\beamer@framepages {40}{43}}
+\headcommand {\slideentry {7}{0}{1}{40/44}{}{0}}
+\headcommand {\beamer@framepages {40}{44}}
+\headcommand {\slideentry {7}{0}{1}{40/45}{}{0}}
+\headcommand {\beamer@framepages {40}{45}}
+\headcommand {\beamer@partpages {1}{45}}
+\headcommand {\beamer@subsectionpages {40}{45}}
+\headcommand {\beamer@sectionpages {40}{45}}
+\headcommand {\beamer@documentpages {45}}
+\headcommand {\gdef \inserttotalframenumber {41}}

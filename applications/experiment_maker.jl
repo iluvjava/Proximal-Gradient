@@ -320,7 +320,8 @@ function RegisterResultsPostProcessing(this::TVMin1D, results::Vector{ProxGradRe
             label=this.names[j], 
             linestyle=LINE_STYLES[j], 
             markershape=MARKER_SHAPE[j], 
-            linewidth=LINE_WIDTH
+            linewidth=LINE_WIDTH, 
+            dpi=300
         )
     end
     display(fig)
@@ -350,7 +351,7 @@ TOL = 1e-10
 
 ### INITIATE EXPERIMENT INSTANCE HERE!!!!
 "The experiment instance, should be of type `GenericTestInstance`" 
-INSTANCE = TVMin1D(256, 0.5)
+INSTANCE = TVMin1D(256, 10)
 
 # TODO: not implemented yet. 
 "Whether to run experiment parallel on multiple cores. " 
