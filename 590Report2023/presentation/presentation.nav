@@ -35,22 +35,44 @@
 \headcommand {\sectionentry {3}{Literature Review}{15}{Literature Review}{0}}
 \headcommand {\slideentry {3}{0}{1}{15/15}{}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\beamer@sectionpages {15}{15}}
-\headcommand {\beamer@subsectionpages {15}{15}}
-\headcommand {\sectionentry {4}{Nesterov Lower Bound}{16}{Nesterov Lower Bound}{0}}
-\headcommand {\beamer@sectionpages {16}{15}}
-\headcommand {\beamer@subsectionpages {16}{15}}
-\headcommand {\sectionentry {5}{V-FISTA Under Strong Convexity}{16}{V-FISTA Under Strong Convexity}{0}}
-\headcommand {\beamer@sectionpages {16}{15}}
-\headcommand {\beamer@subsectionpages {16}{15}}
-\headcommand {\sectionentry {6}{Numerical Results}{16}{Numerical Results}{0}}
-\headcommand {\beamer@sectionpages {16}{15}}
-\headcommand {\beamer@subsectionpages {16}{15}}
-\headcommand {\sectionentry {7}{References}{16}{References}{0}}
-\headcommand {\slideentry {7}{0}{1}{16/16}{}{0}}
+\headcommand {\slideentry {3}{0}{2}{16/16}{}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\beamer@partpages {1}{16}}
-\headcommand {\beamer@subsectionpages {16}{16}}
-\headcommand {\beamer@sectionpages {16}{16}}
-\headcommand {\beamer@documentpages {16}}
-\headcommand {\gdef \inserttotalframenumber {15}}
+\headcommand {\slideentry {3}{0}{3}{17/17}{}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\slideentry {3}{0}{4}{18/18}{}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\slideentry {3}{0}{5}{19/19}{}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {3}{0}{6}{20/20}{}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {3}{0}{7}{21/21}{}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {3}{0}{8}{22/22}{}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {3}{0}{9}{23/23}{}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\beamer@sectionpages {15}{23}}
+\headcommand {\beamer@subsectionpages {15}{23}}
+\headcommand {\sectionentry {4}{Nesterov Lower Bound}{24}{Nesterov Lower Bound}{0}}
+\headcommand {\beamer@sectionpages {24}{23}}
+\headcommand {\beamer@subsectionpages {24}{23}}
+\headcommand {\sectionentry {5}{V-FISTA Under Strong Convexity}{24}{V-FISTA Under Strong Convexity}{0}}
+\headcommand {\beamer@sectionpages {24}{23}}
+\headcommand {\beamer@subsectionpages {24}{23}}
+\headcommand {\sectionentry {6}{Numerical Results}{24}{Numerical Results}{0}}
+\headcommand {\beamer@sectionpages {24}{23}}
+\headcommand {\beamer@subsectionpages {24}{23}}
+\headcommand {\sectionentry {7}{References}{24}{References}{0}}
+\headcommand {\slideentry {7}{0}{1}{24/24}{}{0}}
+\headcommand {\beamer@framepages {24}{24}}
+\headcommand {\slideentry {7}{0}{1}{24/25}{}{0}}
+\headcommand {\beamer@framepages {24}{25}}
+\headcommand {\slideentry {7}{0}{1}{24/26}{}{0}}
+\headcommand {\beamer@framepages {24}{26}}
+\headcommand {\slideentry {7}{0}{1}{24/27}{}{0}}
+\headcommand {\beamer@framepages {24}{27}}
+\headcommand {\beamer@partpages {1}{27}}
+\headcommand {\beamer@subsectionpages {24}{27}}
+\headcommand {\beamer@sectionpages {24}{27}}
+\headcommand {\beamer@documentpages {27}}
+\headcommand {\gdef \inserttotalframenumber {26}}

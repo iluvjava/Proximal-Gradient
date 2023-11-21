@@ -1,7 +1,7 @@
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
 \beamer@sectionintoc {2}{TV Minimizations}{5}{0}{2}
 \beamer@sectionintoc {3}{Literature Review}{15}{0}{3}
-\beamer@sectionintoc {4}{Nesterov Lower Bound}{16}{0}{4}
-\beamer@sectionintoc {5}{V-FISTA Under Strong Convexity}{16}{0}{5}
-\beamer@sectionintoc {6}{Numerical Results}{16}{0}{6}
-\beamer@sectionintoc {7}{References}{16}{0}{7}
+\beamer@sectionintoc {4}{Nesterov Lower Bound}{24}{0}{4}
+\beamer@sectionintoc {5}{V-FISTA Under Strong Convexity}{24}{0}{5}
+\beamer@sectionintoc {6}{Numerical Results}{24}{0}{6}
+\beamer@sectionintoc {7}{References}{24}{0}{7}

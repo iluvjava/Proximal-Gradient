@@ -228,22 +228,153 @@
     
 \section{Literature Review}
     \begin{frame}{Generic FISTA}
-        We introduce the below algorithm \ref*{alg:generic_FISTA} to expedite presentation. 
-        \begin{algorithm}[H]
-            \begin{algorithmic}[1]
-                \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
-                \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
-                \FOR{$k = 0, 1, \cdots$}
-                    \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
-                    \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
-                    \STATE{Execute subroutine $\mathcal S$. }
-                \ENDFOR
-            \end{algorithmic}
-            \caption{Generic FISTA}
-            \label{alg:generic_FISTA}
-        \end{algorithm}
+        We introduce the below algorithm \ref*{alg:generic_FISTA} to expedite presentation. Consider Smooth, non-smooth Additive composite objective $F = g + h$. 
+        \begin{block}{A Good Template}
+            \begin{algorithm}[H]
+                \begin{algorithmic}[1]
+                    \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
+                    \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
+                    \FOR{$k = 0, 1, \cdots$}
+                        \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
+                        \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
+                        \STATE{Execute subroutine $\mathcal S$. }
+                    \ENDFOR
+                \end{algorithmic}
+                \caption{Generic FISTA}
+                \label{alg:generic_FISTA}
+            \end{algorithm}
+        \end{block}
         Changing $T_L$, $\theta_{k + 1}$, and $\mathcal S$ yield different variants. 
     \end{frame}
+    \begin{frame}{Variant (1.), FISTA Original}
+        \begin{algorithm}[H]
+            \begin{tiny}
+                \begin{algorithmic}[1]
+                    \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
+                    \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
+                    \FOR{$k = 0, 1, \cdots$}
+                        \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
+                        \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
+                        \STATE{Execute subroutine $\mathcal S$. }
+                    \ENDFOR
+                \end{algorithmic}
+                \caption{Generic FISTA}    
+            \end{tiny}
+        \end{algorithm}
+        Original FISTA proposed by Beck \cite{beck_fast_2009-1} has 
+        \begin{itemize}
+            \item $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, $t_0 = 1$. 
+            \item It achieves $\mathcal O(1/k^2)$ on the objective value; it doesn't improve for strongly convex function $g$. 
+            \item No known proof for the convergence of the iterates. 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Variant (2.), Chambolle, Dossal}
+        \begin{algorithm}[H]
+            \begin{tiny}
+                \begin{algorithmic}[1]
+                    \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
+                    \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
+                    \FOR{$k = 0, 1, \cdots$}
+                        \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
+                        \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
+                        \STATE{Execute subroutine $\mathcal S$. }
+                    \ENDFOR
+                \end{algorithmic}
+                \caption{Generic FISTA}    
+            \end{tiny}
+        \end{algorithm}
+        From Chamebolle, Dossal \cite{chambolle_convergence_2015}, 
+        \begin{itemize}
+            \item $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. 
+            \item Proved in Chambolle, Dossal \cite{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit weak convergence. 
+            \item $T_L$ is the same as (1.); it experiences the same convergence rate for the function objective. 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Variant (3.) (Also known as V-FISTA), From Beck}
+        \begin{algorithm}[H]
+            \begin{tiny}
+                \begin{algorithmic}[1]
+                    \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
+                    \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
+                    \FOR{$k = 0, 1, \cdots$}
+                        \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
+                        \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
+                        \STATE{Execute subroutine $\mathcal S$. }
+                    \ENDFOR
+                \end{algorithmic}
+                \caption{Generic FISTA}    
+            \end{tiny}
+        \end{algorithm}
+        Proposed in Beck\cite{beck_first-order_nodate}, and also Nesterov\cite{nesterov_lecture_2018}. 
+        \begin{itemize}
+            \item has $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$. 
+            \item Only for strong convexity $g$, (Or the weaker condition such as Quadratic Growth). 
+            \item Has $\mathcal O((1 - 1/\sqrt{\kappa})^k)$, for both objective value and iterates. 
+            \item $T_L$ is still the same FB splitting. 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Motivates Variants (4. )}
+        
+        V-FISTA is simple but requires knowledge of $\sigma$, the strong convexity index; it is a troublemaker. 
+        \begin{itemize}
+            \item Exact estimation would involve inverting the Hessian or a closed-form formula tailored for a specific problem. 
+            \item Over estimation of $\sigma$ invalidates the linear convergence results. 
+            \item Under estimation of $\sigma$ slows down the linear-convergence. 
+        \end{itemize}
+        To overcome this, we propose a real-time overestimation of $\sigma$ using 
+        \[
+            \sigma \le \langle \nabla g(y^{(k + 1)}) - \nabla g(y^{(k)}), y^{(k + 1)} - y^{(k)}\rangle/ 
+                    \Vert y^{(k + 1)} - y^{(k)}\Vert^2. 
+        \]
+        We call this \textbf{Spectral Momentum}. 
+        The same formula is used for spectral stepsizes, an adaptive stepsize scheme for gradient descent\cite[4.1]{goldstein_field_2016}. 
+        Its efficacy was demonstrated at the start of the talk. 
+        We are not sure why it works so well. 
+    \end{frame}
+    \begin{frame}{MFISTA}
+        \begin{algorithm}[H]
+            \begin{tiny}
+                \begin{algorithmic}[1]
+                    \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
+                    \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
+                    \FOR{$k = 0, 1, \cdots$}
+                        \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
+                        \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
+                        \STATE{Execute subroutine $\mathcal S$. }
+                    \ENDFOR
+                \end{algorithmic}
+                \caption{Generic FISTA}    
+            \end{tiny}
+        \end{algorithm}
+        MFISTA in Beck\cite{beck_fast_2009} is produced by adding $\mathcal S$ to be the procedure
+        \[
+            (y^{(k + 1)}, t_{k + 1}) = \begin{cases}
+                (x^{(k + 1)}, 1) & F(y^{(k + 1)}) > F(x^{(k + 1)}),
+                \\
+                (y^{(k + 1)}, t_{k + 1}) & \text{else}. 
+            \end{cases}
+        \]
+    \end{frame}
+    \begin{frame}{MFISTA}
+        MFISTA is an early attempt at improving FISTA. 
+        However, the idea of restarting refuses to die. 
+        \begin{itemize}
+            \item [1.] Requires frequent computing of the objective, slowing it by a constant factor compared to FISTA. 
+            \item [2.] There is no better convergence rate than $\mathcal O(1/k^2)$ from our research. 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{FISTA Restart Refuses to Die}
+        In our opinion, the interests gather around restarting FISTA because spending too much computational effort would compete against the Proximal Quasi-Newton method, questioning the use of momentum in the ﬁrst place. Hence, the recent development
+        \begin{itemize}
+            \item Asymptotic linear convergence of conditional restart by Alamo et al. \cite{alamo_restart_2019}\cite[text]{alamo_gradient_2019} et al., and Fercoq \cite{fercoq_adaptive_2019}, under strong convexity, or local quadratic growth. 
+            \item Parameter Free FISTA with automatical restart by Aujol et al.\cite{aujol_parameter-free_2023}, fast linear convergence on quadratic growth with proofs, no parameters needed.
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Theories of Nesterov Momentum}
+        Frontier developments of theories for Nesterov Momentum are not dying either. 
+        
+    \end{frame}
+
 
 
 \section{Nesterov Lower Bound}
@@ -254,7 +385,7 @@
 \section{Numerical Results}
     
 \section{References}
-    \begin{frame}{References}
+    \begin{frame}[allowframebreaks]{References}
         
         \bibliography{refs.bib}
     \end{frame}

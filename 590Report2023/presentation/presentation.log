@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  20 NOV 2023 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  20 NOV 2023 17:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -833,7 +833,7 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 [2
 
 ]
-<Assets/paper-titlepage.png, id=83, 1155.31625pt x 711.65875pt>
+<Assets/paper-titlepage.png, id=84, 1155.31625pt x 711.65875pt>
 File: Assets/paper-titlepage.png Graphic file (type png)
 <use Assets/paper-titlepage.png>
 Package pdftex.def Info: Assets/paper-titlepage.png  used on input line 57.
@@ -914,7 +914,7 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 [11
 
 ]
-<Assets/recovered_signal.png, id=193, 602.25pt x 401.5pt>
+<Assets/recovered_signal.png, id=194, 602.25pt x 401.5pt>
 File: Assets/recovered_signal.png Graphic file (type png)
 <use Assets/recovered_signal.png>
 Package pdftex.def Info: Assets/recovered_signal.png  used on input line 211.
@@ -927,7 +927,7 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 [12
 
  </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/Assets/recovered_signal.png>]
-<Assets/obj_vals.png, id=201, 1806.75pt x 1204.5pt>
+<Assets/obj_vals.png, id=202, 1806.75pt x 1204.5pt>
 File: Assets/obj_vals.png Graphic file (type png)
 <use Assets/obj_vals.png>
 Package pdftex.def Info: Assets/obj_vals.png  used on input line 216.
@@ -958,6 +958,62 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 
 [15
 
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[16
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[17
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[18
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[19
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[20
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[21
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[22
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[23
+
 ] (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.bbl
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `en'. Using the pattern for
@@ -975,14 +1031,62 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/it' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbar' on input line 35.
 
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
 )
 Overfull \hbox (148.08163pt too wide) has occurred while \output is active
  [][][][]  
  []
 
-[16
+[24
 
  </usr/local/texlive/2021/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[25
+
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[26
+
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[27
+
+
+]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
 
@@ -1000,18 +1104,18 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 905F229A197EF608FD762FED0E1AD16E;935.
  ) 
 Here is how much of TeX's memory you used:
- 22516 strings out of 478994
- 421358 string characters out of 5858183
- 703924 words of memory out of 5000000
- 39457 multiletter control sequences out of 15000+600000
- 412783 words of font info for 60 fonts, out of 8000000 for 9000
+ 22608 strings out of 478994
+ 423233 string characters out of 5858183
+ 704259 words of memory out of 5000000
+ 39518 multiletter control sequences out of 15000+600000
+ 413077 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 131i,15n,132p,508b,602s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.pdf (16 pages, 428132 bytes).
+ 131i,15n,132p,508b,815s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.pdf (27 pages, 460926 bytes).
 PDF statistics:
- 302 PDF objects out of 1000 (max. 8388607)
- 226 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
- 270 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 422 PDF objects out of 1000 (max. 8388607)
+ 327 compressed objects within 4 object streams
+ 75 named destinations out of 1000 (max. 500000)
+ 306 words of extra memory for PDF output out of 10000 (max. 10000000)
 
