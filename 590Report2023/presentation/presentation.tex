@@ -14,6 +14,10 @@
 \usepackage{subcaption}
 \graphicspath{{.}}
 
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}[section]
+
 \author{Hongda Li}
 \title{A Discussion on The Nesterov Momentum and Variants of FISTA with TV Minmizations Application}
 % Informe o seu email de contato no comando a seguir
@@ -68,7 +72,7 @@
 \section{TV Minimizations}
     \begin{frame}{Total Variance Minimization Formulation}
         Total Variance Minimization (TV) problem recovers the digital signal from observations of a signal with noise. 
-        Let $u:[0, 1]\mapsto \mathbb R$ be the signal and $\hat u$ be a noisy observation, then
+        Let $u(t):[0, 1]\mapsto \mathbb R$ be the signal and $\hat u$ be a noisy observation, then
         \begin{block}{Variational Formulation}
             \[
                 f(u) = \int_0^1 \frac{1}{2} 
@@ -77,7 +81,7 @@
         \end{block}
         \begin{itemize}
             \item Minimizing $f(u)$ with pentalty term constant $\alpha > 0$ yield a recovered signal. 
-            \item Original signal $u$ is assumed to be piecewise constant with finite many pieces. 
+            \item Original signal $u$ is assumed to be piecewise constant with bounded variation. 
             \item Sparsity is imposed on $u'$, making $u'$ to be Dirac Delta function. 
         \end{itemize}
         
@@ -356,15 +360,17 @@
         \]
     \end{frame}
     \begin{frame}{MFISTA}
-        MFISTA is an early attempt at improving FISTA. 
-        However, the idea of restarting refuses to die. 
+        MFISTA was an early attempt at improving FISTA. 
+        
         \begin{itemize}
             \item [1.] Requires frequent computing of the objective, slowing it by a constant factor compared to FISTA. 
             \item [2.] There is no better convergence rate than $\mathcal O(1/k^2)$ from our research. 
         \end{itemize}
     \end{frame}
     \begin{frame}{FISTA Restart Refuses to Die}
-        In our opinion, the interests gather around restarting FISTA because spending too much computational effort would compete against the Proximal Quasi-Newton method, questioning the use of momentum in the ﬁrst place. Hence, the recent development
+        However, the idea of restarting FISTA refuses to die. 
+        \\
+        In our opinion, the interests gather around restarting FISTA because spending too much computational effort would compete against the Proximal Quasi-Newton method, questioning the use of momentum in the ﬁrst place. Hence, these recent developments:
         \begin{itemize}
             \item Asymptotic linear convergence of conditional restart by Alamo et al. \cite{alamo_restart_2019}\cite[text]{alamo_gradient_2019} et al., and Fercoq \cite{fercoq_adaptive_2019}, under strong convexity, or local quadratic growth. 
             \item Parameter Free FISTA with automatical restart by Aujol et al.\cite{aujol_parameter-free_2023}, fast linear convergence on quadratic growth with proofs, no parameters needed.
@@ -372,16 +378,134 @@
     \end{frame}
     \begin{frame}{Theories of Nesterov Momentum}
         Frontier developments of theories for Nesterov Momentum are not dying either. 
-        
+        \begin{itemize}
+            \item [1.] Su et al. \cite{su_differential_2015} identified a second-order ODE that is the exact limit of the variant (1.). 
+            \pause
+            \item [2.] In Attouch and Peypouquet \cite{attouch_rate_2016}, they showed a $o(1/k^2)$ convergence rate of variant (2.) based on the ODE understanding. 
+            \pause
+            \item [3.] In Nesterov\cite{nesterov_lecture_2018}, he proposed a generic algorithm that can derive variants (1.), (3.), and more. 
+            \pause
+            \item [4.] In Ahn and Sra\cite{ahn_understanding_2022}
+            they derived a lot of variants of APGs using the Proximal Point method of Rockafellar and discussed the unified theme of a "similar triangle." 
+        \end{itemize}
     \end{frame}
-
-
+    \begin{frame}{The Most Recent and Hardcore Developement}
+        The paper is titled ``Computer-Assisted Design of Accelerated Composite Optimization Methods: OptISTA" by Jang et al. \cite{jang_computer-assisted_2023}.
+        They updated the manual script On Nov 1st, 2023. 
+        \begin{itemize}
+            \item Based on the Performance Estimation Problem, they phrase the search of the fastest possible first-order algorithm(more on this later) as a QCQP. 
+            \item They squeeze out a constant factor on the convergence of the original FISTA. 
+            \item They also proved a lower bound for their OptISTA, showing its exact optimality. 
+            \item They claim they had concluded the search for the fastest first-order method. 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Moral of the Story}
+        This is the general trajectory: 
+        \begin{itemize}
+            \item Improve the algorithm's robustness and applications.  
+            \item Weaken the conditions and add more convergence proofs for a broader scope. 
+            \item Searching for a general framework of understanding for the class of the Nesterov acceleration method. 
+            \item Connects with various other ideas to improve theoretical understanding.
+            \item Extremely hardcore algorithmic tricks and improvements to squeeze out that last bit of performance. 
+        \end{itemize}
+        Working on FISTA would amount to competing against some of the brightest researchers. 
+    \end{frame}
+    
+   
 
 \section{Nesterov Lower Bound}
-    
+\newcommand*{\GAfirst}{\text{GA}^{\text{1st}}}
+    \begin{frame}{First-Order Methods}
+        What we can do is to understand at least Nesterov's claim on lower complexity bound and why we believe there is a mistake in Walkington[theorem 2.4]\cite{noel_nesterovs_nodate}. 
+        \begin{definition}[First Order Method]
+            We are in $\mathbb R^n$ for now. Given $x^{(0)} \in \mathbb R^n$, an iterative algorithm generates sequence of $\left(x^{(n)}\right)_{n \in \mathbb N}$ in the space. All $\mathcal A \in \GAfirst$ satisfy that 
+            \begin{align*}
+                 x^{(j + 1)}:= \mathcal A_f^{j + 1}x^{(0)} \in \left\{x^{(0)}\right\} + 
+                \text{span}\left\{\nabla f\left(x^{(i)}\right)\right\}_{i = 1}^{j} \quad \forall f, \forall 1\le j \le k -1. 
+            \end{align*}
+        \end{definition}
+        We adapted the above definition from Nesterov\cite[2.1.4]{nesterov_lecture_2018}. 
+        We came up with two examples for the definition. 
+    \end{frame}  
+    \begin{frame}{Fixed-Step Descent}
+        \begin{exmp}[Fixed Step Descent]
+            The method of fixed-step gradient descent, $x^{(k + 1)} = x^{(k)} - L^{-1}\nabla f(x^{(k)})$ is $ \bar {\mathcal A}\in \GAfirst$ achieves a maximal decrease in objective value for all $f\in \mathcal F_{L}^{1, 1}$ given $x^{(k)}$, it can be understood as 
+            \[
+                \bar {\mathcal A} \in 
+                \underset{_{\mathcal A\in \GAfirst}}{\text{argmin}}
+                \max_{f\in \mathcal F_L^{1, 1}} \left\lbrace
+                    f\left(
+                        \mathcal A_f x^{(k)}
+                    \right)
+                \right\rbrace. 
+            \]
+        \end{exmp}
+        This method is memoryless because it only matters what $x^{(k)}$, prior iterate $x^{(i)}, 1\le i \le k-1$ plays no role. 
+    \end{frame}
+    \begin{frame}{Steepest Descent}
+        \begin{exmp}[Steepest Descent]
+            Fix some $f, x^{(k)}$, the method of steepest descent would be $\bar {\mathcal A}\in \GAfirst$ and it's 
+            \[
+                \bar {\mathcal A}\in  \underset{\mathcal A \in \GAfirst}{\text{argmin}}
+                \left\lbrace
+                    f\left(
+                        \mathcal A_f x^{(k)}
+                    \right)
+                \right\rbrace. 
+            \]
+            This method is also memoryless.     
+        \end{exmp}
+        We emphasize that $f$ is fixed. 
+        
+    \end{frame}
+    \begin{frame}{Nesterov Lower Complexity Bound}
+        The following is Nesterov \cite[Thm 2.1.7]{nesterov_lecture_2018}. 
+        \begin{theorem}[Nesterov's Claim of Lower Bound]\label{thm:nesterov_lower_bnd}
+            For any $1\le k \le 1/2(n - 1)$, for all $x^{(0)}\in \mathbb R^n$, there exists a Lipschitz smooth convex function in $\mathbb R^n$ such that for all algorithm from $\GAfirst$, we have the lower bound for the optimality gap for the function values and its iterates: 
+            \[
+                f\left(x^{(k)}\right) - f^* \ge 
+                \frac{3L \Vert x - x^*\Vert^2}{32(k + 1)^2}, 
+                \quad \Vert x^{(k)} - x^*\Vert^2 \ge \frac{1}{8} \Vert x^{(0)} - x^*\Vert^2.     
+            \]
+            Where $x^*$ is the minimizer of $f$, so that $f(x^*) = \inf_{x}f(x)$. 
+        \end{theorem}
+        We emphasize that it didn't fix the function $f$, but it fixes the iteration counter $k$. 
+        
+    \end{frame}
+    \begin{frame}{Walkington's claim of Lower Bound}
+        We now quote Walkington \cite[theorem 2.4]{noel_nesterovs_nodate}
+        \begin{theorem}[Walkington's Claim of Lower Bound]
+            Let $X$ be an infinite-dimensional Hilbert Space and set $x^{(0)} =\mathbf 0$. There exists a convex function $f: X\mapsto \mathbb R$ with Lipschitz gradient and minimum $f(x_*) > -\infty$ such that for any sequence satisfying 
+            \begin{align*}
+                x_{i + 1}\in \text{Span}\left\lbrace
+                    \nabla f(x^{(0)}), \nabla f(x^{(1)}), \cdots, \nabla f(x^{(i)})
+                \right\rbrace, 
+                \quad i = 0, 1, 2, \cdots, 
+            \end{align*}
+            there holds 
+            \begin{align*}
+                \min_{1\le i \le n}
+                f(x_i) - f(x_*) \ge 
+                \frac{3L\Vert x_1 - x_*\Vert^2}{32(n + 1)^2}, 
+            \end{align*}
+            where $L$ is the Lipschitz constant of the gradient. 
+        \end{theorem}\label{thm:walkington_lowerbound}
+    \end{frame}
+    \begin{frame}
+        \begin{itemize}
+            \item The former claims there exists a single function from $\mathcal F_{L}^{1,1}(\mathcal H)$ introduces the lower bound for all values of $k$, and all algorithms from $\GAfirst$, but the latter didn't claim that. 
+            \item The difference would remain in infinite dimension Hilbert space if we were to generalize \hyperref[thm:nesterov_lower_bnd]{thorem \ref*{thm:nesterov_lower_bnd}}.
+            \item No contradiction from Attouch and Peypouquet\cite{attouch_rate_2016} on $o(1/k^2)$ because they fixed $\phi$ in the proof. 
+        \end{itemize}
+        There is no proof after Walkington's claim; we can't know if he had his way of proving the latter claim. 
+        It makes us think it is likely a missed detail in his writing. 
+    \end{frame}
+ 
 
 \section{V-FISTA Under Strong Convexity}
-
+    \begin{frame}{Statement of Convergence Results for V-FISTA Convergence under Strong Convexity}
+        
+    \end{frame}
 \section{Numerical Results}
     
 \section{References}

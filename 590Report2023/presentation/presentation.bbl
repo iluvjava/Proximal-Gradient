@@ -125,4 +125,37 @@ J.-F. Aujol, L.~Calatroni, C.~Dossal, H.~Labarrière, and A.~Rondepierre,
   [Online]. Available: \url{https://arxiv.org/abs/2307.14323v1}
 \BIBentrySTDinterwordspacing
 
+\bibitem{su_differential_2015}
+\BIBentryALTinterwordspacing
+W.~Su, S.~Boyd, and E.~J. Candes, ``\BIBforeignlanguage{en}{A {Differential}
+  {Equation} for {Modeling} {Nesterov}'s {Accelerated} {Gradient} {Method}:
+  {Theory} and {Insights}},'' \emph{\BIBforeignlanguage{en}{arXiv.org}}, Mar.
+  2015. [Online]. Available: \url{https://arxiv.org/abs/1503.01243v2}
+\BIBentrySTDinterwordspacing
+
+\bibitem{attouch_rate_2016}
+\BIBentryALTinterwordspacing
+H.~Attouch and J.~Peypouquet, ``The {Rate} of {Convergence} of {Nesterov}'s
+  {Accelerated} {Forward}-{Backward} {Method} is {Actually} {Faster} {Than}
+  \$1/k{\textasciicircum}2\$,'' \emph{SIAM Journal on Optimization}, vol.~26,
+  no.~3, pp. 1824--1834, Jan. 2016, publisher: Society for Industrial and
+  Applied Mathematics. [Online]. Available:
+  \url{https://epubs.siam.org/doi/10.1137/15M1046095}
+\BIBentrySTDinterwordspacing
+
+\bibitem{ahn_understanding_2022}
+\BIBentryALTinterwordspacing
+K.~Ahn and S.~Sra, ``Understanding {Nesterov}'s {Acceleration} via {Proximal}
+  {Point} {Method},'' Jun. 2022, arXiv:2005.08304 [cs, math]. [Online].
+  Available: \url{http://arxiv.org/abs/2005.08304}
+\BIBentrySTDinterwordspacing
+
+\bibitem{jang_computer-assisted_2023}
+\BIBentryALTinterwordspacing
+U.~Jang, S.~D. Gupta, and E.~K. Ryu, ``Computer-{Assisted} {Design} of
+  {Accelerated} {Composite} {Optimization} {Methods}: {OptISTA},'' May 2023,
+  arXiv:2305.15704 [math]. [Online]. Available:
+  \url{http://arxiv.org/abs/2305.15704}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

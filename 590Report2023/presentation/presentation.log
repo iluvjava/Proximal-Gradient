@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  20 NOV 2023 17:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  20 NOV 2023 18:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -651,33 +651,34 @@ Package caption Info: wrapfig package is loaded.
 \c@subfigure=\count331
 \c@subtable=\count332
 )
-\c@remark=\count333
-\c@assumption=\count334
+\c@exmp=\count333
+\c@remark=\count334
+\c@assumption=\count335
  (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count335
+\l__color_backend_stack_int=\count336
 \l__pdf_internal_box=\box75
 ) (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.aux)
 \openout1 = `presentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -715,16 +716,16 @@ LaTeX Font Info:    ... okay on input line 41.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count336
+\scratchcounter=\count337
 \scratchdimen=\dimen293
 \scratchbox=\box76
-\nofMPsegments=\count337
-\nofMParguments=\count338
+\nofMPsegments=\count338
+\nofMParguments=\count339
 \everyMPshowfont=\toks50
-\MPscratchCnt=\count339
+\MPscratchCnt=\count340
 \MPscratchDim=\dimen294
-\MPnumerator=\count340
-\makeMPintoPDFobject=\count341
+\MPnumerator=\count341
+\makeMPintoPDFobject=\count342
 \everyMPtoPDFconversion=\toks51
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -732,7 +733,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 41.
+Package hyperref Info: Link coloring OFF on input line 45.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -740,64 +741,64 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count342
+\c@section@level=\count343
 )
-LaTeX Info: Redefining \ref on input line 41.
-LaTeX Info: Redefining \pageref on input line 41.
-LaTeX Info: Redefining \nameref on input line 41.
+LaTeX Info: Redefining \ref on input line 45.
+LaTeX Info: Redefining \pageref on input line 45.
+LaTeX Info: Redefining \nameref on input line 45.
  (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.out) (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.out)
 \@outlinefile=\write5
 \openout5 = `presentation.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 41.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 45.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 41.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 45.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 41.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 41.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 41.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 41.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 45.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 41.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 41.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 41.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 45.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 41.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 41.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 41.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 45.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 41.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 41.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 45.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 41.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 45.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 41.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 41.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 41.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 41.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 41.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 45.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 41.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 41.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 45.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 45.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 41.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 45.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 41.
+(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 45.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 41.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 45.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -814,7 +815,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.nav)
-Overfull \hbox (148.08163pt too wide) in paragraph at lines 41--41
+Overfull \hbox (148.08163pt too wide) in paragraph at lines 45--45
  [][][][]  
  []
 
@@ -833,10 +834,10 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 [2
 
 ]
-<Assets/paper-titlepage.png, id=84, 1155.31625pt x 711.65875pt>
+<Assets/paper-titlepage.png, id=86, 1155.31625pt x 711.65875pt>
 File: Assets/paper-titlepage.png Graphic file (type png)
 <use Assets/paper-titlepage.png>
-Package pdftex.def Info: Assets/paper-titlepage.png  used on input line 57.
+Package pdftex.def Info: Assets/paper-titlepage.png  used on input line 61.
 (pdftex.def)             Requested size: 284.52756pt x 175.26465pt.
 
 Overfull \hbox (148.08163pt too wide) has occurred while \output is active
@@ -853,15 +854,15 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 [4
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 84.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 88.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 84.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 88.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 84.
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 88.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 )
@@ -914,10 +915,10 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 [11
 
 ]
-<Assets/recovered_signal.png, id=194, 602.25pt x 401.5pt>
+<Assets/recovered_signal.png, id=196, 602.25pt x 401.5pt>
 File: Assets/recovered_signal.png Graphic file (type png)
 <use Assets/recovered_signal.png>
-Package pdftex.def Info: Assets/recovered_signal.png  used on input line 211.
+Package pdftex.def Info: Assets/recovered_signal.png  used on input line 215.
 (pdftex.def)             Requested size: 284.52756pt x 189.69136pt.
 
 Overfull \hbox (148.08163pt too wide) has occurred while \output is active
@@ -927,10 +928,10 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 [12
 
  </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/Assets/recovered_signal.png>]
-<Assets/obj_vals.png, id=202, 1806.75pt x 1204.5pt>
+<Assets/obj_vals.png, id=204, 1806.75pt x 1204.5pt>
 File: Assets/obj_vals.png Graphic file (type png)
 <use Assets/obj_vals.png>
-Package pdftex.def Info: Assets/obj_vals.png  used on input line 216.
+Package pdftex.def Info: Assets/obj_vals.png  used on input line 220.
 (pdftex.def)             Requested size: 284.52756pt x 189.67299pt.
 
 Overfull \hbox (148.08163pt too wide) has occurred while \output is active
@@ -942,7 +943,7 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
  </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/Assets/obj_vals.png>]
 File: Assets/obj_vals.png Graphic file (type png)
 <use Assets/obj_vals.png>
-Package pdftex.def Info: Assets/obj_vals.png  used on input line 226.
+Package pdftex.def Info: Assets/obj_vals.png  used on input line 230.
 (pdftex.def)             Requested size: 170.71652pt x 113.80379pt.
 
 Overfull \hbox (148.08163pt too wide) has occurred while \output is active
@@ -1014,6 +1015,102 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
 
 [23
 
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[24
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[25
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[26
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[27
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[28
+
+]
+Overfull \hbox (1.07733pt too wide) detected at line 429
+[]
+ []
+
+
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[29
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[30
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[31
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[32
+
+]
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 493.
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <8> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 493.
+LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <6> not available
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 493.
+
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[33
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[34
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[35
+
 ] (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.bbl
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `en'. Using the pattern for
@@ -1055,19 +1152,28 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/it' undefined
 ** WARNING: IEEEtran.bst: No hyphenation pattern has been
 ** loaded for the language `en'. Using the pattern for
 ** the default language instead.
-)
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+** WARNING: IEEEtran.bst: No hyphenation pattern has been
+** loaded for the language `en'. Using the pattern for
+** the default language instead.
+LaTeX Font Info:    Trying to load font information for TS1+cmss on input line 140.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/base/ts1cmss.fd
+File: ts1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+))
 Overfull \hbox (148.08163pt too wide) has occurred while \output is active
  [][][][]  
  []
 
-[24
+[36
 
  </usr/local/texlive/2021/texmf-dist/tex/latex/beamer/beamericonarticle.pdf>]
 Overfull \hbox (148.08163pt too wide) has occurred while \output is active
  [][][][]  
  []
 
-[25
+[37
 
 
 ]
@@ -1075,7 +1181,7 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
  [][][][]  
  []
 
-[26
+[38
 
 
 ]
@@ -1083,7 +1189,23 @@ Overfull \hbox (148.08163pt too wide) has occurred while \output is active
  [][][][]  
  []
 
-[27
+[39
+
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[40
+
+
+]
+Overfull \hbox (148.08163pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[41
 
 
 ]
@@ -1104,18 +1226,18 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 905F229A197EF608FD762FED0E1AD16E;935.
  ) 
 Here is how much of TeX's memory you used:
- 22608 strings out of 478994
- 423233 string characters out of 5858183
- 704259 words of memory out of 5000000
- 39518 multiletter control sequences out of 15000+600000
- 413077 words of font info for 61 fonts, out of 8000000 for 9000
+ 22744 strings out of 478994
+ 426459 string characters out of 5858183
+ 706580 words of memory out of 5000000
+ 39615 multiletter control sequences out of 15000+600000
+ 414418 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  131i,15n,132p,508b,815s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.pdf (27 pages, 460926 bytes).
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb>
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation/presentation.pdf (41 pages, 501064 bytes).
 PDF statistics:
- 422 PDF objects out of 1000 (max. 8388607)
- 327 compressed objects within 4 object streams
- 75 named destinations out of 1000 (max. 500000)
- 306 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 618 PDF objects out of 1000 (max. 8388607)
+ 477 compressed objects within 5 object streams
+ 109 named destinations out of 1000 (max. 500000)
+ 486 words of extra memory for PDF output out of 10000 (max. 10000000)
 

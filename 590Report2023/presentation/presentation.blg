@@ -15,45 +15,45 @@ Warning--empty year in noel_nesterovs_nodate
 Warning--empty year in beck_first-order_nodate
 
 Done.
-You've used 12 entries,
+You've used 16 entries,
             4087 wiz_defined-function locations,
-            909 strings with 10097 characters,
-and the built_in function-call counts, 10000 in all, are:
-= -- 866
-> -- 196
-< -- 87
-+ -- 110
-- -- 30
-* -- 575
-:= -- 1608
-add.period$ -- 25
-call.type$ -- 12
-change.case$ -- 19
-chr.to.int$ -- 201
-cite$ -- 14
-duplicate$ -- 669
-empty$ -- 724
-format.name$ -- 39
-if$ -- 2257
+            931 strings with 11013 characters,
+and the built_in function-call counts, 12520 in all, are:
+= -- 1085
+> -- 250
+< -- 100
++ -- 138
+- -- 40
+* -- 710
+:= -- 2032
+add.period$ -- 33
+call.type$ -- 16
+change.case$ -- 26
+chr.to.int$ -- 231
+cite$ -- 18
+duplicate$ -- 854
+empty$ -- 915
+format.name$ -- 53
+if$ -- 2820
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 113
-newline$ -- 83
-num.names$ -- 14
-pop$ -- 222
+int.to.str$ -- 16
+missing$ -- 149
+newline$ -- 103
+num.names$ -- 18
+pop$ -- 306
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 747
+skip$ -- 933
 stack$ -- 0
-substring$ -- 491
-swap$ -- 606
-text.length$ -- 20
+substring$ -- 571
+swap$ -- 756
+text.length$ -- 23
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 12
+type$ -- 16
 warning$ -- 2
-while$ -- 45
-width$ -- 14
-write$ -- 179
+while$ -- 53
+width$ -- 18
+write$ -- 227
 (There were 2 warnings)

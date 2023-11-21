@@ -334,6 +334,7 @@
         They squeezed out a constant from the convergence rate of FISTA by formulating the search for a faster algorithm as a QCQP. 
         They call their algorithm OptISTA. 
         Their approach is based on the performance estimation problem (PEP). 
+        They showed that their optimality is exact, different from Nesterov's complexity lower bound claim. 
 
 
 \section{Nesterov's Lower Bound Clarified}\label{sec:optimal_lower_bound}
@@ -357,7 +358,7 @@
             We are in $\mathbb R^n$ for now. Given $x^{(0)} \in \mathbb R^n$, an iterative algorithm generates sequence of $\left(x^{(n)}\right)_{n \in \mathbb N}$ in the space. All $\mathcal A \in \GAfirst$ satisfy that 
             \begin{align*}
                  x^{(j + 1)}:= \mathcal A_f^{j + 1}x^{(0)} \in \left\{x^{(0)}\right\} + 
-                \text{span}\left\{\nabla f\left(x^{(i)}\right)\right\}_{i = 1}^{j - 1} \quad \forall f, \forall 1\le j \le k -1. 
+                \text{span}\left\{\nabla f\left(x^{(i)}\right)\right\}_{i = 1}^{j} \quad \forall f, \forall 1\le j \le k -1. 
             \end{align*}
         \end{definition}
         \begin{exmp}[Fixed Step Descent]
