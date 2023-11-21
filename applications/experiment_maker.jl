@@ -443,7 +443,7 @@ for j in 2:length(RESULTS)
     )
 end
 FIG2|>display
-savefig(FIG2, RESULTS_FOLDER*"/"*"obj_vals.svg")
+savefig(FIG2, RESULTS_FOLDER*"/"*"obj_vals.png")
 
 SEQ_RNG = typemax(Int)
 FIG3 = plot(

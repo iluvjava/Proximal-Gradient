@@ -280,7 +280,7 @@
             \item [1.] 
                 Original FISTA proposed by Beck \cite{beck_fast_2009-1} considers $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, with $T_L x = \text{prox}_{L^{-1}h}(x  - L^{-1}\nabla g(x))$ and $t_0 = 1$. 
             It achieves $\mathcal O(1/k^2)$ on the objective value. 
-            Our literature review didn't discover proofs for the convergence of the iterates. We also didn't find proofs for a convergence rate faster than $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity. 
+            Our literature review didn't discover proof for the convergence of the iterates. We also didn't find proofs for a convergence rate faster than $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity. 
             \item [2.] 
                 This is a variant where $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
             Proved in Chambolle, Dossal \cite{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit weak convergence. $T_L$ is the same as (1.). 
@@ -527,7 +527,7 @@
                 \left(
                     \prod_{i = 0}^{k} (1 - t_k^{-1})
                 \right)\left(
-                    \delta_0 + \frac{L}{2t_0}\left\Vert
+                    \delta_0 + \frac{L}{2t_0^2}\left\Vert
                         u^{(0)}
                     \right\Vert^2
                 \right). 
@@ -553,7 +553,7 @@
                 \left(
                     \frac{\sqrt{\kappa} - 1}{\sqrt{\kappa} + 1}
                 \right)^k\left(
-                    \delta_0 + \frac{L}{2t_0}\left\Vert
+                    \delta_0 + \frac{L}{2t_0^2}\left\Vert
                         u^{(0)}
                     \right\Vert^2
                 \right).     
@@ -580,6 +580,11 @@
             with $t_k > 1$ it has to be $t_k = \sqrt{\frac{L}{\sigma}}$ for all $k \ge 0$. 
             With that we have $t_{k + 1} = t_{k} + 1 - t_k^2 q = t_k + 1 - 1 = t_k$, hence the inequality is also satisfied. 
         \end{proof}
+        \begin{remark}
+            We do not claim that these results are new. 
+            We came up with this proof and this way of presenting to understand Amir's proof\cite[10.7.7]{beck_first-order_nodate}. 
+            If the reader is interested in a proof that aims for genericity and arguably did a better job than the above claims, see Chambolle\cite[Appendix B]{chambolle_introduction_2016}. 
+        \end{remark}
     % Check out this cool Bibtext ref \cite[this]{texbook}, woooooooooah, also it's in plain style. For some mind altering psychodelic, read \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} for the experience. For some brain expanding julia code, read \hyperref[code:brain_expand]{brain expanding julia code}. 
     % \begin{algorithm}
     %     \begin{algorithmic}[t]

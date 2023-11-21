@@ -4,6 +4,11 @@
             "language": "latex",
             "scheme": "file",
             "pattern": "report/main.tex"
+        },
+        {
+            "language": "latex",
+            "scheme": "file",
+            "pattern": "presentation/presentation.tex"
         }
     ]
 }

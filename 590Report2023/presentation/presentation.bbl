@@ -21,20 +21,30 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{paper:FISTA}
+\bibitem{noel_nesterovs_nodate}
 \BIBentryALTinterwordspacing
-A.~Beck and M.~Teboulle, ``A fast iterative shrinkage-thresholding algorithm
-  for linear inverse problems,'' \emph{SIAM Journal on Imaging Sciences},
-  vol.~2, no.~1, pp. 183--202, 2009. [Online]. Available:
-  \url{https://doi.org/10.1137/080716542}
+W.~Noel, ``\BIBforeignlanguage{en}{Nesterov's {Method} for {Convex}
+  {Optimization}},'' \emph{\BIBforeignlanguage{en}{SIAM Review}}, vol.~65,
+  no.~2, pp. 539--562. [Online]. Available:
+  \url{https://epubs-siam-org.eu1.proxy.openathens.net/doi/epdf/10.1137/21M1390037}
 \BIBentrySTDinterwordspacing
 
-\bibitem{book:first_order_opt}
+\bibitem{beck_first-order_nodate}
 \BIBentryALTinterwordspacing
-A.~Beck, \emph{First-Order Methods in Optimization}.\hskip 1em plus 0.5em minus
-  0.4em\relax Philadelphia, PA: Society for Industrial and Applied Mathematics,
-  2017. [Online]. Available:
-  \url{https://epubs.siam.org/doi/abs/10.1137/1.9781611974997}
+A.~Beck, \emph{\BIBforeignlanguage{en}{First-{Order} {Methods} in
+  {Optimization} {\textbar} {SIAM} {Publications} {Library}}}, ser.
+  {MOS}-{SIAM} {Series} in {Optimization}.\hskip 1em plus 0.5em minus
+  0.4em\relax SIAM. [Online]. Available:
+  \url{https://epubs.siam.org/doi/book/10.1137/1.9781611974997}
+\BIBentrySTDinterwordspacing
+
+\bibitem{bezanson_julia_2017}
+\BIBentryALTinterwordspacing
+J.~Bezanson, A.~Edelman, S.~Karpinski, and V.~B. Shah, ``Julia: {A} {Fresh}
+  {Approach} to {Numerical} {Computing},'' \emph{SIAM Review}, vol.~59, no.~1,
+  pp. 65--98, Jan. 2017, publisher: Society for Industrial and Applied
+  Mathematics. [Online]. Available:
+  \url{https://epubs.siam.org/doi/10.1137/141000671}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
