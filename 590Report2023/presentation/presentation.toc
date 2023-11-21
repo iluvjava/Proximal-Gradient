@@ -3,5 +3,5 @@
 \beamer@sectionintoc {3}{Literature Review}{15}{0}{3}
 \beamer@sectionintoc {4}{Nesterov Lower Bound}{29}{0}{4}
 \beamer@sectionintoc {5}{V-FISTA Under Strong Convexity}{35}{0}{5}
-\beamer@sectionintoc {6}{Numerical Results}{36}{0}{6}
+\beamer@sectionintoc {6}{More Numerical Results}{36}{0}{6}
 \beamer@sectionintoc {7}{References}{36}{0}{7}
