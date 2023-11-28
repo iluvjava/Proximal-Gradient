@@ -1,0 +1,59 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: presentation.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: refs.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty year in noel_nesterovs_nodate
+Warning--empty year in beck_first-order_nodate
+
+Done.
+You've used 16 entries,
+            4087 wiz_defined-function locations,
+            931 strings with 11013 characters,
+and the built_in function-call counts, 12520 in all, are:
+= -- 1085
+> -- 250
+< -- 100
++ -- 138
+- -- 40
+* -- 710
+:= -- 2032
+add.period$ -- 33
+call.type$ -- 16
+change.case$ -- 26
+chr.to.int$ -- 231
+cite$ -- 18
+duplicate$ -- 854
+empty$ -- 915
+format.name$ -- 53
+if$ -- 2820
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 149
+newline$ -- 103
+num.names$ -- 18
+pop$ -- 306
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 933
+stack$ -- 0
+substring$ -- 571
+swap$ -- 756
+text.length$ -- 23
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 16
+warning$ -- 2
+while$ -- 53
+width$ -- 18
+write$ -- 227
+(There were 2 warnings)

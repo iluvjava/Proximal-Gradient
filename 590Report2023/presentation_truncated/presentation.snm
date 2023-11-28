@@ -1,0 +1,4 @@
+\beamer@slide {alg:generic_FISTA}{12}
+\beamer@slide {thm:nesterov_lower_bnd}{24}
+\beamer@slide {thm:walkington_lowerbound}{25}
+\beamer@slide {lemma:convergence-prep}{28}

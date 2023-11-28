@@ -20,7 +20,7 @@
 \newtheorem{prop}{Proposition}[section]
 
 \author{Hongda Li}
-\title{A Discussion on The Nesterov Momentum and Variants of FISTA with TV Minmizations Application}
+\title[TV Min and Nesterov Acc]{A Discussion on The Nesterov Momentum and Variants of FISTA with TV Minmizations Application}
 % Informe o seu email de contato no comando a seguir
 % Por exemplo, alcebiades.col@ufes.br
 \newcommand{\email}{lalala@lala.la}
@@ -43,35 +43,39 @@
 \newtheorem{remark}{Remark}
 \newtheorem{assumption}{Assumption}
 
+
+
+
 \begin{document}
 
 \begin{frame}
     \titlepage
 \end{frame}
 
-\begin{frame}{ToC}
+\begin{frame}{Presentation Overview}
     \tableofcontents
 \end{frame}
 
-\section{Introduction}
+\section{Paper Under Review}
     \begin{frame}{Paper Under Review}
         \begin{center}
             \includegraphics[width=10cm]{Assets/paper-titlepage.png}    
         \end{center}
         Noel J. Walkington, SIAM REVIEW Jun 2023 Education, Volume 65 Number 2, pp. 539-562. \cite{noel_nesterovs_nodate}
     \end{frame}
-    \begin{frame}{Presentation Outline and Objective}
-        \begin{itemize}
-            \item [1.] Introducing the Application of TV Minimization for Signal Recovery.
-            \item [2.] Literature Review. 
-            \item [3.] Nesterov lower bound complexity claim clarified. 
-            \item [4.] Our proof for V-FISTA convergence under strong convexity inspired by Beck \cite[10.7.7]{beck_first-order_nodate}. 
-            \item [5.] Some exciting numerical results for our method, which we refer to as ``The method of Spectral Momentum''. 
-        \end{itemize}
-    \end{frame}
+    
+    % \begin{frame}{Presentation Outline and Objective}
+    %     \begin{itemize}
+    %         \item [1.] Introducing the Application of TV Minimization for Signal Recovery.
+    %         \item [2.] Literature Review. 
+    %         \item [3.] Nesterov lower bound complexity claim clarified. 
+    %         \item [4.] Our proof for V-FISTA convergence under strong convexity inspired by Beck \cite[10.7.7]{beck_first-order_nodate}. 
+    %         \item [5.] Some exciting numerical results for our method, which we refer to as ``The method of Spectral Momentum''. 
+    %     \end{itemize}
+    % \end{frame}
 
 \section{TV Minimizations}
-    \begin{frame}{Total Variance Minimization Formulation}
+    \begin{frame}{Formulation of Total Variational Minimization}
         Total Variance minimization (TV) problem recovers the digital signal from observations of a signal with noise. 
         Let $u(t):[0, 1]\mapsto \mathbb R$ be the signal and $\hat u$ be a noisy observation, then
         \begin{block}{Variational Formulation}
@@ -81,52 +85,71 @@
             \]    
         \end{block}
         \begin{itemize}
-            \item Minimizing $f(u)$ with pentalty term constant $\alpha > 0$ yield a recovered signal. 
-            \item Original signal $u$ is assumed to be piecewise constant with bounded variation. 
-            \item Sparsity is imposed on $u'$, making $u'$ to be Dirac Delta function. 
+            \item \textcolor{red}{Minimizing $f(u)$ with pentalty term constant $\alpha > 0$ yield a recovered signal. }
+            \item Penalization helps recover an original signal $u$ that is assumed to be piecewise constant with bounded variation. 
         \end{itemize}
-        
     \end{frame}
-    \begin{frame}{Discritizations}
-        Implementations on modern computing platforms \textbf{necessitate discretization} of signal $u$ to $\mathbb R^{N + 1}$. 
-        With $s_i = u_i - \hat u_i$, $h_k = t_k - t_{k -1}, k\ge 1$ using the trapezoid rule and first-order forward difference yields:
-        {\scriptsize
-        \begin{align*}
-            \frac{1}{2}\int_{0}^{1} (u - \hat u)^2 dt + 
-            \alpha \int_0^1 |u'| dt
-            &\approx
-            \frac{1}{2}
-            \sum_{i = 0}^{N}
-            \left(
-                \frac{s_i^2 + s_{i + 1}^2}{2}
-            \right)h_{i + 1}
-            + 
-            \alpha
-            \sum_{i = 1}^{N}
-            \left|
-                \frac{u_{i} - u_{i - 1}}{h_{i + 1}}
-            \right|
-            \\
-            & \triangleright\; \text{let } 
-            C\in \mathbb R^{N\times (N + 1)} \text{ be upper bi-diagonal with }(1/h_i, -1/h_i)
-            \\
-            &= \frac{1}{2}\left(
-                \frac{s_0^2h_1}{2} + \frac{s_N^2h_N}{2}
-                + 
-                \sum_{i = 1}^{N - 1}s_i^2 h_i
-            \right) + \alpha\Vert Cu\Vert_1
-            \\
-            & 
-            \triangleright \; \text{using } D\in \mathbb R^{N \times (N + 1)},
-            \\
-            & \triangleright\; D := \text{diag}(h_1/2, h_1, h_2, \cdots, h_N, h_N/2)
-            \\
-            &= 
-            \frac{1}{2}\langle u - \hat u, D(u - \hat u)\rangle + \alpha \Vert Cu\Vert_1. 
-        \end{align*}
-        }
+    % \begin{frame}{Discritizations}
+    %     Implementations on modern computing platforms \textbf{necessitate discretization} of signal $u$ to $\mathbb R^{N + 1}$. 
+    %     With $s_i = u_i - \hat u_i$, $h_k = t_k - t_{k -1}, k\ge 1$ using the trapezoid rule and first-order forward difference yields:
+    %     {\scriptsize
+    %     \begin{align*}
+    %         \frac{1}{2}\int_{0}^{1} (u - \hat u)^2 dt + 
+    %         \alpha \int_0^1 |u'| dt
+    %         &\approx
+    %         \frac{1}{2}
+    %         \sum_{i = 0}^{N}
+    %         \left(
+    %             \frac{s_i^2 + s_{i + 1}^2}{2}
+    %         \right)h_{i + 1}
+    %         + 
+    %         \alpha
+    %         \sum_{i = 1}^{N}
+    %         \left|
+    %             \frac{u_{i} - u_{i - 1}}{h_{i + 1}}
+    %         \right|
+    %         \\
+    %         & \triangleright\; \text{let } 
+    %         C\in \mathbb R^{N\times (N + 1)} \text{ be upper bi-diagonal with }(1/h_i, -1/h_i)
+    %         \\
+    %         &= \frac{1}{2}\left(
+    %             \frac{s_0^2h_1}{2} + \frac{s_N^2h_N}{2}
+    %             + 
+    %             \sum_{i = 1}^{N - 1}s_i^2 h_i
+    %         \right) + \alpha\Vert Cu\Vert_1
+    %         \\
+    %         & 
+    %         \triangleright \; \text{using } D\in \mathbb R^{N \times (N + 1)},
+    %         \\
+    %         & \triangleright\; D := \text{diag}(h_1/2, h_1, h_2, \cdots, h_N, h_N/2)
+    %         \\
+    %         &= 
+    %         \frac{1}{2}\langle u - \hat u, D(u - \hat u)\rangle + \alpha \Vert Cu\Vert_1. 
+    %     \end{align*}
+    %     }
+    % \end{frame}
+    \begin{frame}{Formulation of Total Variational Minimization}
+        \begin{block}{Variational Formulation}
+            \[
+                f(u) = \int_0^1 \frac{1}{2} 
+                (u(t) - \hat u(t))^2 + \alpha |u'(t)|dt. 
+            \]    
+        \end{block}
+        Solving the problem on modern computing platforms requires discretization of the problem. 
+        Here is a list of helpful quantities for discretized formulation. 
+        \begin{itemize}
+            \item Let $u = [u_0\; \cdots \; u_{N}]^T \in $, be a vector. 
+            This is the variable we optimize to get a solution. 
+            \item Let $t_0< \cdots<  t_i <\cdots <t_N$ be a sequence of time for each observed value: $u_i$. 
+            \item Let $h_i=t_{i} - t_{i - 1}$ be the elapse of time between $u_i, u_{i - 1}$, for all $i \ge 1$. 
+            \item Let $C\in \mathbb R^{N\times (N + 1)}$ be a bi-diagonal matrix with $-1/h_i, 1/h_i$ on the diagonal and the super diagonal. 
+            This is a finite difference matrix. 
+            \item Let $D= \text{diag}(h_1/2, h_1,\cdots, h_N, h_{N}/2) \in \mathbb R^{(N + 1)\times(N + 1)}$. 
+        \end{itemize}
     \end{frame}
+
     \begin{frame}{Discretized Model}
+        The following would be the discretized model formulation. \footnote{See our report for the omitted details.}
         Recall $D$ is diagonal, strictly positive entry, $C\in \mathbb R^{N\times N+ 1}$ is bidiagonal. 
         \begin{block}{Discretized Formulation}
             \[ 
@@ -136,70 +159,75 @@
         If we were to use the Forward-Backward(FB) splitting, then we have unresolved implementation difficulties: 
         \pause
         \begin{itemize}
-            \item [1.] ADMM, Chambolle Pock, would apply; however, when using the FB Splitting, $\alpha\Vert Cu\Vert_1$ would be prox unfriendly. 
+            \item [1.] ADMM, Chambolle Pock, would apply; 
+                \textcolor{red}{however, when using the FB Splitting, $\alpha\Vert Cu\Vert_1$ would be prox unfriendly. }
             \item [2.] Prox over $\alpha \Vert C u\Vert_1$ is possible with $D$ being bi-diagonal, but it would be a hassle if done for generic $C$. 
+            \textcolor{red}{Hence we reformulate and use the lagrangian dual. }
         \end{itemize}
     \end{frame}
-    \begin{frame}{Remedy via Lagrangian Dual Reformulation}
-        Let $p = Cu$, $C\in \mathbb R^{(N + 1)\times N}$ with $D \in \mathbb R^{(N + 1)\times (N + 1)}$, we reformulate it into 
-        \[
-            \min_{u\in \mathbb R^{N + 1}}     
-            \left\lbrace
-                \left.
-                    \underbrace{\frac{1}{2}\langle (u - \hat u), D(u - \hat u)}_{f(u)}\rangle 
-                    + 
-                    \underbrace{\alpha \Vert p\Vert_1}_{h(p)}
-                \right| 
-                p = Cu
-            \right\rbrace, 
-        \]
-        producing Lagrangian of the form 
-        \[
-            \mathcal L((u, p), \lambda) = 
-            f(u) + h(p) + \langle \lambda, p - Cu\rangle. 
-        \]
-    \end{frame}
-    \begin{frame}{The Dual Problem is}
-        \begin{align*}
-            - g(-\lambda) &:= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
-            \left\lbrace
-                \mathcal L({(u, p), \lambda})
-            \right\rbrace
-            \\
-            &= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
-            \left\lbrace
-                f(u) + h(p) + \langle \lambda, p - Cu\rangle
-            \right\rbrace
-            \\
-            &= 
-            \inf_{u\in \mathbb R^{N + 1}}
-            \left\lbrace
-                f(u) - \langle \lambda, Cu\rangle 
-                + 
-                \inf_{p\in \mathbb R^{N}}
-                \left\lbrace
-                    h(p) + \langle \lambda, p\rangle  
-                \right\rbrace
-            \right\rbrace
-            \\
-            &=
-            -f^\star (-C^T\lambda) - h^\star(-\lambda). 
-        \end{align*}
-        So 
-        \begin{align*}
-            - g(-\lambda) =
-            -\frac{1}{2} \Vert -C^T\lambda\Vert^2_{D^{-1}} - 
-            \langle \hat u, -C^T \lambda\rangle - 
-            \delta_{[-\alpha, \alpha]^N}(\lambda). 
-        \end{align*}
-
-    \end{frame}
+    % \begin{frame}{Remedy via Lagrangian Dual Reformulation}
+    %     Let $p = Cu$, $C\in \mathbb R^{(N + 1)\times N}$ with $D \in \mathbb R^{(N + 1)\times (N + 1)}$, we reformulate it into 
+    %     \[
+    %         \min_{u\in \mathbb R^{N + 1}}     
+    %         \left\lbrace
+    %             \left.
+    %                 \underbrace{\frac{1}{2}\langle (u - \hat u), D(u - \hat u)}_{f(u)}\rangle 
+    %                 + 
+    %                 \underbrace{\alpha \Vert p\Vert_1}_{h(p)}
+    %             \right| 
+    %             p = Cu
+    %         \right\rbrace, 
+    %     \]
+    %     producing Lagrangian of the form 
+    %     \[
+    %         \mathcal L((u, p), \lambda) = 
+    %         f(u) + h(p) + \langle \lambda, p - Cu\rangle. 
+    %     \]
+    % \end{frame}
+    % \begin{frame}{The Dual Problem is}
+    %     In practice we should the dual proble, given by \footnote{See my report for the omitted details. }
+    %     \begin{align*}
+    %         - g(-\lambda) &:= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
+    %         \left\lbrace
+    %             \mathcal L({(u, p), \lambda})
+    %         \right\rbrace
+    %         \\
+    %         &= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
+    %         \left\lbrace
+    %             f(u) + h(p) + \langle \lambda, p - Cu\rangle
+    %         \right\rbrace
+    %         \\
+    %         &= 
+    %         \inf_{u\in \mathbb R^{N + 1}}
+    %         \left\lbrace
+    %             f(u) - \langle \lambda, Cu\rangle 
+    %             + 
+    %             \inf_{p\in \mathbb R^{N}}
+    %             \left\lbrace
+    %                 h(p) + \langle \lambda, p\rangle  
+    %             \right\rbrace
+    %         \right\rbrace
+    %         \\
+    %         &=
+    %         -f^\star (-C^T\lambda) - h^\star(-\lambda). 
+    %     \end{align*}
+    %     So 
+    %     \begin{align*}
+    %         - g(-\lambda) =
+    %         -\frac{1}{2} \Vert -C^T\lambda\Vert^2_{D^{-1}} - 
+    %         \langle \hat u, -C^T \lambda\rangle - 
+    %         \delta_{[-\alpha, \alpha]^N}(\lambda). 
+    %     \end{align*}
+    % \end{frame}
     \begin{frame}{Dual}
-        \begin{align*}
-            - g(\lambda) = -\frac{1}{2}    \Vert C^T\lambda\Vert^2_{D^{-1}} - 
-            \langle \hat u, C^T \lambda\rangle - 
-            \delta_{[-\alpha, \alpha]^N}(\lambda). 
-        \end{align*}
+        \begin{block}{The Dual Reformulation}
+            \begin{align*}
+                - g(\lambda) = -\frac{1}{2}    \Vert C^T\lambda\Vert^2_{D^{-1}} - 
+                \langle \hat u, C^T \lambda\rangle - 
+                \delta_{[-\alpha, \alpha]^N}(\lambda). 
+            \end{align*}
+            See my report for omitted details.    
+        \end{block}
         \begin{itemize}
             \item Fact: $u = \hat u + D^{-1}C^T\lambda$, for the primal. 
             \item $D^{-1}$ is Positive Definite and diagonal, very easy to invert. 
@@ -207,13 +235,17 @@
         \end{itemize}
     \end{frame}
     \begin{frame}{Numerical Results}
-        Implemented with Julia \cite{bezanson_julia_2017}, with several variants of FISTA, we have 
+        We implemented in Julia \cite{bezanson_julia_2017}, with several variants of FISTA, producing 
         \begin{figure}[H]
-            \includegraphics[width=10cm]{Assets/recovered_signal.png}    
+            \includegraphics[width=9cm]{Assets/recovered_signal.png}    
         \end{figure}
-        
+        {\small
+            See GitHub repository \href{https://github.com/iluvjava/Proximal-Gradient/tree/main/applications}{\textcolor{cyan}{here}} for our code implementation. 
+            See our report for more numerical experiments. 
+        }
     \end{frame}
-    \begin{frame}{One Big Bummer}
+
+    \begin{frame}{Convergence Results}
         \begin{figure}
             \includegraphics[width=10cm]{Assets/obj_vals.png}
         \end{figure}
@@ -224,7 +256,7 @@
         \end{figure}
         Main observations
         \begin{itemize}
-            \item [1.] FISTA is non-robust to strong convexity; it experiences the same $\mathcal (1/k^2)$. 
+            \item [1.] FISTA is \textcolor{red}{non-robust to strong convexity}; the above suggests that it experiences the same $\mathcal O (1/k^2)$. 
             \item [2.] However, ISTA would be $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity, with $\kappa = L/\sigma$, for $L$-Lipschitz smooth and $\sigma$ strongly on the smooth part of the FB splitting objective. 
         \end{itemize}
     \end{frame}
@@ -239,7 +271,7 @@
                     \STATE{\textbf{Input: }($g, h, x^{(0)}$)}
                     \STATE{$y^{(0)} = x^{(0)}$, $\kappa = L/\sigma$} 
                     \FOR{$k = 0, 1, \cdots$}
-                        \STATE{$x^{(k + 1)} = T_L y^{(k)}$}
+                        \STATE{$x^{(k + 1)} = T_L y^{(k)}; T_L(x) = \text{prox}_{L^{-1}h}(x - L^{-1}\nabla g(x))$}
                         \STATE{$y^{(k + 1)} = x^{(k + 1)} + \theta_{k + 1}(x^{(k + 1)} - x^{(k)})$}
                         \STATE{Execute subroutine $\mathcal S$. }
                     \ENDFOR
@@ -270,7 +302,7 @@
             \item $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, $t_0 = 1$. 
             \item It achieves $\mathcal O(1/k^2)$ on the objective value; it doesn't improve for strongly convex function $g$. 
             \item No known proof for the convergence of the iterates. 
-            \item $T_L(x) = \text{prox}_{L^{-1}h}(x - L^{-1}\nabla g(x))$, the proximal gradient operator. 
+            \item $T_L(x) = \text{prox}_{L^{-1}h}(x - L^{-1}\nabla g(x))$. 
         \end{itemize}
     \end{frame}
     \begin{frame}{Variant (2.), Chambolle, Dossal}
@@ -291,7 +323,7 @@
         From Chambolle, Dossal \cite{chambolle_convergence_2015}, 
         \begin{itemize}
             \item $t_{k + 1} = (n + a - 1)/a, \theta_{k + 1} = (t_{k} - 1)/t_{k + 1}$, for $a > 2$. 
-            \item Proved in Chambolle, Dossal \cite{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit weak convergence. 
+            \item Proved in Chambolle, Dossal \cite[thm 4.1]{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit convergence. 
             \item $T_L$ is the same as (1.); it experiences the same convergence rate for the function objective. 
         \end{itemize}
     \end{frame}
@@ -313,20 +345,18 @@
         Proposed in Beck \cite{beck_first-order_nodate}, and also Nesterov \cite{nesterov_lecture_2018}. 
         \begin{itemize}
             \item has $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$. 
-            \item Only for strong convexity $g$, (Or the weaker condition such as Quadratic Growth). 
-            \item Has $\mathcal O((1 - 1/\sqrt{\kappa})^k)$, for both objective value and iterates. 
-            \item $T_L$ is still the same FB splitting. 
+            \item Only for $g$ with strong convexity (Or the weaker condition such as Quadratic Growth). 
+            \item Has $\mathcal O((1 - 1/\textcolor{red}{\sqrt{\kappa}})^k)$, for both objective value and iterates. 
         \end{itemize}
     \end{frame}
-    \begin{frame}{Motivates Variants (4. )}
-        
+    \begin{frame}{Spectral Momentum Variants (4.)}
         V-FISTA is simple but requires knowledge of $\sigma$, the strong convexity index; it is a troublemaker. 
         \begin{itemize}
             \item Exact estimation would involve inverting the Hessian or a closed-form formula tailored for a specific problem. 
             \item Over estimation of $\sigma$ invalidates the linear convergence results. 
             \item Under estimation of $\sigma$ slows down the linear-convergence. 
         \end{itemize}
-        To overcome this, we propose a real-time overestimation of $\sigma$ using 
+        \textcolor{red}{To overcome this, we propose a real-time overestimation of $\sigma$ using}
         \[
             \sigma \le \langle \nabla g(y^{(k + 1)}) - \nabla g(y^{(k)}), y^{(k + 1)} - y^{(k)}\rangle/ 
                     \Vert y^{(k + 1)} - y^{(k)}\Vert^2. 
@@ -374,19 +404,16 @@
         However, the idea of restarting FISTA refuses to go away. 
         \\
         \begin{itemize}
-            \item Asymptotic linear convergence of conditional restart by Alamo et al. \cite{alamo_restart_2019}\cite[text]{alamo_gradient_2019} et al., and Fercoq  \cite{fercoq_adaptive_2019}, under strong convexity, or local quadratic growth. 
-            \item Parameter Free FISTA with automatical restart by Aujol et al. \cite{aujol_parameter-free_2023}, fast linear convergence $\mathcal O(\exp(-K\sqrt{\kappa}n))$ ($n$ is the iteration counter) on quadratic growth with proofs, no parameters needed.
+            \item Asymptotic linear convergence of conditional restart by Alamo et al. \cite{alamo_restart_2019}\cite{alamo_gradient_2019} et al., and Fercoq  \cite{fercoq_adaptive_2019}, under strong convexity, or local quadratic growth. 
+            \item Parameter Free FISTA with automatic restart by Aujol et al. \cite{aujol_parameter-free_2023}, linear convergence $\mathcal O(\exp(-K\sqrt{\kappa}n))$ ($n$ is the iteration counter) on quadratic growth with proofs, no parameters needed.
         \end{itemize}
     \end{frame}
     \begin{frame}{Theories of Nesterov Momentum}
         Frontier developments of theories for Nesterov Momentum are not dying either. 
         \begin{itemize}
             \item [1.] Su et al. \cite{su_differential_2015} identified a second-order ODE that is the exact limit of the variant (1.). 
-            \pause
             \item [2.] In Attouch and Peypouquet \cite{attouch_rate_2016}, they showed a $o(1/k^2)$ convergence rate of variant (2.) based on the ODE understanding. 
-            \pause
             \item [3.] In Nesterov \cite{nesterov_lecture_2018}, he proposed a generic algorithm that can derive variants (1.), (3.), and more. 
-            \pause
             \item [4.] In Ahn and Sra \cite{ahn_understanding_2022}
             they derived a lot of variants of APGs using the Proximal Point method of Rockafellar and discussed the unified theme of a ``similar triangle." 
         \end{itemize}
@@ -395,23 +422,25 @@
         The paper is titled ``Computer-Assisted Design of Accelerated Composite Optimization Methods: OptISTA" by Jang et al. \cite{jang_computer-assisted_2023}.
         They updated the manual script On Nov 1st, 2023. 
         \begin{itemize}
-            \item Based on the Performance Estimation Problem, they phrase the search of the fastest possible first-order algorithm(more on this later) as a QCQP. 
-            \item They squeeze out a constant factor on the convergence of the original FISTA. 
+            % \item Based on the Performance Estimation Problem, they phrase the search of the fastest possible first-order algorithm(more on this later) as a QCQP. 
+            % \item They squeeze out a constant factor on the convergence of the original FISTA. 
             \item They also proved a lower bound for their OptISTA, showing its exact optimality. 
             \item They claim they had concluded the search for the fastest first-order method. 
         \end{itemize}
+        That leads to the question: ``Why do we call Nesterov's acceleration method optimal?" 
+        What is optimality for an algorithm? 
     \end{frame}
-    \begin{frame}{Moral of the Story}
-        This is the general trajectory: 
-        \begin{itemize}
-            \item Improve the algorithm's robustness and applications.  
-            \item Weaken the conditions and add more convergence proofs for a broader scope. 
-            \item Searching for a general framework of understanding for the class of the Nesterov acceleration method. 
-            \item Connects with various other ideas to improve theoretical understanding.
-            \item Extremely hardcore algorithmic tricks and improvements to squeeze out that last bit of performance. 
-        \end{itemize}
-        Working on FISTA would amount to competing against some of the brightest researchers. 
-    \end{frame}
+    % \begin{frame}{Moral of the Story}
+    %     This is the general trajectory: 
+    %     \begin{itemize}
+    %         \item Improve the algorithm's robustness and applications.  
+    %         \item Weaken the conditions and add more convergence proofs for a broader scope. 
+    %         \item Searching for a general framework of understanding for the class of the Nesterov acceleration method. 
+    %         \item Connects with various other ideas to improve theoretical understanding.
+    %         \item Extremely hardcore algorithmic tricks and improvements to squeeze out that last bit of performance. 
+    %     \end{itemize}
+    %     Working on FISTA would amount to competing against some of the brightest researchers. 
+    % \end{frame}
     
    
 
@@ -431,7 +460,7 @@
     \end{frame}  
     \begin{frame}{Fixed-Step Descent}
         \begin{exmp}[Fixed Step Descent]
-            The method of fixed-step gradient descent, $x^{(k + 1)} = x^{(k)} - L^{-1}\nabla f(x^{(k)})$ is $ \bar {\mathcal A}\in \GAfirst$ achieves a maximal decrease in objective value for all $f\in \mathcal F_{L}^{1, 1}$ given $x^{(k)}$, it can be understood as 
+            The method of fixed-step gradient descent, $x^{(k + 1)} = x^{(k)} - L^{-1}\nabla f(x^{(k)})$ is $ \bar {\mathcal A}\in \GAfirst$ achieves a maximal decrease in objective value \textcolor{red}{for all $f\in \mathcal F_{L}^{1, 1}$} for some $x^{(k)}\in \mathbb R^n$, it can be understood as 
             \[
                 \bar {\mathcal A} \in 
                 \underset{_{\mathcal A\in \GAfirst}}{\text{argmin}}
@@ -439,14 +468,11 @@
                     f\left(
                         \mathcal A_f x^{(k)}
                     \right)
-                \right\rbrace. 
+                \right\rbrace. \textcolor{gray}{\quad\triangleright\; \text{Only a single iteration.}}
             \]
         \end{exmp}
-        This method is memoryless because it only matters what $x^{(k)}$, prior iterate $x^{(i)}, 1\le i \le k-1$ plays no role. 
-    \end{frame}
-    \begin{frame}{Steepest Descent}
         \begin{exmp}[Steepest Descent]
-            Fix some $f, x^{(k)}$, the method of steepest descent would be $\bar {\mathcal A}\in \GAfirst$ and it's 
+            \textcolor{red}{Fix some $f, x^{(k)}$}, the method of steepest descent would be $\bar {\mathcal A}\in \GAfirst$ and it's 
             \[
                 \bar {\mathcal A}\in  \underset{\mathcal A \in \GAfirst}{\text{argmin}}
                 \left\lbrace
@@ -455,15 +481,13 @@
                     \right)
                 \right\rbrace. 
             \]
-            This method is also memoryless.     
         \end{exmp}
-        We emphasize that $f$ is fixed. 
-        
     \end{frame}
+    
     \begin{frame}{Nesterov Lower Complexity Bound}
         The following is Nesterov \cite[Thm 2.1.7]{nesterov_lecture_2018}. 
         \begin{theorem}[Nesterov's Claim of Lower Bound]\label{thm:nesterov_lower_bnd}
-            For any $1\le k \le (n - 1)/2$, for all $x^{(0)}\in \mathbb R^n$, there exists a Lipschitz smooth convex function in $\mathbb R^n$ such that for all algorithm from $\GAfirst$, we have the lower bound for the optimality gap for the function values and its iterates: 
+            \textcolor{red}{For any $1\le k \le (n - 1)/2$, for all $x^{(0)}\in \mathbb R^n$, there exists a Lipschitz smooth convex function in $\mathbb R^n$} such that for all algorithm from $\GAfirst$, we have the lower bound for the optimality gap for the function values and its iterates: 
             \[
                 f\left(x^{(k)}\right) - f^* \ge 
                 \frac{3L \Vert x - x^*\Vert^2}{32(k + 1)^2}, 
@@ -477,7 +501,7 @@
     \begin{frame}{Walkington's claim of Lower Bound}
         We now quote Walkington \cite[theorem 2.4]{noel_nesterovs_nodate}
         \begin{theorem}[Walkington's Claim of Lower Bound]
-            Let $X$ be an infinite-dimensional Hilbert Space and set $x^{(0)} =\mathbf 0$. There exists a convex function $f: X\mapsto \mathbb R$ with Lipschitz gradient and minimum $f(x_*) > -\infty$ such that for any sequence satisfying 
+            Let $X$ be an infinite-dimensional Hilbert Space and set $x^{(0)} =\mathbf 0$. \textcolor{red}{There exists a convex function $f: X\mapsto \mathbb R$ with Lipschitz gradient and minimum $f(x_*) > -\infty$ such that for any} sequence satisfying 
             \begin{align*}
                 x_{i + 1}\in \text{Span}\left\lbrace
                     \nabla f(x^{(0)}), \nabla f(x^{(1)}), \cdots, \nabla f(x^{(i)})
@@ -569,7 +593,12 @@
     \begin{frame}{A Sufficient Condition for Convergence}
         \begin{prop}[Sufficient Conditions for Generic Convergence]
             If the sequence $(t_k)_{k \ge \mathbb N}$ by $t_{k}$ satisfies 
-            $t_{k + 1} = 1 + \frac{t_k^2(1 - q)}{t_k + 1}$, and $t_{k + 1} \ge t_k + 1 - t_k^2q$ and $t_k > 1$ for all $k\ge 0$, then \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} (Generic Convergence Results) stays true. 
+            \begin{itemize}
+                \item [1.] $t_{k + 1} = 1 + \frac{t_k^2(1 - q)}{t_k + 1}$, 
+                \item [2.] and $t_{k + 1} \ge t_k + 1 - t_k^2q$, 
+                \item [3.] and $t_k > 1$ for all $k\ge 0$, 
+            \end{itemize}
+            make \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} (Generic Convergence Results) true. 
         \end{prop}
         \begin{proof}
             In the appendix of the report. 

@@ -9,6 +9,11 @@
             "language": "latex",
             "scheme": "file",
             "pattern": "presentation/presentation.tex"
+        },
+        {
+            "language": "latex",
+            "scheme": "file",
+            "pattern": "presentation_truncated/presentation.tex"
         }
     ]
 }

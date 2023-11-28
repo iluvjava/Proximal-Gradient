@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Paper Under Review}{3}{0}{1}
+\beamer@sectionintoc {2}{TV Minimizations}{4}{0}{2}
+\beamer@sectionintoc {3}{Literature Review}{12}{0}{3}
+\beamer@sectionintoc {4}{Nesterov Lower Bound}{22}{0}{4}
+\beamer@sectionintoc {5}{V-FISTA Under Strong Convexity}{27}{0}{5}
+\beamer@sectionintoc {6}{References}{32}{0}{6}

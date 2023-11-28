@@ -127,11 +127,11 @@
             \alpha
             \sum_{i = 1}^{N}
             \left|
-                \frac{u_{i} - u_{i - 1}}{h_{i + 1}}
+                \frac{u_{i} - u_{i - 1}}{h_{i}}
             \right|
             \\
             & \triangleright\; \text{let } 
-            C\in \mathbb R^{N\times (N + 1)} \text{ be upper bi-diagonal with }(1, -1)
+            C\in \mathbb R^{N\times (N + 1)} \text{ be upper bi-diagonal with }(1/h_i, -1/h_{i})
             \\
             &= \frac{1}{2}\left(
                 \frac{s_0^2h_1}{2} + \frac{s_N^2h_N}{2}
@@ -171,7 +171,7 @@
         \]
         The dual is
         \begin{align*}
-            - g(\lambda) &:= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
+            - g(-\lambda) &:= \inf_{(u, p)\in \mathbb R^{N + 1}\times \mathbb R^N}
             \left\lbrace
                 \mathcal L({(u, p), \lambda})
             \right\rbrace
@@ -192,16 +192,20 @@
                 \right\rbrace
             \right\rbrace
             \\
-            &\le
-            -f^\star (-C^T\lambda) - h^\star(p). 
+            &=
+            -f^\star (-C^T\lambda) - h^\star(-\lambda). 
         \end{align*}
-        The theorem of strong duality applies hence equality. 
+        The theorem of strong duality applies, hence equality. 
         With the assumption that $D$ is positive definite, we have 
-        \[
-            - g(\lambda) = -\frac{1}{2}    \Vert C^T\lambda\Vert^2_{D^{-1}} - 
-            \langle \hat u, C^T \lambda\rangle - 
-            \delta_{[-\alpha, \alpha]^N}(p). 
-        \]
+        \begin{align*}
+            - g(-\lambda) &= -\frac{1}{2}   \Vert C^T\lambda\Vert^2_{D^{-1}} - 
+            \langle \hat u, - C^T \lambda\rangle - 
+            \delta_{[-\alpha, \alpha]^N}(-\lambda)
+            \\
+            g(\lambda) &= \frac{1}{2} \Vert C^T\lambda\Vert_{D^{-1}}^2 - 
+            \langle C^T\lambda, u\rangle + \delta_{[-\alpha, \alpha]^N}(\lambda). 
+        \end{align*}
+
         Observe that the above admits a hyperbox indicator function that makes the prox operator friendlier because the proximal operator of the indicator is projection; in the case of projecting onto the box, the operator is simple. 
         Given dual variable $\lambda$, primal is obtained by 
         \begin{align*}
@@ -220,7 +224,7 @@
         The parameter $\kappa$ is the condition number; in this case, it would be $L/\alpha$, where $L$ is the Lipschitz smooth constant of $g(u)$ and $\alpha$ is the strong convexity constant for $g(u)$. 
         \par
         We emphasize that the Proximal Gradient without acceleration has better theoretical convergence results than the accelerated version for the class of strongly convex objectives. 
-        It sparks the discussion in this paper on the variants of FISTA, hoping to provide some insights on why Nesterov's momentum-based method's inability to adapt the convergence rate with objective has strong convexity. 
+        This paper sparks the discussion on the variants of FISTA, hoping to provide some insights on why the inability of Nesterov's momentum-based method to adapt the convergence rate with objective has strong convexity. 
         For the terminologies, we use FISTA to refer to the proximal gradient method presented by Beck and Teboulle\cite{beck_fast_2009-1}. We use the Accelerated Proximal Gradient method (APG) to refer to the first-order acceleration algorithms developed/inspired by FISTA. 
         \par
         Finally, whether the original FISTA\cite{beck_fast_2009} or Nesterov Accelerated gradient from 1983 has linear convergence with the presence of strong convexity (or potentially other weaker conditions) is not known during our research and literature review. 
@@ -228,7 +232,7 @@
     \subsection{Outline of the Paper}
         \hyperref[sec:Literatures]{Section \ref*{sec:Literatures}} consists of 3 parts. 
         The first part reviews the literature on the problem of Total Variation (TV) minimization for image/signal denoising and deblurring. 
-        Presenting FISTA and its variants is the second part. 
+        The second part presents FISTA and its variants. 
         The third part reviews the algorithmic tricks and improvements applied to the APG. 
         \hyperref[sec:optimal_lower_bound]{Section \ref*{sec:optimal_lower_bound}} addresses a mistake made in Walkington's writing \cite[theorem 2.4]{noel_nesterovs_nodate}. 
         We will discuss a first-order method and how a different function achieves the lower complexity bound on the objective value and iterates for a fixed iteration. 
@@ -282,7 +286,7 @@
             It achieves $\mathcal O(1/k^2)$ on the objective value. 
             Our literature review didn't discover proof for the convergence of the iterates. We also didn't find proofs for a convergence rate faster than $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity. 
             \item [2.] 
-                This is a variant where $\theta_{k + 1} = (n + a - 1)/a$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
+                This is a variant where $t_{k + 1} = (n + a - 1)/a, \theta_{k + 1} = (t_{k} - 1)/(t_{k + 1})$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
             Proved in Chambolle, Dossal \cite{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit weak convergence. $T_L$ is the same as (1.). 
             \item [3.] 
                 Using $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$ where $\kappa = L/\sigma$, with $\sigma$ being the strong convexity constant produces V-FISTA in Beck \cite[10.7.7]{beck_first-order_nodate}\cite[3.3]{noel_nesterovs_nodate}. $T_L$ is the same as (1.). 
@@ -390,7 +394,7 @@
     \subsection{Lower Complexity Bounds for $L$-Lipschitz Smooth Function}
         The following is Nesterov \cite[Thm 2.1.7]{nesterov_lecture_2018}. 
         \begin{theorem}[Nesterov's Claim of Lower Bound]\label{thm:nesterov_lower_bnd}
-            For any $1\le k \le 1/2(n - 1)$, for all $x^{(0)}\in \mathbb R^n$, there exists a Lipschitz smooth convex function in $\mathbb R^n$ such that for all algorithm from $\GAfirst$, we have the lower bound for the optimality gap for the function values and its iterates: 
+            For any $1\le k \le (n - 1)/2$, for all $x^{(0)}\in \mathbb R^n$, there exists a Lipschitz smooth convex function in $\mathbb R^n$ such that for all algorithm from $\GAfirst$, we have the lower bound for the optimality gap for the function values and its iterates: 
             \[
                 f\left(x^{(k)}\right) - f^* \ge 
                 \frac{3L \Vert x - x^*\Vert^2}{32(k + 1)^2}, 
