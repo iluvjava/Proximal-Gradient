@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  27 NOV 2023 18:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  30 NOV 2023 12:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -853,7 +853,7 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 <Assets/recovered_signal.png, id=190, 1806.75pt x 1204.5pt>
 File: Assets/recovered_signal.png Graphic file (type png)
 <use Assets/recovered_signal.png>
-Package pdftex.def Info: Assets/recovered_signal.png  used on input line 246.
+Package pdftex.def Info: Assets/recovered_signal.png  used on input line 155.
 (pdftex.def)             Requested size: 256.0748pt x 170.70569pt.
  [9
 
@@ -861,14 +861,14 @@ Package pdftex.def Info: Assets/recovered_signal.png  used on input line 246.
 <Assets/obj_vals.png, id=200, 1806.75pt x 1204.5pt>
 File: Assets/obj_vals.png Graphic file (type png)
 <use Assets/obj_vals.png>
-Package pdftex.def Info: Assets/obj_vals.png  used on input line 252.
+Package pdftex.def Info: Assets/obj_vals.png  used on input line 161.
 (pdftex.def)             Requested size: 284.52756pt x 189.67299pt.
  [10
 
  </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/Assets/obj_vals.png>]
 File: Assets/obj_vals.png Graphic file (type png)
 <use Assets/obj_vals.png>
-Package pdftex.def Info: Assets/obj_vals.png  used on input line 262.
+Package pdftex.def Info: Assets/obj_vals.png  used on input line 172.
 (pdftex.def)             Requested size: 170.71652pt x 113.80379pt.
  [11
 
@@ -893,7 +893,7 @@ Package pdftex.def Info: Assets/obj_vals.png  used on input line 262.
 ] [21
 
 ]
-Overfull \hbox (1.07733pt too wide) detected at line 460
+Overfull \hbox (1.07733pt too wide) detected at line 378
 []
  []
 
@@ -905,22 +905,22 @@ Overfull \hbox (1.07733pt too wide) detected at line 460
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10.95> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 519.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 437.
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <8> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 519.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 437.
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <6> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 519.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 437.
  [25
 
 ] [26
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <10> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 562.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 480.
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <7> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 562.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 480.
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' in size <5> not available
-(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 562.
+(Font)              Font shape `OT1/cmss/bx/n' tried instead on input line 480.
  [27
 
 ] [28
@@ -1018,13 +1018,13 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 Here is how much of TeX's memory you used:
  22832 strings out of 478994
  429358 string characters out of 5858183
- 708624 words of memory out of 5000000
+ 707624 words of memory out of 5000000
  39707 multiletter control sequences out of 15000+600000
  419401 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  131i,19n,132p,518b,834s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf (37 pages, 629392 bytes).
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf (37 pages, 629452 bytes).
 PDF statistics:
  661 PDF objects out of 1000 (max. 8388607)
  479 compressed objects within 5 object streams

@@ -38,17 +38,6 @@ A.~Beck, \emph{\BIBforeignlanguage{en}{First-{Order} {Methods} in
   \url{https://epubs.siam.org/doi/book/10.1137/1.9781611974997}
 \BIBentrySTDinterwordspacing
 
-\bibitem{nesterov_lecture_2018}
-\BIBentryALTinterwordspacing
-Y.~Nesterov, ``\BIBforeignlanguage{en}{Lecture on {Convex} {Optimizations}
-  {Chapter} 2, {Smooth} {Convex} {Optimization}},'' in
-  \emph{\BIBforeignlanguage{en}{Lectures on {Convex} {Optimization}}}, ser.
-  Springer {Optimization} and {Its} {Applications}, Y.~Nesterov, Ed.\hskip 1em
-  plus 0.5em minus 0.4em\relax Cham: Springer International Publishing, 2018,
-  pp. 59--137. [Online]. Available:
-  \url{https://doi.org/10.1007/978-3-319-91578-4_2}
-\BIBentrySTDinterwordspacing
-
 \bibitem{beck_fast_2009-1}
 \BIBentryALTinterwordspacing
 A.~Beck and M.~Teboulle, ``\BIBforeignlanguage{en}{A {Fast} {Iterative}
@@ -174,6 +163,17 @@ H.~Attouch and J.~Peypouquet, ``The {Rate} of {Convergence} of {Nesterov}'s
   no.~3, pp. 1824--1834, Jan. 2016, publisher: Society for Industrial and
   Applied Mathematics. [Online]. Available:
   \url{https://epubs.siam.org/doi/10.1137/15M1046095}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nesterov_lecture_2018}
+\BIBentryALTinterwordspacing
+Y.~Nesterov, ``\BIBforeignlanguage{en}{Lecture on {Convex} {Optimizations}
+  {Chapter} 2, {Smooth} {Convex} {Optimization}},'' in
+  \emph{\BIBforeignlanguage{en}{Lectures on {Convex} {Optimization}}}, ser.
+  Springer {Optimization} and {Its} {Applications}, Y.~Nesterov, Ed.\hskip 1em
+  plus 0.5em minus 0.4em\relax Cham: Springer International Publishing, 2018,
+  pp. 59--137. [Online]. Available:
+  \url{https://doi.org/10.1007/978-3-319-91578-4_2}
 \BIBentrySTDinterwordspacing
 
 \bibitem{necoara_linear_2019}
