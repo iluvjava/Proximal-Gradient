@@ -99,11 +99,11 @@
         Solving the problem on modern computing platforms requires discretization of the problem. 
         Here is a list of helpful quantities for discretized formulation. 
         \begin{itemize}
-            \item Let $u = [u_0\; \cdots \; u_{N}]^T \in $, be a vector. 
+            \item Let $u = [u_0\; \cdots \; u_{N}]^T \in \mathbb R^{N + 1}$, be a vector. 
             This is the variable we optimize to get a solution. 
             \item Let $t_0< \cdots<  t_i <\cdots <t_N$ be a sequence of time for each observed value: $u_i$. 
             \item Let $h_i=t_{i} - t_{i - 1}$ be the elapse of time between $u_i, u_{i - 1}$, for all $i \ge 1$. 
-            \item Let $C\in \mathbb R^{N\times (N + 1)}$ be a bi-diagonal matrix with $-1/h_{i}, 1/h_{i + 1}, i = 1,\cdots, N$ on the diagonal and the super diagonal. 
+            \item Let $C\in \mathbb R^{N\times (N + 1)}$ be a bi-diagonal matrix with $-1/h_{i}, 1/h_{i}, i = 1,\cdots, N$ on the diagonal and the super diagonal. 
             This is a finite difference matrix. 
             \item Let $D= \text{diag}(h_1/2, h_1,\cdots, h_N, h_{N}/2) \in \mathbb R^{(N + 1)\times(N + 1)}$. 
         \end{itemize}
@@ -437,7 +437,7 @@
     \end{frame}
     \begin{frame}{The Differences Between Their Claims}
         \begin{itemize}
-            \item Walkingon claimed there exists a single function from $\mathcal F_{L}^{1,1}(\mathcal H)$ that introduces the lower bound for all values of $k$, and all algorithms from $\GAfirst$, but the latter didn't claim that. 
+            \item Walkinton claimed there exists a single function from $\mathcal F_{L}^{1,1}(\mathcal H)$ that introduces the lower bound for all values of $k$, and all algorithms from $\GAfirst$, but the latter didn't claim that. 
             \item The difference would remain in infinite dimension Hilbert space if we generalize Nesterov's lower bound claim. 
             \item No contradiction from Attouch and Peypouquet \cite{attouch_rate_2016} on $o(1/k^2)$ because they fixed $\Phi$ in the proof. 
         \end{itemize}

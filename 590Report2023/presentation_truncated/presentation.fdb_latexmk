@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex presentation"] 1701132241 "presentation.aux" "presentation.bbl" "presentation" 1701403214
+["bibtex presentation"] 1701132241 "presentation.aux" "presentation.bbl" "presentation" 1701725309
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/IEEEtran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "presentation.aux" 1701375044 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d "pdflatex"
+  "presentation.aux" 1701725305 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d "pdflatex"
   "refs.bib" 1701119531 53334 118b9c9145ff52eb05ed45981a70ae48 ""
   (generated)
   "presentation.bbl"
   "presentation.blg"
-["pdflatex"] 1701375041 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf" "presentation" 1701403214
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.aux" 1701375044 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d ""
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.tex" 1701403214 28289 36ade3ad9cf9c31e3488876e4b3ae600 ""
+["pdflatex"] 1701725301 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf" "presentation" 1701725309
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.aux" 1701725305 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d ""
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.tex" 1701725309 28302 0e91bbf12486e1246ee428918caa9a15 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/tcss1095.tfm" 1136768653 1536 f0fa079cdc83a6ffeda21e42352cf1ea ""
@@ -238,19 +238,19 @@
   "Assets/obj_vals.png" 1701119531 136767 603cb62bd27eb7501e9ef53df1f0783e ""
   "Assets/paper-titlepage.png" 1701119531 128876 2b0681253863e540305c5b5e6a25b7e1 ""
   "Assets/recovered_signal.png" 1701119531 153067 c3eadc7ef28a28979048b49fa5aa4c6e ""
-  "presentation.aux" 1701375044 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d "pdflatex"
+  "presentation.aux" 1701725305 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d "pdflatex"
   "presentation.bbl" 1701132241 7147 6d1fcc079f2db6f517f39a2fb04b4ba3 "bibtex presentation"
-  "presentation.nav" 1701375044 4539 2e7d116d0c04b6be2df2918cd88670b1 "pdflatex"
-  "presentation.out" 1701375044 840 f2061e8f9b67e4201c4c0892b04f236f "pdflatex"
-  "presentation.tex" 1701403214 28289 36ade3ad9cf9c31e3488876e4b3ae600 ""
-  "presentation.toc" 1701375044 331 673ca7b296b66d06a301bcdacdff1966 "pdflatex"
+  "presentation.nav" 1701725305 4539 2e7d116d0c04b6be2df2918cd88670b1 "pdflatex"
+  "presentation.out" 1701725305 840 f2061e8f9b67e4201c4c0892b04f236f "pdflatex"
+  "presentation.tex" 1701725309 28302 0e91bbf12486e1246ee428918caa9a15 ""
+  "presentation.toc" 1701725305 331 673ca7b296b66d06a301bcdacdff1966 "pdflatex"
   (generated)
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf"
   "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.log"
+  "presentation.aux"
+  "presentation.out"
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf"
   "presentation.pdf"
   "presentation.nav"
-  "presentation.snm"
   "presentation.log"
-  "presentation.out"
-  "presentation.aux"
   "presentation.toc"
+  "presentation.snm"
