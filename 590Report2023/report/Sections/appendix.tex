@@ -1,9 +1,10 @@
 \subsection{Proof for Lemma \ref*{lemma:convergence-prep}}
-    For better notation we use $T$ to denote the proximal gradient operator $T_L$ appeared in \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}}. 
+    For better notation we use $T$ to denote the proximal gradient operator $T_L$ appeared in \hyperref[alg:generic_FISTA]{Algorithm \ref*{alg:generic_FISTA}}. 
     We need the following lemma to start the proof. 
     See \cite[remark 10.17]{beck_first-order_nodate} for the Proximal Gradient Lemma. 
+    
     \begin{lemma}[Proximal Gradient Lemma]
-        With $F = g + h$, where $h$ is convex, closed and proper, with $g$ be $L$-Lipschitz smooth with a constant of $L$, let $y\in \mathbb E$, defining $y^+ = T(y)$ being the proximal gradient step, then for any $x\in \mathbb E$, we have: 
+        Let $F = g + h$ where $h$ is convex closed and proper, $g$ is $L$-Lipschitz smooth with a constant of $L$. Let $y\in \mathbb R^n$, we define $y^+ = T(y)$, then for any $x\in \mathbb R^n$, we have: 
         $$
         \begin{aligned}
         f(x) - f(y^+) \ge \frac{L}{2}\Vert x - y^+\Vert^2 - \frac{L}{2}\Vert x - y\Vert^2 + D_g(x, y),
@@ -12,37 +13,34 @@
         Where $D_g(x, y):= g(x) - g(y) - \langle \nabla g(y), x -y\rangle$ is the Bregman Divergence for the smooth part of the sum: $g$. 
     \end{lemma}
     The following lemma is from Nesterov's new book \cite[thm 2.1.9, (2.1.23)]{nesterov_lectures_2018}. 
+    
     \begin{lemma}[Strong Convexity and the Cute Formula]
-        With f be continuous differentiable and $\mu$-strongly convex on $Q\subseteq \mathbb R^n$ , then for all $x, y \in Q$ and $\alpha\in [0, 1]$, we have the equivalent conditions 
+        Let $f$ be continuous differentiable and $\mu$-strongly convex on $Q\subseteq \mathbb R^n$, then for all $x, y \in Q$ and $\alpha\in [0, 1]$, we have the equivalent conditions 
         \begin{align}
             \langle \nabla f(x) - \nabla f(y), x - y\rangle &\ge \mu
-            \Vert x - y\Vert^2
+            \Vert x - y\Vert^2, 
             \\
             \alpha f(x) + (1 - \alpha) f(y) &\ge
             f(\alpha x + (1 - \alpha)) + 
             \frac{\mu \alpha(1 - \alpha)}{2}
             \Vert x - y\Vert^2. 
         \end{align}
-        
-
     \end{lemma}
-    \begin{proof}\label{proof:vfist-convergence-prep}
-        With $k\ge 0$, make a sequence $(t_k)_{k\in \mathbb N}$, we consider:
+
+    \begin{proof}[Proof of Lemma \ref*{lemma:convergence-prep}]\label{proof:vfist-convergence-prep}
+        For the sequence $(t_k)_{k\in \mathbb N\cup \{0\}}$, we consider substituting $x, y$ with:
         \begin{itemize}
             \item [1.] $x = t^{-1}_{k + 1}\bar x + (1 - t^{-1}_{k + 1})x^{(k)}, y = y^{(k)}$. 
             \item [2.] $\bar x \in \underset{x}{\text{argmin}}\; F(x)$ and $f(\bar x) = F_{\text{opt}}$. 
         \end{itemize}
-        from lemma,
+        From the Proximal Gradient Lemma, using strong convexity of $g$, $D_g(x, y) \ge \frac{\sigma}{2}\Vert y - x\Vert^2$ for all $x, y$ then
         \begin{align}
             F(x) - F\circ T(y) &\ge 
             \frac{L}{2}\Vert x - T (y)\Vert^2 - \frac{L}{2}\Vert x - y\Vert^2 + D_g(x, y)
             \\
-            & \triangleright \text{ strong convexity of g makes }
-            D_g(x, y) \ge \frac{\sigma}{2}\Vert y - x\Vert^2
-            \\
             & \ge \frac{L}{2}\Vert x - Ty\Vert^2 - \frac{L - \sigma}{2}\Vert x - y\Vert^2. 
         \end{align}\label{eqn:proxgrad_lemma}
-        With the substitution into the RHS terms of \hyperref[eqn:proxgrad_lemma]{\ref*{eqn:proxgrad_lemma}}, we can simplify and get
+        Expandind what we substituted into \hyperref[eqn:proxgrad_lemma]{\ref*{eqn:proxgrad_lemma}}, we can simplify and get
         \begin{align*}
             x - T(y) &=  t^{-1}_{k+1} \bar x + (1 - t^{-1}_{k+1}) x^{(k)} - T y^{(k)}
             \\
@@ -56,7 +54,7 @@
                 \bar x + t_{k+1} \left(
                     x^{(k)} - x^{(k + 1)}
                 \right) - x^{(k)}
-            \right)
+            \right), 
             \\
             x - y &= t^{-1}_{k+1} \bar x + (1 - t_{k+1}^{-1}) x^{(k)} - y^{(k)}
             \\
@@ -71,7 +69,7 @@
                 \right) - x^{(k)}
             \right), 
         \end{align*}
-        substituting the above into \hyperref[eqn:proxgrad_lemma]{\ref*{eqn:proxgrad_lemma}} then the RHS yields 
+        rewriting, the RHS of \hyperref[eqn:proxgrad_lemma]{\ref*{eqn:proxgrad_lemma}} so
         \begin{align*}
             \frac{L}{2} \left\Vert
             t^{-1}_{k + 1}\left(
@@ -118,11 +116,12 @@
             \frac{\sigma}{2}t^{-1}_{k + 1}\left(1 - t^{-1}_{k + 1}\right)
             \left\Vert 
                 x^{(k)} - \bar x
-            \right\Vert^2 
+            \right\Vert^2. 
             \\
-            & \triangleright  \text{ for better notation make }\delta_k = F\left(x^{(k)}\right) - F_{\text{opt}}
-            \\
-            &= -t_{k + 1}^{-1}\delta_k + \delta_k  - \delta_{k + 1} 
+        \end{align*}
+        Denote $\delta_k := F\left(x^{(k)}\right) - F_{\text{opt}}$, 
+        \begin{align*}
+            F(x) - F\circ T(y) &\le  -t_{k + 1}^{-1}\delta_k + \delta_k  - \delta_{k + 1} 
             -
             \frac{\sigma}{2}t^{-1}_{k + 1}\left(1 - t^{-1}_{k + 1}\right)
             \left\Vert 
@@ -139,7 +138,7 @@
             \right\Vert^2 
             \nonumber
             \\
-            &\ge \frac{L}{2} \left\Vert
+            &\quad\ge \frac{L}{2} \left\Vert
                t^{-1}_{k + 1}\left(
                 \bar x + t_{k + 1} \left(
                     x^{(k)} - x^{(k + 1)}
@@ -156,8 +155,6 @@
             \right\Vert^2. 
             \nonumber
             \\
-            & \triangleright \text{ Multiplying $t_{k + 1}^2$ both sides} \nonumber
-            \\
             & (t_{k + 1}^2 - t_{k + 1})\delta_k - t_{k + 1}^2\delta_{k + 1}
             - \frac{\sigma}{2}(t_{k + 1} - 1)
             \left\Vert
@@ -165,7 +162,7 @@
             \right\Vert^2 
             \nonumber
             \\
-            &\ge 
+            &\quad\ge 
             \frac{L}{2} \left\Vert
                 \bar x + t_{k + 1} \left(
                     x^{(k)} - x^{(k + 1)}
@@ -178,8 +175,6 @@
                 \right) - x^{(k)}
             \right\Vert^2
             \nonumber
-            \\
-            & \triangleright \text{re-arranging}, \nonumber
             \\
             & 
             (t_{k + 1}^2 - t_{k + 1})\delta_k - t_{k + 1}^2\delta_{k + 1} 
@@ -197,28 +192,25 @@
             }_{-R_k}
             \nonumber
             \\
-            &\ge 
+            &\quad \ge 
             \frac{L}{2}\left\Vert 
                 \bar x + t_{k + 1}
                 \left(x^{(k)} - x^{(k + 1)}\right) - x^{(k)}
             \right\Vert^2. 
             \label{eqn:full_pg}
         \end{align}
-        To make it more manageble we use the quantities established back in the start of \hyperref[sec:fista_strong_convexity]{section \ref*{sec:fista_strong_convexity}} so then 
+        Recall the quantities from \hyperref[sec:fista_strong_convexity]{section \ref*{sec:fista_strong_convexity}}, and from the algorithm
+        \begin{align*}
+                y^{(k)} &= x^{(k)} + \theta_k(x^{(k)} - x^{(k - 1)})
+                \\
+                y^{(k)} - x^{(k)} &= \theta_k(x^{(k)} - x^{(k - 1)}) = \theta_k s^{(k)}. 
+        \end{align*}
+        Simplifying, 
         \begin{align*}
             &\quad \frac{L - \sigma}{2}
             \left\Vert
                 \bar x + t_{k + 1}\left( x^{(k)} - y^{(k)}\right) - x^{(k)}
             \right\Vert^2
-            \\
-            & \triangleright \text{ Recall from algorithm: }
-            \\
-            &\qquad 
-            \begin{aligned}
-                y^{(k)} &= x^{(k)} + \theta_k(x^{(k)} - x^{(k - 1)})
-                \\
-                y^{(k)} - x^{(k)} &= \theta_k(x^{(k)} - x^{(k - 1)}) = \theta_k s^{(k)} 
-            \end{aligned}
             \\
             &=  \frac{L - \sigma}{2}\left\Vert
                 \bar x - x^{(k)} - t_{k + 1}\theta_k s^{(k)}
@@ -226,7 +218,7 @@
             \\
             &= \frac{L - \sigma}{2}\left\Vert e^{(k)} + t_{k + 1}\theta_k s^{(k)}\right\Vert^2, 
         \end{align*}
-        And observe directly that $u^{(k + 1)}$ is exactly $\bar x + t_{k + 1}(x^{(k)} - x^{(k +1)}) - x^{(k)}$, which is in the norm on the RHS of \hyperref[eqn:full_pg]{\ref*{eqn:full_pg}}. 
+        Observe that $u^{(k + 1)} = \bar x + t_{k + 1}(x^{(k)} - x^{(k +1)}) - x^{(k)}$, it is in the norm on the RHS of \hyperref[eqn:full_pg]{\ref*{eqn:full_pg}}. 
         $u^{(k)}$ has representation by $e^{(k)}, x^{(k)}$. 
         \begin{align*}
             u^{(k)} &= \bar x + t_{k}\left(x^{(k - 1)} - x^{(k)} \right) - x^{(k - 1)}
@@ -250,7 +242,7 @@
             \frac{\sigma(t_{k + 1} - 1)}{2}
             \left\Vert e^{(k)}\right\Vert^2
             - 
-            \frac{L - \sigma}{2}\left\Vert e^{(k)} + t_{k + 1}\theta_k s^{(k)}\right\Vert^2
+            \frac{L - \sigma}{2}\left\Vert e^{(k)} + t_{k + 1}\theta_k s^{(k)}\right\Vert^2, 
             \\
             t_{k + 1}(t_{k + 1} - 1)\delta_k - R_k
             &\ge 
@@ -275,10 +267,6 @@
                 u^{(k)}
             \right\Vert^2
             \\
-            & \triangleright \text{ With:  $R_k + C_k\left\Vert
-                u^{(k)}
-            \right\Vert\ge 0$ from \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} then, } 
-            \\
             t_{k + 1}^2\delta_{k + 1} + \frac{L}{2}\left\Vert
                 u^{(k + 1)}
             \right\Vert^2 
@@ -289,8 +277,6 @@
             & \le 
             t_{k + 1}(t_{k + 1} - 1)\delta_k
             \\
-            &\triangleright \text{ dividing by $t_{k + 1}^2$, re-arrange}
-            \\
             \delta_{k + 1}
             &\le 
             (1 - t_{k + 1}^{-1}) \delta_k + \frac{C_k}{t_{k + 1}^{2}}\left\Vert
@@ -300,7 +286,9 @@
                 u^{(k + 1)}
             \right\Vert^2. 
         \end{align*}
-        to have a nice cancellation when unrolling the recurrence, let's use  $\frac{C_k}{t_{k + 1}^2} = \frac{L(1 - t^{-1}_{k + 1})}{2t_{k}^2}$ from \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} so
+        Going from the first inequality to the second we used $R_k + C_k\left\Vert u^{(k)}\right\Vert\ge 0$ in \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}}
+        Going from the second inequality to the third we devided both sides by $t_{k + 1}^2$ with rearrangement. 
+        Let's use  $\frac{C_k}{t_{k + 1}^2} = \frac{L(1 - t^{-1}_{k + 1})}{2t_{k}^2}$ from \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} so
         \begin{align*}
             \delta_{k + 1} &\le 
             (1 - t_{k + 1}^{-1})\delta_k + 
@@ -335,7 +323,7 @@
 
 \subsection{Proof for Proposition \ref*{prop:vfista-generic-convergence}}
     \begin{proof}\label{proof:vfista-generic-convergence}
-        Observe that condition from \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} would mean 
+        Observe that condition from \hyperref[lemma:convergence-prep]{lemma \ref*{lemma:convergence-prep}} implies 
         \begin{align*}
             R_k + C_k\left\Vert
             u^{(k)}
@@ -352,9 +340,6 @@
             \frac{Lt_{k + 1}(t_{k + 1} - 1)}{2t_k^2} 
             \left\Vert u^{(k)}\right\Vert^2 &\ge 0
             \\
-            \triangleright 
-            \text{ Dividing out by }\frac{L - \sigma}{2}, \text{ recall }u^{(k)} = -e^{(k)} - (t_{k} - 1)s^{(k)}&
-            \\
             \frac{\sigma(t_{k +1} - 1)}{L - \sigma}
             \left\Vert e^{(k)}\right\Vert^2
             - 
@@ -367,31 +352,32 @@
                 e^{(k)} + (t_{k} - 1)s^{(k)}
             \right\Vert^2
             &\ge  0
-            \\ 
-            \triangleright 
-            \text{ Vector quantities }e^{(k)}, s^{(k)} \text{share the same superscript, we may ignore it.}
         \end{align*}
-        Expanding the expression would yield quantities $\langle s, e\rangle, \Vert s\Vert^2, \Vert e\Vert^2$, we list them all 
+        From the first to the second line, divide $\frac{L - \sigma}{2}$, From the second to the thrid line recall $u^{(k)} = -e^{(k)} - (t_{k} - 1)s^{(k)}$.
+        Since the vector quantities $e^{(k)}, s^{(k)}$ share the same superscript, we may ignore it.
+        Expanding the expression would yield quantities $\langle s, e\rangle, \Vert s\Vert^2, \Vert e\Vert^2$, we list them for each term all 
         \begin{align*}
+            & 
             - \Vert e + t_{k + 1}\theta_k s\Vert^2
-            &= - \left(
+            = - \left(
                 \Vert e\Vert^2 + t_{k + 1}^2\theta_k^2 \Vert s\Vert^2 + 
                 2\theta_k t_{k + 1}\langle e, s\rangle
-            \right)
+            \right), 
             \\
+            & 
             \frac{Lt_{k + 1}(t_{k + 1} - 1)}{t_k^2(L - \sigma)} \Vert 
                 e + (t_k - 1)s
             \Vert^2
-            &= 
+            = 
             \frac{Lt_{k + 1}(t_{k + 1} - 1)}{t_k^2(L - \sigma)} 
             \left(
                 \Vert e\Vert^2 + (t_k -1)^2 \Vert s\Vert^2 + 2(t_k - 1)\langle e, s\rangle
-            \right)
+            \right), 
             \\
-            \frac{\sigma (t_{k + 1} - 1)}{L - \sigma}
-            \Vert e\Vert^2 & 
+            & \frac{\sigma (t_{k + 1} - 1)}{L - \sigma}
+            \Vert e\Vert^2. 
         \end{align*}
-        each of the terms $\Vert e\Vert^2, \Vert s\Vert^2, \langle e, s\rangle$, has their coefficients. These are their coefficients, make $q = \sigma/L$, we simplify and get 
+        Grouping each of the terms $\Vert e\Vert^2, \Vert s\Vert^2, \langle e, s\rangle$, we compute their coefficients with $q = \sigma/L$, 
         \begin{align}
             \Vert e\Vert^2 \text{ has: } &
             \quad 

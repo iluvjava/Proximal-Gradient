@@ -87,8 +87,9 @@
 \begin{abstract}
     In this paper, we review the paper written by Walkington \cite{noel_nesterovs_nodate} on the topic of proximal gradient with Nesterov accelerations. 
     We compare the performance of the FISTA method and some of its variants with numerical experiments on the total variation minimization problem; in addition, we propose a heuristic estimation of the strong convexity parameter and demonstrate that it converges faster when applied. 
+    We use the Julia programming language \cite{bezanson_julia_2017} for the numerical implementation; see the GitHub repository \href{https://github.com/iluvjava/Proximal-Gradient/tree/main/applications}{here}.
     We give a literature review on the frontier for both the theories and applications around FISTA. 
-    We correct one misconception that occurred in Walkington \cite{noel_nesterovs_nodate} regarding Nesterov's proof of lower bound on the optimality of first-order algorithms.  
+    We correct one misconception in Walkington \cite{noel_nesterovs_nodate} regarding Nesterov's proof of lower bound on the optimality of first-order algorithms. 
     We present a better proof of linear convergence of FISTA under strong convexity assumption from Beck \cite[theorem 10.7.7]{beck_first-order_nodate} by eliminating an identity used in their proof. 
 \end{abstract}
 
@@ -105,14 +106,16 @@
         The denoised signal is the minimizer of f(u),
         \[
             f(u) = \int_0^1 \frac{1}{2} 
-            (u - \hat u)^2 + \alpha |u'|dt. 
+            \left(u(t) - \hat u(t)\right)^2 + \alpha |u'(t)|dt. 
         \]
         Practical implementations for modern computing devices would necessitate discretization of the integral. 
         \par
         We use the trapezoidal rule and second-order forward difference for the derivative. 
         Let $\hat u \in \mathbb R^{N+1}$, a vector in the form of $\hat u = [\hat u_0\; \cdots \; \hat u_{N}]$, let $t_0<  \cdots <t_N$ be a sequence of time corresponded to each observation of $\hat u_i$. 
         The time intervals are $h_i = t_{i} - t_{i-1}$ for $i=1, \cdots, N$, not necessarily equally spaced, making this formulation below is slightly more general than Walkington\cite{noel_nesterovs_nodate}. 
-        We derive the approximation of the integral. Denote $s_i = u_i - \hat u_i$. 
+        We derive the approximation of the integral. 
+        Denote $s_i = u_i - \hat u_i$. 
+        Let $C\in \mathbb R^{N\times (N + 1)}$ be upper bi-diagonal with $(1/h_i, -1/h_{i})$, and $D\in \mathbb R^{N \times (N + 1)}$ be $\text{diag}(h_1/2, h_1, h_2, \cdots, h_N, h_N/2)$, then 
         \begin{align*}
             \frac{1}{2}\int_{0}^{1} (u - \hat u)^2 dt + 
             \alpha \int_0^1 |u'| dt
@@ -129,19 +132,11 @@
                 \frac{u_{i} - u_{i - 1}}{h_{i}}
             \right|
             \\
-            & \triangleright\; \text{let } 
-            C\in \mathbb R^{N\times (N + 1)} \text{ be upper bi-diagonal with }(1/h_i, -1/h_{i})
-            \\
             &= \frac{1}{2}\left(
                 \frac{s_0^2h_1}{2} + \frac{s_N^2h_N}{2}
                 + 
                 \sum_{i = 1}^{N - 1}s_i^2 h_i
             \right) + \alpha\Vert Cu\Vert_1
-            \\
-            & 
-            \triangleright \; \text{using } D\in \mathbb R^{N \times (N + 1)},
-            \\
-            & \triangleright\; D := \text{diag}(h_1/2, h_1, h_2, \cdots, h_N, h_N/2)
             \\
             &= 
             \frac{1}{2}\langle u - \hat u, D(u - \hat u)\rangle + \alpha \Vert Cu\Vert_1. 
@@ -151,7 +146,7 @@
     Unfortunately, the non-smooth part $\alpha\Vert Cu\Vert_1$ presents computational difficulty if matrix $C$ is unfriendly for the prox operator. 
     One way to bypass the difficulty involves reformulating with $p = Cu$ and solving the dual problem. 
     \subsection*{Dual Reformulation}
-        Let $p = Cu$, $C\in \mathbb R^{(N + 1)\times N}$ with $D \in \mathbb R^{(N + 1)\times (N + 1)}$, we reformulate it into 
+        Let $p = Cu$, $C\in \mathbb R^{(N + 1)\times N}$ with $D \in \mathbb R^{(N + 1)\times (N + 1)}$. We reformulate it into 
         \[
             \min_{u\in \mathbb R^{N + 1}}     
             \left\lbrace
@@ -194,7 +189,6 @@
             &=
             -f^\star (-C^T\lambda) - h^\star(-\lambda). 
         \end{align*}
-        The theorem of strong duality applies, hence equality. 
         With the assumption that $D$ is positive definite, we have 
         \begin{align*}
             - g(-\lambda) &= -\frac{1}{2}   \Vert C^T\lambda\Vert^2_{D^{-1}} - 
@@ -206,15 +200,16 @@
         \end{align*}
 
         Observe that the above admits a hyperbox indicator function that makes the prox operator friendlier because the proximal operator of the indicator is projection; in the case of projecting onto the box, the operator is simple. 
-        Given dual variable $\lambda$, primal is obtained by 
+        Given dual variable $\lambda$, primal variables are obtained by 
         \begin{align*}
-            u &= \text{argmin}_u \mathcal L((u, p), \lambda) 
+            (u^+, p^+) &= \text{argmin}_{(u, p)} \mathcal L((u, p), \lambda) 
             \\
-            \partial_u \mathcal L((u, p), \lambda) &= D(u - \hat u) - C^T\lambda = \mathbf 0
+            \partial_u \mathcal L((u, p), \lambda)|_{u = u^+} &= D(u^+ - \hat u) - C^T\lambda = \mathbf 0
             \\
-            \implies u &= \hat u + D^{-1}C^T\lambda. 
+            \implies u^+ &= \hat u + D^{-1}C^T\lambda. 
         \end{align*}
         $-g(\lambda)$ is easier to optimize, and obtaining the primal solution is also simple since $D^{-1}$ is a diagonal matrix. 
+        Strong duality asserts the above relations between the primal and dual variables, and their objectives would be the same. 
     \subsection{FISTA has Worse Convergence Guarantee for Strongly Convex Objectives}
         The dual objective for a total variation minimization problem is a strongly convex and Lipschitz smooth function because of the norm induced by the positive definite matrix $D^{-1}$. 
         It's in a form where FISTA proposed by \cite{beck_fast_2009-1} can solve with a convergence rate of $\mathcal O(1/k^2)$ on the objective value of the function. 
@@ -280,23 +275,23 @@
         The scope of \hyperref[alg:generic_FISTA]{algorithm \ref*{alg:generic_FISTA}} considers the additive composition of convex smooth and nonsmooth $F = g + h$ function with $g$ being a $L$-smooth function. 
         Changing $T_L, \theta_{k + 1}$ and $\mathcal S$, produce different variants of FISTA. 
         \begin{itemize}
-            \item [1.] 
+            \item [(1.)] 
                 Original FISTA proposed by Beck \cite{beck_fast_2009-1} considers $\theta_{k + 1} = (t_k - 1)/t_{k + 1}$, $t_{k + 1}(t_{k + 1} - 1) = t_{k}^2$, with $T_L x = \text{prox}_{L^{-1}h}(x  - L^{-1}\nabla g(x))$ and $t_0 = 1$. 
             It achieves $\mathcal O(1/k^2)$ on the objective value. 
             Our literature review didn't discover proof for the convergence of the iterates. We also didn't find proofs for a convergence rate faster than $\mathcal O((1 - 1/\kappa)^k)$ under strong convexity. 
-            \item [2.] 
+            \item [(2.)] 
                 This is a variant where $t_{k + 1} = (n + a - 1)/a, \theta_{k + 1} = (t_{k} - 1)/(t_{k + 1})$, for $a > 2$. $\mathcal T_L$ is the same as (1.). 
-            Proved in Chambolle, Dossal \cite{chambolle_convergence_2015}, its iterates of this version of FISTA exhibit weak convergence. $T_L$ is the same as (1.). 
-            \item [3.] 
+            In \cite[Theorem 4.1]{chambolle_convergence_2015} Chambolle, Dossal proved the iterates exhibit  convergence. $T_L$ is the same as (1.). 
+            \item [(3.)] 
                 Using $\theta_{k + 1} = (\sqrt{\kappa} - 1)/(\sqrt{\kappa} + 1)$ where $\kappa = L/\sigma$, with $\sigma$ being the strong convexity constant produces V-FISTA in Beck \cite[10.7.7]{beck_first-order_nodate}\cite[3.3]{noel_nesterovs_nodate}. $T_L$ is the same as (1.). 
-            \item [4.] 
-                A modification we proposed is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla g(x^{(k + 1)}), g(x^{(k)})$ using 
+            \item [(4.)] 
+                We proposed A modification which is based on (3.), but it estimates $\sigma$, the strong convexity constant based $x^{(k)}, x^{(k + 1)}, \nabla g(x^{(k + 1)}), g(x^{(k)})$ using 
                 \[
                     \sigma \le \langle \nabla g(y^{(k + 1)}) - \nabla g(y^{(k)}), y^{(k + 1)} - y^{(k)}\rangle/ 
                     \Vert y^{(k + 1)} - y^{(k)}\Vert^2. 
                 \]
-            It yields excellent results for the numerical experiments. 
-            \item [5.] 
+            It yields excellent results in our numerical experiments. See \hyperref[sec:numerics]{Section \ref*{sec:numerics}}. 
+            \item [(5.)] 
                 MFISTA in Beck\cite{beck_fast_2009} is produced by adding $\mathcal S$ to be the procedure
                 \[
                     (y^{(k + 1)}, t_{k + 1}) = \begin{cases}
@@ -310,7 +305,7 @@
         For our problem posed in section \ref*{sec:preliminaries}, the V-FISTA algorithm variant (3.), when applied to the dual objective, achieves a convergence rate of $\mathcal O((1 - 1/\sqrt{\kappa})^k)$ for the function objective. 
         For larger $\kappa$, this produces a significantly better convergence rate than gradient descent, which is $\mathcal O((1 - 1/\kappa)^k)$, and FISTA, which is $\mathcal O(1/k^2)$. 
         \par
-        Variants (3.) is simple; unfortunately, obtaining $\sigma$ in itself could be prohibitively expensive and require knowledge about the inverse of hessian (in the case of our TV Minimization problem). 
+        Variants (3.) is simple; unfortunately, obtaining $\sigma$ in itself could be prohibitively expensive and require knowledge about the inverse of Hessian (in the case of our TV Minimization problem). 
         Underestimation of $\sigma$ slows down the convergence rate. 
         This observation sparks research interest in a method that achieves approximately $\mathcal O((1 - 1/\sqrt{k})^k)$ linear convergence rate for strongly convex objectives and still retains $\mathcal O(1/k^2)$ for Lipschitz-smooth functions in general. 
         One of the other interests is designing a unified theoretical framework to describe all variants of APG. 
@@ -352,13 +347,16 @@
     \begin{itemize}
         \item [1.] Let $\mathcal A^k_fx^{(0)}$ denotes the solution of the k-th iterate $x^{(k)}$ generated by an algorithm $\mathcal A \in \GAfirst$, with initial guess $x^{(0)}$, objective function $f$. 
         With this notation, $x^{(1)} = \mathcal A_f x^{(0)}$ and $(\mathcal A_f^{k}x^{(0)})_{k \in \mathbb N}$ denotes the sequence generated by $\mathcal A \in \GAfirst$, with $f$.
-        \item [2.] Let $\mathcal F^{1, 1}_L$ denote the set of convex functions with $L$-Lipschitz gradient mapping from $\mathbb R^n$ to $\mathbb R$. 
+        \item [2.] Let $\mathcal F^{1, 1}_L$ denote the set of convex functions $f: \mathbb R^n \mapsto R$ having $L$-Lipschitz gradient. 
     \end{itemize}
+
     \subsection{First-order Method}
         The following is rephrased from Assumption \cite[2.1.4]{nesterov_lecture_2018}. 
         We came up with the two examples to illustrate the definition for better understanding. 
         \begin{definition}[First Order Method]
-            We are in $\mathbb R^n$ for now. Given $x^{(0)} \in \mathbb R^n$, an iterative algorithm generates sequence of $\left(x^{(n)}\right)_{n \in \mathbb N}$ in the space. All $\mathcal A \in \GAfirst$ satisfy that 
+            We are in $\mathbb R^n$ for now.
+            We define $\GAfirst$ to be a set of all first-order algorithms.
+            Given $x^{(0)} \in \mathbb R^n$, an iterative algorithm $\mathcal A \in \GAfirst$ generates sequence of $x^{(1)}, x^{(2)}, \cdots, x^{(k)}$ in the space satisfying:
             \begin{align*}
                  x^{(j + 1)}:= \mathcal A_f^{j + 1}x^{(0)} \in \left\{x^{(0)}\right\} + 
                 \text{span}\left\{\nabla f\left(x^{(i)}\right)\right\}_{i = 1}^{j} \quad \forall f, \forall 1\le j \le k -1. 
@@ -377,6 +375,7 @@
             \]
             This method is memoryless because it only matters what $x^{(k)}$, prior iterate $x^{(i)}, 1\le i \le k-1$ plays no role. 
         \end{exmp}
+        
         \begin{exmp}[Steepest Descent]
             Fix some $f, x^{(k)}$, the method of steepest descent would be $\bar {\mathcal A}\in \GAfirst$ and it's 
             \[
@@ -402,7 +401,7 @@
             Where $x^*$ is the minimizer of $f$, so that $f(x^*) = \inf_{x}f(x)$. 
         \end{theorem}
         \begin{remark}
-            We emphasize that in \hyperref[thm:nesterov_lower_bnd]{theorem \ref*{thm:nesterov_lower_bnd}} fixes each $k$ and finds a function $f$ such that the lower bound applies at the $k$-th iterations. 
+            We emphasize that in \hyperref[thm:nesterov_lower_bnd]{Theorem \ref*{thm:nesterov_lower_bnd}} fixes each $k$ and finds a function $f$ such that the lower bound applies at the $k$-th iterations. 
             Mathematically, it would mean 
             \begin{align*}
                 \forall\; 1\le k \le \frac{n + 1}{2}, x^{(0)} \in \mathbb R^n\; 
@@ -460,16 +459,16 @@
         \end{theorem}
         \begin{remark}
             \hyperref[thm:walkington_lowerbound]{Theorem \ref*{thm:walkington_lowerbound}} and 
-            \hyperref[thm:nesterov_lower_bnd]{theorem \ref*{thm:nesterov_lower_bnd}} is completely different. 
+            \hyperref[thm:nesterov_lower_bnd]{Theorem \ref*{thm:nesterov_lower_bnd}} is completely different. 
             The former claims there exists a single function from $\mathcal F_{L}^{1,1}(\mathcal H)$ introduces the lower bound for all values of $k$, and all algorithms from $\GAfirst$, but the latter didn't claim that. 
-            The difference would remain in infinite dimension Hilbert space if we were to generalize \hyperref[thm:nesterov_lower_bnd]{thorem \ref*{thm:nesterov_lower_bnd}}. 
+            The difference would remain in infinite dimension Hilbert space if we were to generalize \hyperref[thm:nesterov_lower_bnd]{Thorem \ref*{thm:nesterov_lower_bnd}}. 
             There is no proof after Walkington's claim; we can't know if he had his way of proving the latter claim. 
             It makes us think it is likely a missed detail in his writing. 
         \end{remark}
     \subsection{Discussion}
         Walkington cited Bubeck \cite[thm 3.14]{bubeck_convex_2015}, and Nesterov's old 2004 book\cite{nesterov_introductory_2004} for the lower bound claim. 
         Bubeck has the correct claim, and it's the same as Nesterov. 
-        Attouch's claim in \cite[thm 1]{attouch_rate_2016} doesn't contradict \hyperref[thm:nesterov_lower_bnd]{theorem \ref*{thm:nesterov_lower_bnd}} because he fixed function $\Phi$ function and the existence of minimizer $x^*$ is not assumed. 
+        Attouch's claim in \cite[thm 1]{attouch_rate_2016} doesn't contradict \hyperref[thm:nesterov_lower_bnd]{Theorem \ref*{thm:nesterov_lower_bnd}}, because he fixed function $\Phi$ function and the existence of minimizer $x^*$ is not assumed. 
         
 
 \section{FISTA Under Strong Convexity}\label{sec:fista_strong_convexity}
@@ -514,7 +513,7 @@
     \subsection{Convergence Claim}
         We proposed the following alternative for proving the convergence rate of V-FISTA. 
         \begin{lemma}\label{lemma:convergence-prep}
-            If there exists a sequence $(t_k)_{k\in \mathbb N}, C_k$ such that 
+            If there exists a sequence $(t_k)_{k\in \mathbb N}, (C_k)_{k\in \mathbb N}$ in $\mathbb R$ such that 
             \begin{align}
                 \begin{cases}
                     \frac{C_k}{t_{k + 1}^2} = \frac{L(1 - t^{-1}_{k + 1})}{2t_{k}^2}
@@ -538,7 +537,7 @@
             \end{align*}
         \end{lemma}
         \begin{proof}
-            see \hyperref[proof:vfist-convergence-prep]{\ref*{proof:vfist-convergence-prep}}.    
+            See \hyperref[proof:vfist-convergence-prep]{\ref*{proof:vfist-convergence-prep}}.    
         \end{proof}
         
         \begin{prop}\label{prop:vfista-generic-convergence}
@@ -569,8 +568,7 @@
                 \frac{t_{k + 1} - 1}{t^2_k(1 - q)}
                     -
                 \frac{1}{t_k + 1} &= 0
-                \\
-                & \triangleright\; \text{if } t_{k + 1} = t_k, \text{ then}
+                \quad \text{since } t_{k + 1} = t_k, 
                 \\
                 \frac{t - 1}{t^2(1 - q)} &= \frac{1}{t + 1}
                 \\
@@ -618,11 +616,6 @@
     % \end{algorithm}
     % \label{code:brain_expand}
     % \lstinputlisting[language=julia, basicstyle=\ttfamily\scriptsize,numbers=left]{Code/juliacode.jl}
-
-\section{Adding Non-smoothness in Nesterov's Generic Method}
-    \subsection{Setting up the Stage}
-    
-
 
 \section{Numerical Experiments}\label{sec:numerics}
     We consider a signal length of $512$, with $t_k = k$, and $t_k = 0$ for $0\le t \le 256$ and $t_k = 1$ for $257\le t\le 512$. 
@@ -680,7 +673,7 @@
             \label{fig:results2}
         \end{figure}
         Our method of spectral momentum, described as variant (4.), has overwhelmingly fast empirical convergence results for the TV minimization problem. 
-        Its effectiveness is still under investigation. 
+        Both its effectiveness and convergence are still under investigation. 
         We call it the spectral momentum method because of the method of Spectral Adapative Stepsize. 
         As described in \cite[4.1]{goldstein_field_2016}, the method uses the same formula to estimate the smallest eigenvalues for the Hessian. 
         However, our method is entirely different because we applied the estimation to the $\kappa$ term for the momentum on V-FISTA. 

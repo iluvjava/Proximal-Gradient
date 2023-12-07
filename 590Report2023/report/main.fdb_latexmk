@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex main"] 1701926109 "main.aux" "main.bbl" "main" 1701926112
+["bibtex main"] 1701984154 "main.aux" "main.bbl" "main" 1701984350
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/IEEEtran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "main.aux" 1701926112 8595 a8f73ce91f1a8b4b1f8a8b990da896cd "pdflatex"
+  "main.aux" 1701984300 8351 57e873c75d0ae8e31a05db4a74ad5d8d "pdflatex"
   "refs.bib" 1701926006 56022 3705c0f7a825d46c3a66c421c2914ecd ""
   (generated)
-  "main.blg"
   "main.bbl"
-["pdflatex"] 1701926109 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf" "main" 1701926112
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.aux" 1701926112 8595 a8f73ce91f1a8b4b1f8a8b990da896cd ""
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" 1701730609 43355 38eba4614651edc75c75962c69e4d877 ""
+  "main.blg"
+["pdflatex"] 1701984296 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf" "main" 1701984350
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.aux" 1701984300 8351 57e873c75d0ae8e31a05db4a74ad5d8d ""
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.tex" 1701982543 43559 3ea7a493da202e963e5cc9c101a7234d ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/jknappen/ec/ecbx0500.tfm" 1136768653 3584 0913860e6fa2bdf78ecaf460b391112b ""
@@ -184,15 +184,15 @@
   "Assets/results2/momentum.png" 1700523576 88501 7f8883f8bb5448ec668e1f761b2df8e7 ""
   "Assets/results2/obj_vals.png" 1700523576 147602 f0a78c95418210f902083a9e5b7c59e3 ""
   "Assets/results2/recovered_signal.png" 1700600077 158442 ecf66cb8e5b1988061c1bcf768dfc911 ""
-  "Sections/appendix.tex" 1701311796 20858 c61ca5d05954c89dc961c23f45be8303 ""
-  "main.aux" 1701926112 8595 a8f73ce91f1a8b4b1f8a8b990da896cd "pdflatex"
-  "main.bbl" 1701926109 10687 896ecd89058818e4a0ad1e4d7d2745b0 "bibtex main"
-  "main.out" 1701926112 3786 1ca87ed43befe320e2f2dacfc51ce5c8 "pdflatex"
-  "main.tex" 1701730609 43355 38eba4614651edc75c75962c69e4d877 ""
+  "Sections/appendix.tex" 1701984350 20420 c35f10f1531372f5246e78822b286a01 ""
+  "main.aux" 1701984300 8351 57e873c75d0ae8e31a05db4a74ad5d8d "pdflatex"
+  "main.bbl" 1701984154 10687 e9def01872c647164592299f199066c1 "bibtex main"
+  "main.out" 1701984300 3310 cd3cb21a79e67e14bb269be1b0a4b677 "pdflatex"
+  "main.tex" 1701982543 43559 3ea7a493da202e963e5cc9c101a7234d ""
   (generated)
-  "main.pdf"
-  "main.log"
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf"
   "main.out"
+  "main.pdf"
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf"
+  "main.log"
   "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.log"
   "main.aux"

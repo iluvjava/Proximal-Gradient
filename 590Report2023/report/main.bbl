@@ -29,6 +29,15 @@ W.~Noel, ``\BIBforeignlanguage{en}{Nesterov's {Method} for {Convex}
   \url{https://epubs-siam-org.eu1.proxy.openathens.net/doi/epdf/10.1137/21M1390037}
 \BIBentrySTDinterwordspacing
 
+\bibitem{bezanson_julia_2017}
+\BIBentryALTinterwordspacing
+J.~Bezanson, A.~Edelman, S.~Karpinski, and V.~B. Shah, ``Julia: {A} {Fresh}
+  {Approach} to {Numerical} {Computing},'' \emph{SIAM Review}, vol.~59, no.~1,
+  pp. 65--98, Jan. 2017, publisher: Society for Industrial and Applied
+  Mathematics. [Online]. Available:
+  \url{https://epubs.siam.org/doi/10.1137/141000671}
+\BIBentrySTDinterwordspacing
+
 \bibitem{beck_first-order_nodate}
 \BIBentryALTinterwordspacing
 A.~Beck, \emph{\BIBforeignlanguage{en}{First-{Order} {Methods} in
@@ -222,15 +231,6 @@ Y.~Nesterov, \emph{Introductory {Lectures} on {Convex} {Optimization}}, ser.
   Applied {Optimization}, P.~M. Pardalos and D.~W. Hearn, Eds.\hskip 1em plus
   0.5em minus 0.4em\relax Boston, MA: Springer US, 2004, vol.~87. [Online].
   Available: \url{http://link.springer.com/10.1007/978-1-4419-8853-9}
-\BIBentrySTDinterwordspacing
-
-\bibitem{bezanson_julia_2017}
-\BIBentryALTinterwordspacing
-J.~Bezanson, A.~Edelman, S.~Karpinski, and V.~B. Shah, ``Julia: {A} {Fresh}
-  {Approach} to {Numerical} {Computing},'' \emph{SIAM Review}, vol.~59, no.~1,
-  pp. 65--98, Jan. 2017, publisher: Society for Industrial and Applied
-  Mathematics. [Online]. Available:
-  \url{https://epubs.siam.org/doi/10.1137/141000671}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}
