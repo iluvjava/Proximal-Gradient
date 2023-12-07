@@ -58,9 +58,9 @@ A.~Beck and M.~Teboulle, ``\BIBforeignlanguage{en}{A {Fast} {Iterative}
 
 \bibitem{rudin_nonlinear_1992}
 \BIBentryALTinterwordspacing
-L.~I. Rudin, S.~Osher, and E.~Fatemi, ``Nonlinear total variation based noise
-  removal algorithms,'' \emph{Physica D: Nonlinear Phenomena}, vol.~60, no.~1,
-  pp. 259--268, Nov. 1992. [Online]. Available:
+L.~I. Rudin, S.~Osher, and E.~Fatemi, ``Nonlinear {Total} {Variation} {Based}
+  {Noise} {Removal} {Algorithms},'' \emph{Physica D: Nonlinear Phenomena},
+  vol.~60, no.~1, pp. 259--268, Nov. 1992. [Online]. Available:
   \url{https://www.sciencedirect.com/science/article/pii/016727899290242F}
 \BIBentrySTDinterwordspacing
 
@@ -74,9 +74,9 @@ T.~Goldstein, C.~Studer, and R.~Baraniuk, ``A {Field} {Guide} to
 
 \bibitem{chambolle_introduction_2016}
 \BIBentryALTinterwordspacing
-A.~Chambolle and T.~Pock, ``An introduction to continuous optimization for
-  imaging,'' \emph{Acta Numerica}, vol.~25, pp. 161--319, 2016, publisher:
-  Cambridge University Press (CUP). [Online]. Available:
+A.~Chambolle and T.~Pock, ``An {Introduction} to {Continuous} {Optimization}
+  for {Imaging},'' \emph{Acta Numerica}, vol.~25, pp. 161--319, 2016,
+  publisher: Cambridge University Press (CUP). [Online]. Available:
   \url{https://hal.science/hal-01346507}
 \BIBentrySTDinterwordspacing
 
@@ -93,17 +93,17 @@ A.~Chambolle, V.~Caselles, D.~Cremers, M.~Novaga, and T.~Pock,
 
 \bibitem{an_enhanced_2023}
 \BIBentryALTinterwordspacing
-C.~An, H.-N. Wu, and X.~Yuan, ``Enhanced total variation minimization for
-  stable image reconstruction,'' \emph{Inverse Problems}, vol.~39, no.~7, p.
-  075005, Jul. 2023, arXiv:2201.02979 [cs, eess, math]. [Online]. Available:
+C.~An, H.-N. Wu, and X.~Yuan, ``Enhanced {Total} {Variation} {Minimization} for
+  {Stable} {Image} {Reconstruction},'' \emph{Inverse Problems}, vol.~39, no.~7,
+  p. 075005, Jul. 2023, arXiv:2201.02979 [cs, eess, math]. [Online]. Available:
   \url{http://arxiv.org/abs/2201.02979}
 \BIBentrySTDinterwordspacing
 
 \bibitem{an_springback_2022}
 \BIBentryALTinterwordspacing
-------, ``The springback penalty for robust signal recovery,'' \emph{Applied
-  and Computational Harmonic Analysis}, vol.~61, pp. 319--346, Nov. 2022,
-  arXiv:2110.06754 [cs, math]. [Online]. Available:
+------, ``The {Springback} {Penalty} for {Robust} {Signal} {Recovery},''
+  \emph{Applied and Computational Harmonic Analysis}, vol.~61, pp. 319--346,
+  Nov. 2022, arXiv:2110.06754 [cs, math]. [Online]. Available:
   \url{http://arxiv.org/abs/2110.06754}
 \BIBentrySTDinterwordspacing
 
@@ -126,17 +126,18 @@ T.~Alamo, P.~Krupa, and D.~Limon, ``Gradient {Based} {Restart} {FISTA},'' in
 
 \bibitem{fercoq_adaptive_2019}
 \BIBentryALTinterwordspacing
-O.~Fercoq and Z.~Qu, ``Adaptive restart of accelerated gradient methods under
-  local quadratic growth condition,'' \emph{IMA Journal of Numerical Analysis},
-  vol.~39, no.~4, pp. 2069--2095, Oct. 2019, arXiv:1709.02300 [math]. [Online].
-  Available: \url{http://arxiv.org/abs/1709.02300}
+O.~Fercoq and Z.~Qu, ``Adaptive {Restart} of {Accelerated} {Gradient} methods
+  {Under} {Local} {Quadratic} {Growth} {Condition},'' \emph{IMA Journal of
+  Numerical Analysis}, vol.~39, no.~4, pp. 2069--2095, Oct. 2019,
+  arXiv:1709.02300 [math]. [Online]. Available:
+  \url{http://arxiv.org/abs/1709.02300}
 \BIBentrySTDinterwordspacing
 
 \bibitem{aujol_fista_2022}
 \BIBentryALTinterwordspacing
 J.-F. Aujol, C.~H. Dossal, H.~Labarrière, and A.~Rondepierre, ``{FISTA}
-  restart using an automatic estimation of the growth parameter,'' May 2022.
-  [Online]. Available: \url{https://hal.science/hal-03153525}
+  {Restart} {Using} an {Automatic} {Estimation} of the {Growth} {Parameter},''
+  May 2022. [Online]. Available: \url{https://hal.science/hal-03153525}
 \BIBentrySTDinterwordspacing
 
 \bibitem{aujol_parameter-free_2023}
@@ -179,9 +180,9 @@ Y.~Nesterov, ``\BIBforeignlanguage{en}{Lecture on {Convex} {Optimizations}
 \bibitem{necoara_linear_2019}
 \BIBentryALTinterwordspacing
 I.~Necoara, Y.~Nesterov, and F.~Glineur, ``\BIBforeignlanguage{en}{Linear
-  convergence of first order methods for non-strongly convex optimization},''
-  \emph{\BIBforeignlanguage{en}{Mathematical Programming}}, vol. 175, no.~1,
-  pp. 69--107, May 2019. [Online]. Available:
+  {Convergence} of {First} {Order} {Methods} for {Non}-strongly {Convex}
+  {Optimization}},'' \emph{\BIBforeignlanguage{en}{Mathematical Programming}},
+  vol. 175, no.~1, pp. 69--107, May 2019. [Online]. Available:
   \url{https://doi.org/10.1007/s10107-018-1232-1}
 \BIBentrySTDinterwordspacing
 

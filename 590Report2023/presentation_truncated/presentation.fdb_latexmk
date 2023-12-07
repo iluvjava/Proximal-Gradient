@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex presentation"] 1701132241 "presentation.aux" "presentation.bbl" "presentation" 1701725309
+["bibtex presentation"] 1701132241 "presentation.aux" "presentation.bbl" "presentation" 1701926101
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/IEEEtran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
   "presentation.aux" 1701725305 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d "pdflatex"
   "refs.bib" 1701119531 53334 118b9c9145ff52eb05ed45981a70ae48 ""
   (generated)
   "presentation.bbl"
   "presentation.blg"
-["pdflatex"] 1701725301 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf" "presentation" 1701725309
+["pdflatex"] 1701725301 "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.tex" "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf" "presentation" 1701926101
   "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.aux" 1701725305 10072 f5f0ae8b1c6f79ebc3deb5725f6d826d ""
   "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.tex" 1701725309 28302 0e91bbf12486e1246ee428918caa9a15 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
@@ -245,12 +245,12 @@
   "presentation.tex" 1701725309 28302 0e91bbf12486e1246ee428918caa9a15 ""
   "presentation.toc" 1701725305 331 673ca7b296b66d06a301bcdacdff1966 "pdflatex"
   (generated)
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.log"
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf"
+  "presentation.snm"
+  "presentation.log"
+  "presentation.pdf"
   "presentation.aux"
   "presentation.out"
-  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.pdf"
-  "presentation.pdf"
   "presentation.nav"
-  "presentation.log"
   "presentation.toc"
-  "presentation.snm"
+  "/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/presentation_truncated/presentation.log"
