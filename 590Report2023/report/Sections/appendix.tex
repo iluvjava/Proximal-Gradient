@@ -216,7 +216,7 @@
                 \bar x - x^{(k)} - t_{k + 1}\theta_k s^{(k)}
             \right\Vert^2
             \\
-            &= \frac{L - \sigma}{2}\left\Vert e^{(k)} + t_{k + 1}\theta_k s^{(k)}\right\Vert^2, 
+            &= \frac{L - \sigma}{2}\left\Vert e^{(k)} + t_{k + 1}\theta_k s^{(k)}\right\Vert^2. 
         \end{align*}
         Observe that $u^{(k + 1)} = \bar x + t_{k + 1}(x^{(k)} - x^{(k +1)}) - x^{(k)}$, it is in the norm on the RHS of \hyperref[eqn:full_pg]{\ref*{eqn:full_pg}}. 
         $u^{(k)}$ has representation by $e^{(k)}, x^{(k)}$. 
@@ -304,8 +304,6 @@
             \right) 
             - \frac{L}{2t_{k + 1}^2}\left\Vert u^{(k + 1)}\right\Vert^2
             \\
-            & \triangleright \text{ unrolling recursion yield }
-            \\
             \delta_{k + 1}
             &\le 
             \left(
@@ -351,9 +349,9 @@
             \left\Vert 
                 e^{(k)} + (t_{k} - 1)s^{(k)}
             \right\Vert^2
-            &\ge  0
+            &\ge  0. 
         \end{align*}
-        From the first to the second line, divide $\frac{L - \sigma}{2}$, From the second to the thrid line recall $u^{(k)} = -e^{(k)} - (t_{k} - 1)s^{(k)}$.
+        From the first to the second line, divide $\frac{L - \sigma}{2}$, from the second to the thrid line recall $u^{(k)} = -e^{(k)} - (t_{k} - 1)s^{(k)}$.
         Since the vector quantities $e^{(k)}, s^{(k)}$ share the same superscript, we may ignore it.
         Expanding the expression would yield quantities $\langle s, e\rangle, \Vert s\Vert^2, \Vert e\Vert^2$, we list them for each term all 
         \begin{align*}
@@ -394,7 +392,7 @@
             &= 
             \frac{t_{k + 1} - 1}{1 - q}\left(
                 q + \frac{t_{k + 1}}{t_k^2}
-            \right) - 1
+            \right) - 1, 
             \nonumber
             \\
             \Vert s\Vert^2 \text{ has: } & 
@@ -416,7 +414,7 @@
                 \frac{t_{k + 1}(t_{k + 1} - 1)}{t_k^2(1 - q)}
                 - 
                 \frac{t_{k + 1}^2}{(t_k + 1)^2}
-            \right)
+            \right), 
             \nonumber
             \\
             \langle s, e\rangle \text{ has: } &
@@ -432,7 +430,7 @@
                 \frac{1}{t_k + 1}
             \right),
         \end{align*}
-        To satisfy the assumption, it would be great to have the coefficients for $\langle s, e\rangle$ to be zero, and the coefficients of $\Vert e\Vert^2, \Vert s\Vert^2$ to be a positive quantities. 
+        to satisfy the assumption, it would be great to have the coefficients for $\langle s, e\rangle$ to be zero, and the coefficients of $\Vert e\Vert^2, \Vert s\Vert^2$ to be a positive quantities. 
         \par
         For the coefficient of $\langle s, e\rangle$ to be zero, it would imply the condition
         \begin{align}
@@ -461,7 +459,7 @@
                 q + \frac{t_{k + 1}}{t_k^2} 
             \right) 
             &> 1, \quad 
-            \text{using } t_k > 1, \forall k\ge0, \text{ from \hyperref[prop:vfista-generic-convergence]{proposition \ref*{prop:vfista-generic-convergence}}}, 
+            \text{using } t_k > 1, \forall k\ge0, \text{ from \hyperref[prop:vfista-generic-convergence]{Proposition \ref*{prop:vfista-generic-convergence}}}, 
             \nonumber
             \\
             t_k^2 q + t_{k + 1} &\ge t_k + 1
