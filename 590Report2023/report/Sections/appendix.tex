@@ -378,7 +378,7 @@
             \Vert e\Vert^2. 
         \end{align*}
         Grouping each of the terms $\Vert e\Vert^2, \Vert s\Vert^2, \langle e, s\rangle$, we compute their coefficients with $q = \sigma/L$, 
-        \begin{align}
+        \begin{align*}
             \Vert e\Vert^2 \text{ has: } &
             \quad 
             \frac{\sigma (t_{k + 1} - 1)}{L - \sigma} 
@@ -430,18 +430,29 @@
                 \frac{t_{k + 1} - 1}{t^2_k(1 - q)}
                 -
                 \frac{1}{t_k + 1}
-            \right), \label{eqn:sequence-cond3}
-        \end{align}
-        To statisfy the assumption, it would be great to have the coefficients for $\langle s, e\rangle$ to be zero, and the coefficients of $\Vert e\Vert^2, \Vert s\Vert^2$ to be a positive quantities. 
+            \right),
+        \end{align*}
+        To satisfy the assumption, it would be great to have the coefficients for $\langle s, e\rangle$ to be zero, and the coefficients of $\Vert e\Vert^2, \Vert s\Vert^2$ to be a positive quantities. 
         \par
-        For the coefficient of $\langle s, e\rangle$ to be zero, one of the possibility is we would have $t_{k + 1} = \frac{t_k^2(1 - q)}{t_k + 1} + 1$, and $t_k \neq 1$ for all $k\ge 0$. With that we consider the non-negativity conditions on the coefficients for $\Vert e\Vert^2, \Vert s\Vert^2$ so 
+        For the coefficient of $\langle s, e\rangle$ to be zero, it would imply the condition
+        \begin{align}
+            \frac{t_{k + 1} - 1}{t^2_k(1 - q)}    
+            &= 
+            \frac{1}{t_k + 1} \label{eqn:sequence-cond3}
+            \\
+            t_{k + 1} 
+            &= \frac{t_k^2(1 - q)}{t_k + 1} + 1, 
+        \end{align}
+        we assume that $t_k \neq 1$ for all $k\ge 0$. 
+        Next, we consider the non-negativity condition for the coefficients of $\Vert e\Vert^2$, so 
         \begin{align}
             \frac{t_{k + 1} - 1}{1 - q} 
             \left(
-                1 + \frac{t_{k + 1}}{t_k^2}
+                q + \frac{t_{k + 1}}{t_k^2}
             \right)
             -1
-            &\ge 0 \quad \triangleright\;  (\ref*{eqn:sequence-cond3}) \iff 
+            &\ge 0
+            , \quad\text{using }
             \frac{t_{k + 1}-1}{1 - q}
             = \frac{t_k^2}{t_k + 1}
             \nonumber
@@ -449,10 +460,8 @@
             \frac{t_k^2}{t_k + 1}\left(
                 q + \frac{t_{k + 1}}{t_k^2} 
             \right) 
-            &> 1
-            \nonumber
-            \\
-            \triangleright \; \text{Using } t_k &> 1, \forall k\ge0, \text{ from \hyperref[prop:vfista-generic-convergence]{proposition \ref*{prop:vfista-generic-convergence}}}
+            &> 1, \quad 
+            \text{using } t_k > 1, \forall k\ge0, \text{ from \hyperref[prop:vfista-generic-convergence]{proposition \ref*{prop:vfista-generic-convergence}}}, 
             \nonumber
             \\
             t_k^2 q + t_{k + 1} &\ge t_k + 1
@@ -468,9 +477,8 @@
                 -
                 \frac{t_{k + 1}^2}{(t_k + 1)^2}
             \right) & 
-            \ge 0
-            \quad \triangleright \; (\ref*{eqn:sequence-cond3}) 
-            \iff \frac{t_{k + 1} - 1}{t_k^2(1 - q)}
+            \ge 0, \text{ by }
+            \frac{t_{k + 1} - 1}{t_k^2(1 - q)}
             = 
             \frac{1}{t_k + 1}
             \\
@@ -478,7 +486,7 @@
                 \frac{t_{k +1}}{t_k + 1} - 
                 \frac{t_{k + 1}^2}{(t_k +1)^2} 
             \right)
-            &\ge 0 \quad \triangleright \; \text{using } (t_k-1) > 0 
+            &\ge 0,  \; (t_k-1) > 0, \text{ so we devided by } (t_k - 1)^2
             \\
             \frac{t_{k + 1}}{t_k + 1} &\ge 
             \frac{t_{k + 1}^2}{(t_k + 1)^2}
@@ -491,7 +499,7 @@
             \\
             t_k + 1 &\ge t_{k + 1}. 
         \end{align*}
-        Now, under the assumption of $t_k > 1$, the above condition would be redundant since \ref*{eqn:sequence-cond3} has 
+        Now, under the assumption of $t_k > 1$, the above condition would be redundant because \ref*{eqn:sequence-cond3} has 
         \begin{align*}
             \frac{t_{k + 1} - 1}{t_k^2(1 - q)}
             -
@@ -508,7 +516,7 @@
             &\le 1 + t_k^2/t_k = 1 + t_k. 
         \end{align*}
         We are done. 
-        With (\ref*{eqn:seq-cond1}), (\ref*{eqn:sequence-cond3}), and $t_k > 1$ we can use the generic convergence rate of \hyperref[prop:vfista-generic-convergence]{proposition \ref*{prop:vfista-generic-convergence}}
+        With (\ref*{eqn:seq-cond1}), (\ref*{eqn:sequence-cond3}), and $t_k > 1$ we can use the generic convergence rate stated in \hyperref[prop:vfista-generic-convergence]{Proposition \ref*{prop:vfista-generic-convergence}}. 
     \end{proof}
     
 

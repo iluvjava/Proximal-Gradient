@@ -1,61 +1,52 @@
 This is BibTeX, Version 0.99d (TeX Live 2021)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: main.aux
-The style file: IEEEtran.bst
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
-Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-Reallocated singl_function (elt_size=4) to 100 items from 50.
+The style file: siam.bst
 Database file #1: refs.bib
--- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
--- http://www.michaelshell.org/tex/ieeetran/bibtex/
--- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
-Warning--empty year in noel_nesterovs_nodate
-Warning--empty year in beck_first-order_nodate
 Warning--empty journal in aujol_fista_2022
+Warning--empty year in beck_first-order_nodate
 Warning--empty journal in bubeck_convex_2015
-
-Done.
+Warning--can't use both author and editor fields in nesterov_introductory_2004
+Warning--empty year in noel_nesterovs_nodate
 You've used 25 entries,
-            4087 wiz_defined-function locations,
-            995 strings with 13054 characters,
-and the built_in function-call counts, 19654 in all, are:
-= -- 1718
-> -- 400
-< -- 155
-+ -- 217
-- -- 66
-* -- 1104
-:= -- 3209
-add.period$ -- 52
+            2030 wiz_defined-function locations,
+            646 strings with 8387 characters,
+and the built_in function-call counts, 8894 in all, are:
+= -- 874
+> -- 364
+< -- 0
++ -- 151
+- -- 119
+* -- 679
+:= -- 1346
+add.period$ -- 37
 call.type$ -- 25
-change.case$ -- 40
-chr.to.int$ -- 348
-cite$ -- 29
-duplicate$ -- 1347
-empty$ -- 1440
-format.name$ -- 86
-if$ -- 4446
+change.case$ -- 134
+chr.to.int$ -- 0
+cite$ -- 30
+duplicate$ -- 409
+empty$ -- 669
+format.name$ -- 119
+if$ -- 1911
 int.to.chr$ -- 0
 int.to.str$ -- 25
-missing$ -- 232
-newline$ -- 148
-num.names$ -- 31
-pop$ -- 461
+missing$ -- 25
+newline$ -- 90
+num.names$ -- 50
+pop$ -- 133
 preamble$ -- 1
-purify$ -- 0
-quote$ -- 2
-skip$ -- 1484
+purify$ -- 112
+quote$ -- 0
+skip$ -- 351
 stack$ -- 0
-substring$ -- 868
-swap$ -- 1189
-text.length$ -- 39
+substring$ -- 606
+swap$ -- 173
+text.length$ -- 0
 text.prefix$ -- 0
-top$ -- 5
-type$ -- 25
-warning$ -- 4
-while$ -- 85
+top$ -- 0
+type$ -- 94
+warning$ -- 5
+while$ -- 91
 width$ -- 27
-write$ -- 346
-(There were 4 warnings)
+write$ -- 244
+(There were 5 warnings)
