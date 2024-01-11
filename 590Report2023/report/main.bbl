@@ -1,8 +1,8 @@
 \begin{thebibliography}{10}
 
 \bibitem{ahn_understanding_2022}
-{\sc K.~Ahn and S.~Sra}, {\em Understanding {Nesterov}'s {Acceleration} via
-  {Proximal} {Point} {Method}}, June 2022.
+{\sc K.~Ahn and S.~Sra}, {\em Understanding nesterov's acceleration via
+  proximal point method}, June 2022.
 \newblock arXiv:2005.08304 [cs, math].
 
 \bibitem{alamo_gradient_2019}
@@ -12,27 +12,27 @@
 \newblock ISSN: 2576-2370.
 
 \bibitem{an_springback_2022}
-{\sc C.~An, H.-N. Wu, and X.~Yuan}, {\em The {Springback} {Penalty} for
-  {Robust} {Signal} {Recovery}}, Applied and Computational Harmonic Analysis,
-  61 (2022), pp.~319--346.
+{\sc C.~An, H.-N. Wu, and X.~Yuan}, {\em The springback penalty for robust
+  signal recovery}, Applied and Computational Harmonic Analysis, 61 (2022),
+  pp.~319--346.
 \newblock arXiv:2110.06754 [cs, math].
 
 \bibitem{an_enhanced_2023}
-\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Enhanced {Total}
-  {Variation} {Minimization} for {Stable} {Image} {Reconstruction}}, Inverse
-  Problems, 39 (2023), p.~075005.
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em Enhanced total
+  variation minimization for stable image reconstruction}, Inverse Problems, 39
+  (2023), p.~075005.
 \newblock arXiv:2201.02979 [cs, eess, math].
 
 \bibitem{attouch_rate_2016}
-{\sc H.~Attouch and J.~Peypouquet}, {\em The {Rate} of {Convergence} of
-  {Nesterov}'s {Accelerated} {Forward}-{Backward} {Method} is {Actually}
-  {Faster} {Than} \$1/k{\textasciicircum}2\$}, SIAM Journal on Optimization, 26
-  (2016), pp.~1824--1834.
+{\sc H.~Attouch and J.~Peypouquet}, {\em The rate of convergence of nesterov's
+  accelerated forward-backward method is actually aaster than
+  \$1/k{\textasciicircum}2\$}, SIAM Journal on Optimization, 26 (2016),
+  pp.~1824--1834.
 \newblock Publisher: Society for Industrial and Applied Mathematics.
 
 \bibitem{aujol_parameter-free_2023}
 {\sc J.-F. Aujol, L.~Calatroni, C.~Dossal, H.~Labarrière, and A.~Rondepierre},
-  {\em Parameter-{Free} {FISTA} by {Adaptive} {Restart} and {Backtracking}},
+  {\em Parameter-{Free} {FISTA} by adaptive restart and backtracking},
   arXiv.org,  (2023).
 
 \bibitem{aujol_fista_2022}
@@ -45,16 +45,15 @@
   {Publications} {Library}}, {MOS}-{SIAM} {Series} in {Optimization}, SIAM.
 
 \bibitem{beck_fast_2009}
-{\sc A.~Beck and M.~Teboulle}, {\em Fast {Gradient}-{Based} {Algorithms} for
-  {Constrained} {Total} {Variation} {Image} {Denoising} and {Deblurring}
-  {Problems}}, IEEE Transactions on Image Processing, 18 (2009),
-  pp.~2419--2434.
+{\sc A.~Beck and M.~Teboulle}, {\em Fast gradient-based algorithms for
+  constrained total variation image denoising and deblurring problems}, IEEE
+  Transactions on Image Processing, 18 (2009), pp.~2419--2434.
 \newblock Conference Name: IEEE Transactions on Image Processing.
 
 \bibitem{beck_fast_2009-1}
-\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em A {Fast} {Iterative}
-  {Shrinkage}-{Thresholding} {Algorithm} for {Linear} {Inverse} {Problems}},
-  SIAM Journal on Imaging Sciences, 2 (2009), pp.~183--202.
+\leavevmode\vrule height 2pt depth -1.6pt width 23pt, {\em A fast iterative
+  shrinkage-thresholding algorithm for linear inverse problems}, SIAM Journal
+  on Imaging Sciences, 2 (2009), pp.~183--202.
 
 \bibitem{bezanson_julia_2017}
 {\sc J.~Bezanson, A.~Edelman, S.~Karpinski, and V.~B. Shah}, {\em Julia: {A}
@@ -63,8 +62,7 @@
 \newblock Publisher: Society for Industrial and Applied Mathematics.
 
 \bibitem{bubeck_convex_2015}
-{\sc S.~Bubeck}, {\em Convex {Optimization}: {Algorithms} and {Complexity}},
-  (2015).
+{\sc S.~Bubeck}, {\em Convex optimization: algorithms and complexity},  (2015).
 \newblock arXiv:1405.4980 [cs, math, stat].
 
 \bibitem{fornasier_introduction_2010}
@@ -79,8 +77,8 @@
   Journal of Optimization Theory and Applications, 166 (2015), pp.~968--982.
 
 \bibitem{chambolle_introduction_2016}
-{\sc A.~Chambolle and T.~Pock}, {\em An {Introduction} to {Continuous}
-  {Optimization} for {Imaging}}, Acta Numerica, 25 (2016), pp.~161--319.
+{\sc A.~Chambolle and T.~Pock}, {\em An introduction to continuous optimization
+  for imaging}, Acta Numerica, 25 (2016), pp.~161--319.
 \newblock Publisher: Cambridge University Press (CUP).
 
 \bibitem{fercoq_adaptive_2019}
@@ -90,13 +88,13 @@
 \newblock arXiv:1709.02300 [math].
 
 \bibitem{goldstein_field_2016}
-{\sc T.~Goldstein, C.~Studer, and R.~Baraniuk}, {\em A {Field} {Guide} to
-  {Forward}-{Backward} {Splitting} with a {FASTA} {Implementation}}, Dec. 2016.
+{\sc T.~Goldstein, C.~Studer, and R.~Baraniuk}, {\em A field guide to
+  forward-backward splitting with a {FASTA} implementation}, Dec. 2016.
 \newblock arXiv:1411.3406 [cs].
 
 \bibitem{jang_computer-assisted_2023}
-{\sc U.~Jang, S.~D. Gupta, and E.~K. Ryu}, {\em Computer-{Assisted} {Design} of
-  {Accelerated} {Composite} {Optimization} {Methods}: {OptISTA}}, May 2023.
+{\sc U.~Jang, S.~D. Gupta, and E.~K. Ryu}, {\em Computer-assisted design of
+  accelerated composite optimization methods: {OptISTA}}, May 2023.
 \newblock arXiv:2305.15704 [math].
 
 \bibitem{necoara_linear_2019}
@@ -121,17 +119,17 @@
   {Applications}, Springer International Publishing, Cham, 2018.
 
 \bibitem{noel_nesterovs_nodate}
-{\sc W.~Noel}, {\em Nesterov's {Method} for {Convex} {Optimization}}, SIAM
-  Review, 65, pp.~539--562.
+{\sc W.~Noel}, {\em Nesterov's method for convex optimization}, SIAM Review,
+  65, pp.~539--562.
 
 \bibitem{rudin_nonlinear_1992}
-{\sc L.~I. Rudin, S.~Osher, and E.~Fatemi}, {\em Nonlinear {Total} {Variation}
-  {Based} {Noise} {Removal} {Algorithms}}, Physica D: Nonlinear Phenomena, 60
-  (1992), pp.~259--268.
+{\sc L.~I. Rudin, S.~Osher, and E.~Fatemi}, {\em Nonlinear total variation
+  based noise removal algorithms}, Physica D: Nonlinear Phenomena, 60 (1992),
+  pp.~259--268.
 
 \bibitem{su_differential_2015}
-{\sc W.~Su, S.~Boyd, and E.~J. Candes}, {\em A {Differential} {Equation} for
-  {Modeling} {Nesterov}'s {Accelerated} {Gradient} {Method}: {Theory} and
-  {Insights}}, arXiv.org,  (2015).
+{\sc W.~Su, S.~Boyd, and E.~J. Candes}, {\em A differential equation for
+  modeling nesterov's accelerated gradient method: {Theory} and {Insights}},
+  arXiv.org,  (2015).
 
 \end{thebibliography}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  8 DEC 2023 14:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  8 DEC 2023 17:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -523,7 +523,7 @@ LaTeX Info: Redefining \nameref on input line 84.
 * \marginparwidth=65.0pt
 * \marginparsep=11.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.89996pt plus 4.3995pt minus 2.20045pt
+* \skip\footins=10.79997pt plus 4.79947pt minus 2.4005pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -553,7 +553,6 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \c@lstlisting=\count332
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 102.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 102.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -565,8 +564,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 272.
- [4] [5]
-LaTeX Font Info:    Calculating math sizes for size <13.19997> on input line 392.
+ [4] [5] [6]
+LaTeX Font Info:    Calculating math sizes for size <14.39996> on input line 392.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -576,75 +575,95 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 392.
 
-[6] [7] [8]
-<Assets/results1/grad_map_norm.png, id=254, 1806.75pt x 1204.5pt>
+[7] [8] [9]
+<Assets/results1/grad_map_norm.png, id=256, 1806.75pt x 1204.5pt>
 File: Assets/results1/grad_map_norm.png Graphic file (type png)
 <use Assets/results1/grad_map_norm.png>
 Package pdftex.def Info: Assets/results1/grad_map_norm.png  used on input line 637.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results1/obj_vals.png, id=256, 1806.75pt x 1204.5pt>
+<Assets/results1/obj_vals.png, id=258, 1806.75pt x 1204.5pt>
 File: Assets/results1/obj_vals.png Graphic file (type png)
 <use Assets/results1/obj_vals.png>
 Package pdftex.def Info: Assets/results1/obj_vals.png  used on input line 640.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results1/momentum.png, id=258, 1806.75pt x 1204.5pt>
+
+Overfull \hbox (1.1519pt too wide) in paragraph at lines 637--641
+ [][][] 
+ []
+
+<Assets/results1/momentum.png, id=260, 1806.75pt x 1204.5pt>
 File: Assets/results1/momentum.png Graphic file (type png)
 <use Assets/results1/momentum.png>
 Package pdftex.def Info: Assets/results1/momentum.png  used on input line 644.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results1/recovered_signal.png, id=260, 1806.75pt x 1204.5pt>
+<Assets/results1/recovered_signal.png, id=262, 1806.75pt x 1204.5pt>
 File: Assets/results1/recovered_signal.png Graphic file (type png)
 <use Assets/results1/recovered_signal.png>
 Package pdftex.def Info: Assets/results1/recovered_signal.png  used on input line 648.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
- [9]
-<Assets/results2/grad_map_norm.png, id=269, 1806.75pt x 1204.5pt>
+
+Overfull \hbox (1.1519pt too wide) in paragraph at lines 644--649
+ [][][] 
+ []
+
+[10]
+<Assets/results2/grad_map_norm.png, id=271, 1806.75pt x 1204.5pt>
 File: Assets/results2/grad_map_norm.png Graphic file (type png)
 <use Assets/results2/grad_map_norm.png>
 Package pdftex.def Info: Assets/results2/grad_map_norm.png  used on input line 660.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results2/obj_vals.png, id=271, 1806.75pt x 1204.5pt>
+<Assets/results2/obj_vals.png, id=273, 1806.75pt x 1204.5pt>
 File: Assets/results2/obj_vals.png Graphic file (type png)
 <use Assets/results2/obj_vals.png>
 Package pdftex.def Info: Assets/results2/obj_vals.png  used on input line 663.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results2/momentum.png, id=273, 1806.75pt x 1204.5pt>
+
+Overfull \hbox (1.1519pt too wide) in paragraph at lines 660--664
+ [][][] 
+ []
+
+<Assets/results2/momentum.png, id=275, 1806.75pt x 1204.5pt>
 File: Assets/results2/momentum.png Graphic file (type png)
 <use Assets/results2/momentum.png>
 Package pdftex.def Info: Assets/results2/momentum.png  used on input line 667.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
-<Assets/results2/recovered_signal.png, id=275, 1806.75pt x 1204.5pt>
+<Assets/results2/recovered_signal.png, id=277, 1806.75pt x 1204.5pt>
 File: Assets/results2/recovered_signal.png Graphic file (type png)
 <use Assets/results2/recovered_signal.png>
 Package pdftex.def Info: Assets/results2/recovered_signal.png  used on input line 671.
 (pdftex.def)             Requested size: 227.62204pt x 151.73839pt.
- [10 </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/grad_map_norm.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/obj_vals.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/momentum.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/recovered_signal.png>] [11 </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/grad_map_norm.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/obj_vals.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/momentum.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/recovered_signal.png>] (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Sections/appendix.tex
-Overfull \hbox (4.24243pt too wide) detected at line 121
+
+Overfull \hbox (1.1519pt too wide) in paragraph at lines 667--672
+ [][][] 
+ []
+
+[11 </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/grad_map_norm.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/obj_vals.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/momentum.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results1/recovered_signal.png>] [12 </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/grad_map_norm.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/obj_vals.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/momentum.png> </Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Assets/results2/recovered_signal.png>] (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/Sections/appendix.tex [13]
+Overfull \hbox (23.76787pt too wide) detected at line 121
 []
  []
 
-[12]
-Overfull \hbox (6.26508pt too wide) detected at line 201
+
+Overfull \hbox (24.637pt too wide) detected at line 201
 []
  []
 
-[13] [14] [15]) (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.bbl [16] [17]) [18] (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.aux)
+[14] [15] [16]) (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.bbl [17] [18]) [19] (/Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: CD3CB21A79E67E14BB269BE1B0A4B677;3310.
  ) 
 Here is how much of TeX's memory you used:
- 15290 strings out of 478994
- 230899 string characters out of 5858183
- 590492 words of memory out of 5000000
- 32406 multiletter control sequences out of 15000+600000
- 426729 words of font info for 85 fonts, out of 8000000 for 9000
+ 15271 strings out of 478994
+ 230608 string characters out of 5858183
+ 589487 words of memory out of 5000000
+ 32388 multiletter control sequences out of 15000+600000
+ 426746 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  81i,17n,89p,534b,672s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0500.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf (18 pages, 1486989 bytes).
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx0600.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on /Users/hongdali/Desktop/repos/Proximal-Gradient/590Report2023/report/main.pdf (19 pages, 1459094 bytes).
 PDF statistics:
- 475 PDF objects out of 1000 (max. 8388607)
- 400 compressed objects within 4 object streams
- 100 named destinations out of 1000 (max. 500000)
+ 470 PDF objects out of 1000 (max. 8388607)
+ 396 compressed objects within 4 object streams
+ 101 named destinations out of 1000 (max. 500000)
  233 words of extra memory for PDF output out of 10000 (max. 10000000)
 
